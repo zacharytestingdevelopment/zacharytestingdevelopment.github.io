@@ -48,9 +48,9 @@ navbar
 
 .emdr-ball
 {
-    height:135px;
-    width:135px;
-    border-radius: 135px;
+    height:155px;
+    width:155px;
+    border-radius: 155px;
     background: rgb(41,219,222);
     background: linear-gradient(124deg, rgba(41,219,222,1) 10%, rgba(60,205,207,1) 77%);
 }
@@ -60,6 +60,11 @@ navbar
     position: absolute;
     right:20px;
     top:20px;
+}
+
+.section-color
+{
+   
 }
 
 .rotate
@@ -118,7 +123,12 @@ navbar
 .therapy-intro-box
 {
     padding-top:11vh;
-    padding-bottom: 3.5vh;
+    padding-bottom: 4vh;
+}
+
+.full-intro-box
+{
+    padding-bottom: 11vh;
 }
 
 .therapy-intro-subtitle
@@ -192,7 +202,8 @@ navbar
     padding-right: 15px;
     padding-top:10px;
     padding-bottom:10px;
-    border-radius: 20px;    
+    border-radius: 20px;  
+    font-size:19px;  
     text-align: center;
     font-weight: bold;
     color:#fff;
@@ -210,7 +221,7 @@ navbar
 .meditation-box-points
 {
     padding-top:15px;
-    font-size: 17px;
+    font-size: 19px;
 }
 
 .meditation-box-body
@@ -218,24 +229,24 @@ navbar
     padding-top:10px;
     padding-left:25px;
     width:90%;
-    font-size:17px;
+    font-size:20px;
 }
 
 .meditation-box-header
 {
-    font-size: 34px;
+    font-size: 37px;
     font-weight: bold;
     padding-left:25px;
 }
 
 .meditation-box-height
 {
-    min-height: 55vh !important;
+    min-height: 73vh !important;
 }
 
 .meditation-box
 {
-    padding-top:5vh;
+    padding-top:10vh;
     padding-bottom:10vh;
     
 }
@@ -261,6 +272,7 @@ navbar
     padding-bottom: 40px;
     background-color:#fff;
     border-radius: 20px;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
 .mission-box-header
@@ -316,6 +328,12 @@ navbar
 {
     background: #3ee986 !important;
     background:#fff0e5;
+}
+
+.section-three
+{
+    background: rgb(21,153,127);
+    background: linear-gradient(124deg, rgba(21,153,127,1) 10%, rgba(14,102,80,1) 77%);
 }
 
 .no-list-style
@@ -672,6 +690,11 @@ canvas {
     border:2.5px solid #3ee986;
 }
 
+.header-buttons-width
+{
+    width:600px;
+}
+
 .header-buttons
 {
     left:0;
@@ -679,11 +702,14 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    bottom:30px;
+    top:55vh;
 }
 
 .header-button
 {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
     border-radius: 20px;
     padding-left:40px;
     padding-right:40px;
@@ -827,6 +853,21 @@ button:focus {
   }
 
   @media only screen 
+and (min-device-width : 0px) 
+and (max-device-width : 321px) {
+  .header-button
+  {
+      margin-left: auto;
+      margin-right: auto;
+      width:125px !important;
+      padding-top:7px !important;
+      padding-bottom: 7px !important;
+      padding-left:10px !important;
+      padding-right: 10px !important;
+  }
+}
+
+  @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 
 and (orientation : portrait)
@@ -896,13 +937,42 @@ and (max-device-width : 368px)
     }
 }
 
+/*
+@media (min-width: 992px) {
+    
+.nav-link
+{
+    font-size:18px;
+}
+}
+*/
+
+@media only screen  
+and (min-width : 994px)
+and (max-width: 1039px)
+{
+    .nav-link
+    {
+        font-size:17px !important;
+    }
+}
+
+@media only screen 
+and (min-width: 1060px)
+{
+    .header-buttons-width
+    {
+        width: 500px;
+    }
+}
+
   /* Mobile Menu */
   @media only screen  
-and (max-device-width : 1024px)
+and (max-width : 993px)
 {
     .hide-element
     {
-        display: none;
+        display: none !important;
     }
 
     .sign-up
@@ -954,11 +1024,73 @@ and (max-device-width : 1024px)
     }
 }
 
+/* iPhone 5 */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : portrait)
+{
+
+
+    .header-buttons-width
+    {
+        width: 100%;
+    }
+
+
+    .header-buttons
+    {
+        top:60vh;
+    }
+}
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : portrait)
+{
+    .sign-up
+    {
+        text-align: center;
+        width:130px !important;
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+        left:0;
+        right:0;
+        font-size: 21px;
+   
+        background-color:transparent;
+        border-radius: 20px;
+        
+        font-weight: bold;
+        color:#58D68D;
+        border: 3px solid #58d68d;
+        transition: color .3s, background-color .3s;
+    } 
+
+    .header-button
+    {
+        padding-top:14px !important;
+        padding-bottom: 14x !important;
+        padding-left:20px !important;
+        padding-right: 20px !important;
+    }
+
+    .header-buttons-width
+    {
+        width:350px;
+    }
+
+}
+
   /* iPhone 6 */
   @media only screen 
     
     and (max-device-width : 667px)
     {
+        
+     
 
         .header-text
         {

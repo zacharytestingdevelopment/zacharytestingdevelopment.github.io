@@ -53,16 +53,20 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform" href="#about">Meditations</a>
+            <a id="first-nav" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform"
+              onclick="removeFocus()" href="#about">Meditations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger animated fadeInDown delay2 no-select eliminate-text-transform" href="#s">Life-tracking</a>
+            <a id="second-nav" class="nav-link js-scroll-trigger animated fadeInDown delay2 no-select eliminate-text-transform"
+              href="#s">Life-tracking</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform" href="#x">Resources</a>
+            <a id="third-nav" class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform"
+              href="#x">Resources</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform" href="#x">Subscribe</a>
+            <a id="fourth-nav" class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform"
+              href="#x">Subscribe</a>
           </li>
           <li class="nav-item">
             <span class="nav-link js-scroll-trigger animated fadeInDown block-point hide-element"></span>
@@ -79,38 +83,42 @@
             </li>
           </span>
 
+          <div class="col d-lg-none d-xl-none col-centered col-12 col-md-7">
+            <div class="row">
+              <div class="col col-6 text-center margin-top-large">
 
-          <div class="row  d-lg-none d-xl-none">
-            <div class="col col-6 text-center margin-top-large">
+                <li class="nav-item">
+                  <div class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
+                    IN</div>
+                </li>
 
-              <li class="nav-item">
-                <div class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
-                  IN</div>
-              </li>
-
+              </div>
+              <div class="col col-6 margin-top-large">
+                <li class="nav-item">
+                  <div class="center-abs-element sign-up animated fadeInDown delay2 no-select margin-bottom">SIGN UP</div>
+                </li>
+              </div>
             </div>
-            <div class="col col-6 margin-top-large">
-              <li class="nav-item">
-                <div class="center-abs-element sign-up animated fadeInDown delay2 no-select margin-bottom">SIGN UP</div>
-              </li>
+
+            <div class="row d-lg-none d-xl-none">
+              <div class="col col-6 text-center margin-top-large">
+
+                <li class="nav-item">
+                  <div class="invisible col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOGss
+                    IN</div>
+                </li>
+
+              </div>
+
             </div>
           </div>
 
-          <div class="row d-lg-none d-xl-none">
-            <div class="col col-6 text-center margin-top-large">
 
-              <li class="nav-item">
-                <div class="invisible col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
-                  IN</div>
-              </li>
-
-            </div>
-
-          </div>
 
 
         </ul>
       </div>
+    </div>
     </div>
   </nav>
 
@@ -123,23 +131,30 @@
     <div class="canvas-info abs-center text-center" style="overflow-x:hidden;">
       <div class="header-text animated fadeInDown">Think clearer. Feel better.</div>
 
-      <div class="sub-header-text animated fadeInDown">We make
+      <div class="sub-header-text d-none d-md-block text-center d-lg-block d-sm-none d-xs-none animated fadeInDown">We
+        make
         self-improvement <span class="rotate" id="js-rotating">easy,
-          fun, fast, dynamic</span></div>
-      <!-- <span id="js-rotating">So Simple, Very Doge, Much Wow, Such Cool</span>-->
+          fun, fast, dynamic</span>
+      </div>
+      <div class="sub-header-text animated fadeInDown d-md-none text-center d-xs-block d-sm-block d-lg-none">
+        We make self-improvment easy.
+      </div>
+
+
       <!--
       <div class="sub-header-text animated fadeInDown">We make self-improvement easy</div>
       -->
 
-      <div class="row header-buttons">
-        <div class="header-buttons-space col-centered">
-          <div class="row">
-            <div class="col col-6 col-md-6 push-top col-lg-6 text-center">
-              <span class="header-button push-top no-select animated fadeIn delay2">Sign up</span>
-            </div>
-            <div class="col col-6 col-md-6 col-lg-6 push-top text-center">
-              <span class="header-button push-top no-select animated fadeIn delay3">Subscribe</span>
-            </div>
+
+    </div>
+    <div class="row header-buttons header-buttons-width">
+      <div class="col col-12 col-centered">
+        <div class="row">
+          <div class="col col-6 col-md-6 push-top col-lg-6 text-center">
+            <span class="header-button push-top no-select animated fadeIn delay2">Sign up</span>
+          </div>
+          <div class="col col-6 col-md-6 col-lg-6 push-top text-center">
+            <span class="header-button push-top no-select animated fadeIn delay3">Subscribe</span>
           </div>
         </div>
       </div>
@@ -151,7 +166,7 @@
       </a>
     </div>
 
-    <canvas id="bubbly">dasdrr</canvas>
+    <canvas id="bubbly"></canvas>
 
   </div>
 
@@ -168,13 +183,15 @@
             Save multiple session preferences that automatically sink across your devices, so that you can do
             meditation
             anywhere, anytime. placeholder placehodler
+
+
           </div>
         </div>
       </div>
     </div>
 
 
-    <div class="row text-center">
+    <div class="row text-center col-centered">
       <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
         <div class="mission-box f1">
           <ion-icon class="md mission-icon-style" name="people"></ion-icon>
@@ -220,6 +237,11 @@
       <div class="col col-12 section-header"><span class="highlight-color light">OUR</span> <span class="highlight-color heavy">THERAPIES</span></div>
       <div class="therapy-intro-subtitle">Effective, highly customizable therapies</div>
 
+      <!-- add bullet points with check marks: 
+      - research supported 
+      - avaliable everywhere, all the time 
+      
+      -->
       <div class="col col-lg-11 therapy-intro-body col-centered margin-top">
         We believe in options. That's why we have built a highly customizable
         Save multiple session preferences that automatically sink across your devices, so that you can do meditation
@@ -286,10 +308,10 @@
     </div>
     <div class="col col-12 eliminate-margin-pad col-md-6 col-lg-6 meditation-box-demo meditation-box-height vertical-center pad-tiny-demo">
 
-      <div class="position-meditation-theme">
+      <div class="position-meditation-theme animated fadeIn delay1">
 
         <div class="meditation-box-theme-subheader">Play with themes</div>
-        <select class="meditation-box-theme animated fadeIn delay1">
+        <select class="meditation-box-theme">
 
           <option value="volvo">Aqua</option>
           <option value="saab">Dark</option>
@@ -301,7 +323,33 @@
         <div class="square el emdr-ball"></div>
       </div>
     </div>
-  </div> <!-- Bootstrap core JavaScript -->
+  </div>
+
+  <div id="about" class="col-centered animated fadeIn text-center delay1 therapy-intro-box full-intro-box">
+    <div class="col col-lg-8 col-centered">
+      <div class="col col-12 section-header"><span class="highlight-color light">LIFE</span> <span class="highlight-color heavy">TRACKING</span></div>
+
+      <!-- 
+        Have list of categories: 
+        - Substance abuse 
+        - Life goals 
+        - Daily journaling 
+        - Dream recording 
+        - Mood tracking 
+      -->
+      <div class="therapy-intro-subtitle">Effective, highly customizable therapies</div>
+
+      <div class="col col-lg-11 therapy-intro-body col-centered margin-top">
+        We believe in options. That's why we have built a highly customizable
+        Save multiple session preferences that automatically sink across your devices, so that you can do meditation
+        anywhere, anytime. placeholder placehodler
+      </div>
+
+
+    </div>
+
+  </div>
+  <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -318,59 +366,6 @@
 
   <!-- Custom scripts for this template -->
   <script src="js/creative.min.js"></script>
-
-  <script>
-
-    ScrollReveal({ distance: '-15px' });
-    ScrollReveal().reveal('.e1');
-    ScrollReveal().reveal('.e2', { delay: 100 });
-    ScrollReveal().reveal('.e3', { delay: 200 });
-    ScrollReveal().reveal('.e4', { delay: 300 });
-    ScrollReveal().reveal('.e5', { delay: 400 });
-    ScrollReveal().reveal('.e6', { delay: 500 });
-
-    ScrollReveal().reveal('.s1', { delay: 70 });
-    ScrollReveal().reveal('.s2', { delay: 140 });
-    ScrollReveal().reveal('.s3', { delay: 210 });
-    ScrollReveal().reveal('.s4', { delay: 280 });
-    ScrollReveal().reveal('.s5', { delay: 350 });
-    ScrollReveal().reveal('.s6', { delay: 420 });
-    ScrollReveal().reveal('.s7', { delay: 490 });
-
-    ScrollReveal().reveal('.x1', { delay: 100 });
-    ScrollReveal().reveal('.x2', { delay: 200 });
-    ScrollReveal().reveal('.x3', { delay: 300 });
-
-    ScrollReveal().reveal('.y1', { delay: 300 });
-
-    ScrollReveal().reveal('.f1', { delay: 100 });
-    ScrollReveal().reveal('.f2', { delay: 200 });
-    ScrollReveal().reveal('.f3', { delay: 300 });
-
-
-    var canvas = document.querySelector('canvas');
-    fitToContainer(canvas);
-
-    function fitToContainer(canvas) {
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-
-    bubbly({
-      colorStart: '#fff4e6',
-      colorStop: '#ffe9e4',
-      blur: 1,
-      compose: 'source-over',
-      canvas: document.querySelector("#bubbly"), // default is created and attached
-      bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
-    });
-
-
-  </script>
-
 </body>
 
 </html>
