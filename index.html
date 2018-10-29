@@ -45,7 +45,7 @@
   <!-- Navigation -->
   <nav class=" navbar cl-effect-13 navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <span class="navbar-brand js-scroll-trigger" href="#page-top">Orenda</span>
+      <span onclick="returnHome()" class="navbar-brand js-scroll-trigger" href="#page-top">Orenda</span>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -74,7 +74,7 @@
 
           <span class="row">
             <li class="nav-item hide-element">
-              <a class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
+              <a href="login.html" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
                 href="#c">Log
                 In</a>
             </li>
@@ -87,10 +87,12 @@
             <div class="row">
               <div class="col col-6 text-center margin-top-large">
 
-                <li class="nav-item">
-                  <div class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
-                    IN</div>
-                </li>
+                <a href="login.html">
+                  <li class="nav-item">
+                    <div class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
+                      IN</div>
+                  </li>
+                </a>
 
               </div>
               <div class="col col-6 margin-top-large">
@@ -502,45 +504,57 @@
 
         <div class="col-12 col-md-6 col-lg-6 f1 col-centered feature-right-pad">
           <div class="feature-text col-centered">
-
-            Avaliable for the web, phones, and tablets
+            <div class="feature-text-width">
+              Avaliable for the web, phones, and tablets
+            </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 f2 col-centered feature-left-pad">
           <span class="white">
             <div class="feature-text col-centered">
-              Sync favorite settings across all devices
+              <div class="feature-text-width">
+                Sync favorite settings across all devices
+              </div>
               <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
             </div>
           </span>
         </div>
         <div class="col-12 col-md-6 col-lg-6 f1 col-centered  feature-right-pad">
           <div class="feature-text col-centered">
-            Avaliable for the web, phones, and tablets
+            <div class="feature-text-width">
+              Avaliable for the web, phones, and tablets
+            </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 f2 col-centered  feature-left-pad">
           <div class="feature-text col-centered">
-            Avaliable for the web, phones, and tablets
+            <div class="feature-text-width">
+              Avaliable for the web, phones, and tablets
+            </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 f1 col-centered feature-right-pad">
           <div class="feature-text col-centered">
-            Avaliable for the web, phones, and tablets
+            <div class="feature-text-width">
+              Avaliable for the web, phones, and tablets
+            </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 f2 col-centered feature-left-pad">
           <div class="feature-text col-centered">
-            Free, continuous updates with new features
+            <div class="feature-text-width">
+              Constant free updates with new features
+            </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
       </div>
     </div>
+
 
     <div class="col col-11 col-sm-11 col-md-12 margin-top col-centered col-lg-12">
       <div class="row text-center">
@@ -560,7 +574,7 @@
           </div>
         </div>
 
-        <div class="col col-md-4 f2 redx col-12 margin-top-large col-lg-4 col-sm-12">
+        <div class="col col-md-4 f2 elimiante-margin-pad col-12 margin-top-large col-lg-4 col-sm-12">
           <div class="subscribe-box eliminate-margin-pad">
             <div class="subscribe-box-header white">Monthly</div>
             <div class="subscribe-box-subheader">$7.99/month</div>
@@ -573,7 +587,7 @@
           </div>
 
         </div>
-        <div class="col col-md-4 f3 bluex col-12 margin-top-large col-lg-4 col-sm-12">
+        <div class="col col-md-4 f3 col-12 margin-top-large col-lg-4 col-sm-12">
           <div class="subscribe-box">
             <div class="subscribe-box-header white">Monthly</div>
             <div class="subscribe-box-subheader">$7.99/month</div>
@@ -589,6 +603,7 @@
 
       </div>
     </div>
+
 
     <div class="row text-center col-centered">
       <div class="text-button highlight-color no-select">More subscription information</div>
@@ -642,15 +657,15 @@
             </a>
           </div>
           <div class="col col-6 col-md-3 col-lg-3 margin-top text-center">
-            <div class="footer-element-header white">SUBSCRIBE</div>
+            <div class="footer-element-header white">STARTING</div>
             <a class="footer-link">
-              <div class="footer-element-item white">First session</div>
+              <div class="footer-element-item white">Subscribe</div>
             </a>
             <a class="footer-link">
-              <div class="footer-element-item white">For therapists</div>
+              <div class="footer-element-item white">Sign up</div>
             </a>
             <a class="footer-link">
-              <div class="footer-element-item white">For students</div>
+              <div class="footer-element-item white">Log in</div>
             </a>
           </div>
         </div>
@@ -663,33 +678,6 @@
         </div>
       </div>
     </div>
-
-
-    <!--
-    <div class="row footer green-background">
-      <div class="col col-4">
-
-      </div>
-      <div class="col col-8 redx text-left f2">
-        <ion-icon name="logo-facebook"></ion-icon>
-        <ion-icon name="logo-facebook"></ion-icon>
-        <ion-icon name="logo-facebook"></ion-icon>
-        <ion-icon name="logo-facebook"></ion-icon>
-      
-      </div>
-      <div class="col col-4 f1">
-        <div class="footer-text">&#169
-          Copyright 2018 Orenda Inc.</div>
-      </div>
-      <div class="col col-8 text-right f2">
-        <span class="footer-element white no-select">For therapists</span>
-        <span class="footer-element white no-select">Therapies</span>
-        <span class="footer-element white no-select">Charity</span>
-        <span class="footer-element white no-select">More</span>
-      </div>
-    </div>
-
-  -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

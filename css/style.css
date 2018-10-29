@@ -14,6 +14,13 @@ navbar
 }
 
 
+#gradient
+{
+  width: 100%;
+  padding-top: 5vh !important;
+  padding-bottom: 7vh !important;
+}
+
 .header
 {
     background:transparent !important;
@@ -62,9 +69,11 @@ navbar
     top:20px;
 }
 
-.section-color
+.log-in-header
 {
-   
+   min-height: 55vh;
+   padding-top:5vh;
+   padding-bottom: 5vh;
 }
 
 .rotate
@@ -308,11 +317,18 @@ navbar
 {
     position: relative;
     top:0px;
+    transition: all .2s ease 0s;
     padding-top:40px;
     padding-bottom: 40px;
     background-color:#fff;
     border-radius: 20px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.mission-box:hover
+{
+    cursor: pointer;
+    top:-4px;
 }
 
 .subscribe-box-header
@@ -406,6 +422,258 @@ navbar
     font-size: 15px;
 }
 
+.green-footer-return
+{
+    border: 2.5px solid #3ee986 !important;
+}
+
+.green-footer-return:hover
+{
+    background: #3ee986 !important;
+    color:#fff !important;
+}
+
+.log-in-subheader
+{
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.pad-benefit-element
+{
+    padding-left: 40px;
+}
+
+.facebook-button
+{
+    background:transparent;
+    margin-left:5px;
+    margin-right: 5px;
+    display: inline-block;
+    width:195px;
+    margin-top:20px;
+    border: 2.5px solid #4267b2;
+    color:#4267b2;
+    font-size: 18px;
+    padding-top:9px;
+    padding-bottom: 9px;
+    padding-left: 45px;
+    padding-right: 45px;
+    border-radius: 20px;
+    transition: all .3s ease 0s;
+}
+
+.sign-up-header
+{
+    font-size: 52px;
+}
+
+.sign-up-subheader
+{
+    font-size:40px;font-weight: 300 !important;
+}
+
+.sign-up-box
+{
+    margin-top:15px;
+}
+
+.sign-up-body
+{
+    font-size:19.5px;
+}
+
+.height-gradient
+{
+    top:0;
+
+    height: 100%;
+}
+
+.pointer:hover
+{
+    cursor: pointer;
+}
+
+.facebook-button:hover
+{
+    cursor: pointer;
+    background:#4267b2;
+    color:#fff;
+}
+
+.facebook-button:focus
+{
+    cursor: pointer;
+    background:#4267b2;
+    color:#fff;
+}
+
+.twitter-button
+{
+    background: transparent;
+    display: inline-block;
+    width:195px;
+
+    margin-left:5px;
+    margin-right: 5px;
+    margin-top:20px;
+    border: 2.5px solid #1da1f2;
+    color:#1da1f2;
+    font-size: 18px;
+    padding-top:9px;
+    padding-bottom: 9px;
+    padding-left: 45px;
+    padding-right: 45px;
+    border-radius: 20px;
+    transition: all .3s ease 0s;
+}
+
+.checkmarks {
+    appearance: none !important;
+    background-color: green !important;
+  }
+
+.check-header
+{
+    padding-right:30px;
+    font-size:18px;
+}
+
+.check-header:hover
+{
+    cursor: pointer;
+}
+
+.twitter-button:hover
+{
+    background:#1da1f2;
+    color:#fff;
+    cursor: pointer;
+}
+
+.twitter-button:focus
+{
+    background:#1da1f2;
+    color:#fff;
+    cursor: pointer;
+}
+
+.submit-button
+{
+    margin-top:20px;
+    border: 2.5px solid #3ee986;
+    color:#fff;
+    font-size: 22px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    background: #3ee986;
+    padding-left: 55px;
+    padding-right: 55px;
+    border-radius: 20px;
+    transition: all .3s ease 0s;
+}
+
+.submit-button:hover
+{
+    cursor: pointer;
+    background: #fff;
+    color:#3ee986;
+}
+
+.submit-button:focus
+{
+    cursor: pointer;
+    background: #3ee986;
+    color:#fff;
+}
+
+.text-input-style
+{
+    border: 2.5px solid #3ee986;
+    color:#3ee986;
+    padding-top:12px;
+    padding-bottom: 12px;
+    font-size:18.5px;
+    padding-left:23px;
+    padding-right: 23px;
+    border-radius: 20px;
+    transition: all .3s ease 0s;
+}
+
+.text-input-style:focus
+{
+    color:#fff !important;
+    background: #3ee986;
+}
+
+.benefits-box
+{
+    background: #fff;
+    display: inline-block;
+    height:85px;
+    width:85px;
+    border-radius: 85px;
+}
+
+.benefit-icon
+{
+    position: relative;
+    top:23px;
+    line-height:60px;
+    font-size: 40px;
+}
+
+
+.benefit-text
+{
+    margin-top: 5px;
+    color:#fff;
+    font-size: 17px;
+    letter-spacing: 4px;
+}
+
+.forgot-password
+{
+   position: relative;
+   top:5px;
+    color:#3ee986;
+    font-size: 15px;
+    border-bottom: 1.5px solid transparent !important;
+}
+
+.forgot-password:hover
+{
+    border-bottom: 1.5px solid #3ee986 !important;
+}
+
+
+.link-style
+{
+    color:#3ee986 !important;
+    border-bottom: 2.5px solid transparent;
+}
+
+.link-style:hover
+{
+    cursor: pointer;
+    border-bottom: 2.5px solid #3ee986;
+}
+
+.log-in-box
+{
+    margin-top: 5vh;
+    background-color:#fff;
+    padding-top:10vh;
+    padding-bottom: 10vh;
+    margin-bottom: 10vh;
+    border-radius: 20px;
+}
+
+.log-in-box-header
+{
+    font-size: 35px;
+}
 
 .return-top
 {
@@ -461,10 +729,26 @@ navbar
   font-size: 25px;
 }
 
+.sign-up-box
+{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top:5vh;
+    padding-bottom: 5vh;
+    border-radius: 20px;
+    background: #fff;
+}
+
 .inline-block
 {
     font-size: 17px;
     display: inline-block;
+}
+
+.sign-up-bullet
+{
+    font-size:19.5px;
+    color:#fff;
 }
 
 .bullet:before
@@ -541,6 +825,10 @@ navbar
     font-size:38px;
 }
 
+.green-footer
+{
+    border-bottom: 1.5px solid #3ee986 !important;
+}
 
 .footer-element-header
 {
@@ -738,6 +1026,11 @@ html.sr .load-hidden {
     padding-bottom:5px;
     font-weight: 500 !important;
     border-bottom: 1px solid #454545;
+}
+
+.kill-link-style:hover
+{
+    text-decoration: none;
 }
 
 .navbar-brand
@@ -1276,6 +1569,44 @@ button:focus {
     width:400px
   }
 
+  .feature-text-width
+  {
+      width:83%;
+  }
+
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #3ee986;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #3ee986;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #3ee986;
+}
+
+
+input:focus::-webkit-input-placeholder {
+    color: #fff;
+}
+
+
+input:focus:-moz-placeholder {
+    color: #fff;
+}
+
+
+input:focus::-moz-placeholder {
+    color: #fff;
+}
+
+
+input:focus:-ms-input-placeholder {
+    color: #fff;
+}
+
 /* Animations */ 
 
 @-webkit-keyframes spread {
@@ -1345,11 +1676,32 @@ and (device-width : 1024px) {
     }
 }
 
+@media only screen 
+and (max-width: 375px)
+and (min-width: 319px)
+{
+    .sign-up-header
+    {
+        font-size: 39px;
+    }
+
+    .sign-up-subheader
+    {
+        font-size:30px;
+    }
+}
+
   @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 
 and (orientation : portrait)
 {
+
+    .sign-up-subheader
+    {
+        font-size:30px !important;
+    }
+
     .meditation-box-button
     {
         padding-top:8px;
@@ -1503,17 +1855,29 @@ and (max-width : 993px)
 }
 
 @media only screen 
-and (min-width: 768px)
+and (max-width: 768px)
 {
     .feature-left-pad
     {
-
+        padding-left:10px;
+        padding-right: 10px;
     }
 
     .feature-right-pad
     {
-
+        padding-right:10px;
+        padding-left: 10px;
     }
+}
+
+@media only screen 
+and (min-width: 768px)
+{
+    .feature-text-width
+  {
+     
+      width:95%;
+  }
 }
 
 /* iPad */
@@ -1522,6 +1886,29 @@ and (min-device-width : 768px)
 and (max-device-width : 1024px) 
 and (orientation : portrait)
 { 
+    
+    .sign-up-header
+    {
+        font-size:47px;
+    }
+
+    .benefits-box
+    {
+        width:65px;
+        height:65px;
+    }
+
+    .benefit-icon
+    {
+        font-size: 35px;
+        top:15px;
+    }
+
+    .benefit-text
+    {
+        letter-spacing: 3.5px;
+        font-size: 12.5px;
+    }
 
     .feature-text
     {
@@ -1536,12 +1923,40 @@ and (orientation : portrait)
 }
 
 @media only screen 
+and (max-width: 767px)
+{
+
+    .pad-benefit-element
+    {
+        padding-left: 0px !important;
+    }
+    .feature-right-pad
+    {
+
+    }
+
+    .feature-left-pad
+    {
+
+    }
+}
+
+@media only screen 
 and (min-width: 319px)
 and (max-width: 375px)
 {
     .tracking-box
     {
         font-size:11px !important;
+    }
+}
+
+@media only screen 
+and (max-width: 412px)
+{
+    .footer-element-header
+    {
+        font-size: 15.6px;
     }
 }
 
@@ -1603,6 +2018,8 @@ and (orientation : portrait)
     }
 
 }
+
+
 
   /* iPhone 6 */
   @media only screen 

@@ -1,5 +1,12 @@
 
 
+
+function returnHome() {
+    window.location = "index.html";
+}
+
+
+
 //EMDR Element
 var element = document.getElementById('alternate');
 var positionInfo = element.getBoundingClientRect();
@@ -12,6 +19,8 @@ var alternate = anime({
     loop: true,
     easing: 'easeInOutQuart'
 });
+
+
 
 $("#js-rotating").Morphext({
     // The [in] animation type. Refer to Animate.css for a list of available animations.
@@ -26,6 +35,7 @@ $("#js-rotating").Morphext({
 });
 
 function removeFocus() {
+    document.getElementById("header-nav").blur();
     document.getElementById("first-nav").blur();
     document.getElementById("second-nav").blur();
     document.getElementById("third-nav").blur();
