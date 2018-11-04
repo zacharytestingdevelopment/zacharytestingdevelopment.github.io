@@ -13,6 +13,10 @@ navbar
     border-bottom: 2px solid #3ee986 !important;
 }
 
+.standard-transition
+{
+    transition: all .3s ease 0s;
+}
 
 #gradient
 {
@@ -26,6 +30,11 @@ navbar
     background:transparent !important;
     border-bottom:2px solid transparent;
     transition: background .15s ease, border-bottom .15s ease !important;
+}
+
+.pad-right
+{
+    margin-right: 6px;
 }
 
 .invisible
@@ -58,6 +67,10 @@ navbar
     height:155px;
     width:155px;
     border-radius: 155px;
+}
+
+.emdr-ball-default
+{
     background: rgb(41,219,222);
     background: linear-gradient(124deg, rgba(41,219,222,1) 10%, rgba(60,205,207,1) 77%);
 }
@@ -96,6 +109,7 @@ navbar
     font-weight: 700 !important;
     font-size:13px;
     color:#fff;
+    transition: color .3s ease 0s;
 }
 
 
@@ -331,18 +345,62 @@ navbar
     top:-4px;
 }
 
-.subscribe-box-header
+.subscribe-box-point
 {
-    color:#3ee986;
-    font-size:30px;
-    font-weight: bold;
+    font-size: 20px;
+}
+
+.subscribe-box
+{
+    width:100%;
+    position: relative;
+    transition: all 0.2s ease 0s;
+    top: 0;
+    padding-top:60px;
+    padding-bottom: 75px;
+    background: rgb(67,243,141);
+    background: linear-gradient(42deg, rgba(67,243,141,1) 10%, rgba(46,204,113,1) 77%);
+    border-radius: 20px;
+    /*box-shadow: 0px 3px 15px rgba(0,0,0,0.2);*/
+}
+
+.subscribe-box:hover
+{
+    top:-4px;
+    cursor: pointer;
+    position: relative;
+    /*box-shadow: 0px 3px 15px rgba(0,0,0,0.32);*/
+    /*margin-top:-3px !important;*/
 }
 
 .subscribe-box-header
 {
     color:#3ee986;
-    font-size:35px;
+    font-size:45px;
     font-weight: bold;
+}
+
+.subscribe-box-subheader
+{
+ display: inline-block;
+ border-radius: 20px;
+ padding-left:15px;
+ padding-right: 15px;
+ padding-top:5px;
+ padding-bottom: 5px;
+ background-color:#fff;
+
+  font-size: 31.5px;
+}
+
+.sign-up-box
+{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top:5vh;
+    padding-bottom: 5vh;
+    border-radius: 20px;
+    background: #fff;
 }
 
 .text-button
@@ -369,7 +427,7 @@ navbar
 {
     cursor: pointer;
     background: #3ee986;
-    color:#fff;
+    color:#fff !important;
 }
 
 .social-icon
@@ -389,22 +447,22 @@ navbar
 
 .facebook:hover
 {
-    color:#4267b2;
+    color:#4267b2 !important;
 }
 
 .instagram:hover
 {
-    color:#aa2983;
+    color:#aa2983 !important;
 }
 
 .pinterest:hover
 {
-    color:#bd081c;
+    color:#bd081c !important;
 }
 
 .twitter:hover
 {
-    color:#1da1f2;
+    color:#1da1f2 !important;
 }
 
 .footer
@@ -597,12 +655,13 @@ navbar
     font-size:18.5px;
     padding-left:23px;
     padding-right: 23px;
-    border-radius: 20px;
+    border-radius: 5px;
     transition: all .3s ease 0s;
 }
 
 .text-input-style:focus
 {
+  
     color:#fff !important;
     background: #3ee986;
 }
@@ -623,7 +682,6 @@ navbar
     line-height:60px;
     font-size: 40px;
 }
-
 
 .benefit-text
 {
@@ -716,29 +774,6 @@ navbar
     color:#fff;
 }
 
-.subscribe-box-subheader
-{
- display: inline-block;
- border-radius: 20px;
- padding-left:15px;
- padding-right: 15px;
- padding-top:5px;
- padding-bottom: 5px;
- background-color:#fff;
-
-  font-size: 25px;
-}
-
-.sign-up-box
-{
-    margin-left: auto;
-    margin-right: auto;
-    padding-top:5vh;
-    padding-bottom: 5vh;
-    border-radius: 20px;
-    background: #fff;
-}
-
 .inline-block
 {
     font-size: 17px;
@@ -760,11 +795,12 @@ navbar
 {
     border: 2.5px solid #fff;
     color:#fff;
-    font-size: 18px;
-    padding-top:7px;
-    padding-bottom: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
+    font-size: 23px;
+    font-weight: bolder;
+    padding-top:8px;
+    padding-bottom: 8px;
+    padding-left: 22px;
+    padding-right: 22px;
     border-radius: 20px;
     transition: color .3s ease, background .3s ease;
 }
@@ -773,30 +809,6 @@ navbar
 {
     background:#fff;
     color:#3ee986;
-}
-
-
-.subscribe-box
-{
-    width:100%;
-    position: relative;
-    transition: all 0.2s ease 0s;
-    top: 0;
-    padding-top:10px;
-    padding-bottom: 25px;
-    background: rgb(67,243,141);
-    background: linear-gradient(42deg, rgba(67,243,141,1) 10%, rgba(46,204,113,1) 77%);
-    border-radius: 20px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-}
-
-.subscribe-box:hover
-{
-    top:-4px;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.32);
-    /*margin-top:-3px !important;*/
 }
 
 .green-background
@@ -850,7 +862,7 @@ navbar
 
 .footer-element-item:hover
 {
-    color:#2E86C1;
+    color:#2E86C1 !important;
 }
 
 .footer-link:hover
@@ -894,7 +906,7 @@ navbar
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    border: 3px solid #3ee986;
+  border: 3px solid transparent;
 }
 
 .mission-box-header
@@ -921,6 +933,16 @@ navbar
     background: #fff !important;
     border-bottom: 2px solid #3ee986;
     /*border-bottom:2px solid #454545;*/
+}
+
+.background-theme-light
+{
+    background: #fff;
+}
+
+.emdr-theme-light
+{
+    background:#3ee986;
 }
 
 .white
@@ -1270,12 +1292,34 @@ html.sr .load-hidden {
 
 .highlight-color
 {
-    color:#3ee986;
+    color:#3ee986 !important;
+}
+
+.highlight-color-blue
+{
+    color:#4257b2 !important;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.error-message
+{
+    color:#E74C3C;
+    margin-top:5px;
 }
 
 canvas {
 
     height: auto;
+  }
+
+  .error-input
+  {
+      color:#E74C3C;
+      border: 2.5px solid #E74C3C;
   }
   
 .input-style
@@ -1508,6 +1552,16 @@ button:focus {
     top:-25px;
 }
 
+.margin-right
+{
+    margin-right:10px;
+}
+
+.margin-top-setting
+{
+    margin-top:10px;
+}
+
 .margin-top-tiny
 {
     margin-top:7px;
@@ -1516,6 +1570,11 @@ button:focus {
 .margin-top
 {
     margin-top: 15px;
+}
+
+.margin-top-medium
+{
+    margin-top:20px;
 }
 
 .margin-top-large
@@ -1976,6 +2035,12 @@ and (orientation : portrait)
     .header-buttons
     {
         top:60vh;
+    }
+
+    .submit-button
+    {
+        padding-left:17px;
+        padding-right: 17px;
     }
 }
 

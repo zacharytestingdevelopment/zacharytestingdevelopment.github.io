@@ -1,0 +1,659 @@
+
+input[type="color"] {
+    position: relative;
+    top:7px;
+    padding:0px !important;
+    -webkit-appearance: none;
+    width:26px !important;
+    height:26px !important;
+    border-radius: 26px !important;
+    border: 1px solid #000;
+	
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    border-radius: 26px !important;
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 26px !important;
+	border: none;
+}
+
+.theme
+{
+    background:#2ecd72 !important;
+    transition: all .9s ease 0s !important;
+}
+
+.light-theme-background
+{
+    background:#fff;
+}
+
+.light-theme-element
+{
+    background: #3ee986;
+}
+
+.element-duration
+{
+    transition: background-color 0.19s ease 0s!important;
+}   
+
+.emdr-element
+{
+    height:155px !important;
+    width:155px !important;
+    border-radius: 155px;
+    background:#3ee986;
+    transition: border-radius .43s ease 0s !important;
+    
+    /*
+    trangle styles
+     position: relative;
+    top:-27px;
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #3ee986;
+    transition: border-bottom .3s ease 0s;
+    */
+}
+
+.circle
+{
+    border-radius: 155px !important;
+}
+
+.square
+{
+    border-radius: 0px !important;
+}
+
+.rounded-square
+{
+    position:relative;
+    top:7px;
+    border-radius: 10px !important;
+}
+
+.pad-preview
+{
+    padding-left: 10px;
+}
+
+.shape-category
+{
+    text-align: center;
+    line-height: 60px;
+    display: inline-block;
+    border: 2.5px solid #3ee986;
+    border-radius: 10px;
+    height:60px;
+    width:70px;
+    transition: background 0.3s ease 0s;
+}
+
+.shape-category:hover
+{
+    background:#3ee986;
+    color:#fff;
+    cursor: pointer;
+}
+
+.shape-active-selected
+{
+    background:#3ee986 !important;
+}
+
+.shape-active-selected-white
+{
+    background:#fff !important;
+}
+
+.shape-active-selected-triangle
+{
+    border-bottom: 30px solid #fff !important;
+}
+
+.shape-active
+{
+    background:#fff !important;
+}
+
+.shape-active-triangle
+{
+    border-bottom: 30px solid #fff !important;
+}
+
+.circle
+{
+    position: relative;
+    top:10px;
+    display: inline-block;
+    height:35px;
+    width:35px;
+    background:#3ee986;
+    border-radius: 35px;
+    transition: background .3s ease 0s;
+}
+
+.square
+{
+    position: relative;
+    top:10px;
+    display: inline-block;
+    height:35px;
+    width:35px;
+    background:#3ee986;
+    transition: background .3s ease 0s;
+}
+
+.square-rounded
+{
+    position: relative;
+    top:10px;
+    display: inline-block;
+    height:35px;
+    width:35px;
+    border-radius: 6px;
+    background:#3ee986;
+    transition: background .3s ease 0s;
+}
+
+.triangle-element
+{
+    height:0 !important;
+    width:0 !important;
+    border-left: 20px solid transparent !important;
+    border-right: 20px solid transparent !important; 
+    border-bottom: 30px solid #3ee986 !important;
+}
+
+.triangle
+{
+    position: relative;
+    top:-27px;
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #3ee986;
+    transition: border-bottom .3s ease 0s;
+}
+
+.therapy-element-height
+{
+   height:100vh !important; 
+}
+
+.therapy-settings-header
+{
+    font-size: 43px;
+}
+
+.animation-transition
+{
+    transition: all .3s ease 0s !important;
+}
+
+
+.section-card
+{
+
+    padding-left:20px;
+    padding-bottom: 35px;
+    background:#fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.fast-anim
+{
+    animation-duration: 0.3s !important;
+}
+
+.margin-left-right
+{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.margin-left-right-large
+{
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+
+.preset-item-selected
+{
+    background:#3ee986 !important;
+    color:#fff !important;
+}
+
+.preset-item
+{
+    border-radius: 10px;
+    position: relative;
+    top:10px;
+    border: 2.5px solid #3ee986;
+    color:#3ee986;
+    padding-top:4px;
+    padding-bottom: 4px;
+    padding-left:9px;
+    padding-right: 9px;
+    transition: all .3s ease 0s;
+}
+
+.preset-item:hover
+{
+    background:#3ee986;
+    color:#fff;
+    cursor: pointer;
+}
+
+.go-back-button
+{
+    display: inline-block;
+    padding-top:12px;
+    padding-bottom: 12px;
+}
+
+.range-slider
+{
+    margin-top: 0px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    width: 80%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    /*opacity: 0.7;*/
+    -webkit-transition: .2s;
+    transition: background .3s ease 0s;
+}
+
+.session-selection
+{
+    background: rgb(57,76,156);
+    background: linear-gradient(324deg, rgba(57,76,156,1) 10%, rgba(66,87,178,1) 77%);
+    height: 100vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding-left:20px;
+    padding-top:5vh;
+    top:-100%;
+    border-right: 2.5px solid #000;
+    position: fixed;
+    padding-bottom:5vh;
+    z-index: 99;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    transition: top .4s ease-in-out;
+
+  
+}
+
+.session-selection-active
+{
+    top:0%;
+}
+
+.section-selection-header
+{
+    font-size: 33px;
+}
+
+.swal-wide
+{
+    width:75vw !important;   
+}
+
+
+  .swal-button--confirm {
+      font-size: 18px;
+      padding-top:8px;
+      padding-bottom: 8px;
+      position: relative !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    background: #fff;
+    border:2.5px solid #3ee986;
+    -webkit-box-shadow: none !important;
+	box-shadow: none !important;
+    -webkit-appearance: inherit;
+    color:#3ee986;
+    border-radius: 20px;
+    transition: all .3s ease 0s;
+}
+
+.swal-button--confirm:hover
+{
+    background:#3ee986 !important;
+    
+    color:#fff;
+}
+
+.question-mark
+{
+    position: relative;top:0px;left:1.5px;
+    color:inherit;
+}
+
+
+.information-circle
+{
+    display: inline-block;
+    text-align: center;
+    position: relative;
+  
+    left:-3px;
+    height:27px;
+    width:27px;
+    border-radius: 35px;
+    border: 1.5px solid #3ee986;
+    background:#3ee986;
+    color:#fff;
+    transition: all .3s ease 0s;
+}
+
+.information-circle:hover
+{
+    cursor: pointer;
+    color:#3ee986;
+    background:#fff;
+
+}
+
+.range-slider:hover
+{
+    background:#E5E5E5;
+    opacity: 1;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    background: #2ecd72;
+    cursor: pointer;
+}
+
+.range-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #2ecd72;
+    cursor: pointer;
+}
+
+.number-input-style
+{
+    border: 2.5px solid #3ee986;
+    color:#3ee986;
+    padding-top:6px;
+    padding-bottom: 6px;
+    font-size:18.5px;
+    padding-left:12px;
+    padding-right: 12px;
+    border-radius: 5px;
+    transition: all .3s ease 0s;
+}
+
+.number-input-style:focus
+{
+  
+    color:#fff !important;
+    background: #3ee986;
+}
+
+.preview-pane
+{
+   
+}
+
+.preview-text
+{
+
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background:#fff;
+    border-radius: 10px;
+    position: absolute;
+    right:20px;
+    top:15px;
+    font-size: 24px;
+    letter-spacing: 5px;
+}
+
+.preview-text-subheader
+{
+    font-size: 21px;
+    letter-spacing:1px;
+}
+
+.setting-category
+{
+    text-align: left;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: inline-block;
+    color:#454545;
+    letter-spacing: 3.5px;
+}
+
+.collapse-arrow
+{
+    position: relative;
+    top:10px;
+    font-size: 32px !important;
+    color:#fff;
+    transition: all .3s ease 0s;
+}
+
+.arrow-down
+{
+    transform: rotate(180deg);
+}
+
+.section-card-header
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background:transparent;
+    padding-left:12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 21px;
+    border: 3px solid #fff;
+    color:#fff;
+}
+
+.section-card-body
+{
+    padding-top:10px;
+    padding-left:10px;
+    padding-right: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background:#fff;
+}
+
+.therapy-setting-box
+{
+    padding-left:20px;
+    padding-bottom:20px;
+    padding-right:20px;
+    padding-top:20px;
+    width:100%;
+    background:#fff;
+    border-radius: 10px;
+}
+
+.therapy-setting-box-icon
+{
+    position: relative;
+    top:7px;
+    font-size:24px;
+    color:#4257b2;
+}
+
+.therapy-setting-box-icon
+{
+    color:inherit;
+}
+
+.therapy-setting-box-header
+{
+    font-size: 24px;
+    color:#4257b2;
+}
+
+.therapy-setting-box-button
+{
+    padding:7px;
+    border-radius: 10px;
+    font-size: 15px;
+    border:2.5px solid #4257b2;
+    color:#4257b2;
+    transition: all .3s ease 0s;
+}
+
+.therapy-setting-box-button:hover
+{
+    cursor: pointer;
+    background:#4257b2;
+    color:#fff;
+}
+
+.set-delete:hover
+{
+    border: 2.5px solid #E74C3C;
+    background: #E74C3C;
+}
+
+.therapy-setting-box-description
+{
+    font-size: 16px;
+    color:#454545;
+}
+
+
+.dashboard-button
+{
+    transition: all .3s ease 0s;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    border: 2.5px solid #fff;
+    color:#fff;
+    font-size:21px;
+}
+
+.dashboard-button:hover
+{
+    cursor: pointer;
+    color:#3ee986;
+    background: #fff;
+}
+
+.dashboard-button-blue
+{
+    padding-left:12px;
+    padding-right: 12px; 
+}
+
+.dashboard-button-blue:hover
+{
+    color: #4257b2;
+}
+
+.dashboard-icon
+{
+    transition: all .3s ease 0s;
+    position: relative;
+    top:3px;
+    color:#fff;
+    font-size: 24px;
+}
+
+.dashboard-icon-blue
+{
+    top:5px;
+    font-size:25.5px;
+}
+
+.dashboard-icon-blue:hover
+{
+    color:inherit !important;
+}
+
+.dashboard-nav
+{
+    padding-left:17px;
+}
+
+.therapy-settings-useage
+{
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left:10px;
+    padding-right:10px;
+    border-radius: 10px;
+    border:2.5px solid #fff;
+    font-size:19px;
+    transition: all .3s ease 0s;
+}
+
+.therapy-settings-useage:hover
+{
+    cursor: pointer;
+    background: #fff;
+    color:#3ee986;    
+}
+
+.settings-panel
+{
+    overflow-y:scroll;
+    padding-left:20px;
+    padding-top:5vh;
+    border-right: 2.5px solid #000;
+}
+
+.toggle-element
+{
+    position: absolute;
+    width:100%;
+    top:0px;
+    padding-top:0px;
+    width:100%;
+    position: relative;
+    color:#fff;
+    padding-left: 0px;
+    font-size:20px;
+    background: #3ee986;
+    border-bottom: 2.5px solid #3ee986;
+    border-radius: 10px;
+    padding-bottom: 3px;
+}
+
+.toggle-element:hover
+{
+    color:#fff;
+    border-bottom: 2.5px solid #fff !important;
+    background: transparent !important;
+}
+
+.toggle-element:focus
+{
+    color:#fff;
+    background: transparent !important;
+}

@@ -1,67 +1,110 @@
 
+/* When a user navigates to the login page when they are already logged in, the content of the login box becomes a welcome screen for the user.
+Gives them the option to log out or navigate to their dashboard */
+
+const btnLogOut = document.getElementById("btnLogOut");
+const btnLogIn = document.getElementById("btnLogIn");
+
+
+//Add a realtime listener 
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+        loggedIn();
+    }
+    else {
+        console.log("not logged in");
+    }
+});
+
+function loggedIn() {
+    console.log("user currently logged in");
+    //window.location = "dashboard.html";
+    $("#login-signup").addClass("hidden");
+    $("#logout-account").removeClass("hidden");
+
+    loggedInBox();
+}
+
+function loggedInBox() {
+
+    var loggedInBox = "";
+    loggedInBox += "<div class=\"animated fadeIn\">";
+    loggedInBox += "                        <div class=\"log-in-box-header\">Hello, Zachary<\/div>";
+    loggedInBox += "                        <div class=\"log-in-subheader\">You're already logged in!<\/div>";
+    loggedInBox += "                        <div class=\"col col-sm-12 col-md-10 col-lg-10 col-centered\">";
+    loggedInBox += "                            <input type=\"button\" class=\"submit-button no-select\" value=\"Go to dashboard\" \/>";
+    loggedInBox += "                            <input onclick = \"logOut()\" type=\"button\" class=\"submit-button no-select\" value=\"Log out\" \/>";
+    loggedInBox += "                        <\/div>";
+    loggedInBox += "                    <\/div>";
+
+    document.getElementById("log-in-box-container").innerHTML = loggedInBox;
+}
+
+function loggedOutBox() {
+    var loggedOutBox = "";
+    loggedOutBox += "<div class = \"animated fadeIn\"><div class=\"log-in-box-header\">Log in<\/div>";
+    loggedOutBox += "                    <div class=\"log-in-subheader\">Don't have an account? Get started <a href=\"signup.html\" class=\"kill-link-style link-style\">here<\/a><\/div>";
+    loggedOutBox += "                    <form>";
+    loggedOutBox += "                        <div>";
+    loggedOutBox += "                            <input id=\"txtEmail\" name=\"email\" type=\"text\" class=\"text-input-style col col-11 col-md-8 col-lg-8 col-centered margin-top\"";
+    loggedOutBox += "                                placeholder=\"Email address\" required \/>";
+    loggedOutBox += "                        <\/div>";
+    loggedOutBox += "";
+    loggedOutBox += "                        <div>";
+    loggedOutBox += "                            <input id=\"txtPassword\" name=\"password\" type=\"password\" class=\"text-input-style col col-11 col-md-8 col-lg-8 col col-8 col-centered margin-top\"";
+    loggedOutBox += "                                placeholder=\"Password\" required \/>";
+    loggedOutBox += "                        <\/div>";
+    loggedOutBox += "                        <a class=\"forgot-password link-style kill-link-style\">I forgot my password<\/a>";
+    loggedOutBox += "                        <div class=\"col-centered margin-top text-center\">";
+    loggedOutBox += "";
+    loggedOutBox += "                            <label class=\"check-header no-select form-check-label\" for=\"exampleCheck1\">Remember me<\/label>";
+    loggedOutBox += "                            <input type=\"checkbox\" class=\"form-check-input pointer checkbox\" id=\"exampleCheck1\">";
+    loggedOutBox += "                        <\/div>";
+    loggedOutBox += "";
+    loggedOutBox += "";
+    loggedOutBox += "";
+    loggedOutBox += "                        <button onclick=\"logIn()\" type=\"button\" class=\"submit-button no-select\">Log In<\/button>";
+    loggedOutBox += "";
+    loggedOutBox += "                        <div class=\"margin-top\">You can also log in with...<\/div>";
+    loggedOutBox += "";
+    loggedOutBox += "                        <div class=\"col col-10 col-centered\">";
+    loggedOutBox += "                            <input type=\"button\" class=\"facebook-button no-select\" value=\"Facebook\" \/>";
+    loggedOutBox += "                            <input type=\"button\" class=\"twitter-button no-select\" value=\"Twitter\" \/>";
+    loggedOutBox += "                        <\/div>";
+    loggedOutBox += "                    <\/form></div>";
+    loggedOutBox += "                  ";
+
+
+    document.getElementById("log-in-box-container").innerHTML = loggedOutBox;
+}
+
+$("form").submit(function () {
+    logIn();
+});
+
+function logIn() {
+
+    const email = document.getElementById("txtEmail").value;
+    const pass = document.getElementById("txtPassword").value;
+
+
+    const auth = firebase.auth();
+    const promise = auth.signInWithEmailAndPassword(email, pass);
+    $("#login-signup").removeClass("hidden");
+    $("#logout-account").addClass("hidden");
+};
+
+function logOut() {
+    firebase.auth().signOut();
+    $("#login-signup").removeClass("hidden");
+    $("#logout-account").addClass("hidden");
+
+    loggedOutBox();
+};
+
+
 function returnHome() {
     window.location = "index.html";
 }
 
 ScrollReveal().reveal('.f1', { delay: 200 });
-
-var colors = new Array(
-    [67, 243, 141],
-    [41, 219, 222],
-    [67, 243, 141],
-    [41, 219, 222],
-    [67, 243, 141],
-    [41, 219, 222]);
-
-var step = 0;
-//color table indices for: 
-// current color left
-// next color left
-// current color right
-// next color right
-var colorIndices = [0, 1, 2, 3];
-
-//transition speed
-var gradientSpeed = 0.002;
-
-function updateGradient() {
-
-    if ($ === undefined) return;
-
-    var c0_0 = colors[colorIndices[0]];
-    var c0_1 = colors[colorIndices[1]];
-    var c1_0 = colors[colorIndices[2]];
-    var c1_1 = colors[colorIndices[3]];
-
-    var istep = 1 - step;
-    var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
-    var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
-    var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
-    var color1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")";
-
-    var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
-    var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
-    var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
-    var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
-
-    $('#gradient').css({
-        background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
-    }).css({
-        background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
-    });
-
-    step += gradientSpeed;
-    if (step >= 1) {
-        step %= 1;
-        colorIndices[0] = colorIndices[1];
-        colorIndices[2] = colorIndices[3];
-
-        //pick two new target color indices
-        //do not pick the same as the current one
-        colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
-        colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
-
-    }
-}
-
-setInterval(updateGradient, 10);

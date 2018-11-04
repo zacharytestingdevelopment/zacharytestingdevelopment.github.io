@@ -84,7 +84,7 @@
           </span>
 
           <div class="col d-lg-none d-xl-none col-centered col-12 col-md-7">
-            <div class="row">
+            <div id="login-signup" class="row">
               <div class="col col-6 text-center margin-top-large">
 
                 <a href="login.html">
@@ -101,6 +101,16 @@
                 </li>
               </div>
             </div>
+
+            <span id="logout-account" class="row hidden">
+              <li class="nav-item hide-element">
+                <a id="btnLogOut" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in">Log
+                  Out</a>
+              </li>
+              <li class="nav-item hide-element">
+                <div class="sign-up animated fadeInDown delay2 no-select">ACCOUNT</div>
+              </li>
+            </span>
 
             <div class="row d-lg-none d-xl-none">
               <div class="col col-6 text-center margin-top-large">
@@ -308,7 +318,8 @@
         <span class="meditation-box-button margin-top">GET STARTED</span>
       </div>
     </div>
-    <div class="col col-12 eliminate-margin-pad col-md-6 col-lg-6 meditation-box-demo meditation-box-height vertical-center pad-tiny-demo">
+    <div id="background-color" class="col col-12 eliminate-margin-pad col-md-6 col-lg-6 standard-transition meditation-box-height vertical-center pad-tiny-demo"
+      style="background:rgb(57,76,156)">
       <div class="position-meditation-options animated fadeInDown highlight-color text-center">
         <span id="therapyOption1" class="no-select white meditation-option" onclick="changeActiveTherapy('therapy1')">Breathing</span>
         <span id="therapyOption2" class="no-select margin-left-right highlight-color meditation-option" onclick="changeActiveTherapy('therapy2')">EMDR</span>
@@ -316,17 +327,18 @@
       </div>
       <div class="position-meditation-theme animated fadeIn delay1">
 
-        <div class="meditation-box-theme-subheader">Play with themes</div>
-        <select class="meditation-box-theme">
+        <div id="meditation-theme-header" class="meditation-box-theme-subheader">Preset themes</div>
+        <select id="meditation-theme" class="meditation-box-theme white" onchange="changeTheme()">
 
-          <option value="volvo">Aqua</option>
-          <option value="saab">Dark</option>
-          <option value="mercedes">Obsidian</option>
-          <option value="audi">Sand</option>
+          <option value="aqua">Aqua</option>
+          <option value="ruby">Ruby</option>
+          <option value="contrast">Contrast</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
         </select>
       </div>
       <div id="alternate" class="full-width animated fadeIn">
-        <div class="square el emdr-ball"></div>
+        <div id="element-color" class="square el emdr-ball standard-transition" style="background:rgb(41,219,222)"></div>
       </div>
     </div>
   </div>
@@ -494,7 +506,7 @@
       <div class="row">
         <div class="col-12 text-center col-centered">
 
-          <div class="feature-header white heavy animated fadeIn">
+          <div class="feature-header shadow white heavy animated fadeIn">
             <div>
               <ion-icon class="package" name="cube"></ion-icon>
             </div>
@@ -502,17 +514,17 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered feature-right-pad">
-          <div class="feature-text col-centered">
+        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
+          <div class="feature-text shadow col-centered">
             <div class="feature-text-width">
               Avaliable for the web, phones, and tablets
             </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered feature-left-pad">
+        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
           <span class="white">
-            <div class="feature-text col-centered">
+            <div class="feature-text shadow col-centered">
               <div class="feature-text-width">
                 Sync favorite settings across all devices
               </div>
@@ -520,32 +532,32 @@
             </div>
           </span>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered  feature-right-pad">
-          <div class="feature-text col-centered">
+        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
+          <div class="feature-text shadow col-centered">
             <div class="feature-text-width">
               Avaliable for the web, phones, and tablets
             </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered  feature-left-pad">
-          <div class="feature-text col-centered">
+        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
+          <div class="feature-text shadow col-centered">
             <div class="feature-text-width">
               Avaliable for the web, phones, and tablets
             </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered feature-right-pad">
-          <div class="feature-text col-centered">
+        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
+          <div class="feature-text shadow col-centered">
             <div class="feature-text-width">
               Avaliable for the web, phones, and tablets
             </div>
             <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered feature-left-pad">
-          <div class="feature-text col-centered">
+        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
+          <div class="feature-text shadow col-centered">
             <div class="feature-text-width">
               Constant free updates with new features
             </div>
@@ -564,10 +576,10 @@
             <div class="subscribe-box-subheader">$2.99/week</div>
             <div class="inline-block text-center margin-top">
 
-              <div class="white text-left bullet">Affordable entry-level plan</div>
+              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
 
-              <div class="white text-left bullet">Affordable entry-level plan</div>
-              <div class="white text-left bullet">Easily cancel anytime</div>
+              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
+              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
             </div>
 
             <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
@@ -579,9 +591,9 @@
             <div class="subscribe-box-header white">Monthly</div>
             <div class="subscribe-box-subheader">$7.99/month</div>
             <div class="inline-block text-center margin-top">
-              <div class="white text-left bullet">Affordable entry-level plan</div>
-              <div class="white text-left bullet">37% cheaper than weekly</div>
-              <div class="white text-left bullet">Easily cancel anytime</div>
+              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
+              <div class="white text-left bullet subscribe-box-point">37% cheaper than weekly</div>
+              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
             </div>
             <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
           </div>
@@ -592,9 +604,9 @@
             <div class="subscribe-box-header white">Monthly</div>
             <div class="subscribe-box-subheader">$7.99/month</div>
             <div class="inline-block text-center margin-top">
-              <div class="white text-left bullet">Affordable entry-level plan</div>
-              <div class="white text-left bullet">37% cheaper than weekly</div>
-              <div class="white text-left bullet">Easily cancel anytime</div>
+              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
+              <div class="white text-left bullet subscribe-box-point">37% cheaper than weekly</div>
+              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
             </div>
             <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
           </div>
@@ -694,6 +706,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/animationHome.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="js/onboarding.js"></script>
 
 
 

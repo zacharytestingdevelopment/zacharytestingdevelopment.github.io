@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Meditation Suite</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
+  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
+  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
+
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/therapy.css" rel="stylesheet" />
+
+</head>
+
+<body id="page-top">
+
+
+    <div class="col col-12">
+
+        <div class="row therapy-element-height">
+
+            <div id="gradient2" class="col col-md-6 col-lg-5 session-selection animated fadeInDown green-background">
+                <Div class="row dashboard-nav">
+                    <span class="dashboard-button dashboard-button-blue no-select" onmouseover="dashBoard('enterBlue')"
+                        onmouseout="dashBoard('exitBlue')" onclick="closeSettingsPanel()">
+                        <ion-icon id="dashboard-icon" class="dashboard-icon dashboard-icon-blue white" name="close-circle"></ion-icon>
+                        CANCEL
+                    </span>
+                </Div>
+                <div class="section-selection-header white margin-top">LOAD OPTIONS</div>
+
+                <div class="therapy-settings-body margin-top-tiny white">Here you can view the saved setting sets that
+                    you have for this therapy.</div>
+
+                <div id="therapy-setting-boxes"></div>
+
+
+
+                <span onmouseover="dashBoard('enterPanel')" onmouseout="dashBoard('exitPanel')" onclick="closeSettingsPanel()"
+                    class="dashboard-button go-back-button dashboard-button-blue margin-right margin-top-large no-select"
+                    onclick="closeSettingsPanel()">
+                    <ion-icon id="dashboard-icon-panel" class="dashboard-icon dashboard-icon-blue white" name="home"></ion-icon>
+                    GO BACK
+                </span>
+                <span onmouseover="dashBoard('enterPanel2')" onmouseout="dashBoard('exitPanel2')" class="dashboard-button go-back-button dashboard-button-blue margin-top-large no-select"
+                    onclick="deleteAll()">
+                    <ion-icon id="dashboard-icon-panel2" class="dashboard-icon dashboard-icon-blue white" name="trash"></ion-icon>
+                    Delete all
+                </span>
+
+            </div>
+
+
+
+            <div id="gradient" class="col col-md-6 col-lg-5 settings-panel green-background">
+                <div class="row dashboard-nav">
+                    <span class="dashboard-button no-select" onmouseover="dashBoard('enter')" onmouseout="dashBoard('exit')">
+                        <ion-icon id="dashboard-icon-home" class="dashboard-icon white" name="home"></ion-icon>
+                        Return to
+                        dashboard
+                    </span>
+                </div>
+
+                <div class="therapy-settings-header white margin-top">EMDR</div>
+                <div class="therapy-settings-body margin-top-tiny white">EMDR is a therapy used to treat anxiety, OCD,
+                    PTSD,
+                    and much
+                    more. View the research here.</div>
+                <div class="therapy-settings-useage white margin-top pad-right no-select">Instructions</div>
+                <div class="therapy-settings-useage white no-select" onclick="loadSettings()">Load settings</div>
+
+                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#speedMovement" role="button"
+                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('speedMovement')">
+                    <div class="margin-top section-card-header">
+                        Speed and movement <ion-icon id="settingArrow1" class="collapse-arrow" name="arrow-dropup"></ion-icon>
+                    </div>
+                </a>
+                <div id="speedMovement" class="collapse show multi-collapse">
+                    <div class="section-card animated fadeIn">
+                        <div class="white">
+                            <div class="setting-category text-left margin-top-setting">SPEED — <span id="speedOutput">50</span></div>
+                            <div>
+                                <input id="speedRange" class="range-slider" type="range" min="1" max="100" value="50">
+                            </div>
+                            <div class="presets">
+                                <span class="preset-item no-select" onclick="speed('slow')">Slow</span>
+                                <span id="speed-medium" class="preset-item no-select margin-left-right" onclick="speed('medium')">Medium</span>
+                                <span class="preset-item no-select" onclick="speed('fast')">Fast</span>
+                            </div>
+
+                            <div class="setting-category margin-top-setting margin-top-large">ELEMENT SHAPE</div>
+                            <div>
+                                <span id="shape-category-circle" class="shape-category shape-active-selected margin-top-tiny"
+                                    onmouseover="shapeCategoryEnter('circle')" onmouseout="shapeCategoryExit('circle')"
+                                    onclick="shapeCategorySelect('circle')">
+                                    <span id="shape-circle" class="circle shape-active-selected-white"></span>
+                                </span>
+                                <span id="shape-category-square-rounded" class="shape-category margin-left-right-large margin-top-tiny"
+                                    onmouseover="shapeCategoryEnter('squareRounded')" onmouseout="shapeCategoryExit('squareRounded')"
+                                    onclick="shapeCategorySelect('squareRounded')">
+                                    <span id="shape-square-rounded" class="square-rounded"></span>
+                                </span>
+                                <span id="shape-category-square" class="shape-category margin-left-right-large margin-top-tiny"
+                                    onmouseover="shapeCategoryEnter('square')" onmouseout="shapeCategoryExit('square')"
+                                    onclick="shapeCategorySelect('square')">
+                                    <span id="shape-square" class="square"></span>
+                                </span>
+                                <span id="shape-category-triangle" class="shape-category margin-top-tiny" onmouseover="shapeCategoryEnter('triangle')"
+                                    onmouseout="shapeCategoryExit('triangle')" onclick="shapeCategorySelect('triangle')">
+                                    <span id="shape-triangle" class="triangle"></span>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#theming" role="button"
+                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('theming')">
+                    <div class="margin-top section-card-header">
+                        Theming and sounds <ion-icon id="settingArrow2" class="collapse-arrow" name="arrow-dropup"></ion-icon>
+                    </div>
+                </a>
+                <div id="theming" class="collapse show multi-collapse">
+                    <div class="section-card animated fadeIn">
+                        <div class=" white">
+                            <div>
+                                <div>
+                                    <div class="setting-category margin-top-setting">BACKGROUND — </div>
+                                    <input id="background-color" type="color" id="head" name="color" value="#ffffff"
+                                        onchange="updateBackground()" />
+                                </div>
+                                <div>
+                                    <div class="setting-category margin-top-setting">ELEMENT — </div>
+                                    <input id="element-color" type="color" id="head" name="color" value="#3ee986"
+                                        onchange="updateElement()" />
+                                </div>
+                            </div>
+                            <div class="setting-category margin-top-setting">PRESETS</div>
+                            <div class="presets">
+                                <div>
+                                    <span id="light" class="preset-item no-select preset-item-selected" onclick="theme('light')">Light</span>
+                                    <span id="dark" class="preset-item no-select margin-left-right" onclick="theme('dark')">Dark</span>
+                                    <span id="aqua" class="preset-item no-select" onclick="theme('aqua')">Aqua</span>
+                                </div>
+
+                                <div class="margin-top">
+                                    <span id="contrast" class="preset-item no-select" onclick="theme('contrast')">Contrast</span>
+                                    <span id="ruby" class="preset-item no-select margin-left-right" onclick="theme('ruby')">Ruby</span>
+                                    <span id="custom" class="preset-item no-select" onclick="theme('custom')">Custom</span>
+                                </div>
+                            </div>
+
+                            <div class="setting-category margin-top-large">SWITCH DIRECTION SOUND <span class="information-circle"
+                                    onclick="information('switchDirection')"><span class="question-mark">?</span></div>
+                            <div class="presets">
+                                <div>
+                                    <span id="none-direction" class="preset-item no-select preset-item-selected"
+                                        onclick="switchDirection('none')">None</span>
+                                    <span id="ding" class="preset-item no-select margin-left-right" onclick="switchDirection('ding')">Ding</span>
+                                    <span id="drop" class="preset-item no-select" onclick="switchDirection('drop')">Drop</span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="setting-category margin-top-large">BACKGROUND SOUNDS</div>
+                            <div class="presets">
+                                <div>
+                                    <span id="none" class="preset-item no-select preset-item-selected" onclick="backgroundSound('none')">None</span>
+                                    <span id="ambient" class="preset-item no-select margin-left-right" onclick="backgroundSound('ambient')">Ambient</span>
+                                    <span id="waves" class="preset-item no-select" onclick="backgroundSound('waves')">Waves</span>
+                                </div>
+
+                                <div class="margin-top">
+                                    <span id="outdoors" class="preset-item no-select" onclick="backgroundSound('outdoors')">Outdoors</span>
+                                    <span id="space" class="preset-item no-select margin-left-right" onclick="backgroundSound('space')">Space</span>
+                                    <span id="piano" class="preset-item no-select" onclick="backgroundSound('piano')">Piano</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#session" role="button"
+                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('session')">
+                    <div class="margin-top section-card-header">
+                        Session settings <ion-icon id="settingArrow4" class="collapse-arrow" name="arrow-dropup"></ion-icon>
+                    </div>
+                </a>
+                <div class="collapse show multi-collapse" id="session">
+                    <div class="section-card animated fadeIn">
+                        <div class="white">
+                            <div class="setting-category margin-top-setting">NUMBER OF SESSIONS</div>
+                            <div>
+                                <span id="session1" class="preset-item no-select" onclick="sessionCount('one')">1</span>
+                                <span id="session3" class="preset-item no-select preset-item-selected" onclick="sessionCount('three')">3</span>
+                                <span id="session5" class="preset-item no-select" onclick="sessionCount('five')">5</span>
+                                <span id="sessionUnlimited" class="preset-item no-select" onclick="sessionCount('unlimited')">Unlimited</span>
+                                <span id="sessionCustom" class="preset-item no-select" onclick="sessionCount('custom')">Custom</span>
+                            </div>
+
+                            <div id="custom-session-time" class="hidden">
+                                <input id="session-count" type="number" placeholder="Number of sessions" class="number-input-style"
+                                    min="1" />
+                            </div>
+
+                            <div class="setting-category margin-top-large">SESSION LENGTH (IN SECONDS)</div>
+                            <div>
+                                <span id="time30" class="preset-item no-select" onclick="timeCount('thirty')">30</span>
+                                <span id="time45" class="preset-item no-select preset-item-selected" onclick="timeCount('fourtyFive')">45</span>
+                                <span id="time60" class="preset-item no-select" onclick="timeCount('sixty')">60</span>
+                                <span id="timeUnlimited" class="preset-item no-select" onclick="timeCount('unlimited')">Unlimited</span>
+                                <span id="timeCustom" class="preset-item no-select" onclick="timeCount('custom')">Custom</span>
+                            </div>
+                            <div id="custom-session-length" class="hidden">
+                                <input id="session-length" type="number" placeholder="Enter length" class="number-input-style"
+                                    min="1" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#path" role="button"
+                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('path')">
+                    <div class="margin-top section-card-header">
+                        Path and easing <ion-icon id="settingArrow3" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
+                    </div>
+                </a>
+                <div id="path" class="collapse multi-collapse">
+                    <div class="section-card animated fadeIn">
+                        <div class="white">
+
+
+                            <div class="setting-category margin-top">ELEMENT PATH</div>
+                            <div>
+                                <span id="leftright" class="preset-item no-select preset-item-selected" onclick="myPathing('leftright')">Left/Right</span>
+                                <span id="topbottom" class="preset-item no-select margin-left-right" onclick="myPathing('topbottom')">Top/Bottom</span>
+                                <span id="diagonal" class="preset-item no-select" onclick="myPathing('diagonal')">Diagonal</span>
+                            </div>
+
+                            <div class="setting-category text-left margin-top-large">EASING — <span id="easingOutput">STANDARD</span>
+                                <span class="information-circle" onclick="information('easing')"><span class="question-mark">?</span></span>
+                            </div>
+
+                            <div class="presets">
+                                <div>
+                                    <span id="standard" class="preset-item no-select preset-item-selected" onclick="easing('standard')">Standard</span>
+                                    <span id="linear" class="preset-item no-select margin-left-right" onclick="easing('linear')">Linear</span>
+                                    <span id="cubic" class="preset-item no-select" onclick="easing('cubic')">Ease Cubic</span>
+                                </div>
+                                <div class="margin-top">
+                                    <span id="sine" class="preset-item no-select" onclick="easing('sine')">Ease Sine</span>
+                                    <span id="circ" class="preset-item no-select margin-left-right" onclick="easing('circ')">Ease
+                                        Circ</span>
+                                    <span id="back" class="preset-item no-select" onclick="easing('back')">Ease Back</span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#advanced" role="button"
+                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('advanced')">
+                    <div class="margin-top section-card-header">
+                        Advanced settings <ion-icon id="settingArrow5" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
+                    </div>
+                </a>
+                <div class="collapse multi-collapse" id="advanced">
+                    <div class="section-card animated fadeIn">
+                        <div class="white">
+
+
+                            <div class="setting-category margin-top-tiny">INCLUDE SUDS SCALE <span class="information-circle"
+                                    onclick="information('suds')"><span class="question-mark">?</span></div>
+                            <div>
+                                <span id="sudsNo" class="preset-item no-select preset-item-selected" onclick="suds('no')">No</span>
+                                <span id="sudsYes" class="preset-item no-select margin-left-right" onclick="suds('yes')">Yes</span>
+
+                            </div>
+                            <div id="sudsInput" class="hidden">
+                                <input id="suds-initial" type="number" placeholder="Enter initial value" class="number-input-style"
+                                    min="1" />
+                            </div>
+
+                            <div class="setting-category margin-top-large">INCLUDE VAC SCALE <span class="information-circle"
+                                    onclick="information('vac')"><span class="question-mark">?</span></div>
+                            <div>
+                                <span id="vacNo" class="preset-item no-select preset-item-selected" onclick="vac('no')">No</span>
+                                <span id="vacYes" class="preset-item no-select margin-left-right" onclick="vac('yes')">Yes</span>
+                            </div>
+                            <div id="vacInput" class="hidden">
+                                <input id="vac-initial" type="number" placeholder="Enter initial value" class="number-input-style"
+                                    min="1" />
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="therapy-settings-useage white margin-top-large pad-right no-select" onclick="startSession()">Start
+                    session</div>
+                <div class="therapy-settings-useage white no-select" onclick="saveSettings()">Save settings</div>
+
+
+
+
+            </div>
+            <div id="preview-pane" class="vertical-center col col-md-6 col-lg-7 pad-preview preview-pane">
+                <div class="preview-text text-right animated fadeInDown delay1Therapy">
+                    PREVIEW
+                    <div class="preview-text-subheader">Loaded set: <span id="active-set">new set</span></div>
+                </div>
+
+
+                <div id="alternate">
+                    <div id="element" class="emdr-element el element-duration circle"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/anime.min.js"></script>
+    <script src="js/morphext.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/animationHome.js"></script>
+    <!-- <script src="js/therapy.js"></script>-->
+    <script src="js/gradient.js"></script>
+    <script src="js/emdr.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+            authDomain: "mental-health-suite.firebaseapp.com",
+            databaseURL: "https://mental-health-suite.firebaseio.com",
+            projectId: "mental-health-suite",
+            storageBucket: "mental-health-suite.appspot.com",
+            messagingSenderId: "119327507370"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+</body>
+
+</html>

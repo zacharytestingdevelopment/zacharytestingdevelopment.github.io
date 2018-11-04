@@ -20,6 +20,20 @@ var alternate = anime({
     easing: 'easeInOutQuart'
 });
 
+function recalibrateEMDR() {
+    var element = document.getElementById('alternate');
+    var positionInfo = element.getBoundingClientRect();
+    var width = positionInfo.width - 175;
+
+    var alternate = anime({
+        targets: '#alternate .el',
+        translateX: [0, width],
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutQuart'
+    });
+}
+
 
 
 $("#js-rotating").Morphext({
@@ -83,6 +97,56 @@ ScrollReveal().reveal('.u4', { delay: 200 });
 //var canvas = document.querySelector('canvas');
 fitToContainer();
 
+var e = document.getElementById("meditation-theme");
+
+function changeTextColor(textColor) {
+    if (textColor == "white") {
+        $("#therapyOption1").addClass("white");
+        $("#therapyOption2").addClass("white");
+        $("#therapyOption3").addClass("white");
+
+        $("#meditation-theme").removeClass("black");
+        $("#meditation-theme-header").removeClass("black");
+    }
+    else if (textColor == "black") {
+        $("#therapyOption1").removeClass("white");
+        $("#therapyOption2").removeClass("white");
+        $("#therapyOption3").removeClass("white");
+
+        $("#meditation-theme").addClass("black");
+        $("#meditation-theme-header").addClass("black");
+    }
+}
+
+function changeTheme() {
+    var themeValue = e.options[e.selectedIndex].text;
+    if (themeValue == "Light") {
+        document.getElementById("background-color").style.backgroundColor = "#ffffff";
+        document.getElementById("element-color").style.backgroundColor = "#3ee986";
+        changeTextColor('black');
+    }
+    else if (themeValue == "Contrast") {
+        document.getElementById("background-color").style.backgroundColor = "#000000";
+        document.getElementById("element-color").style.backgroundColor = "#38fe28";
+        changeTextColor('white');
+    }
+    else if (themeValue == "Dark") {
+        document.getElementById("background-color").style.backgroundColor = "#454545";
+        document.getElementById("element-color").style.backgroundColor = "#b2babb";
+        changeTextColor('white');
+    }
+    else if (themeValue == "Aqua") {
+        document.getElementById("background-color").style.backgroundColor = "#394c9c";
+        document.getElementById("element-color").style.backgroundColor = "#29dade";
+        changeTextColor('white');
+    }
+    else if (themeValue == "Ruby") {
+        document.getElementById("background-color").style.backgroundColor = "#2c415a";
+        document.getElementById("element-color").style.backgroundColor = "#eb5351";
+        changeTextColor('white');
+    }
+}
+
 function fitToContainer() {
     console.log('s');
     var canvas = document.getElementById("bubbly");
@@ -92,6 +156,8 @@ function fitToContainer() {
 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
+
+    recalibrateEMDR();
 }
 
 bubbly({
@@ -149,6 +215,7 @@ function changeColorWhiteOut(element) {
 }
 
 function changeActiveTherapy(element) {
+
     if (element == "therapy1") {
 
         // Enter therapy 1 active
@@ -173,6 +240,11 @@ function changeActiveTherapy(element) {
         document.getElementById("therapyOption2").className = "no-select white meditation-option white margin-left-right";
         document.getElementById("therapyOption3").className = "no-select white meditation-option white";
 
+        var themeValue = e.options[e.selectedIndex].text;
+        if (themeValue == "Light") {
+            changeTextColor('black');
+        }
+
         updateTherapyText('therapy1');
     }
     else if (element == "therapy2") {
@@ -195,6 +267,11 @@ function changeActiveTherapy(element) {
         document.getElementById("therapyOption2").className = "no-select white meditation-option margin-left-right highlight-color";
         document.getElementById("therapyOption1").className = "no-select white meditation-option white";
         document.getElementById("therapyOption3").className = "no-select white meditation-option white";
+
+        var themeValue = e.options[e.selectedIndex].text;
+        if (themeValue == "Light") {
+            changeTextColor('black');
+        }
 
         updateTherapyText('therapy2');
     }
@@ -219,96 +296,103 @@ function changeActiveTherapy(element) {
         document.getElementById("therapyOption1").className = "no-select white meditation-option white";
         document.getElementById("therapyOption2").className = "no-select white meditation-option white margin-left-right";
 
+        var themeValue = e.options[e.selectedIndex].text;
+        if (themeValue == "Light") {
+            changeTextColor('black');
+        }
+
         updateTherapyText('therapy3');
     }
-
-    function updateTherapyText(therapyOption) {
-        if (therapyOption == "therapy1") {
-
-            var therapy1 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
-                '        Breathing' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
-                '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
-                '        Anxiety' +
-                '        and' +
-                '        more.' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-points">' +
-                '        <ul>' +
-                '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
-                '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
-                '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
-                '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
-                '        </ul>' +
-                '      </div>' +
-                '' +
-                '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
-
-                '      </span></div>';
-
-            document.getElementById('meditation-focus-text').innerHTML = therapy1;
-
-        }
-        else if (therapyOption == "therapy2") {
-            var therapy2 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
-                '        EMDR' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
-                '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
-                '        Anxiety' +
-                '        and' +
-                '        more.' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-points">' +
-                '        <ul>' +
-                '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
-                '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
-                '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
-                '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
-                '        </ul>' +
-                '      </div>' +
-                '' +
-                '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
-
-                '      </span></div>';
-
-            document.getElementById('meditation-focus-text').innerHTML = therapy2;
-        }
-        else if (therapyOption == "therapy3") {
-            var therapy3 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
-                '        Auditory' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
-                '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
-                '        Anxiety' +
-                '        and' +
-                '        more.' +
-                '      </div>' +
-                '' +
-                '      <div class="meditation-box-points">' +
-                '        <ul>' +
-                '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
-                '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
-                '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
-                '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
-                '        </ul>' +
-                '      </div>' +
-                '' +
-                '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
-
-                '      </span></div>';
-
-            document.getElementById('meditation-focus-text').innerHTML = therapy3;
-        }
-    }
-
 }
+
+
+function updateTherapyText(therapyOption) {
+    if (therapyOption == "therapy1") {
+
+        var therapy1 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
+            '        Breathing' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
+            '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
+            '        Anxiety' +
+            '        and' +
+            '        more.' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-points">' +
+            '        <ul>' +
+            '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
+            '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
+            '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
+            '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
+            '        </ul>' +
+            '      </div>' +
+            '' +
+            '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
+
+            '      </span></div>';
+
+        document.getElementById('meditation-focus-text').innerHTML = therapy1;
+
+    }
+    else if (therapyOption == "therapy2") {
+        var therapy2 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
+            '        EMDR' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
+            '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
+            '        Anxiety' +
+            '        and' +
+            '        more.' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-points">' +
+            '        <ul>' +
+            '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
+            '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
+            '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
+            '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
+            '        </ul>' +
+            '      </div>' +
+            '' +
+            '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
+
+            '      </span></div>';
+
+        document.getElementById('meditation-focus-text').innerHTML = therapy2;
+    }
+    else if (therapyOption == "therapy3") {
+        var therapy3 = '<div class="meditation-box-header white s1 animated fadeInDownTiny delay1Therapy">' +
+            '        Auditory' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-body white animated fadeInDownTiny delay2Therapy">' +
+            '        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,' +
+            '        Anxiety' +
+            '        and' +
+            '        more.' +
+            '      </div>' +
+            '' +
+            '      <div class="meditation-box-points">' +
+            '        <ul>' +
+            '          <li class="white animated fadeInDownTiny delay3Therapy">Effective, easy to use</li>' +
+            '          <li class="white animated fadeInDownTiny delay4Therapy">Completely customizable to best fit your needs</li>' +
+            '          <li class="white animated fadeInDownTiny delay5Therapy">Placeholder placeholder placeholder</li>' +
+            '          <li class="white animated fadeInDownTiny delay6Therapy">Fix all issues in the modern world</li>' +
+            '        </ul>' +
+            '      </div>' +
+            '' +
+            '      <div class = "row move-up animated fadeInDown delay1"><span class="meditation-box-button margin-top">How does it work?</span><span class="meditation-box-button margin-top">GET STARTED</span>' +
+
+            '      </span></div>';
+
+        document.getElementById('meditation-focus-text').innerHTML = therapy3;
+    }
+}
+
+
 
 function enterTracking(trackingMethod) {
 

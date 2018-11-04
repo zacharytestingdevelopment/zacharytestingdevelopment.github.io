@@ -80,7 +80,7 @@
                         <span class="nav-link js-scroll-trigger animated fadeInDown block-point hide-element"></span>
                     </li>
 
-                    <span class="row">
+                    <span id="login-signup" class="row">
                         <li class="nav-item hide-element">
                             <a class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
                                 href="#c">Log
@@ -88,6 +88,16 @@
                         </li>
                         <li class="nav-item hide-element">
                             <div class="sign-up animated fadeInDown delay2 no-select">SIGN UP</div>
+                        </li>
+                    </span>
+
+                    <span id="logout-account" class="row hidden">
+                        <li class="nav-item hide-element">
+                            <a id="btnLogOut" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in">Log
+                                Out</a>
+                        </li>
+                        <li class="nav-item hide-element">
+                            <div class="sign-up animated fadeInDown delay2 no-select">ACCOUNT</div>
                         </li>
                     </span>
 
@@ -187,26 +197,45 @@
 
                         </div>
                         <div class="col col-lg-6 col-md-6 col-12 eliminate-margin-pad height-gradient">
-                            <div class="sign-up-box col col-11 text-center col-centered shadow">
+
+                            <div id="sign-up-box" class="sign-up-box col col-11 text-center col-centered shadow">
+                                <!--                                <div class="animated fadeIn">
+                                    <div class="log-in-box-header">Hello, Zachary</div>
+                                    <div class="log-in-subheader">You're already logged in!</div>
+                                    <div class="col col-sm-12 col-md-10 col-lg-10 col-centered">
+                                        <input type="button" class="submit-button no-select" value="Go to dashboard" />
+                                        <input onclick="logOut()" type="button" class="submit-button no-select" value="Log out" />
+                                    </div>
+                                </div>
+-->
+
+
+
                                 <div class="log-in-box-header">Sign Up</div>
                                 <div class="log-in-subheader">Already have an account? Log in <a href="login.html"
                                         class="link-style kill-link-style">here</a></div>
 
                                 <form>
                                     <div>
-                                        <input name="email" type="text" class="text-input-style col col-11 col-md-8 col-lg-8 col-centered margin-top"
-                                            placeholder="Email address" />
+                                        <input id="txtName" name="name" type="text" class="text-input-style col col-11 col-md-8 col-lg-8 col-centered margin-top"
+                                            placeholder="Your name" required />
+                                    </div>
+                                    <div>
+                                        <input id="txtEmail" name="email" type="text" class="text-input-style col col-11 col-md-8 col-lg-8 col-centered margin-top"
+                                            placeholder="Email address" required />
                                     </div>
 
                                     <div>
-                                        <input name="password" type="password" class="text-input-style col col-11 col-md-8 col-lg-8 col col-8 col-centered margin-top"
-                                            placeholder="Password" />
+                                        <input id="txtPassword" name="password" type="password" class="text-input-style col col-11 col-md-8 col-lg-8 col col-8 col-centered margin-top"
+                                            placeholder="Password" required />
                                     </div>
                                     <div>
-                                        <input name="confirmPassword" type="password" class="text-input-style col col-11 col-md-8 col-lg-8 col col-8 col-centered margin-top"
-                                            placeholder="Confirm password" />
+                                        <input id="txtConfirmPassword" name="confirmPassword" type="password" class="text-input-style col col-11 col-md-8 col-lg-8 col col-8 col-centered margin-top"
+                                            placeholder="Confirm password" required />
                                     </div>
-                                    <input type="submit" value="Sign Up" class="submit-button no-select" />
+                                    <div id="error-message" class="error-message hidden">Passwords do not match</div>
+                                    <button onclick="signUp()" type="button" id="btnSignUp" class="submit-button no-select">Sign
+                                        Up</button>
 
                                     <div class="margin-top">You can also sign up with...</div>
 
@@ -216,6 +245,7 @@
                                     </div>
 
                                 </form>
+
                             </div>
                         </div>
 
@@ -360,8 +390,24 @@
         <script src="js/morphext.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
         <script src="js/login.js"></script>
+        <script src="js/script.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+                authDomain: "mental-health-suite.firebaseapp.com",
+                databaseURL: "https://mental-health-suite.firebaseio.com",
+                projectId: "mental-health-suite",
+                storageBucket: "mental-health-suite.appspot.com",
+                messagingSenderId: "119327507370"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <script src="js/gradient.js"></script>
+        <script src="js/signup.js"></script>
 
 
 
