@@ -14,6 +14,8 @@ var selectedEasing = "standard";
 var selectedSUDS = "no";
 var selectedVAC = "no";
 
+var settingsLoaded = false;
+
 var sessionOptions = [];
 
 speedSlider.oninput = function () {
@@ -324,8 +326,24 @@ function dashBoard(setting) {
         $("#dashboard-icon-panel2").addClass("highlight-color-blue");
     }
     else if (setting == "exitPanel2") {
-        $("#dashboard-icon-panel2").addClass("white");
+        $("#dashboard-icon-panel2").className = "dashboard-icon dashboard-icon-blue white";
         $("#dashboard-icon-panel2").removeClass("highlight-color-blue");
+    }
+    else if (setting == "enterBlue1") {
+        $("#dash-blue1").removeClass("white");
+        $("#dash-blue1").addClass("highlight-color-blue");
+    }
+    else if (setting == "exitBlue1") {
+        $("#dash-blue1").addClass("white");
+        $("#dash-blue1").removeClass("highlight-color-blue");
+    }
+    else if (setting == "enterCancel") {
+        $("#cancel-panel").removeClass("white");
+        $("#cancel-panel").addClass("highlight-color-blue");
+    }
+    else if (setting == "exitCancel") {
+        $("#cancel-panel").addClass("white");
+        $("#cancel-panel").removeClass("highlight-color-blue");
     }
 
 }
@@ -795,39 +813,8 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 
 function deleteAll() {
-    var database = firebase.database();
-    var user = firebase.auth().currentUser;
-    firebase.database().ref('users/' + user.uid + "/emdr").remove();
-}
-
-function loadSettings() {
-    sessionOptions = [];
-
-    var userID = firebase.auth().currentUser.uid;
-    var rootRef = firebase.database().ref('users');
-    var newRoot = rootRef.child(userID).child('emdr')
-    newRoot.once('value', function (snapshot) {
-        snapshot.forEach(function (_child) {
-            var childElement = _child.key;
-
-            sessionOptions.push(childElement);
-            //console.log(childElement);
-            // populateSettingsOptions();
-        });
-        populateSettingsOptions(sessionOptions);
-    });
-}
-
-function startSession() {
-}
-
-function loadSet(set) {
-    alert(set);
-}
-
-function deleteSet(set) {
     swal({
-        title: "Delete " + set + "?",
+        title: "Delete all sets?",
         icon: "warning",
         text: "This decision cannot be undone.",
         buttons: {
@@ -842,9 +829,74 @@ function deleteSet(set) {
                 case "OK":
                     var database = firebase.database();
                     var user = firebase.auth().currentUser;
-                    firebase.database().ref('users/' + user.uid + "/emdr" + "/" + set).remove();
+                    firebase.database().ref('users/' + user.uid + "/emdr").remove();
+                    var settingOption = "";
+                    settingOption += "<div id=\"no-settings\" class=\"therapy-setting-box margin-top shadow\">";
+                    settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">Add some sets\<\/span>";
+                    settingOption += "                    <div class=\"therapy-setting-box-description\">Your sets will show up here when you save them!";
+                    settingOption += "                    <\/div>";
+                    settingOption += "";
+                    settingOption += "                <\/div>";
+
+                    document.getElementById("therapy-setting-boxes").innerHTML = settingOption;
+
+                    break;
+            }
+        });
+
+}
+
+
+function loadSettings() {
+    if (!settingsLoaded) {
+        sessionOptions = [];
+
+        var userID = firebase.auth().currentUser.uid;
+        var rootRef = firebase.database().ref('users');
+        var newRoot = rootRef.child(userID).child('emdr')
+        newRoot.once('value', function (snapshot) {
+            snapshot.forEach(function (_child) {
+                var childElement = _child.key;
+
+                sessionOptions.push(childElement);
+                //console.log(childElement);
+                // populateSettingsOptions();
+            });
+            populateSettingsOptions(sessionOptions);
+        });
+        settingsLoaded = true;
+    }
+}
+
+function startSession() {
+}
+
+function loadSet(set) {
+    alert(set);
+}
+
+function deleteSet(id, setName) {
+
+    swal({
+        title: "Delete " + setName + "?",
+        icon: "warning",
+        text: "This decision cannot be undone.",
+        buttons: {
+            cancel: "Cancel",
+            confirm: {
+                value: "OK",
+            },
+        },
+    })
+        .then((value) => {
+            switch (value) {
+                case "OK":
+                    var database = firebase.database();
+                    var user = firebase.auth().currentUser;
+                    firebase.database().ref('users/' + user.uid + "/emdr" + "/" + setName).remove();
                     swal("SUCCESS!", "Your set has been deleted.", "success");
-                    document.getElementById("therapy-setting-box" + set).remove();
+                    document.getElementById(id).remove();
+
                     var therapyValue = document.getElementById("therapy-setting-boxes").innerHTML;
                     //console.log("value" + therapyValue);
 
@@ -866,15 +918,17 @@ function deleteSet(set) {
 
 }
 
-function populateSettingsOptions(child) {
-
-    document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
-
+function populateSavedSettings(child) {
+    console.log("ENTER SAVED SETTINGS");
+    document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
 
     if (child.length > 0) {
         for (var i = 0; i < child.length; i++) {
 
-            var id = "therapy-setting-box" + child[i];
+            var str = child[i].replace(/\s+/g, '');
+            //console.log("no spaces " + str);
+            var id = "therapy-setting-box" + str;
+
             console.log(id);
 
             var settingOption = "";
@@ -885,12 +939,64 @@ function populateSettingsOptions(child) {
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + child[i] + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + id + "\");'\">";
             settingOption += "                            Load set";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + child[i] + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\");'\">";
+            settingOption += "                            Delete";
+            settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"trash\"><\/ion-icon>";
+            settingOption += "                        <\/span>";
+            settingOption += "                    <\/div>";
+            settingOption += "                <\/div>";
+
+            document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
+        }
+    }
+    else {
+        var settingOption = "";
+        settingOption += "<div id=\"no-settings\" class=\"therapy-setting-box margin-top shadow\">";
+        settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">Add some sets\<\/span>";
+        settingOption += "                    <div class=\"therapy-setting-box-description\">Your sets will show up here when you save them!";
+        settingOption += "                    <\/div>";
+        settingOption += "";
+        settingOption += "                <\/div>";
+
+        document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
+    }
+}
+
+function populateSettingsOptions(child) {
+
+
+    document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+    //console.log(child);
+
+
+    // TO DO: FILL THESE BOXES WITH SET DESCRIPTION
+    //var database = firebase.database();
+    //var user = firebase.auth().currentUser;
+
+    if (child.length > 0) {
+        for (var i = 0; i < child.length; i++) {
+
+            var str = child[i].replace(/\s+/g, '');
+            var id = "therapy-setting-box" + str;
+
+            var settingOption = "";
+            settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top shadow\">";
+            settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">" + child[i] + "<\/span>";
+            settingOption += "                    <div class=\"therapy-setting-box-description\">Secretly is Eugene Kim";
+            settingOption += "                    <\/div>";
+            settingOption += "";
+            settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + id + "\");'\">";
+            settingOption += "                            Load set";
+            settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
+            settingOption += "                        <\/span>";
+            settingOption += "";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
             settingOption += "                            Delete";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"trash\"><\/ion-icon>";
             settingOption += "                        <\/span>";
@@ -917,127 +1023,206 @@ function deleteSettings() {
     document.getElementById("therapy-setting-boxes").innerHTML = "";
 }
 
+function deleteSaved() {
+    document.getElementById("set-input").value = "";
+    document.getElementById("set-input-description").value = "";
+    document.getElementById("therapy-setting-boxes-saved").innerHTML = "";
+}
+
+function closeSavePanel() {
+    document.getElementById("gradient3").className = "col col-md-6 col-lg-5 session-selection";
+    setTimeout(function () { deleteSaved(); }, 300);
+}
+
 function closeSettingsPanel() {
+    settingsLoaded = false;
     document.getElementById("gradient2").className = "col col-md-6 col-lg-5 session-selection";
     setTimeout(function () { deleteSettings(); }, 300);
 
     //Invoke("document.getElementById("therapy-setting-boxes").innerHTML = """, ;
 }
 
+function saveSettingsBox() {
+    document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+}
 
 function saveSettings() {
-    var sessionSave = "/s";
-
-    /*
-    if (selectedSessionCount == "custom") {
-        selectedSessionCount = document.getElementById("session-count").value;
-    }
- 
-    if (selectedSessionLength == "custom") {
-        selectedSessionLength = document.getElementById("custom-session-length").value;
-    }
- 
-    if (selectedSUDS == "yes") {
-        selectedSUDS = document.getElementById("suds-initial").value;
-    }
- 
-    if (selectedVAC == "yes") {
-        selectedVAC = document.getElementById("vac-initial").value;
-    }
-    */
-    swal({
-        title: "Save session",
-        text: "Easing controls the smoothness of movement of the EMDR element during therapy. Try playing with the different options to see how they effect movement! ",
-        icon: "info",
-        content: "input",
-        customClass: "swal-wide"
-    })
-        .then(function (value) {
-
-            sessionSave = "/" + value;
-            var database = firebase.database();
-            var user = firebase.auth().currentUser;
-            console.log(user);
-            console.log(selectedSessionCount);
-
-            if (selectedSessionCount == "custom") {
-                selectedSessionCount = document.getElementById("session-count").value;
-            }
-
-            if (selectedSessionLength == "custom") {
-                selectedSessionLength = document.getElementById("session-length").value;
-            }
-
-            if (selectedSUDS == "yes") {
-                selectedSUDS = document.getElementById("suds-initial").value;
-            }
-
-            if (selectedVAC == "yes") {
-                selectedVAC = document.getElementById("vac-initial").value;
-            }
-
-            const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
-            const speedValue = document.getElementById("speedRange").value;
-            const backgroundTheme = document.getElementById("background-color").value;
-            const elementTheme = document.getElementById("element-color").value;
-
-            firebase.database().ref('users/' + user.uid + "/emdr" + sessionSave).set({
-                emdrSpeed: speedValue,
-                emdrShape: selectedshape,
-                backgroundColorTheme: backgroundTheme,
-                elementColorTheme: elementTheme,
-                elementThemeName: selectedTheme,
-                switchDirection: switchDirectionSound,
-                backgroundAudio: selectedBackgroundAudio,
-                sessionCount: selectedSessionCount,
-                sessionLength: selectedSessionLength,
-                selectedPathing: pathing,
-                easing: selectedEasing,
-                SUDS: selectedSUDS,
-                VAC: selectedVAC
-            });
-
-            if (selectedSessionCount != "1" && selectedSessionCount != "3" && selectedSessionCount != "5" && selectedSessionCount != "unlimited") {
-                selectedSessionCount = "custom";
-            }
-
-            if (selectedSessionLength != "30" && selectedSessionLength != "45" && selectedSessionLength != "60" && selectedSessionLength != "unlimited") {
-                selectedSessionLength = "custom";
-            }
-
-            if (selectedSUDS != "no") {
-                selectedSUDS = "yes";
-            }
-
-            if (selectedVAC != "no") {
-                selectedVAC = "yes";
-            }
-
-
-        })
-
-
-    console.log(sessionSave);
 
 
 
-    console.log("starting data");
-    /*
-    userReference.once('value', snapshot => {
- 
- 
-        console.log("SET STARTING DATA");
-        userReference.set({
-            userName: userName,
-            email: firebaseUser.email,
+    var value = document.getElementById("set-input").value;
+    var setDescription = document.getElementById("set-input-description").value;
+    if (value.length > 0) {
+        sessionSave = "/" + value;
+        var database = firebase.database();
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        console.log(selectedSessionCount);
+
+        if (selectedSessionCount == "custom") {
+            selectedSessionCount = document.getElementById("session-count").value;
+        }
+
+        if (selectedSessionLength == "custom") {
+            selectedSessionLength = document.getElementById("session-length").value;
+        }
+
+        if (selectedSUDS == "yes") {
+            selectedSUDS = document.getElementById("suds-initial").value;
+        }
+
+        if (selectedVAC == "yes") {
+            selectedVAC = document.getElementById("vac-initial").value;
+        }
+
+        const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
+        const speedValue = document.getElementById("speedRange").value;
+        const backgroundTheme = document.getElementById("background-color").value;
+        const elementTheme = document.getElementById("element-color").value;
+
+        firebase.database().ref('users/' + user.uid + "/emdr" + sessionSave).set({
+            setDescription: setDescription,
+            emdrSpeed: speedValue,
+            emdrShape: selectedshape,
+            backgroundColorTheme: backgroundTheme,
+            elementColorTheme: elementTheme,
+            elementThemeName: selectedTheme,
+            switchDirection: switchDirectionSound,
+            backgroundAudio: selectedBackgroundAudio,
+            sessionCount: selectedSessionCount,
+            sessionLength: selectedSessionLength,
+            selectedPathing: pathing,
+            easing: selectedEasing,
+            SUDS: selectedSUDS,
+            VAC: selectedVAC
         });
-        
+
+        if (selectedSessionCount != "1" && selectedSessionCount != "3" && selectedSessionCount != "5" && selectedSessionCount != "unlimited") {
+            selectedSessionCount = "custom";
+        }
+
+        if (selectedSessionLength != "30" && selectedSessionLength != "45" && selectedSessionLength != "60" && selectedSessionLength != "unlimited") {
+            selectedSessionLength = "custom";
+        }
+
+        if (selectedSUDS != "no") {
+            selectedSUDS = "yes";
+        }
+
+        if (selectedVAC != "no") {
+            selectedVAC = "yes";
+        }
+
+        swal("SUCCESS!", "Your set has been created.", "success");
+        closeSavePanel();
+    }
+    else {
+        //No value entered for set name 
+        document.getElementById("set-input").className = "text-input save-input margin-top-tiny text-input-error";
+        var inputError = "";
+        inputError += "<span class=\"set-input-error-text animated fadeIn\">Please enter a value<\/span>";
+        document.getElementById("set-input-error").innerHTML = inputError;
+    }
+
+}
+
+
+/*
+var sessionSave = "/s";
+swal({
+    title: "Save session",
+    text: "Easing controls the smoothness of movement of the EMDR element during therapy. Try playing with the different options to see how they effect movement! ",
+    icon: "info",
+    content: "input",
+    customClass: "swal-wide"
+})
+    .then(function (value) {
+
+        sessionSave = "/" + value;
+        var database = firebase.database();
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        console.log(selectedSessionCount);
+
+        if (selectedSessionCount == "custom") {
+            selectedSessionCount = document.getElementById("session-count").value;
+        }
+
+        if (selectedSessionLength == "custom") {
+            selectedSessionLength = document.getElementById("session-length").value;
+        }
+
+        if (selectedSUDS == "yes") {
+            selectedSUDS = document.getElementById("suds-initial").value;
+        }
+
+        if (selectedVAC == "yes") {
+            selectedVAC = document.getElementById("vac-initial").value;
+        }
+
+        const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
+        const speedValue = document.getElementById("speedRange").value;
+        const backgroundTheme = document.getElementById("background-color").value;
+        const elementTheme = document.getElementById("element-color").value;
+
+        firebase.database().ref('users/' + user.uid + "/emdr" + sessionSave).set({
+            emdrSpeed: speedValue,
+            emdrShape: selectedshape,
+            backgroundColorTheme: backgroundTheme,
+            elementColorTheme: elementTheme,
+            elementThemeName: selectedTheme,
+            switchDirection: switchDirectionSound,
+            backgroundAudio: selectedBackgroundAudio,
+            sessionCount: selectedSessionCount,
+            sessionLength: selectedSessionLength,
+            selectedPathing: pathing,
+            easing: selectedEasing,
+            SUDS: selectedSUDS,
+            VAC: selectedVAC
+        });
+
+        if (selectedSessionCount != "1" && selectedSessionCount != "3" && selectedSessionCount != "5" && selectedSessionCount != "unlimited") {
+            selectedSessionCount = "custom";
+        }
+
+        if (selectedSessionLength != "30" && selectedSessionLength != "45" && selectedSessionLength != "60" && selectedSessionLength != "unlimited") {
+            selectedSessionLength = "custom";
+        }
+
+        if (selectedSUDS != "no") {
+            selectedSUDS = "yes";
+        }
+
+        if (selectedVAC != "no") {
+            selectedVAC = "yes";
+        }
+
+
+    })
+    */
+
+
+console.log(sessionSave);
+
+
+
+console.log("starting data");
+/*
+userReference.once('value', snapshot => {
+ 
+ 
+    console.log("SET STARTING DATA");
+    userReference.set({
+        userName: userName,
+        email: firebaseUser.email,
+    });
+    
  
  
  
 });*/
 
-}
+
 
 window.addEventListener('resize', recalibrateEMDR);
 

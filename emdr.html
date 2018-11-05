@@ -80,6 +80,50 @@
             </div>
 
 
+            <div id="gradient3" class="col col-md-6 col-lg-5 session-selection animated fadeInDown green-background">
+                <Div class="row dashboard-nav">
+                    <span class="dashboard-button dashboard-button-blue no-select" onmouseover="dashBoard('enterCancel')"
+                        onmouseout="dashBoard('exitCancel')" onclick="closeSavePanel()">
+                        <ion-icon id="cancel-panel" class="dashboard-icon dashboard-icon-blue white" name="close-circle"></ion-icon>
+                        CANCEL
+                    </span>
+                </Div>
+                <div class="section-selection-header white margin-top">SAVE OPTIONS</div>
+
+                <div class="therapy-settings-body margin-top-tiny white">Here you can save different sets of your
+                    favorite settings so that
+                    you can use them anytime in the future.
+                </div>
+                <div class="therapy-setting-box margin-top shadow">
+                    <div class="therapy-setting-box-header">Create a new set</div>
+                    <div class="therapy-setting-box-description">Save your settings to use later</div>
+                    <input id="set-input" type="text" class="text-input save-input margin-top-tiny" placeholder="Enter set name" />
+                    <div id="set-input-error">
+
+                    </div>
+                    <textarea id="set-input-description" class="text-input textarea margin-top-tiny" placeholder="Set description (optional)"></textarea>
+                    <div class="therapy-setting-box-buttons margin-top-setting">
+                        <span class="therapy-setting-box-button no-select" onclick="saveSettings()">Create set
+
+                            <ion-icon class="therapy-setting-box-icon margin-right" name="checkmark-circle-outline"></ion-icon>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="therapy-setting-boxes-saved"></div>
+
+
+
+                <span onmouseover="dashBoard('enterBlue1')" onmouseout="dashBoard('exitBlue1')" class="dashboard-button go-back-button dashboard-button-blue margin-right margin-top-large no-select"
+                    onclick="closeSavePanel()">
+                    <ion-icon id="dash-blue1" class="dashboard-icon dashboard-icon-blue white" name="home"></ion-icon>
+                    GO BACK
+                </span>
+
+
+            </div>
+
+
 
             <div id="gradient" class="col col-md-6 col-lg-5 settings-panel green-background">
                 <div class="row dashboard-nav">
@@ -91,7 +135,8 @@
                 </div>
 
                 <div class="therapy-settings-header white margin-top">EMDR</div>
-                <div class="therapy-settings-body margin-top-tiny white">EMDR is a therapy used to treat anxiety, OCD,
+                <div class="therapy-settings-body margin-top-tiny white">EMDR is a therapy used to treat anxiety,
+                    OCD,
                     PTSD,
                     and much
                     more. View the research here.</div>
@@ -281,13 +326,16 @@
                                 <div>
                                     <span id="standard" class="preset-item no-select preset-item-selected" onclick="easing('standard')">Standard</span>
                                     <span id="linear" class="preset-item no-select margin-left-right" onclick="easing('linear')">Linear</span>
-                                    <span id="cubic" class="preset-item no-select" onclick="easing('cubic')">Ease Cubic</span>
+                                    <span id="cubic" class="preset-item no-select" onclick="easing('cubic')">Ease
+                                        Cubic</span>
                                 </div>
                                 <div class="margin-top">
-                                    <span id="sine" class="preset-item no-select" onclick="easing('sine')">Ease Sine</span>
+                                    <span id="sine" class="preset-item no-select" onclick="easing('sine')">Ease
+                                        Sine</span>
                                     <span id="circ" class="preset-item no-select margin-left-right" onclick="easing('circ')">Ease
                                         Circ</span>
-                                    <span id="back" class="preset-item no-select" onclick="easing('back')">Ease Back</span>
+                                    <span id="back" class="preset-item no-select" onclick="easing('back')">Ease
+                                        Back</span>
                                 </div>
                             </div>
 
@@ -341,7 +389,7 @@
 
                 <div class="therapy-settings-useage white margin-top-large pad-right no-select" onclick="startSession()">Start
                     session</div>
-                <div class="therapy-settings-useage white no-select" onclick="saveSettings()">Save settings</div>
+                <div class="therapy-settings-useage white no-select" onclick="saveSettingsBox()">Save settings</div>
 
 
 

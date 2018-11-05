@@ -564,6 +564,75 @@ input[type="color"]::-webkit-color-swatch {
     background: #fff;
 }
 
+.text-input-error
+{
+   border:2.5px solid #e64c3c !important;
+}
+
+.text-input-error:focus
+{
+    background: #e64c3c !important;
+}
+
+.set-input-error-text
+{
+    font-size: 15px;
+    color:#e64c3c;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #454545;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #454545;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #454545;
+}
+
+
+input:focus::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.textarea
+{
+
+    width:85%;
+    transition: all .1s ease 0s;
+    min-height: 80px;
+    max-height: 640px;
+}
+
+.textarea:focus::placeholder
+{
+    color:#fff !important;
+}
+
+
+.text-input
+{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    font-size: 16px;
+    border:2.5px solid #454545;
+    color:#454545;
+    transition: all .3s ease 0s;
+}
+
+.text-input:focus
+{
+    background:#454545;
+    color:#fff;
+}
+
 .dashboard-button-blue
 {
     padding-left:12px;
