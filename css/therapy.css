@@ -235,9 +235,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .preset-item
 {
+    margin-top:5px;
     border-radius: 10px;
     position: relative;
-    top:10px;
+    top:0px;
     border: 2.5px solid #3ee986;
     color:#3ee986;
     padding-top:4px;
@@ -484,6 +485,18 @@ input[type="color"]::-webkit-color-swatch {
     background:#fff;
 }
 
+.therapy-setting-box-green
+{
+    padding-left:20px;
+    padding-bottom:20px;
+    padding-right:20px;
+    padding-top:20px;
+    width:100%;
+    border: 2.5px solid #fff;
+    color:#fff;
+    border-radius: 10px;
+}
+
 .therapy-setting-box
 {
     padding-left:20px;
@@ -508,9 +521,32 @@ input[type="color"]::-webkit-color-swatch {
     color:inherit;
 }
 
+.therapy-setting-box-header-green
+{
+    font-size: 24px;
+    color:#fff;
+}
+
 .therapy-setting-box-header
 {
     font-size: 24px;
+    color:#4257b2;
+}
+
+.therapy-setting-box-button-green
+{
+    padding:7px;
+    border-radius: 10px;
+    font-size: 15px;
+    border:2.5px solid #fff;
+    color:#fff;
+    transition: all .3s ease 0s; 
+}
+
+.therapy-setting-box-button-green:hover
+{
+    cursor: pointer;
+    background:#ffff;
     color:#4257b2;
 }
 
@@ -535,6 +571,12 @@ input[type="color"]::-webkit-color-swatch {
 {
     border: 2.5px solid #E74C3C;
     background: #E74C3C;
+}
+
+.therapy-setting-box-description-green
+{
+    font-size: 16px;
+    color:#fff;
 }
 
 .therapy-setting-box-description

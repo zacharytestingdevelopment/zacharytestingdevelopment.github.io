@@ -94,6 +94,19 @@
                     favorite settings so that
                     you can use them anytime in the future.
                 </div>
+                <div id="therapy-setting-box-current"></div>
+                <!--
+                <div class="therapy-setting-box-green margin-top shadow">
+                    <div class="therapy-setting-box-header-green">Zach Jordan</div>
+                    <div class="therapy-setting-box-description-green">Update your currently selected set</div>
+
+                    <div class="therapy-setting-box-buttons margin-top-setting">
+                        <span class="therapy-setting-box-button-green no-select" onclick="saveSettings()">Update set
+
+                            <ion-icon class="therapy-setting-box-icon margin-right" name="checkmark-circle-outline"></ion-icon>
+                        </span>
+                    </div>
+                </div>-->
                 <div class="therapy-setting-box margin-top shadow">
                     <div class="therapy-setting-box-header">Create a new set</div>
                     <div class="therapy-setting-box-description">Save your settings to use later</div>
@@ -101,7 +114,8 @@
                     <div id="set-input-error">
 
                     </div>
-                    <textarea id="set-input-description" class="text-input textarea margin-top-tiny" placeholder="Set description (optional)"></textarea>
+                    <textarea maxlength="300" id="set-input-description" class="text-input textarea margin-top-tiny"
+                        placeholder="Set description (optional)"></textarea>
                     <div class="therapy-setting-box-buttons margin-top-setting">
                         <span class="therapy-setting-box-button no-select" onclick="saveSettings()">Create set
 
@@ -125,7 +139,7 @@
 
 
 
-            <div id="gradient" class="col col-md-6 col-lg-5 settings-panel green-background">
+            <div id="gradient" class="col col-12 col-md-6 col-lg-5 settings-panel green-background">
                 <div class="row dashboard-nav">
                     <span class="dashboard-button no-select" onmouseover="dashBoard('enter')" onmouseout="dashBoard('exit')">
                         <ion-icon id="dashboard-icon-home" class="dashboard-icon white" name="home"></ion-icon>
@@ -157,9 +171,10 @@
                                 <input id="speedRange" class="range-slider" type="range" min="1" max="100" value="50">
                             </div>
                             <div class="presets">
-                                <span class="preset-item no-select" onclick="speed('slow')">Slow</span>
-                                <span id="speed-medium" class="preset-item no-select margin-left-right" onclick="speed('medium')">Medium</span>
-                                <span class="preset-item no-select" onclick="speed('fast')">Fast</span>
+                                <div class="preset-item no-select inline-block" onclick="speed('slow')">Slow</div>
+                                <div id="speed-medium" class="preset-item no-select margin-left-right inline-block"
+                                    onclick="speed('medium')">Medium</div>
+                                <div class="preset-item no-select inline-block" onclick="speed('fast')">Fast</div>
                             </div>
 
                             <div class="setting-category margin-top-setting margin-top-large">ELEMENT SHAPE</div>
@@ -214,15 +229,16 @@
                             <div class="setting-category margin-top-setting">PRESETS</div>
                             <div class="presets">
                                 <div>
-                                    <span id="light" class="preset-item no-select preset-item-selected" onclick="theme('light')">Light</span>
-                                    <span id="dark" class="preset-item no-select margin-left-right" onclick="theme('dark')">Dark</span>
-                                    <span id="aqua" class="preset-item no-select" onclick="theme('aqua')">Aqua</span>
+                                    <div id="light" class="preset-item no-select preset-item-selected inline-block"
+                                        onclick="theme('light')">Light</div>
+                                    <div id="dark" class="preset-item no-select margin-left-right inline-block" onclick="theme('dark')">Dark</div>
+                                    <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
                                 </div>
 
-                                <div class="margin-top">
-                                    <span id="contrast" class="preset-item no-select" onclick="theme('contrast')">Contrast</span>
-                                    <span id="ruby" class="preset-item no-select margin-left-right" onclick="theme('ruby')">Ruby</span>
-                                    <span id="custom" class="preset-item no-select" onclick="theme('custom')">Custom</span>
+                                <div>
+                                    <div id="contrast" class="preset-item no-select inline-block" onclick="theme('contrast')">Contrast</div>
+                                    <div id="ruby" class="preset-item no-select margin-left-right inline-block" onclick="theme('ruby')">Ruby</div>
+                                    <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
                                 </div>
                             </div>
 
@@ -230,10 +246,10 @@
                                     onclick="information('switchDirection')"><span class="question-mark">?</span></div>
                             <div class="presets">
                                 <div>
-                                    <span id="none-direction" class="preset-item no-select preset-item-selected"
-                                        onclick="switchDirection('none')">None</span>
-                                    <span id="ding" class="preset-item no-select margin-left-right" onclick="switchDirection('ding')">Ding</span>
-                                    <span id="drop" class="preset-item no-select" onclick="switchDirection('drop')">Drop</span>
+                                    <div id="none-direction" class="preset-item no-select preset-item-selected inline-block"
+                                        onclick="switchDirection('none')">None</div>
+                                    <div id="ding" class="preset-item no-select margin-left-right inline-block" onclick="switchDirection('ding')">Ding</div>
+                                    <div id="drop" class="preset-item no-select inline-block" onclick="switchDirection('drop')">Drop</div>
                                 </div>
 
 
@@ -242,15 +258,18 @@
                             <div class="setting-category margin-top-large">BACKGROUND SOUNDS</div>
                             <div class="presets">
                                 <div>
-                                    <span id="none" class="preset-item no-select preset-item-selected" onclick="backgroundSound('none')">None</span>
-                                    <span id="ambient" class="preset-item no-select margin-left-right" onclick="backgroundSound('ambient')">Ambient</span>
-                                    <span id="waves" class="preset-item no-select" onclick="backgroundSound('waves')">Waves</span>
+                                    <div id="none" class="preset-item no-select preset-item-selected inline-block"
+                                        onclick="backgroundSound('none')">None</div>
+                                    <div id="ambient" class="preset-item no-select margin-left-right inline-block"
+                                        onclick="backgroundSound('ambient')">Ambient</div>
+                                    <div id="waves" class="preset-item no-select inline-block" onclick="backgroundSound('waves')">Waves</div>
                                 </div>
 
-                                <div class="margin-top">
-                                    <span id="outdoors" class="preset-item no-select" onclick="backgroundSound('outdoors')">Outdoors</span>
-                                    <span id="space" class="preset-item no-select margin-left-right" onclick="backgroundSound('space')">Space</span>
-                                    <span id="piano" class="preset-item no-select" onclick="backgroundSound('piano')">Piano</span>
+                                <div>
+                                    <div id="outdoors" class="preset-item no-select inline-block" onclick="backgroundSound('outdoors')">Outdoors</div>
+                                    <div id="space" class="preset-item no-select margin-left-right inline-block"
+                                        onclick="backgroundSound('space')">Space</div>
+                                    <div id="piano" class="preset-item no-select inline-block" onclick="backgroundSound('piano')">Piano</div>
                                 </div>
                             </div>
 
@@ -270,11 +289,12 @@
                         <div class="white">
                             <div class="setting-category margin-top-setting">NUMBER OF SESSIONS</div>
                             <div>
-                                <span id="session1" class="preset-item no-select" onclick="sessionCount('one')">1</span>
-                                <span id="session3" class="preset-item no-select preset-item-selected" onclick="sessionCount('three')">3</span>
-                                <span id="session5" class="preset-item no-select" onclick="sessionCount('five')">5</span>
-                                <span id="sessionUnlimited" class="preset-item no-select" onclick="sessionCount('unlimited')">Unlimited</span>
-                                <span id="sessionCustom" class="preset-item no-select" onclick="sessionCount('custom')">Custom</span>
+                                <div id="session1" class="preset-item no-select inline-block" onclick="sessionCount('one')">1</div>
+                                <div id="session3" class="preset-item no-select preset-item-selected inline-block"
+                                    onclick="sessionCount('three')">3</div>
+                                <div id="session5" class="preset-item no-select inline-block" onclick="sessionCount('five')">5</div>
+                                <div id="sessionUnlimited" class="preset-item no-select inline-block" onclick="sessionCount('unlimited')">Unlimited</div>
+                                <div id="sessionCustom" class="preset-item no-select inline-block" onclick="sessionCount('custom')">Custom</div>
                             </div>
 
                             <div id="custom-session-time" class="hidden">
@@ -284,11 +304,12 @@
 
                             <div class="setting-category margin-top-large">SESSION LENGTH (IN SECONDS)</div>
                             <div>
-                                <span id="time30" class="preset-item no-select" onclick="timeCount('thirty')">30</span>
-                                <span id="time45" class="preset-item no-select preset-item-selected" onclick="timeCount('fourtyFive')">45</span>
-                                <span id="time60" class="preset-item no-select" onclick="timeCount('sixty')">60</span>
-                                <span id="timeUnlimited" class="preset-item no-select" onclick="timeCount('unlimited')">Unlimited</span>
-                                <span id="timeCustom" class="preset-item no-select" onclick="timeCount('custom')">Custom</span>
+                                <div id="time30" class="preset-item no-select inline-block" onclick="timeCount('thirty')">30</div>
+                                <div id="time45" class="preset-item no-select inline-block preset-item-selected"
+                                    onclick="timeCount('fourtyFive')">45</div>
+                                <div id="time60" class="preset-item no-select inline-block" onclick="timeCount('sixty')">60</div>
+                                <div id="timeUnlimited" class="preset-item no-select inline-block" onclick="timeCount('unlimited')">Unlimited</div>
+                                <div id="timeCustom" class="preset-item no-select inline-block" onclick="timeCount('custom')">Custom</div>
                             </div>
                             <div id="custom-session-length" class="hidden">
                                 <input id="session-length" type="number" placeholder="Enter length" class="number-input-style"
@@ -395,7 +416,7 @@
 
 
             </div>
-            <div id="preview-pane" class="vertical-center col col-md-6 col-lg-7 pad-preview preview-pane">
+            <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
                 <div class="preview-text text-right animated fadeInDown delay1Therapy">
                     PREVIEW
                     <div class="preview-text-subheader">Loaded set: <span id="active-set">new set</span></div>

@@ -1,4 +1,9 @@
 
+//TODO: 
+// - If I delete the current set, it should make the active set none
+// - It should be required to have a value for the number of sessions and value
+// - Allow users to edit session names + descriptions 
+
 
 var speedSlider = document.getElementById("speedRange");
 var speedOutput = document.getElementById("speedOutput");
@@ -15,8 +20,12 @@ var selectedSUDS = "no";
 var selectedVAC = "no";
 
 var settingsLoaded = false;
+var settingsBoxLoaded = false;
 
 var sessionOptions = [];
+var sessionOptionsBox = [];
+
+var activeSet = "none";
 
 speedSlider.oninput = function () {
     adjustSpeed();
@@ -55,9 +64,6 @@ function recalibrateEMDR() {
         easing: "linear"
     });
 }
-
-
-
 
 /* Closing and opening options */
 var speedMovement = false;
@@ -664,7 +670,7 @@ function sessionCount(sessionCount) {
         document.getElementById("custom-session-time").className = "hidden";
 
 
-        selectedSessionCount = "1";
+        selectedSessionCount = "one";
     }
     else if (sessionCount == "three") {
         $("#session1").removeClass("preset-item-selected");
@@ -675,7 +681,7 @@ function sessionCount(sessionCount) {
 
         document.getElementById("custom-session-time").className = "hidden";
 
-        selectedSessionCount = "3";
+        selectedSessionCount = "three";
     }
     else if (sessionCount == "five") {
         $("#session1").removeClass("preset-item-selected");
@@ -686,7 +692,7 @@ function sessionCount(sessionCount) {
 
         document.getElementById("custom-session-time").className = "hidden";
 
-        selectedSessionCount = "5";
+        selectedSessionCount = "five";
     }
     else if (sessionCount == "unlimited") {
         $("#session1").removeClass("preset-item-selected");
@@ -722,7 +728,7 @@ function timeCount(timeCount) {
 
         document.getElementById("custom-session-length").className = "hidden";
 
-        selectedSessionLength = "30";
+        selectedSessionLength = "thirty";
     }
     else if (timeCount == "fourtyFive") {
         $("#time30").removeClass("preset-item-selected");
@@ -733,7 +739,7 @@ function timeCount(timeCount) {
 
         document.getElementById("custom-session-length").className = "hidden";
 
-        selectedSessionLength = "45";
+        selectedSessionLength = "fourtyFive";
     }
     else if (timeCount == "sixty") {
         $("#time30").removeClass("preset-item-selected");
@@ -744,7 +750,7 @@ function timeCount(timeCount) {
 
         document.getElementById("custom-session-length").className = "hidden";
 
-        selectedSessionLength = "60";
+        selectedSessionLength = "sixty";
     }
     else if (timeCount == "unlimited") {
         $("#time30").removeClass("preset-item-selected");
@@ -827,7 +833,9 @@ function deleteAll() {
         .then((value) => {
             switch (value) {
                 case "OK":
+                    activeSet = "none";
                     var database = firebase.database();
+                    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
                     var user = firebase.auth().currentUser;
                     firebase.database().ref('users/' + user.uid + "/emdr").remove();
                     var settingOption = "";
@@ -872,7 +880,73 @@ function startSession() {
 }
 
 function loadSet(set) {
-    alert(set);
+    activeSet = set;
+    closeSettingsPanel();
+    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
+
+    var database = firebase.database();
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr" + "/" + activeSet);
+
+    desc.on('value', function (snapshot) {
+
+        //Load EMDR settings 
+        document.getElementById("speedRange").value = snapshot.val().emdrSpeed;
+        document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
+        shapeCategorySelect(snapshot.val().emdrShape);
+        if (snapshot.val().elementThemeName == "custom") {
+            document.getElementById("preview-pane").style.backgroundColor = snapshot.val().backgroundColorTheme;
+            document.getElementById("element").style.backgroundColor = snapshot.val().elementColorTheme;
+            theme("custom");
+        }
+        else {
+            theme(snapshot.val().elementThemeName);
+        }
+        switchDirection(snapshot.val().switchDirection);
+        backgroundSound(snapshot.val().backgroundAudio);
+
+        if (snapshot.val().sessionCount != "one" && snapshot.val().sessionCount != "three" && snapshot.val().sessionCount != "five" && snapshot.val().sessionCount != "unlimited") {
+            sessionCount("custom");
+            document.getElementById("session-count").value = snapshot.val().sessionCount;
+        }
+        else {
+            sessionCount(snapshot.val().sessionCount);
+        }
+
+        if (snapshot.val().sessionLength != "thirty" && snapshot.val().sessionLength != "fourtyFive" && snapshot.val().sessionLength != "sixty" && snapshot.val().sessionLength != "unlimited") {
+            timeCount("custom");
+            document.getElementById("session-length").value = snapshot.val().sessionLength;
+        }
+        else {
+            timeCount(snapshot.val().sessionLength);
+        }
+
+        myPathing(snapshot.val().selectedPathing);
+        easing(snapshot.val().easing);
+
+        if (snapshot.val().SUDS != "no") {
+            suds("yes");
+            document.getElementById("suds-initial").value = snapshot.val().SUDS;
+        }
+        else {
+            suds("no");
+        }
+
+        if (snapshot.val().VAC != "no") {
+            vac("yes");
+            document.getElementById("vac-initial").value = snapshot.val().VAC;
+        }
+        else {
+            vac("no");
+        }
+
+
+
+        var description = snapshot.val().setDescription;
+        var setDescription = snapshot.val().setDescriptionID;
+        console.log(description);
+    });
+
 }
 
 function deleteSet(id, setName) {
@@ -918,80 +992,246 @@ function deleteSet(id, setName) {
 
 }
 
-function populateSavedSettings(child) {
-    console.log("ENTER SAVED SETTINGS");
-    document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+function updateSet(updatedSet) {
 
+    //Set updated set to current set
+
+    activeSet = updatedSet;
+    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
+    var database = firebase.database();
+    var user = firebase.auth().currentUser;
+    console.log(user);
+    console.log(selectedSessionCount);
+
+    if (selectedSessionCount == "custom") {
+        selectedSessionCount = document.getElementById("session-count").value;
+    }
+
+    if (selectedSessionLength == "custom") {
+        selectedSessionLength = document.getElementById("session-length").value;
+    }
+
+    if (selectedSUDS == "yes") {
+        selectedSUDS = document.getElementById("suds-initial").value;
+    }
+
+    if (selectedVAC == "yes") {
+        selectedVAC = document.getElementById("vac-initial").value;
+    }
+
+    var str = updatedSet.replace(/\s+/g, '');
+    var id = "descriptiontherapy-setting-box" + str;
+
+    const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
+    const speedValue = document.getElementById("speedRange").value;
+    const backgroundTheme = document.getElementById("background-color").value;
+    const elementTheme = document.getElementById("element-color").value;
+
+    firebase.database().ref('users/' + user.uid + "/emdr/" + updatedSet).update({
+        //setDescription: setDescription,
+        //setDescriptionID: id,
+        emdrSpeed: speedValue,
+        emdrShape: selectedshape,
+        backgroundColorTheme: backgroundTheme,
+        elementColorTheme: elementTheme,
+        elementThemeName: selectedTheme,
+        switchDirection: switchDirectionSound,
+        backgroundAudio: selectedBackgroundAudio,
+        sessionCount: selectedSessionCount,
+        sessionLength: selectedSessionLength,
+        selectedPathing: pathing,
+        easing: selectedEasing,
+        SUDS: selectedSUDS,
+        VAC: selectedVAC
+    });
+
+    if (selectedSessionCount != "1" && selectedSessionCount != "3" && selectedSessionCount != "5" && selectedSessionCount != "unlimited") {
+        selectedSessionCount = "custom";
+    }
+
+    if (selectedSessionLength != "30" && selectedSessionLength != "45" && selectedSessionLength != "60" && selectedSessionLength != "unlimited") {
+        selectedSessionLength = "custom";
+    }
+
+    if (selectedSUDS != "no") {
+        selectedSUDS = "yes";
+    }
+
+    if (selectedVAC != "no") {
+        selectedVAC = "yes";
+    }
+
+    swal("SUCCESS!", "Your set has been updated.", "success");
+    closeSavePanel();
+
+    /*
+    if (selectedSessionCount == "custom") {
+        selectedSessionCount = document.getElementById("session-count").value;
+    }
+
+    if (selectedSessionLength == "custom") {
+        selectedSessionLength = document.getElementById("session-length").value;
+    }
+
+    if (selectedSUDS == "yes") {
+        selectedSUDS = document.getElementById("suds-initial").value;
+    }
+
+    if (selectedVAC == "yes") {
+        selectedVAC = document.getElementById("vac-initial").value;
+    }
+
+    var user = firebase.auth().currentUser;
+    var str = updatedSet.replace(/\s+/g, '');
+    var id = "descriptiontherapy-setting-box" + str;
+
+    const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
+    const speedValue = document.getElementById("speedRange").value;
+    const backgroundTheme = document.getElementById("background-color").value;
+    const elementTheme = document.getElementById("element-color").value;
+
+    firebase.database().ref('users/' + user.uid + "/emdr" + updatedSet).set({
+        setDescription: setDescription,
+        setDescriptionID: id,
+        emdrSpeed: speedValue,
+        emdrShape: selectedshape,
+        backgroundColorTheme: backgroundTheme,
+        elementColorTheme: elementTheme,
+        elementThemeName: selectedTheme,
+        switchDirection: switchDirectionSound,
+        backgroundAudio: selectedBackgroundAudio,
+        sessionCount: selectedSessionCount,
+        sessionLength: selectedSessionLength,
+        selectedPathing: pathing,
+        easing: selectedEasing,
+        SUDS: selectedSUDS,
+        VAC: selectedVAC
+    });
+
+    if (selectedSessionCount != "1" && selectedSessionCount != "3" && selectedSessionCount != "5" && selectedSessionCount != "unlimited") {
+        selectedSessionCount = "custom";
+    }
+
+    if (selectedSessionLength != "30" && selectedSessionLength != "45" && selectedSessionLength != "60" && selectedSessionLength != "unlimited") {
+        selectedSessionLength = "custom";
+    }
+
+    if (selectedSUDS != "no") {
+        selectedSUDS = "yes";
+    }
+
+    if (selectedVAC != "no") {
+        selectedVAC = "yes";
+    }
+    */
+}
+
+function populateSettingsBox(child) {
+    console.log(child);
+
+    document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+    //console.log(child);
+
+
+    // TO DO: FILL THESE BOXES WITH SET DESCRIPTION
+    var database = firebase.database();
+    var user = firebase.auth().currentUser;
+    var description = "";
+    var id = "";
+
+    if (activeSet != "none") {
+        console.log('active set is ' + activeSet);
+        var selectedTherapy = "";
+        selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIN margin-top shadow\">";
+        selectedTherapy += "                    <div class=\"therapy-setting-box-header-green\">" + activeSet + "<\/div>";
+        selectedTherapy += "                    <div class=\"therapy-setting-box-description-green\">Update your currently selected set<\/div>";
+        selectedTherapy += "";
+        selectedTherapy += "                    <div class=\"therapy-setting-box-buttons margin-top-setting\">";
+        selectedTherapy += "                        <span class=\"therapy-setting-box-button-green no-select\" onclick='updateSet(\"" + activeSet + "\");'\">Update Set";
+        selectedTherapy += "";
+        selectedTherapy += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
+        selectedTherapy += "                        <\/span>";
+        selectedTherapy += "                    <\/div>";
+        selectedTherapy += "                <\/div>";
+
+        document.getElementById("therapy-setting-box-current").innerHTML = selectedTherapy;
+    }
     if (child.length > 0) {
+
         for (var i = 0; i < child.length; i++) {
 
-            var str = child[i].replace(/\s+/g, '');
-            //console.log("no spaces " + str);
-            var id = "therapy-setting-box" + str;
 
-            console.log(id);
+            var str = child[i].replace(/\s+/g, '');
+            id = "therapy-setting-box" + str;
+            console.log("Box ID — " + id);
 
             var settingOption = "";
-            settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top shadow\">";
+            settingOption += "<div id=" + id + " class=\"therapy-setting-box animated fadeIn margin-top shadow\">";
             settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">" + child[i] + "<\/span>";
-            settingOption += "                    <div class=\"therapy-setting-box-description\">This option is meant for my client Zach, who is a";
-            settingOption += "                        useless little shit with no fkin respect.";
+            settingOption += "                    <div id=description" + id + " class=\"therapy-setting-box-description\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + id + "\");'\">";
-            settingOption += "                            Load set";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='updateSet(\"" + child[i] + "\");'\">";
+            settingOption += "                            Update set";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
             settingOption += "                            Delete";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"trash\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "                    <\/div>";
             settingOption += "                <\/div>";
 
-            document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
+            document.getElementById("therapy-setting-boxes-saved").innerHTML += settingOption;
+
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + child[i]);
+            console.log("ID: " + id);
+            desc.on('value', function (snapshot) {
+
+                var description = snapshot.val().setDescription;
+                var setDescription = snapshot.val().setDescriptionID;
+                document.getElementById(setDescription).innerText = description;
+            });
         }
     }
     else {
-        var settingOption = "";
-        settingOption += "<div id=\"no-settings\" class=\"therapy-setting-box margin-top shadow\">";
-        settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">Add some sets\<\/span>";
-        settingOption += "                    <div class=\"therapy-setting-box-description\">Your sets will show up here when you save them!";
-        settingOption += "                    <\/div>";
-        settingOption += "";
-        settingOption += "                <\/div>";
 
-        document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
     }
 }
 
 function populateSettingsOptions(child) {
 
 
+    console.log(child);
+
     document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
     //console.log(child);
 
 
     // TO DO: FILL THESE BOXES WITH SET DESCRIPTION
-    //var database = firebase.database();
-    //var user = firebase.auth().currentUser;
-
+    var database = firebase.database();
+    var user = firebase.auth().currentUser;
+    var description = "";
+    var id = "";
     if (child.length > 0) {
+
         for (var i = 0; i < child.length; i++) {
 
+
             var str = child[i].replace(/\s+/g, '');
-            var id = "therapy-setting-box" + str;
+            id = "therapy-setting-box" + str;
+            //console.log("Box ID — " + id);
 
             var settingOption = "";
-            settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top shadow\">";
+            settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\">";
             settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">" + child[i] + "<\/span>";
-            settingOption += "                    <div class=\"therapy-setting-box-description\">Secretly is Eugene Kim";
+            settingOption += "                    <div id=description" + id + " class=\"therapy-setting-box-description\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + id + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='loadSet(\"" + child[i] + "\");'\">";
             settingOption += "                            Load set";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
@@ -1004,6 +1244,15 @@ function populateSettingsOptions(child) {
             settingOption += "                <\/div>";
 
             document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
+
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + child[i]);
+            //console.log("ID: " + id);
+            desc.on('value', function (snapshot) {
+
+                var description = snapshot.val().setDescription;
+                var setDescription = snapshot.val().setDescriptionID;
+                document.getElementById(setDescription).innerText = description;
+            });
         }
     }
     else {
@@ -1024,12 +1273,16 @@ function deleteSettings() {
 }
 
 function deleteSaved() {
+    document.getElementById("set-input").className = "text-input save-input margin-top-tiny";
     document.getElementById("set-input").value = "";
     document.getElementById("set-input-description").value = "";
     document.getElementById("therapy-setting-boxes-saved").innerHTML = "";
+    var inputError = "";
+    document.getElementById("set-input-error").innerHTML = inputError;
 }
 
 function closeSavePanel() {
+    settingsBoxLoaded = false;
     document.getElementById("gradient3").className = "col col-md-6 col-lg-5 session-selection";
     setTimeout(function () { deleteSaved(); }, 300);
 }
@@ -1043,7 +1296,40 @@ function closeSettingsPanel() {
 }
 
 function saveSettingsBox() {
+
+    if (selectedSUDS == "yes") {
+        if (document.getElementById("suds-initial").value.length == 0) {
+            selectedSUDS = "1";
+        }
+    }
+
+    if (selectedVAC == "yes") {
+        if (document.getElementById("vac-initial").value.length == 0) {
+            selectedVAC = "1";
+        }
+    }
+
+
     document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+    if (!settingsBoxLoaded) {
+        sessionOptionsBox = [];
+
+        var userID = firebase.auth().currentUser.uid;
+        var rootRef = firebase.database().ref('users');
+        var newRoot = rootRef.child(userID).child('emdr')
+        newRoot.once('value', function (snapshot) {
+            snapshot.forEach(function (_child) {
+                var childElement = _child.key;
+
+                sessionOptionsBox.push(childElement);
+                //console.log(childElement);
+                // populateSettingsOptions();
+            });
+            populateSettingsBox(sessionOptionsBox);
+        });
+        settingsBoxLoaded = true;
+    }
+
 }
 
 function saveSettings() {
@@ -1051,6 +1337,8 @@ function saveSettings() {
 
 
     var value = document.getElementById("set-input").value;
+    activeSet = value;
+    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
     var setDescription = document.getElementById("set-input-description").value;
     if (value.length > 0) {
         sessionSave = "/" + value;
@@ -1075,6 +1363,9 @@ function saveSettings() {
             selectedVAC = document.getElementById("vac-initial").value;
         }
 
+        var str = value.replace(/\s+/g, '');
+        var id = "descriptiontherapy-setting-box" + str;
+
         const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
         const speedValue = document.getElementById("speedRange").value;
         const backgroundTheme = document.getElementById("background-color").value;
@@ -1082,6 +1373,7 @@ function saveSettings() {
 
         firebase.database().ref('users/' + user.uid + "/emdr" + sessionSave).set({
             setDescription: setDescription,
+            setDescriptionID: id,
             emdrSpeed: speedValue,
             emdrShape: selectedshape,
             backgroundColorTheme: backgroundTheme,
