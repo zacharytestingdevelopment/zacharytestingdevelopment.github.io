@@ -13,6 +13,25 @@ navbar
     border-bottom: 2px solid #3ee986 !important;
 }
 
+.edit-icon
+{
+    animation-duration: .2s !important;
+    position: absolute;
+    top:5px;
+    font-size: 21px;
+    right:5px;
+    padding:7px;
+    border-radius: 100%;
+    transition: all .3s ease 0s;
+}
+
+.edit-icon:hover
+{
+    cursor: pointer;
+    background:#4257b2;
+    color:#fff !important;
+}
+
 .standard-transition
 {
     transition: all .3s ease 0s;

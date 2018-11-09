@@ -392,6 +392,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .number-input-style
 {
+    margin-top:-10px;
     border: 2.5px solid #3ee986;
     color:#3ee986;
     padding-top:6px;
@@ -475,6 +476,59 @@ input[type="color"]::-webkit-color-swatch {
     color:#fff;
 }
 
+.close-button
+{
+    transition: all .3s ease 0s;
+    padding-top:4.4px;
+    padding-bottom: 4.4px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 20px;
+    background:#fff;
+    border:2.5px solid #4257b2;
+    font-size: 16px;
+    color:#4257b2;
+}
+
+.close-button:hover
+{
+    cursor: pointer;
+    background: #4257b2;
+    color:#fff;
+}
+
+.save-changes-button
+{
+    transition: all .3s ease 0s;
+    padding-top:4.4px;
+    padding-bottom: 4.4px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 20px;
+    background:#4257b2;
+    border:2.5px solid #4257b2;
+    font-size: 16px;
+    color:#fff;
+}
+
+.save-changes-button:hover
+{
+    cursor: pointer;
+    color:#4257b2;
+    background:#fff !important;
+}
+
+.modal-header-element
+{
+    margin-top:15px;
+    font-size: 30px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    left:0;
+    right:0;   
+}
+
 .section-card-body
 {
     padding-top:10px;
@@ -499,6 +553,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .therapy-setting-box
 {
+    position: relative;
     padding-left:20px;
     padding-bottom:20px;
     padding-right:20px;
@@ -736,7 +791,6 @@ input:focus::-webkit-input-placeholder {
     overflow-y:scroll;
     padding-left:20px;
     padding-top:5vh;
-    border-right: 2.5px solid #000;
 }
 
 .toggle-element

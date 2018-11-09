@@ -45,6 +45,24 @@
 
 
     <div class="col col-12">
+        <!-- Modal -->
+        <div id="modalCall" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header-element">Edit set</div>
+                    <div class="modal-body">
+                        <input id="edit-set-name" type="text" class="text-input" placeholder="Enter set name" />
+                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="Enter set description"
+                            class="text-input textarea margin-top-tiny" placeholder="Set description (optional)"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="close-button" data-dismiss="modal">Close</span>
+                        <span class="save-changes-button" onclick="updatedEditSet()">SAVE CHANGES</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row therapy-element-height">
 
@@ -61,6 +79,7 @@
                 <div class="therapy-settings-body margin-top-tiny white">Here you can view the saved setting sets that
                     you have for this therapy.</div>
 
+                <div id="therapy-setting-empty"></div>
                 <div id="therapy-setting-boxes"></div>
 
 
@@ -334,9 +353,11 @@
 
                             <div class="setting-category margin-top">ELEMENT PATH</div>
                             <div>
-                                <span id="leftright" class="preset-item no-select preset-item-selected" onclick="myPathing('leftright')">Left/Right</span>
-                                <span id="topbottom" class="preset-item no-select margin-left-right" onclick="myPathing('topbottom')">Top/Bottom</span>
-                                <span id="diagonal" class="preset-item no-select" onclick="myPathing('diagonal')">Diagonal</span>
+                                <div id="leftright" class="preset-item inline-block no-select preset-item-selected inline-block"
+                                    onclick="myPathing('leftright')">Left/Right</div>
+                                <div id="topbottom" class="preset-item inline-block no-select margin-left-right inline-block"
+                                    onclick="myPathing('topbottom')">Top/Bottom</div>
+                                <div id="diagonal" class="preset-item inline-block no-select inline-block" onclick="myPathing('diagonal')">Diagonal</div>
                             </div>
 
                             <div class="setting-category text-left margin-top-large">EASING — <span id="easingOutput">STANDARD</span>
@@ -345,18 +366,20 @@
 
                             <div class="presets">
                                 <div>
-                                    <span id="standard" class="preset-item no-select preset-item-selected" onclick="easing('standard')">Standard</span>
-                                    <span id="linear" class="preset-item no-select margin-left-right" onclick="easing('linear')">Linear</span>
-                                    <span id="cubic" class="preset-item no-select" onclick="easing('cubic')">Ease
-                                        Cubic</span>
+                                    <div id="standard" class="preset-item inline-block no-select preset-item-selected"
+                                        onclick="easing('standard')">Standard</div>
+                                    <div id="linear" class="preset-item inline-block no-select margin-left-right"
+                                        onclick="easing('linear')">Linear</div>
+                                    <div id="cubic" class="preset-item inline-block no-select" onclick="easing('cubic')">Ease
+                                        Cubic</div>
                                 </div>
-                                <div class="margin-top">
-                                    <span id="sine" class="preset-item no-select" onclick="easing('sine')">Ease
-                                        Sine</span>
-                                    <span id="circ" class="preset-item no-select margin-left-right" onclick="easing('circ')">Ease
-                                        Circ</span>
-                                    <span id="back" class="preset-item no-select" onclick="easing('back')">Ease
-                                        Back</span>
+                                <div>
+                                    <div id="sine" class="preset-item inline-block no-select" onclick="easing('sine')">Ease
+                                        Sine</div>
+                                    <div id="circ" class="preset-item inline-block no-select margin-left-right" onclick="easing('circ')">Ease
+                                        Circ</div>
+                                    <div id="back" class="preset-item inline-block no-select" onclick="easing('back')">Ease
+                                        Back</div>
                                 </div>
                             </div>
 
@@ -382,8 +405,9 @@
                             <div class="setting-category margin-top-tiny">INCLUDE SUDS SCALE <span class="information-circle"
                                     onclick="information('suds')"><span class="question-mark">?</span></div>
                             <div>
-                                <span id="sudsNo" class="preset-item no-select preset-item-selected" onclick="suds('no')">No</span>
-                                <span id="sudsYes" class="preset-item no-select margin-left-right" onclick="suds('yes')">Yes</span>
+                                <div id="sudsNo" class="preset-item inline-block no-select preset-item-selected"
+                                    onclick="suds('no')">No</div>
+                                <div id="sudsYes" class="preset-item inline-block no-select margin-left-right" onclick="suds('yes')">Yes</div>
 
                             </div>
                             <div id="sudsInput" class="hidden">
@@ -394,8 +418,8 @@
                             <div class="setting-category margin-top-large">INCLUDE VAC SCALE <span class="information-circle"
                                     onclick="information('vac')"><span class="question-mark">?</span></div>
                             <div>
-                                <span id="vacNo" class="preset-item no-select preset-item-selected" onclick="vac('no')">No</span>
-                                <span id="vacYes" class="preset-item no-select margin-left-right" onclick="vac('yes')">Yes</span>
+                                <div id="vacNo" class="preset-item inline-block no-select preset-item-selected" onclick="vac('no')">No</div>
+                                <div id="vacYes" class="preset-item inline-block no-select margin-left-right" onclick="vac('yes')">Yes</div>
                             </div>
                             <div id="vacInput" class="hidden">
                                 <input id="vac-initial" type="number" placeholder="Enter initial value" class="number-input-style"
@@ -419,7 +443,7 @@
             <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
                 <div class="preview-text text-right animated fadeInDown delay1Therapy">
                     PREVIEW
-                    <div class="preview-text-subheader">Loaded set: <span id="active-set">new set</span></div>
+                    <div class="preview-text-subheader">Loaded set: <span id="active-set">none</span></div>
                 </div>
 
 
