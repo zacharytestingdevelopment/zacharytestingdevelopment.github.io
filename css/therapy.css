@@ -286,7 +286,6 @@ input[type="color"]::-webkit-color-swatch {
     padding-left:20px;
     padding-top:5vh;
     top:-100%;
-    border-right: 2.5px solid #000;
     position: fixed;
     padding-bottom:5vh;
     z-index: 99;
@@ -821,4 +820,76 @@ input:focus::-webkit-input-placeholder {
 {
     color:#fff;
     background: transparent !important;
+}
+
+@media only screen 
+and (max-width: 420px)
+{
+    .preset-item
+    {
+        padding-left:6.5px;
+        padding-right: 6.5px;
+    }
+
+    .shape-category
+    {
+        text-align: center;
+        line-height: 60px;
+        display: inline-block;
+        border: 2.5px solid #3ee986;
+        border-radius: 10px;
+        height:55px;
+        width:65px;
+        transition: background 0.3s ease 0s;
+    }
+
+    .circle
+    {
+        position: relative;
+        top:7.5px;
+        height:35px;
+        width:35px;
+    }
+
+    .square
+    {
+        position: relative;
+        top:7.5px;
+    }
+
+    .square-rounded
+    {
+        position: relative;
+        top:7.5px;
+    }
+
+    .triangle-element
+    {
+        height:0 !important;
+        width:0 !important;
+        border-left: 20px solid transparent !important;
+        border-right: 20px solid transparent !important; 
+        border-bottom: 30px solid #3ee986 !important;
+    }
+
+    .triangle
+    {
+        position: relative;
+        top:-31px;
+        width: 0; 
+        height: 0; 
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 30px solid #3ee986;
+        transition: border-bottom .3s ease 0s;
+    }
+
+    .dashboard-button
+    {
+        font-size:19.5px;
+        padding-left:10px;
+        padding-right: 10px;
+    }
+
+   
 }
