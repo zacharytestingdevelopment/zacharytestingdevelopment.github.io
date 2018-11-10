@@ -1048,6 +1048,7 @@ function updateSet(updatedSet) {
     if (selectedSessionCount == "custom") {
         if (document.getElementById("session-count").value.length < 1) {
             selectedSessionCount = "3";
+            document.getElementById("session-count").value = selectedSessionCount;
         }
         else {
             selectedSessionCount = document.getElementById("session-count").value;
@@ -1058,6 +1059,7 @@ function updateSet(updatedSet) {
     if (selectedSessionLength == "custom") {
         if (document.getElementById("session-length").value.length < 1) {
             selectedSessionLength = "45";
+            document.getElementById("session-length").value = selectedSessionLength;
         } else {
 
             selectedSessionLength = document.getElementById("session-length").value;
@@ -1399,12 +1401,14 @@ function saveSettingsBox() {
     if (selectedSUDS == "yes") {
         if (document.getElementById("suds-initial").value.length == 0) {
             selectedSUDS = "1";
+            document.getElementById("suds-initial").value = selectedSUDS;
         }
     }
 
     if (selectedVAC == "yes") {
         if (document.getElementById("vac-initial").value.length == 0) {
             selectedVAC = "1";
+            document.getElementById("vac-initial").value = selectedVAC;
         }
     }
 
@@ -1460,6 +1464,7 @@ function saveSettings() {
         if (selectedSessionCount == "custom") {
             if (document.getElementById("session-count").value.length < 1) {
                 selectedSessionCount = "3";
+                document.getElementById("session-count").value = selectedSessionCount;
             }
             else {
                 selectedSessionCount = document.getElementById("session-count").value;
@@ -1470,6 +1475,7 @@ function saveSettings() {
         if (selectedSessionLength == "custom") {
             if (document.getElementById("session-length").value.length < 1) {
                 selectedSessionLength = "45";
+                document.getElementById("session-length").value = selectedSessionLength;
             } else {
 
                 selectedSessionLength = document.getElementById("session-length").value;
