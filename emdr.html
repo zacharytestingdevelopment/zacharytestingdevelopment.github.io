@@ -43,11 +43,24 @@
 
 <body id="page-top">
 
+    <!-- Navigation -->
+    <nav id="navigation" class="d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top"
+        id="mainNav">
+        <div class="container">
+            <span class="dashboard animated fadeInDown">
+                <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
+            </span>
+            <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
+                <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye" class="preview-nav-arrow"></ion-icon></span>
+            </a>
+        </div>
+        </div>
+    </nav>
 
     <div class="col col-12">
         <!-- Modal -->
-        <div id="modalCall" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+        <div id="modalCall" class="modal fade fixed-top" style="z-index:99999 !important;" id="exampleModalCenter"
+            tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header-element">Edit set</div>
@@ -67,6 +80,7 @@
         <div class="row therapy-element-height">
 
             <div id="gradient2" class="col col-md-6 col-lg-5 session-selection animated fadeInDown green-background">
+
                 <Div class="row dashboard-nav">
                     <span class="dashboard-button dashboard-button-blue no-select" onmouseover="dashBoard('enterBlue')"
                         onmouseout="dashBoard('exitBlue')" onclick="closeSettingsPanel()">
@@ -160,14 +174,15 @@
 
             <div id="gradient" class="col col-12 col-md-6 col-lg-5 settings-panel green-background">
                 <div class="row dashboard-nav">
-                    <span class="dashboard-button no-select" onmouseover="dashBoard('enter')" onmouseout="dashBoard('exit')">
+                    <span class="dashboard-button d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block no-select"
+                        onmouseover="dashBoard('enter')" onmouseout="dashBoard('exit')">
                         <ion-icon id="dashboard-icon-home" class="dashboard-icon white" name="home"></ion-icon>
                         Return to
                         dashboard
                     </span>
                 </div>
 
-                <div class="therapy-settings-header white margin-top">EMDR</div>
+                <div class="therapy-settings-header white therapy-settings-margin">EMDR</div>
                 <div class="therapy-settings-body margin-top-tiny white">EMDR is a therapy used to treat anxiety,
                     OCD,
                     PTSD,

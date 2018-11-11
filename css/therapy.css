@@ -10,6 +10,7 @@ input[type="color"] {
     border: 1px solid #000;
 	
 }
+
 input[type="color"]::-webkit-color-swatch-wrapper {
     border-radius: 26px !important;
 	padding: 0;
@@ -233,6 +234,11 @@ input[type="color"]::-webkit-color-swatch {
     color:#fff !important;
 }
 
+.therapy-settings-margin
+{
+    margin-top:15px;
+}
+
 .preset-item
 {
     margin-top:5px;
@@ -285,12 +291,12 @@ input[type="color"]::-webkit-color-swatch {
     overflow-x:hidden;
     padding-left:20px;
     padding-top:5vh;
-    top:-100%;
+    top:-150%;
     position: fixed;
     padding-bottom:5vh;
     z-index: 99;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    transition: top .4s ease-in-out;
+    transition: top .5s ease-in-out;
 
   
 }
@@ -759,6 +765,47 @@ input:focus::-webkit-input-placeholder {
     font-size: 24px;
 }
 
+.dashboard
+{
+    color:#3ee986;
+}
+
+.dash-arrow
+{
+    font-size: 18px;
+    position: relative;
+    top:4px;
+    margin-right: 3px;
+}
+
+.preview-nav
+{
+    margin-top:3px;
+    margin-bottom: 3px;
+    border:2.5px solid #3ee986;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 10px;
+    font-size: 16px;
+    letter-spacing: 5px;
+    transition: all .3s ease 0s;
+}
+
+.preview-nav-arrow
+{
+    position: relative;
+    font-size: 18px;
+    top:3px;
+    color:inherit;
+}
+
+.preview-nav-arrow:hover
+{
+    color:inherit !important;
+}
+
 .dashboard-icon-blue
 {
     top:5px;
@@ -832,6 +879,12 @@ input:focus::-webkit-input-placeholder {
     background: transparent !important;
 }
 
+.navbar-therapy
+{
+    background: rgb(255,255,255) !important;
+    background: rgba(255, 255, 255, 1) !important;
+}
+
 @media only screen
 and (max-width:767px)
 {
@@ -855,6 +908,11 @@ and (max-width:325px)
 @media only screen 
 and (max-width: 420px)
 {
+    .therapy-settings-margin
+    {
+        margin-top:40px;
+    }
+
     .preset-item
     {
         padding-left:6.5px;

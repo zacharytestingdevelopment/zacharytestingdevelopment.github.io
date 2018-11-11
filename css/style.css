@@ -61,6 +61,11 @@ navbar
     display: hidden;
 }
 
+.visible
+{
+    display: block;
+}
+
 .center-abs-element
 {
 
@@ -1188,6 +1193,11 @@ html.sr .load-hidden {
     border-bottom: 2.5px solid #3ee986;
 }
 
+.padding-top-medium
+{
+    padding-top: 20px;
+}
+
 .margin-left-right
 {
     margin-left: 25px;
@@ -1353,49 +1363,6 @@ canvas {
     -o-animation:      spread 5s infinite; /* Opera 12+ */
     animation:         spread 5s infinite; /* IE 10+, Fx 29+ */
   }
- 
-.cl-effect-3 a:hover::after,
-.cl-effect-3 a:focus::after {
-	opacity: 1;
-	-webkit-transform: translateY(0px);
-	-moz-transform: translateY(0px);
-	transform: translateY(0px);
-}
-
-/* Effect 13: three circles */
-.cl-effect-13 a {
-	-webkit-transition: color 0.3s;
-	-moz-transition: color 0.3s;
-	transition: color 0.3s;
-}
-
-.cl-effect-13 a::before {
-	position: absolute;
-	top: 65%;
-	left: 50%;
-	color: transparent;
-	content: '•';
-	text-shadow: 0 0 transparent;
-	font-size: 1.2em;
-	-webkit-transition: text-shadow 0.3s, color 0.3s;
-	-moz-transition: text-shadow 0.3s, color 0.3s;
-	transition: text-shadow 0.3s, color 0.3s;
-	-webkit-transform: translateX(-50%);
-	-moz-transform: translateX(-50%);
-	transform: translateX(-50%);
-	pointer-events: none;
-}
-
-.cl-effect-13 a:hover::before,
-.cl-effect-13 a:focus::before {
-	color: #58d68d;
-	text-shadow: 10px 0 #58d68d, -10px 0 #58d68d;
-}
-
-.cl-effect-13 a:hover,
-.cl-effect-13 a:focus {
-	color: #ba7700;
-}
 
 .full-height
 {
@@ -1630,6 +1597,8 @@ button:focus {
 {
     font-weight: 700 !important;
 }
+
+
 
 .no-select
 {

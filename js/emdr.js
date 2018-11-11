@@ -96,6 +96,10 @@ function updateElement() {
     theme("custom");
 }
 
+function previewNav() {
+    document.getElementById("eye-icon").className = "preview-nav-arrow white";
+}
+
 function myPathing(pathType) {
 
     if (pathType == "leftright") {
@@ -863,6 +867,7 @@ function deleteAll() {
 
 function loadSettings() {
     if (!settingsLoaded) {
+        document.getElementById("navigation").className = "d-sm-block animated fadeOutUp d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
         sessionOptions = [];
 
         var userID = firebase.auth().currentUser.uid;
@@ -1382,6 +1387,7 @@ function deleteSaved() {
 }
 
 function closeSavePanel() {
+    document.getElementById("navigation").className = "d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
     settingsBox = false;
     settingsBoxLoaded = false;
     document.getElementById("gradient3").className = "col col-md-6 col-lg-5 session-selection";
@@ -1389,6 +1395,7 @@ function closeSavePanel() {
 }
 
 function closeSettingsPanel() {
+    document.getElementById("navigation").className = "d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
     settingsLoaded = false;
     document.getElementById("gradient2").className = "col col-md-6 col-lg-5 session-selection";
     setTimeout(function () { deleteSettings(); }, 300);
@@ -1397,6 +1404,7 @@ function closeSettingsPanel() {
 }
 
 function saveSettingsBox() {
+    document.getElementById("navigation").className = "d-sm-block animated fadeOutUp d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
 
     if (selectedSUDS == "yes") {
         if (document.getElementById("suds-initial").value.length == 0) {
