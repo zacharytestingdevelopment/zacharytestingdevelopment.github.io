@@ -268,6 +268,163 @@ input[type="color"]::-webkit-color-swatch {
     padding-bottom: 12px;
 }
 
+.emdr-box-active
+{
+    top:0vh !important;
+}
+
+.therapy-session-dropup
+{
+    position: relative;
+    font-size: 24px;
+    top:7px;
+    color:#fff;
+}
+
+.emdr-hide-button-settings-hidden
+{
+    position: absolute;
+    top:8.5px;
+    right:15px;
+}
+
+.hide-arrow
+{
+    position: relative;
+    top:-2px;
+    left:-2px;
+}
+
+.emdr-hide-button-alternate
+{
+    border-radius: 35px;
+    position: absolute;
+    top:10px;
+    border:1.5px solid #3ee986;
+    color:#3ee986 !important;
+    height:35px;
+    width:35px;
+    background: transparent;
+    right:15px;
+    font-size: 34px;
+    animation-duration: 0.1s !important;
+    transition: all .1s ease 0s;
+}
+
+.opacity-shift
+{
+    opacity: 0;
+}
+
+.emdr-hide-button-alternate:hover
+{
+    cursor: pointer;
+    border: 1.5px solid #fff;
+    background:#fff !important;
+    color:#3ee986 !important;
+}
+
+.current-session-count
+{
+    padding-left:15px;
+    padding-right: 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    position: absolute;
+    right:70px;
+    top:10px;
+    color:#3ee986;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.emdr-hide-button
+{
+    background:#fff;
+    border-radius: 35px;
+    position: absolute;
+    top:8.5px;
+    border:1.5px solid #3ee986;
+    color:#3ee986;
+    right:15px;
+    font-size: 34px;
+    transition: all .3s ease 0s;
+}
+
+.emdr-hide-button:hover
+{
+    cursor: pointer;
+    color:#fff;
+    border: 1.5px solid #fff;
+    background:#3ee986;
+}
+
+.hide-button
+{
+    color:#fff;
+    padding-left: 11px;
+    border-radius: 10px;
+    height:35px;
+    padding-right: 11px;
+    float: right;
+    top:5px;
+    border:2px solid #fff;
+
+}
+
+.emdr-box-button
+{
+    color:#fff;
+    display: inline-block;
+    border-bottom: 1.5px solid transparent;
+    transition: all .15s ease-in-out;
+}
+
+.emdr-box-button:hover
+{
+    cursor: pointer;
+    border-bottom:1.5px solid #fff;
+}
+
+.emdr-box-buttons
+{
+    
+    padding:15px;
+    position: fixed;
+    top:-150px;
+    background:#3ee986;
+    width: 100%;
+    transition-timing-function: cubic-bezier(0,0,1,1);
+    transition: top .4s;
+}
+
+.transition-delay
+{
+    transition-delay: .25s !important;
+}
+
+.emdr-box-buttons-active
+{
+    top:0px;
+}
+
+.emdr-box
+{
+    position: fixed;
+    top:100vh;
+   /* background: #4257b2;*/
+    width:100%;
+    height:100vh;
+    transition-timing-function: cubic-bezier(0,0,1,1);
+    transition: top .4s ease-out;
+}
+
+.alternate-main
+{
+    position: absolute;
+    top:37%;
+}
+
 .range-slider
 {
     margin-top: 0px;
@@ -741,7 +898,7 @@ input:focus::-webkit-input-placeholder {
 
 .text-input:focus
 {
-    background:#454545;
+    background:#454545 !important;
     color:#fff;
 }
 
@@ -883,6 +1040,61 @@ input:focus::-webkit-input-placeholder {
 {
     background: rgb(255,255,255) !important;
     background: rgba(255, 255, 255, 1) !important;
+}
+
+.text-input-failure
+{
+    border:2.5px solid #e64c3c;
+}
+
+.failure-text
+{
+    color:#e64c3c;
+}
+
+@media only screen 
+and (max-width:374px)
+{
+    .emdr-box-button
+    {
+        font-size: 11px !important;
+    }
+
+    .current-session-count
+    {
+        right:60px !important;
+        top:14px !important;
+        font-size: 11px !important;
+        padding-left: 4.2px !important;
+        padding-right: 4.2px !important;
+    }
+
+    .margin-right-larger
+    {
+        margin-right: 2px !important;
+    }
+}
+
+@media only screen
+and (max-width:473px)
+{
+    .emdr-box-button
+    {
+        font-size: 13px;
+    }
+
+    .current-session-count
+    {
+        top:12px;
+        font-size: 13px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .margin-right-larger
+    {
+        margin-right: 4px;
+    }
 }
 
 @media only screen

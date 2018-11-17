@@ -887,7 +887,125 @@ function loadSettings() {
     }
 }
 
+function hideSessionSettings() {
+    $("#emdr-box-buttons").removeClass("transition-delay");
+    $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
+    setTimeout(function () { sessionExpandShow(); }, 300);
+}
+
+function showSessionSettings() {
+    $("#emdr-box-buttons").addClass("transition-delay");
+    $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
+
+    var settingsHidden = "";
+    settingsHidden += "<span class=\"animated fadeOut\"\">";
+    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "                <\/span>";
+
+    document.getElementById("settings-hidden").innerHTML = settingsHidden;
+
+    setTimeout(function () { hideHideFade(); }, 300);
+}
+
+function hideHideFade() {
+    $("#settings-hidden").addClass("hidden");
+}
+
+function sessionExpandShow() {
+
+    $("#settings-hidden").removeClass("hidden");
+    var settingsHidden = "";
+    settingsHidden += "<span class=\"animated fadeIn\">";
+    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "                <\/span>";
+
+    document.getElementById("settings-hidden").innerHTML = settingsHidden;
+}
+
+function loadSessionSettings() {
+
+    document.getElementById("emdr-box").style.background = $("#background-color").val();
+    //document.getElementById("emdr-element-main").style.background = "green";
+
+    $("#emdr-box").addClass("emdr-box-active");
+    $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
+    $("#emdr-box-buttons").addClass("transition-delay");
+
+    setTimeout(function () { spawnTherapyMain(); }, 420);
+}
+
+function spawnTherapyMain() {
+
+    var seconds = 0;
+    var sessionLength = 0;
+
+    var spawnTherapy = "<span class = \"animated fadeIn\">";
+    spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
+    spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
+    spawnTherapy += "        <\/div></span>";
+
+    document.getElementById("therapy-main-box").innerHTML = spawnTherapy;
+
+    if (selectedshape == "circle") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration circle";
+    }
+    else if (selectedshape == "squareRounded") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration rounded-square";
+    }
+    else if (selectedshape == "square") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration square";
+    }
+    else if (selectedshape == "triangle") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration triangle";
+    }
+
+    document.getElementById("emdr-element-main").style.background = document.getElementById("element").style.backgroundColor;
+
+
+    var alternate = anime({
+        targets: '#alternate-main .el',
+        translateX: document.getElementById("emdr-box").offsetWidth - 150,
+        direction: 'alternate',
+        loop: true,
+        easing: 'linear'
+    });
+
+    setInterval(function () {
+        seconds++;
+        console.log("Seconds elapsed: " + seconds);
+    }, 1000);
+
+}
+
 function startSession() {
+    $("#emdr-box").addClass("emdr-box-active");
+    $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
+    $("#emdr-box-buttons").addClass("transition-delay");
+
+    setTimeout(function () { hideMobileNav(); }, 320);
+
+    loadSessionSettings();
+}
+
+function hideMobileNav() {
+    $("#mobile-nav").addClass("hidden");
+}
+
+function showMobileNav() {
+    $("#mobile-nav").addClass("mobile-nav").removeClass("hidden");
+}
+
+function endSession() {
+    $("#emdr-box").removeClass("emdr-box-active");
+    $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
+    $("#emdr-box-buttons").removeClass("transition-delay");
+    $("#mobile-nav").removeClass("hidden");
+
+    setTimeout(function () { hideEmdrElement(); }, 320);
+}
+
+function hideEmdrElement() {
+    document.getElementById("therapy-main-box").innerHTML = "";
 }
 
 function loadSet(set) {
@@ -1230,41 +1348,50 @@ function updatedEditSet() {
 
     var newName = document.getElementById("edit-set-name").value;
     var newDescription = document.getElementById("edit-set-description").value;
-    console.log('<br />');
 
-    var database = firebase.database();
-    var user = firebase.auth().currentUser;
-    console.log("edited set: " + editedSet)
-    //var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+    if (newName.length < 1) {
+        $("#edit-set-name").addClass("text-input-failure");
+        var failure = "";
+        failure += " <span class=\"animated fadeIn failure-text\">Please enter a set name<\/span>";
 
-    console.log("Active set: " + activeSet);
-    console.log("Edited set: " + editedSet);
-    firebase.database().ref('users/' + user.uid + "/emdr/" + editedSet).update({
-        //setName: newName,
-        setName: newName,
-        setDescription: newDescription
-    });
+        document.getElementById("edit-set-failure").innerHTML = failure;
+    }
+    else {
 
+        var database = firebase.database();
+        var user = firebase.auth().currentUser;
+        console.log("edited set: " + editedSet)
+        //var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
 
-
-
-    if (editedSet == activeSet) {
-        var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
-        //var description, name;
-
-        desc.once('value', function (snapshot) {
-            activeSetText = snapshot.val().setName;
+        console.log("Active set: " + activeSet);
+        console.log("Edited set: " + editedSet);
+        firebase.database().ref('users/' + user.uid + "/emdr/" + editedSet).update({
+            setName: newName,
+            setDescription: newDescription
         });
 
-        document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
-        if (settingsBox) {
-            document.getElementById("active-set-text-box").innerHTML = activeSetText;
+        if (editedSet == activeSet) {
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+            //var description, name;
+
+            desc.once('value', function (snapshot) {
+                activeSetText = snapshot.val().setName;
+            });
+
+            document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+            if (settingsBox) {
+                document.getElementById("active-set-text-box").innerHTML = activeSetText;
+            }
+
         }
-        //document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+
+        //REMOVE THIS WHEN THE PANEL IS CLOSED
+        $("#edit-set-name").removeClass("text-input-failure");
+        document.getElementById("edit-set-failure").innerHTML = "";
+
+        $('#modalCall').modal('hide');
+
     }
-    $('#modalCall').modal('hide');
-    //console.log("New name: " + newName);
-    //console.log("New description: " + newDescription);
 
 
 }

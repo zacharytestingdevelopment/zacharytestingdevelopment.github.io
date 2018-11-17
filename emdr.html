@@ -44,18 +44,21 @@
 <body id="page-top">
 
     <!-- Navigation -->
-    <nav id="navigation" class="d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top"
-        id="mainNav">
-        <div class="container">
-            <span class="dashboard animated fadeInDown">
-                <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
-            </span>
-            <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
-                <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye" class="preview-nav-arrow"></ion-icon></span>
-            </a>
-        </div>
-        </div>
-    </nav>
+    <span id="mobile-nav">
+        <nav id="navigation" class="d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top"
+            id="mainNav">
+            <div class="container">
+                <span class="dashboard animated fadeInDown">
+                    <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
+                </span>
+                <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
+                    <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye"
+                            class="preview-nav-arrow"></ion-icon></span>
+                </a>
+            </div>
+            </div>
+        </nav>
+    </span>
 
     <div class="col col-12">
         <!-- Modal -->
@@ -66,7 +69,10 @@
                     <div class="modal-header-element">Edit set</div>
                     <div class="modal-body">
                         <input id="edit-set-name" type="text" class="text-input" placeholder="Enter set name" />
-                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="Enter set description"
+                        <div id="edit-set-failure">
+
+                        </div>
+                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="Enter set description (optional)"
                             class="text-input textarea margin-top-tiny" placeholder="Set description (optional)"></textarea>
                     </div>
                     <div class="modal-footer">
@@ -477,6 +483,24 @@
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <div id="emdr-box" class="emdr-box">
+        <div id="emdr-box-buttons" class="emdr-box-buttons">
+            <div class="emdr-box-button margin-right-larger no-select" onclick="endSession()">End Therapy</div>
+            <div class="emdr-box-button no-select">Pause Session</div>
+            <div class="current-session-count no-select">Session <span id="your-current-session" class="inherit">1</span>/<span
+                    class="inherit" id="your-total-sessions">5</span></div>
+            <ion-icon name="arrow-dropup" class="emdr-hide-button no-select" onclick="hideSessionSettings()" style="z-index:999!important"></ion-icon>
+        </div>
+
+        <div id="therapy-main-box">
+
+        </div>
+        <span id="settings-hidden">
+
+        </span>
 
     </div>
 

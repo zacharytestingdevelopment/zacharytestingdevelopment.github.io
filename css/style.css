@@ -63,7 +63,7 @@ navbar
 
 .visible
 {
-    display: block;
+    display: visible;
 }
 
 .center-abs-element
@@ -463,6 +463,12 @@ navbar
     margin-bottom: 0px;
     transition: all .3s ease;
 }
+
+.inherit
+{
+    color:inherit !important;
+}
+
 
 .social-icon:hover
 {
@@ -1536,6 +1542,16 @@ button:focus {
 {
     position: relative;
     top:-25px;
+}
+
+.margin-right-tiny
+{
+    margin-right: 5px;
+}
+
+.margin-right-larger
+{
+    margin-right: 15px;
 }
 
 .margin-right
