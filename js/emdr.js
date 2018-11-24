@@ -31,6 +31,11 @@ var sessionOptionsBox = [];
 
 var activeSet = "none";
 var editedSet = "none";
+var numberOfSessions;
+var yourCurrentSession = 1;
+var sessionLength;
+
+var sessionActive;
 
 speedSlider.oninput = function () {
     adjustSpeed();
@@ -915,8 +920,8 @@ function sessionExpandShow() {
 
     $("#settings-hidden").removeClass("hidden");
     var settingsHidden = "";
-    settingsHidden += "<span class=\"animated fadeIn\">";
-    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "<span id=\"alternative-arrow\" class=\"animated fadeIn\">";
+    settingsHidden += "                    <span id = \"hide-dis\" class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
@@ -937,14 +942,84 @@ function loadSessionSettings() {
 function spawnTherapyMain() {
 
     var seconds = 0;
-    var sessionLength = 0;
+    sessionLength = 0;
+    sessionActive = true;
+
+    numberOfSessions = selectedSessionCount;
+
+    var user = firebase.auth().currentUser;
+
+    sessionLength = selectedSessionLength;
+
+    if (selectedSessionCount == "one") {
+        numberOfSessions = "1";
+    }
+    else if (selectedSessionCount == "three") {
+        numberOfSessions = "3";
+    }
+    else if (selectedSessionCount == "five") {
+        numberOfSessions = "5";
+    }
+    else if (selectedSessionCount == "custom") {
+        numberOfSessions = document.getElementById("session-count").value.toString();
+
+        if (numberOfSessions.length < 1) {
+            numberOfSessions = "3";
+            sessionCount("three");
+        }
+
+    }
+
+    if (selectedSessionLength == "thirty") {
+        sessionLength = "30";
+    }
+    else if (selectedSessionLength == "fourtyFive") {
+        sessionLength = "45";
+    }
+    else if (selectedSessionLength == "sixty") {
+        sessionLength = "60";
+    }
+    else if (selectedSessionLength == "custom") {
+        sessionLength = document.getElementById("session-length").value.toString();
+        if (sessionLength.length < 1) {
+            sessionLength = "45";
+            timeCount("fourtyFive");
+        }
+    }
+
+    if (selectedSessionCount == "unlimited") {
+        document.getElementById("current-session-count").innerHTML = "<span class = \"inherit animated fadeIn\">Unlimited</span>";
+    }
+    else {
+        var sessionSection = "";
+        sessionSection += "Session <span id=\"your-current-session\"";
+        sessionSection += "                    class=\"inherit\">1<\/span>\/<span class=\"inherit\" id=\"your-total-sessions\">5<\/span>";
+
+        document.getElementById("current-session-count").innerHTML = sessionSection;
+
+        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+        document.getElementById("your-total-sessions").innerHTML = "<span class = \"inherit animated fadeIn\">" + numberOfSessions + "</span>";
+    }
+
+
+    var alternate = anime({
+        targets: '#alternate-main .el',
+        translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
+        direction: 'alternate',
+        loop: true,
+        easing: 'linear'
+    });
 
     var spawnTherapy = "<span class = \"animated fadeIn\">";
     spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
     spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
     spawnTherapy += "        <\/div></span>";
 
+    document.getElementById("therapy-main-box").className = "animated fadeIn";
     document.getElementById("therapy-main-box").innerHTML = spawnTherapy;
+
+
+
 
     if (selectedshape == "circle") {
         document.getElementById("emdr-element-main").className = "emdr-element el element-duration circle";
@@ -970,11 +1045,61 @@ function spawnTherapyMain() {
         easing: 'linear'
     });
 
-    setInterval(function () {
+    console.log("individual session length: ");
+
+    sessionActive = setInterval(function () {
         seconds++;
         console.log("Seconds elapsed: " + seconds);
+        if (seconds >= sessionLength) {
+            startNextSession();
+        }
     }, 1000);
 
+}
+
+function startNextSession() {
+    yourCurrentSession++;
+
+    if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
+        console.log("SESSION OVER");
+        document.getElementById("therapy-main-box").className = "animated fadeOut";
+        hideSessionSettings();
+        document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
+    }
+    else {
+        hideSessionSettings();
+        document.getElementById("therapy-main-box").className = "animated fadeOut";
+        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+        document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
+    }
+
+    stopCounting();
+}
+
+function nextSession() {
+    showSessionSettings();
+    document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutUp visible col col-lg-10 col-md-11 col-10";
+
+    setTimeout(function () {
+        var alternate = anime({
+            targets: '#alternate-main .el',
+            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
+            direction: 'alternate',
+            loop: true,
+            easing: 'linear'
+        });
+        document.getElementById("therapy-main-box").className = "animated fadeIn";
+        document.getElementById("session-end-box").className = "hidden";
+
+    }, 525);
+
+    sessionActive = setInterval(function () {
+        seconds++;
+        console.log("Seconds elapsed: " + seconds);
+        if (seconds >= sessionLength) {
+            startNextSession();
+        }
+    }, 1000);
 }
 
 function startSession() {
@@ -995,17 +1120,40 @@ function showMobileNav() {
     $("#mobile-nav").addClass("mobile-nav").removeClass("hidden");
 }
 
+function endSessionComplete() {
+    //sessionCount = 0;
+    var settingsHidden = "";
+    settingsHidden += "<span class=\"animated fadeOut faster-animation\"\">";
+    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "                <\/span>";
+
+    document.getElementById("settings-hidden").innerHTML = settingsHidden;
+    document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutDown col col-lg-10 col-md-11 col-10";
+    document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeOutDown hidden col col-lg-10 col-md-11 col-10";
+    endSession();
+}
+
 function endSession() {
+    yourCurrentSession = 1;
     $("#emdr-box").removeClass("emdr-box-active");
     $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").removeClass("transition-delay");
     $("#mobile-nav").removeClass("hidden");
 
     setTimeout(function () { hideEmdrElement(); }, 320);
+
+
 }
 
 function hideEmdrElement() {
+    stopCounting();
     document.getElementById("therapy-main-box").innerHTML = "";
+}
+
+function stopCounting() {
+    clearInterval(sessionActive);
+    seconds = 0;
+    sessionActive = false;
 }
 
 function loadSet(set) {

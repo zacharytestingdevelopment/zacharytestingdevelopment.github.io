@@ -439,7 +439,7 @@
 
                             </div>
                             <div id="sudsInput" class="hidden">
-                                <input id="suds-initial" type="number" placeholder="Enter initial value" class="number-input-style"
+                                <input id="suds-initial" type="number" placeholder="Your initial value (1-7)" class="number-input-style"
                                     min="1" />
                             </div>
 
@@ -450,7 +450,7 @@
                                 <div id="vacYes" class="preset-item inline-block no-select margin-left-right" onclick="vac('yes')">Yes</div>
                             </div>
                             <div id="vacInput" class="hidden">
-                                <input id="vac-initial" type="number" placeholder="Enter initial value" class="number-input-style"
+                                <input id="vac-initial" type="number" placeholder="Enter initial value (1-9)" class="number-input-style"
                                     min="1" />
                             </div>
 
@@ -466,10 +466,6 @@
                     <div class="therapy-settings-useage white margin-top-tiny no-select" onclick="saveSettingsBox()">Save
                         settings</div>
                 </div>
-
-
-
-
             </div>
             <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
                 <div class="preview-text text-right animated fadeInDown delay1Therapy">
@@ -490,17 +486,76 @@
         <div id="emdr-box-buttons" class="emdr-box-buttons">
             <div class="emdr-box-button margin-right-larger no-select" onclick="endSession()">End Therapy</div>
             <div class="emdr-box-button no-select">Pause Session</div>
-            <div class="current-session-count no-select">Session <span id="your-current-session" class="inherit">1</span>/<span
-                    class="inherit" id="your-total-sessions">5</span></div>
+            <div id="current-session-count" class="current-session-count no-select">Session <span id="your-current-session"
+                    class="inherit">1</span>/<span class="inherit" id="your-total-sessions">5</span></div>
             <ion-icon name="arrow-dropup" class="emdr-hide-button no-select" onclick="hideSessionSettings()" style="z-index:999!important"></ion-icon>
         </div>
 
         <div id="therapy-main-box">
 
         </div>
-        <span id="settings-hidden">
 
-        </span>
+        <div id="therapy-over-box" class="hidden">
+            <div class="therapy-over-box-header">The therapy is over</div>
+            <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)!</div>
+            <div class="col col-11 text-center col-centered">
+                <input type="number" class="text-input-style therapy-over-box-input margin-top-large" placeholder="SUDS scale value" />
+                <input type="number" class="text-input-style margin-top-large therapy-over-box-input" placeholder="VAC scale value" />
+                <div class="inline col col-10 col-centered">
+                    <div class="therapy-over-box-subheader text-left margin-top-large">How are you feeling?</div>
+                    <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label white margin-top-tiny no-select" for="save-check">Always
+                        save on
+                        exit</label>
+                    <input type="checkbox" class="form-check-input position-check" id="save-check">
+                </div>
+            </div>
+            <div class="text-center margin-top-large">
+                <span class="save-therapy-button margin-top pointer no-select">
+                    End Session
+                </span>
+
+                <span class="save-therapy-button margin-top pointer no-select">
+                    Analyze Results
+                </span>
+            </div>
+        </div>
+
+        <div id="session-end-box" class="hidden">
+            <div class="therapy-over-box-header">The session is over</div>
+            <div class="therapy-over-box-subheader text-center">Now let's check in with you (optional).</div>
+            <div class="col col-11 text-center col-centered">
+                <input type="number" class="text-input-style therapy-over-box-input margin-top-large" placeholder="SUDS scale value" />
+                <input type="number" class="text-input-style margin-top-large therapy-over-box-input" placeholder="VAC scale value" />
+                <div class="inline col col-10 col-centered">
+                    <div class="therapy-over-box-subheader text-left margin-top-large">How are you feeling?</div>
+                    <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label white margin-top-tiny no-select" for="save-data-check">Always
+                        save data on
+                        exit</label>
+                    <input type="checkbox" class="form-check-input position-check" id="save-data-check">
+                </div>
+            </div>
+            <div class="text-center margin-top-large">
+                <span class="save-therapy-button margin-top pointer no-select" onclick="nextSession()">
+                    Next Session
+                </span>
+
+                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
+                    End Therapy
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+    <span id="settings-hidden">
+
+    </span>
 
     </div>
 

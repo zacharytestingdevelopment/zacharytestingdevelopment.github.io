@@ -473,6 +473,84 @@ input[type="color"]::-webkit-color-swatch {
     width:75vw !important;   
 }
 
+.vertical-center-box
+{
+    position: relative;
+    top:12vh;
+}
+
+.position-check
+{
+    position: relative;
+    left:22px;
+}
+
+.save-therapy-button
+{
+    padding-left: 27px;
+    padding-right: 27px;
+    font-size: 20.5px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    border: 2.5px solid #fff;
+    border-radius: 10px;
+    color:#fff;
+    position: relative;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    margin-top:15px !important;
+    transition: all .3s ease;
+}
+
+.save-therapy-button:hover
+{
+    background:#fff;
+    color:#3ee986;
+}
+
+.textarea-input
+{
+    min-height: 125px;
+    max-height: 300px;
+}
+
+.therapy-over-box
+{
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    background-color:#3ee986;
+    border-radius: 10px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left:0;
+    right:0;
+    padding-top:5.5vh;
+    padding-bottom: 5.5vh;
+}
+
+.therapy-over-box-input
+{
+    margin-left:4px;
+    margin-right: 4px;
+    border: 2.5px solid #fff;
+}
+
+.therapy-over-box-header
+{
+    margin-left: auto;
+    margin-right: auto;
+    color:#fff;
+    font-size: 34px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.therapy-over-box-subheader
+{
+    font-size:19px;
+    color:#fff;
+}
+
 
   .swal-button--confirm {
       font-size: 18px;
@@ -545,6 +623,11 @@ input[type="color"]::-webkit-color-swatch {
     cursor: pointer;
 }
 
+.faster-animation
+{
+    animation-duration: 0.16s !important;
+}
+
 .range-slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
@@ -554,6 +637,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .number-input-style
 {
+   
     margin-top:-10px;
     border: 2.5px solid #3ee986;
     color:#3ee986;
