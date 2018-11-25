@@ -20,6 +20,7 @@ var selectedSessionLength = "45";
 var pathing = "leftright";
 var selectedEasing = "standard";
 var selectedSUDS = "no";
+var selectedMood = "yes";
 var selectedVAC = "no";
 
 var settingsLoaded = false;
@@ -545,6 +546,13 @@ function information(informationType) {
             customClass: "swal-wide"
         });
     }
+    else if (informationType == "mood") {
+        swal({
+            title: "Mood tracking",
+            text: "This setting allows you to track your mood throughout the duration of the therapy to see how it changes. Enter a starting value between 1 and 10, and fill in how you are feeling when prompted during the therapy.",
+            icon: "info"
+        });
+    }
     else if (informationType == "switchDirection") {
         swal({
             title: "Switch direction sound",
@@ -790,6 +798,25 @@ function timeCount(timeCount) {
     }
 }
 
+function mood(moodInput) {
+    if (moodInput == "no") {
+        $("#moodNo").addClass("preset-item-selected");
+        $("#moodYes").removeClass("preset-item-selected");
+
+        document.getElementById("moodInput").className = "hidden";
+
+        selectedMood = "no";
+    }
+    else if (moodInput == "yes") {
+        $("#moodNo").removeClass("preset-item-selected");
+        $("#moodYes").addClass("preset-item-selected");
+
+        document.getElementById("moodInput").className = "animated fadeIn margin-top-medium";
+
+        selectedMood = "yes";
+    }
+}
+
 function suds(sudsInput) {
     if (sudsInput == "no") {
         $("#sudsNo").addClass("preset-item-selected");
@@ -898,10 +925,7 @@ function hideSessionSettings() {
     setTimeout(function () { sessionExpandShow(); }, 300);
 }
 
-function showSessionSettings() {
-    $("#emdr-box-buttons").addClass("transition-delay");
-    $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
-
+function helperHide() {
     var settingsHidden = "";
     settingsHidden += "<span class=\"animated fadeOut\"\">";
     settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
@@ -910,6 +934,13 @@ function showSessionSettings() {
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
 
     setTimeout(function () { hideHideFade(); }, 300);
+}
+
+function showSessionSettings() {
+    $("#emdr-box-buttons").addClass("transition-delay");
+    $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
+
+    helperHide();
 }
 
 function hideHideFade() {
@@ -1061,16 +1092,22 @@ function startNextSession() {
     yourCurrentSession++;
 
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
-        console.log("SESSION OVER");
+
+
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         hideSessionSettings();
+        helperHide();
         document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
     }
     else {
         hideSessionSettings();
+        helperHide();
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
         document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
+
+        //document.getElementById("settings-hidden").innerHTML = "";
+        //$("#settings-hidden").addClass("hidden");
     }
 
     stopCounting();
@@ -1224,6 +1261,14 @@ function loadSet(set) {
             vac("no");
         }
 
+        if (snapshot.val().mood != "no") {
+            mood("yes");
+            document.getElementById("mood-initial").value = snapshot.val().mood;
+        }
+        else {
+            mood("no");
+        }
+
 
 
         var description = snapshot.val().setDescription;
@@ -1353,6 +1398,10 @@ function updateSet(updatedSet) {
         selectedVAC = document.getElementById("vac-initial").value;
     }
 
+    if (selectedMood == "yes") {
+        selectedMood = document.getElementById("mood-initial").value;
+    }
+
     var str = updatedSet.replace(/\s+/g, '');
     var id = "descriptiontherapy-setting-box" + str;
 
@@ -1376,7 +1425,8 @@ function updateSet(updatedSet) {
         selectedPathing: pathing,
         easing: selectedEasing,
         SUDS: selectedSUDS,
-        VAC: selectedVAC
+        VAC: selectedVAC,
+        mood: selectedMood
     });
 
     if (selectedSessionCount != "one" && selectedSessionCount != "three" && selectedSessionCount != "five" && selectedSessionLength != "unlimited") {
@@ -1394,6 +1444,12 @@ function updateSet(updatedSet) {
     if (selectedVAC != "no") {
         selectedVAC = "yes";
     }
+
+    if (selectedMood != "no") {
+        selectedMood = "yes";
+    }
+
+
 
     swal("SUCCESS!", "Your set has been updated.", "success");
     closeSavePanel();
@@ -1449,7 +1505,7 @@ function populateSettingsBox(child) {
 
             var str = child[i].replace(/\s+/g, '');
             id = "therapy-setting-box" + str;
-            console.log("Box ID — " + id);
+
 
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\",\"" + description + "\");'\"><\/ion-icon>";
@@ -1473,7 +1529,7 @@ function populateSettingsBox(child) {
             document.getElementById("therapy-setting-boxes-saved").innerHTML += settingOption;
 
             var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + child[i]);
-            //console.log("ID: " + id);
+
             desc.on('value', function (snapshot) {
 
                 var description = snapshot.val().setDescription;
@@ -1508,11 +1564,7 @@ function updatedEditSet() {
 
         var database = firebase.database();
         var user = firebase.auth().currentUser;
-        console.log("edited set: " + editedSet)
-        //var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
 
-        console.log("Active set: " + activeSet);
-        console.log("Edited set: " + editedSet);
         firebase.database().ref('users/' + user.uid + "/emdr/" + editedSet).update({
             setName: newName,
             setDescription: newDescription
@@ -1520,7 +1572,6 @@ function updatedEditSet() {
 
         if (editedSet == activeSet) {
             var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
-            //var description, name;
 
             desc.once('value', function (snapshot) {
                 activeSetText = snapshot.val().setName;
@@ -1688,6 +1739,13 @@ function saveSettingsBox() {
         }
     }
 
+    if (selectedMood == "yes") {
+        if (document.getElementById("mood-initial").value.length == 0) {
+            selectedMood = "5";
+            document.getElementById("mood-initial").value = selectedMood;
+        }
+    }
+
     if (selectedVAC == "yes") {
         if (document.getElementById("vac-initial").value.length == 0) {
             selectedVAC = "1";
@@ -1765,6 +1823,10 @@ function saveSettings() {
             }
         }
 
+        if (selectedMood == "yes") {
+            selectedMood = document.getElementById("mood-initial").value;
+        }
+
         if (selectedSUDS == "yes") {
             selectedSUDS = document.getElementById("suds-initial").value;
         }
@@ -1799,7 +1861,8 @@ function saveSettings() {
             selectedPathing: pathing,
             easing: selectedEasing,
             SUDS: selectedSUDS,
-            VAC: selectedVAC
+            VAC: selectedVAC,
+            mood: selectedMood
         });
 
         if (selectedSessionCount != "one" && selectedSessionCount != "three" && selectedSessionCount != "five" && selectedSessionLength != "unlimited") {
@@ -1816,6 +1879,10 @@ function saveSettings() {
 
         if (selectedVAC != "no") {
             selectedVAC = "yes";
+        }
+
+        if (selectedMood != "no") {
+            selectedMood = "yes";
         }
 
         swal("SUCCESS!", "Your set has been created.", "success");

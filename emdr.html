@@ -62,8 +62,8 @@
 
     <div class="col col-12">
         <!-- Modal -->
-        <div id="modalCall" class="modal fade fixed-top" style="z-index:99999 !important;" id="exampleModalCenter"
-            tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div id="modalCall" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header-element">Edit set</div>
@@ -422,7 +422,7 @@
                 <a class="kill-link-style toggle-element" data-toggle="collapse" href="#advanced" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('advanced')">
                     <div class="margin-top section-card-header">
-                        Advanced settings <ion-icon id="settingArrow5" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
+                        Tracking options <ion-icon id="settingArrow5" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
                     </div>
                 </a>
                 <div class="collapse multi-collapse" id="advanced">
@@ -430,7 +430,21 @@
                         <div class="white">
 
 
-                            <div class="setting-category margin-top-tiny">INCLUDE SUDS SCALE <span class="information-circle"
+                            <div class="setting-category margin-top-tiny">INCLUDE MOOD SCALE <span class="information-circle"
+                                    onclick="information('mood')"><span class="question-mark">?</span></div>
+                            <div>
+                                <div id="moodNo" class="preset-item inline-block no-select" onclick="mood('no')">No</div>
+                                <div id="moodYes" class="preset-item inline-block no-select margin-left-right preset-item-selected"
+                                    onclick="mood('yes')">Yes</div>
+
+                            </div>
+
+                            <div id="moodInput" class="visible margin-top-medium">
+                                <input id="mood-initial" type="number" placeholder="Initial mood (1-10)" class="number-input-style"
+                                    min="1" />
+                            </div>
+
+                            <div class="setting-category margin-top-large">INCLUDE SUDS SCALE <span class="information-circle"
                                     onclick="information('suds')"><span class="question-mark">?</span></div>
                             <div>
                                 <div id="sudsNo" class="preset-item inline-block no-select preset-item-selected"
@@ -498,23 +512,34 @@
         <div id="therapy-over-box" class="hidden">
             <div class="therapy-over-box-header">The therapy is over</div>
             <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)!</div>
-            <div class="col col-11 text-center col-centered">
-                <input type="number" class="text-input-style therapy-over-box-input margin-top-large" placeholder="SUDS scale value" />
-                <input type="number" class="text-input-style margin-top-large therapy-over-box-input" placeholder="VAC scale value" />
-                <div class="inline col col-10 col-centered">
-                    <div class="therapy-over-box-subheader text-left margin-top-large">How are you feeling?</div>
-                    <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
+            <div class="col col-12 col-md-11 col-lg-11 text-center col-centered">
+                <div class="col col-lg-10 col-centered">
+                    <div class="row">
+                        <div class="col-centered">
+                            <input type="number" class="therapy-value-record-input margin-top" placeholder="Mood (1-10)" />
+                            <input type="number" class="therapy-value-record-input margin-left-right margin-top"
+                                placeholder="VAC (1-7)" />
+                            <input type="number" class="therapy-value-record-input margin-top" placeholder="SUDS (1-9)" />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
+
+            </div>
+            <div class="inline col col-12 col-lg-10 col-centered">
+                <div class="therapy-over-box-subheader text-left margin-top-medium">How are you feeling?</div>
+                <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
+            </div>
+            <div class="form-check text-center">
+                <span style="position: relative;left:-22px">
                     <label class="form-check-label white margin-top-tiny no-select" for="save-check">Always
                         save on
                         exit</label>
                     <input type="checkbox" class="form-check-input position-check" id="save-check">
-                </div>
+                </span>
             </div>
             <div class="text-center margin-top-large">
-                <span class="save-therapy-button margin-top pointer no-select">
-                    End Session
+                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
+                    End Therapy
                 </span>
 
                 <span class="save-therapy-button margin-top pointer no-select">
@@ -591,6 +616,12 @@
         firebase.initializeApp(config);
     </script>
 
+    <script>
+        $("#modalCall").on("hidden.bs.modal", function () {
+            $("#edit-set-name").removeClass("text-input-failure");
+            document.getElementById("edit-set-failure").innerHTML = "";
+        });
+    </script>
 
 
     <!-- Custom scripts for this template -->
