@@ -83,6 +83,105 @@
             </div>
         </div>
 
+        <div id="nextSession" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content therapy-modal">
+                    <div class="therapy-over-box-header">The session is over</div>
+                    <div class="therapy-over-box-subheader text-center">Let's record your progress (optional)</div>
+                    <div class="modal-body">
+                        <div class="highlight-color-blue">Your mood</div>
+                        <input id="mood-session-value" type="number" class="text-input" placeholder="Record mood (1-10)" />
+
+                        <div class="highlight-color-blue margin-top-tiny">SUDS Score</div>
+                        <input id="suds-session-value" type="number" class="text-input" placeholder="Record SUDS (1-10)" />
+
+                        <div class="highlight-color-blue margin-top-tiny">VAC Score</div>
+                        <input id="vac-session-value" type="number" class="text-input" placeholder="Record VAC (1-10)" />
+
+
+                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="How are you feeling?"
+                            class="text-input textarea margin-top"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="close-button" data-dismiss="modal" onclick="endSessionComplete()">End Therapy</span>
+                        <span class="save-changes-button" onclick="nextSession()">NEXT SESSION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="therapyOver" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content therapy-modal">
+                    <div class="therapy-over-box-header">The therapy is over</div>
+                    <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)</div>
+                    <div class="modal-body">
+                        <div class="highlight-color-blue">Your mood</div>
+                        <input id="mood-session-value" type="number" class="text-input" placeholder="Record mood (1-10)" />
+
+                        <div class="highlight-color-blue margin-top-tiny">SUDS Score</div>
+                        <input id="suds-session-value" type="number" class="text-input" placeholder="Record SUDS (1-10)" />
+
+                        <div class="highlight-color-blue margin-top-tiny">VAC Score</div>
+                        <input id="vac-session-value" type="number" class="text-input" placeholder="Record VAC (1-10)" />
+
+
+                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="How are you feeling?"
+                            class="text-input textarea margin-top"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="close-button" data-dismiss="modal" onclick="endSessionComplete()">End Therapy</span>
+                        <span class="save-changes-button" onclick="nextSession()">ANALYZE SESSION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
+            <div id="therapy-over-box" class="hidden">
+            <div class="therapy-over-box-header">The therapy is over</div>
+            <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)!</div>
+            <div class="col col-12 col-md-11 col-lg-11 text-center col-centered">
+                <div class="col col-lg-10 col-centered">
+                    <div class="row">
+                        <div class="col-centered">
+                            <input type="number" class="therapy-value-record-input margin-top" placeholder="Mood (1-10)" />
+                            <input type="number" class="therapy-value-record-input margin-left-right margin-top"
+                                placeholder="VAC (1-7)" />
+                            <input type="number" class="therapy-value-record-input margin-top" placeholder="SUDS (1-9)" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="inline col col-12 col-lg-10 col-centered">
+                <div class="therapy-over-box-subheader text-left margin-top-medium">How are you feeling?</div>
+                <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
+            </div>
+            <div class="form-check text-center">
+                <span style="position: relative;left:-22px">
+                    <label class="form-check-label white margin-top-tiny no-select" for="save-check">Always
+                        save on
+                        exit</label>
+                    <input type="checkbox" class="form-check-input position-check" id="save-check">
+                </span>
+            </div>
+            <div class="text-center margin-top-large">
+                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
+                    End Therapy
+                </span>
+
+                <span class="save-therapy-button margin-top pointer no-select">
+                    Analyze Results
+                </span>
+            </div>
+        </div>
+        -->
+
+
+
         <div class="row therapy-element-height">
 
             <div id="gradient2" class="col col-md-6 col-lg-5 session-selection animated fadeInDown green-background">
@@ -236,10 +335,7 @@
                                     onclick="shapeCategorySelect('square')">
                                     <span id="shape-square" class="square"></span>
                                 </span>
-                                <span id="shape-category-triangle" class="shape-category margin-top-tiny" onmouseover="shapeCategoryEnter('triangle')"
-                                    onmouseout="shapeCategoryExit('triangle')" onclick="shapeCategorySelect('triangle')">
-                                    <span id="shape-triangle" class="triangle"></span>
-                                </span>
+
 
                             </div>
 
@@ -296,8 +392,18 @@
                                     <div id="none-direction" class="preset-item no-select preset-item-selected inline-block"
                                         onclick="switchDirection('none')">None</div>
                                     <div id="ding" class="preset-item no-select margin-left-right inline-block" onclick="switchDirection('ding')">Ding</div>
-                                    <div id="drop" class="preset-item no-select inline-block" onclick="switchDirection('drop')">Drop</div>
+                                    <div id="drop" class="preset-item no-select inline-block" onclick="switchDirection('drop')">Raindrop</div>
                                 </div>
+
+                                <div id="switch-direction-load">
+
+                                </div>
+
+                                <span id="switch-direction-load-text">
+                                    <span class="animated fadeIn">
+                                        <span class="load-more no-select" onclick="loadSwitchDirection()">Show more</span>
+                                    </span>
+                                </span>
 
 
                             </div>
@@ -318,6 +424,16 @@
                                         onclick="backgroundSound('space')">Space</div>
                                     <div id="piano" class="preset-item no-select inline-block" onclick="backgroundSound('piano')">Piano</div>
                                 </div>
+
+                                <div id="background-sound-load">
+
+                                </div>
+
+                                <span id="background-sound-load-text">
+                                    <span class="animated fadeIn">
+                                        <span class="load-more no-select" onclick="loadBackgroundSounds()">Show more</span>
+                                    </span>
+                                </span>
                             </div>
 
 
@@ -430,7 +546,7 @@
                         <div class="white">
 
 
-                            <div class="setting-category margin-top-tiny">INCLUDE MOOD SCALE <span class="information-circle"
+                            <div class="setting-category margin-top">INCLUDE MOOD SCALE <span class="information-circle"
                                     onclick="information('mood')"><span class="question-mark">?</span></div>
                             <div>
                                 <div id="moodNo" class="preset-item inline-block no-select" onclick="mood('no')">No</div>
@@ -499,7 +615,9 @@
     <div id="emdr-box" class="emdr-box">
         <div id="emdr-box-buttons" class="emdr-box-buttons">
             <div class="emdr-box-button margin-right-larger no-select" onclick="endSession()">End Therapy</div>
-            <div class="emdr-box-button no-select">Pause Session</div>
+            <span id="session-pause">
+                <div class="emdr-box-button no-select pause" onclick="pauseSession()">Pause Session</div>
+            </span>
             <div id="current-session-count" class="current-session-count no-select">Session <span id="your-current-session"
                     class="inherit">1</span>/<span class="inherit" id="your-total-sessions">5</span></div>
             <ion-icon name="arrow-dropup" class="emdr-hide-button no-select" onclick="hideSessionSettings()" style="z-index:999!important"></ion-icon>
@@ -507,73 +625,6 @@
 
         <div id="therapy-main-box">
 
-        </div>
-
-        <div id="therapy-over-box" class="hidden">
-            <div class="therapy-over-box-header">The therapy is over</div>
-            <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)!</div>
-            <div class="col col-12 col-md-11 col-lg-11 text-center col-centered">
-                <div class="col col-lg-10 col-centered">
-                    <div class="row">
-                        <div class="col-centered">
-                            <input type="number" class="therapy-value-record-input margin-top" placeholder="Mood (1-10)" />
-                            <input type="number" class="therapy-value-record-input margin-left-right margin-top"
-                                placeholder="VAC (1-7)" />
-                            <input type="number" class="therapy-value-record-input margin-top" placeholder="SUDS (1-9)" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="inline col col-12 col-lg-10 col-centered">
-                <div class="therapy-over-box-subheader text-left margin-top-medium">How are you feeling?</div>
-                <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
-            </div>
-            <div class="form-check text-center">
-                <span style="position: relative;left:-22px">
-                    <label class="form-check-label white margin-top-tiny no-select" for="save-check">Always
-                        save on
-                        exit</label>
-                    <input type="checkbox" class="form-check-input position-check" id="save-check">
-                </span>
-            </div>
-            <div class="text-center margin-top-large">
-                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
-                    End Therapy
-                </span>
-
-                <span class="save-therapy-button margin-top pointer no-select">
-                    Analyze Results
-                </span>
-            </div>
-        </div>
-
-        <div id="session-end-box" class="hidden">
-            <div class="therapy-over-box-header">The session is over</div>
-            <div class="therapy-over-box-subheader text-center">Now let's check in with you (optional).</div>
-            <div class="col col-11 text-center col-centered">
-                <input type="number" class="text-input-style therapy-over-box-input margin-top-large" placeholder="SUDS scale value" />
-                <input type="number" class="text-input-style margin-top-large therapy-over-box-input" placeholder="VAC scale value" />
-                <div class="inline col col-10 col-centered">
-                    <div class="therapy-over-box-subheader text-left margin-top-large">How are you feeling?</div>
-                    <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label white margin-top-tiny no-select" for="save-data-check">Always
-                        save data on
-                        exit</label>
-                    <input type="checkbox" class="form-check-input position-check" id="save-data-check">
-                </div>
-            </div>
-            <div class="text-center margin-top-large">
-                <span class="save-therapy-button margin-top pointer no-select" onclick="nextSession()">
-                    Next Session
-                </span>
-
-                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
-                    End Therapy
-                </span>
-            </div>
         </div>
 
 
@@ -620,6 +671,10 @@
         $("#modalCall").on("hidden.bs.modal", function () {
             $("#edit-set-name").removeClass("text-input-failure");
             document.getElementById("edit-set-failure").innerHTML = "";
+        });
+
+        $("#nextSession").on("hidden.bs.modal", function () {
+
         });
     </script>
 

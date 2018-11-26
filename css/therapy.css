@@ -557,6 +557,22 @@ input[type="color"]::-webkit-color-swatch {
     background: transparent;
 }
 
+.load-more
+{
+    position: relative;
+    top:3px;
+    color:#4257b2;
+    font-size:15px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom .3s ease;
+}
+
+.load-more:hover
+{
+    cursor: pointer;
+    border-bottom: 2px solid #4257b2;
+}
+
 .therapy-over-box-input
 {
     margin-left:4px;
@@ -564,11 +580,17 @@ input[type="color"]::-webkit-color-swatch {
     border: 2.5px solid #fff;
 }
 
+.therapy-modal
+{
+    padding-top:2vh;
+    padding-bottom: 2vh;
+}
+
 .therapy-over-box-header
 {
     margin-left: auto;
     margin-right: auto;
-    color:#fff;
+    color:#454545;
     font-size: 34px;
     font-weight: bolder;
     text-align: center;
@@ -577,7 +599,7 @@ input[type="color"]::-webkit-color-swatch {
 .therapy-over-box-subheader
 {
     font-size:19px;
-    color:#fff;
+    color:#454545;
 }
 
 

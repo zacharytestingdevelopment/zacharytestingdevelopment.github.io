@@ -6,11 +6,16 @@
 // - Update loaded set text (COMPLETED)
 // - When you delete the active set, active set text resets and activeSet = "none" (COMPLETED)
 
+var mainElement;
+
+var switchDirectionExtra = "no";
+var switchBackgroundSound = "no";
 
 var speedSlider = document.getElementById("speedRange");
 var speedOutput = document.getElementById("speedOutput");
 var selectedshape = "circle";
 var activeSetText = "none";
+var paused = "no";
 
 var selectedBackgroundAudio = "none";
 var selectedTheme = "light";
@@ -563,14 +568,14 @@ function information(informationType) {
     else if (informationType == "suds") {
         swal({
             title: "Subjective units of disturbance scale",
-            text: "Easing controls the smoothness of movement of the EMDR element during therapy. Try playing with the different options to see how they effect movement! ",
+            text: "During EMDR, a SUDS scale can help track changing perceptions over the duration of the therapy. Hold the thought or experience that you find bothersome in your mind, and assign a number 1 - 10 of how much this troubles you. Fill in how this changes when prompted during the therapy.",
             icon: "info"
         });
     }
     else if (informationType == "vac") {
         swal({
-            title: "Easing",
-            text: "Easing controls the smoothness of movement of the EMDR element during therapy. Try playing with the different options to see how they effect movement! ",
+            title: "Validity of cognition scale",
+            text: "The validity of cognition scale allows us to assess how true you think a belief is over the duration of the therapy. Pick a belief and enter a value 1 - 7 of how true you think that belief is (1 is not true at all, 7 is completely true). Fill in how this number changes when prompted during the therapy. ",
             icon: "info"
         });
     }
@@ -1032,14 +1037,15 @@ function spawnTherapyMain() {
         document.getElementById("your-total-sessions").innerHTML = "<span class = \"inherit animated fadeIn\">" + numberOfSessions + "</span>";
     }
 
-
-    var alternate = anime({
-        targets: '#alternate-main .el',
-        translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
-        direction: 'alternate',
-        loop: true,
-        easing: 'linear'
-    });
+    /*
+        mainElement = anime({
+            targets: '#alternate-main .el',
+            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
+            direction: 'alternate',
+            loop: true,
+            easing: 'linear'
+        });
+        */
 
     var spawnTherapy = "<span class = \"animated fadeIn\">";
     spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
@@ -1068,7 +1074,7 @@ function spawnTherapyMain() {
     document.getElementById("emdr-element-main").style.background = document.getElementById("element").style.backgroundColor;
 
 
-    var alternate = anime({
+    mainElement = anime({
         targets: '#alternate-main .el',
         translateX: document.getElementById("emdr-box").offsetWidth - 150,
         direction: 'alternate',
@@ -1076,7 +1082,7 @@ function spawnTherapyMain() {
         easing: 'linear'
     });
 
-    console.log("individual session length: ");
+    //console.log("individual session length: ");
 
     sessionActive = setInterval(function () {
         seconds++;
@@ -1088,26 +1094,117 @@ function spawnTherapyMain() {
 
 }
 
+function pauseSession() {
+
+    if (paused == "no") {
+
+        console.log("paused");
+
+        paused = "yes";
+        var pause = "";
+        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Resume Session<\/div></span>";
+        mainElement.pause;
+    }
+    else {
+        paused = "no";
+        var pause = "";
+        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Pause Session<\/div></span>";
+    }
+
+    document.getElementById("session-pause").innerHTML = pause;
+}
+
+function loadBackgroundSounds() {
+    if (switchBackgroundSound == "no") {
+        var switchDirection = "";
+        switchDirection += " <span class=\"animated fadeIn\">";
+        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
+        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
+        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
+        switchDirection += "                                    <\/span>";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+
+        document.getElementById("background-sound-load").innerHTML = switchDirection;
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+        switchBackgroundSound = "yes";
+    }
+    else {
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load").innerHTML = ""
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+
+        switchBackgroundSound = "no";
+    }
+}
+
+function loadSwitchDirection() {
+
+    if (switchDirectionExtra == "no") {
+        var switchDirection = "";
+        switchDirection += " <span class=\"animated fadeIn\">";
+        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
+        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
+        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
+        switchDirection += "                                    <\/span>";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+
+        document.getElementById("switch-direction-load").innerHTML = switchDirection;
+        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
+        switchDirectionExtra = "yes";
+    }
+    else {
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("switch-direction-load").innerHTML = ""
+        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
+
+        switchDirectionExtra = "no";
+    }
+}
+
 function startNextSession() {
     yourCurrentSession++;
 
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
-
-
-        document.getElementById("therapy-main-box").className = "animated fadeOut";
         hideSessionSettings();
         helperHide();
-        document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
+        document.getElementById("therapy-main-box").className = "animated fadeOut";
+        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+        $('#therapyOver').modal('toggle');
     }
     else {
         hideSessionSettings();
         helperHide();
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
-        document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeInDown visible col col-lg-10 col-md-11 col-10";
-
-        //document.getElementById("settings-hidden").innerHTML = "";
-        //$("#settings-hidden").addClass("hidden");
+        //$('#nextSession').modal('toggle');
+        $('#nextSession').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        })
     }
 
     stopCounting();
@@ -1115,10 +1212,10 @@ function startNextSession() {
 
 function nextSession() {
     showSessionSettings();
-    document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutUp visible col col-lg-10 col-md-11 col-10";
+    $('#nextSession').modal('hide');
 
     setTimeout(function () {
-        var alternate = anime({
+        mainElement = anime({
             targets: '#alternate-main .el',
             translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
             direction: 'alternate',
@@ -1137,6 +1234,7 @@ function nextSession() {
             startNextSession();
         }
     }, 1000);
+
 }
 
 function startSession() {
@@ -1165,8 +1263,8 @@ function endSessionComplete() {
     settingsHidden += "                <\/span>";
 
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
-    document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutDown col col-lg-10 col-md-11 col-10";
-    document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeOutDown hidden col col-lg-10 col-md-11 col-10";
+    //document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutDown col col-lg-10 col-md-11 col-10";
+    //document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeOutDown hidden col col-lg-10 col-md-11 col-10";
     endSession();
 }
 
