@@ -359,6 +359,69 @@ input[type="color"]::-webkit-color-swatch {
     background:#3ee986;
 }
 
+.instructions-box-section
+{
+    border-radius: 10px;
+    background: #fff;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    padding-left:40px;
+    padding-right: 40px;
+}
+
+.instructions-box-section-header
+{
+    color:#4257b2;
+    font-size: 25.5px;
+}
+
+.instructions-box-header
+{
+    text-align: center;
+    margin-top:35px;
+    font-size: 38px;
+    letter-spacing: 7px;
+    color:#fff;
+}
+
+.dashboard-button-instructions
+{
+    position: relative;
+    top: 35px;
+    left: 30px;
+    padding-top:12px !important;
+    padding-bottom: 12px !important;
+}
+
+.instructions-button
+{
+    border:2.5px solid #fff;
+    border-radius: 10px;
+    color:#fff;
+    width:205px;
+    text-align: center;
+    padding-top:10px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 20px;
+    left:0;
+    right:0;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    transition: all .3s ease;
+}
+
+.instructions-button:hover
+{
+    cursor: pointer;
+    background:#fff;
+    color:#4257b2;
+}
+
 .hide-button
 {
     color:#fff;
@@ -370,6 +433,18 @@ input[type="color"]::-webkit-color-swatch {
     top:5px;
     border:2px solid #fff;
 
+}
+
+.instructions-box-section-body
+{
+    font-size: 16.5px;
+}
+
+.instructions-box
+{
+    background: rgb(57,76,156);
+    background: linear-gradient(324deg, rgba(57,76,156,1) 10%, rgba(66,87,178,1) 77%);
+    overflow-y:scroll;
 }
 
 .emdr-box-button
@@ -550,6 +625,13 @@ input[type="color"]::-webkit-color-swatch {
     right:0;
     padding-top:5.5vh;
     padding-bottom: 5.5vh;
+}
+
+.hide-box
+{
+    position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .therapy-over-box-input:focus

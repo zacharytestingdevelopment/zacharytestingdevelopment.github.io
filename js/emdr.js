@@ -10,6 +10,7 @@ var mainElement;
 
 var switchDirectionExtra = "no";
 var switchBackgroundSound = "no";
+var themeExtra = "no";
 
 var speedSlider = document.getElementById("speedRange");
 var speedOutput = document.getElementById("speedOutput");
@@ -147,6 +148,13 @@ function theme(themeValue) {
         $("#custom").removeClass("preset-item-selected");
         $("#contrast").removeClass("preset-item-selected");
 
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
         document.getElementById("background-color").value = "#ffffff";
         document.getElementById("element-color").value = "#3ee986";
 
@@ -163,6 +171,13 @@ function theme(themeValue) {
         $("#ruby").removeClass("preset-item-selected");
         $("#custom").removeClass("preset-item-selected");
         $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
 
         document.getElementById("background-color").value = "#454545";
         document.getElementById("element-color").value = "#B2BABB";
@@ -181,6 +196,13 @@ function theme(themeValue) {
         $("#custom").removeClass("preset-item-selected");
         $("#contrast").removeClass("preset-item-selected");
 
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
         document.getElementById("background-color").value = "#3c50a3";
         document.getElementById("element-color").value = "#3bcdd0";
 
@@ -197,6 +219,13 @@ function theme(themeValue) {
         $("#ruby").addClass("preset-item-selected");
         $("#custom").removeClass("preset-item-selected");
         $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
 
         document.getElementById("background-color").value = "#2c415a";
         document.getElementById("element-color").value = "#ec5351";
@@ -215,6 +244,13 @@ function theme(themeValue) {
         $("#custom").addClass("preset-item-selected");
         $("#contrast").removeClass("preset-item-selected");
 
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
         selectedTheme = "custom";
 
     }
@@ -226,6 +262,13 @@ function theme(themeValue) {
         $("#custom").removeClass("preset-item-selected");
         $("#contrast").addClass("preset-item-selected");
 
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
         document.getElementById("background-color").value = "#000000";
         document.getElementById("element-color").value = "#38fe28";
 
@@ -234,6 +277,156 @@ function theme(themeValue) {
         document.getElementById("element").style.backgroundColor = "#38fe28";
 
         selectedTheme = "contrast";
+    }
+    else if (themeValue == "sand") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").addClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#c7b198";
+        document.getElementById("element-color").value = "#f7f4e3";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#c7b198";
+        document.getElementById("element").style.backgroundColor = "#f7f4e3";
+
+        selectedTheme = "sand";
+    }
+    else if (themeValue == "sunshine") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").addClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#5DADE2";
+        document.getElementById("element-color").value = "#F9E79F";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#5DADE2";
+        document.getElementById("element").style.backgroundColor = "#F9E79F";
+
+        selectedTheme = "sunshine";
+    }
+    else if (themeValue == "royal") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").addClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#aba9e9";
+        document.getElementById("element-color").value = "#5e227f";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#aba9e9";
+        document.getElementById("element").style.backgroundColor = "#5e227f";
+
+        selectedTheme = "royal";
+    }
+    else if (themeValue == "forest") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").addClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#74b49b";
+        document.getElementById("element-color").value = "#587850";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#74b49b";
+        document.getElementById("element").style.backgroundColor = "#587850";
+
+        selectedTheme = "forest";
+    }
+    else if (themeValue == "lilac") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").addClass("preset-item-selected");
+        $("#chestnut").removeClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#b8ffd0";
+        document.getElementById("element-color").value = "#dfbaf7";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#b8ffd0";
+        document.getElementById("element").style.backgroundColor = "#dfbaf7";
+
+        selectedTheme = "lilac";
+    }
+    else if (themeValue == "chestnut") {
+
+        $("#light").removeClass("preset-item-selected");
+        $("#dark").removeClass("preset-item-selected");
+        $("#aqua").removeClass("preset-item-selected");
+        $("#ruby").removeClass("preset-item-selected");
+        $("#custom").removeClass("preset-item-selected");
+        $("#contrast").removeClass("preset-item-selected");
+
+        $("#sunshine").removeClass("preset-item-selected");
+        $("#sand").removeClass("preset-item-selected");
+        $("#royal").removeClass("preset-item-selected");
+        $("#forest").removeClass("preset-item-selected");
+        $("#lilac").removeClass("preset-item-selected");
+        $("#chestnut").addClass("preset-item-selected");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+        document.getElementById("background-color").value = "#c7b198";
+        document.getElementById("element-color").value = "#7b3c3c";
+
+        document.getElementById("preview-pane").style.backgroundColor = "#c7b198";
+        document.getElementById("element").style.backgroundColor = "#7b3c3c";
+
+        selectedTheme = "chestnut";
     }
 }
 
@@ -370,6 +563,14 @@ function dashBoard(setting) {
     else if (setting == "exitCancel") {
         $("#cancel-panel").addClass("white");
         $("#cancel-panel").removeClass("highlight-color-blue");
+    }
+    else if (setting == "enterInstructions") {
+        $("#instructions-icon").removeClass("white");
+        $("#instructions-icon").addClass("highlight-color-blue");
+    }
+    else if (setting == "exitInstructions") {
+        $("#instructions-icon").addClass("white");
+        $("#instructions-icon").removeClass("highlight-color-blue");
     }
 
 }
@@ -588,7 +789,14 @@ function backgroundSound(soundType) {
         $("#waves").removeClass("preset-item-selected");
         $("#outdoors").removeClass("preset-item-selected");
         $("#space").removeClass("preset-item-selected");
-        $("#piano").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
 
         pianoAudio.pause();
         pianoAudio.currentTime = 0;
@@ -604,7 +812,14 @@ function backgroundSound(soundType) {
         $("#waves").removeClass("preset-item-selected");
         $("#outdoors").removeClass("preset-item-selected");
         $("#space").removeClass("preset-item-selected");
-        $("#piano").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
 
         selectedBackgroundAudio = "ambient";
     }
@@ -614,7 +829,14 @@ function backgroundSound(soundType) {
         $("#waves").addClass("preset-item-selected");
         $("#outdoors").removeClass("preset-item-selected");
         $("#space").removeClass("preset-item-selected");
-        $("#piano").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
 
         selectedBackgroundAudio = "waves";
     }
@@ -624,7 +846,14 @@ function backgroundSound(soundType) {
         $("#waves").removeClass("preset-item-selected");
         $("#outdoors").addClass("preset-item-selected");
         $("#space").removeClass("preset-item-selected");
-        $("#piano").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
 
         selectedBackgroundAudio = "outdoors";
 
@@ -640,25 +869,153 @@ function backgroundSound(soundType) {
         $("#waves").removeClass("preset-item-selected");
         $("#outdoors").removeClass("preset-item-selected");
         $("#space").addClass("preset-item-selected");
-        $("#piano").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
 
         selectedBackgroundAudio = "space";
 
     }
-    else if (soundType == "piano") {
+    else if (soundType == "piano1") {
         $("#none").removeClass("preset-item-selected");
         $("#ambient").removeClass("preset-item-selected");
         $("#waves").removeClass("preset-item-selected");
         $("#outdoors").removeClass("preset-item-selected");
         $("#space").removeClass("preset-item-selected");
-        $("#piano").addClass("preset-item-selected");
+        $("#piano1").addClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
 
         rainAudio.pause();
         rainAudio.currentTime = 0;
 
         pianoAudio.play();
 
-        selectedBackgroundAudio = "piano";
+        selectedBackgroundAudio = "piano1";
+    }
+    else if (soundType == "piano2") {
+
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").addClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
+        selectedBackgroundAudio = "piano2";
+
+    }
+    else if (soundType == "orchestra1") {
+
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").addClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
+        selectedBackgroundAudio = "orchestra1";
+
+    }
+    else if (soundType == "orchestra2") {
+
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").addClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
+        selectedBackgroundAudio = "orchestra2";
+
+    }
+    else if (soundType == "nighttime") {
+
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").addClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
+        selectedBackgroundAudio = "nighttime";
+
+    }
+    else if (soundType == "wind") {
+
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").addClass("preset-item-selected");
+        $("#heartbeat").removeClass("preset-item-selected");
+
+        selectedBackgroundAudio = "wind";
+
+    }
+    else if (soundType == "heartbeat") {
+        $("#none").removeClass("preset-item-selected");
+        $("#ambient").removeClass("preset-item-selected");
+        $("#waves").removeClass("preset-item-selected");
+        $("#outdoors").removeClass("preset-item-selected");
+        $("#space").removeClass("preset-item-selected");
+        $("#piano1").removeClass("preset-item-selected");
+
+        $("#piano2").removeClass("preset-item-selected");
+        $("#orchestra1").removeClass("preset-item-selected");
+        $("#orchestra2").removeClass("preset-item-selected");
+        $("#nighttime").removeClass("preset-item-selected");
+        $("#wind").removeClass("preset-item-selected");
+        $("#heartbeat").addClass("preset-item-selected");
+
+        selectedBackgroundAudio = "heartbeat";
+
     }
 }
 
@@ -668,12 +1025,20 @@ function switchDirection(directionType) {
         $("#ding").removeClass("preset-item-selected");
         $("#drop").removeClass("preset-item-selected");
 
+        $("#click").removeClass("preset-item-selected");
+        $("#beep").removeClass("preset-item-selected");
+        $("#buzz").removeClass("preset-item-selected");
+
         switchDirectionSound = "none";
     }
     else if (directionType == "ding") {
         $("#none-direction").removeClass("preset-item-selected");
         $("#ding").addClass("preset-item-selected");
         $("#drop").removeClass("preset-item-selected");
+
+        $("#click").removeClass("preset-item-selected");
+        $("#beep").removeClass("preset-item-selected");
+        $("#buzz").removeClass("preset-item-selected");
 
         switchDirectionSound = "ding";
     }
@@ -682,7 +1047,48 @@ function switchDirection(directionType) {
         $("#ding").removeClass("preset-item-selected");
         $("#drop").addClass("preset-item-selected");
 
+        $("#click").removeClass("preset-item-selected");
+        $("#beep").removeClass("preset-item-selected");
+        $("#buzz").removeClass("preset-item-selected");
+
         switchDirectionSound = "drop";
+    }
+    else if (directionType == "click") {
+
+        $("#none-direction").removeClass("preset-item-selected");
+        $("#ding").removeClass("preset-item-selected");
+        $("#drop").removeClass("preset-item-selected");
+
+        $("#click").addClass("preset-item-selected");
+        $("#beep").removeClass("preset-item-selected");
+        $("#buzz").removeClass("preset-item-selected");
+
+        switchDirectionSound = "click";
+
+    }
+    else if (directionType == "beep") {
+
+        $("#none-direction").removeClass("preset-item-selected");
+        $("#ding").removeClass("preset-item-selected");
+        $("#drop").removeClass("preset-item-selected");
+
+        $("#click").removeClass("preset-item-selected");
+        $("#beep").addClass("preset-item-selected");
+        $("#buzz").removeClass("preset-item-selected");
+
+        switchDirectionSound = "beep";
+
+    }
+    else if (directionType == "buzz") {
+        $("#none-direction").removeClass("preset-item-selected");
+        $("#ding").removeClass("preset-item-selected");
+        $("#drop").removeClass("preset-item-selected");
+
+        $("#click").removeClass("preset-item-selected");
+        $("#beep").removeClass("preset-item-selected");
+        $("#buzz").addClass("preset-item-selected");
+
+        switchDirectionSound = "buzz";
     }
 }
 
@@ -1114,8 +1520,61 @@ function pauseSession() {
     document.getElementById("session-pause").innerHTML = pause;
 }
 
+function loadThemeSelection() {
+
+    if (themeExtra == "no") {
+        $("#theme-extra-text").removeClass("hidden");
+        themeExtra = "yes";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("theme-load-text").innerHTML = loadMoreText;
+    }
+    else {
+        themeExtra = "no";
+        $("#theme-extra-text").addClass("hidden");
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("theme-load-text").innerHTML = loadMoreText;
+    }
+}
+
 function loadBackgroundSounds() {
+
     if (switchBackgroundSound == "no") {
+
+        $("#background-sound-load").removeClass("hidden");
+        switchBackgroundSound = "yes";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+
+    }
+    else {
+        $("#background-sound-load").addClass("hidden");
+        switchBackgroundSound = "no";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+    }
+
+    /*
+    if (switch(BackgroundSound) == "no") {
         var switchDirection = "";
         switchDirection += " <span class=\"animated fadeIn\">";
         switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
@@ -1147,38 +1606,33 @@ function loadBackgroundSounds() {
 
         switchBackgroundSound = "no";
     }
+    */
 }
 
 function loadSwitchDirection() {
 
     if (switchDirectionExtra == "no") {
-        var switchDirection = "";
-        switchDirection += " <span class=\"animated fadeIn\">";
-        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
-        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
-        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
-        switchDirection += "                                    <\/span>";
+
+        $("#switch-direction-load").removeClass("hidden");
+        switchDirectionExtra = "yes";
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
         loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
         loadMoreText += "                                    <\/span>";
 
-
-        document.getElementById("switch-direction-load").innerHTML = switchDirection;
         document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
         switchDirectionExtra = "yes";
     }
     else {
+
+        $("#switch-direction-load").addClass("hidden");
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
         loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
         loadMoreText += "                                    <\/span>";
 
-        document.getElementById("switch-direction-load").innerHTML = ""
         document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
 
         switchDirectionExtra = "no";
@@ -1186,7 +1640,50 @@ function loadSwitchDirection() {
 }
 
 function startNextSession() {
+
     yourCurrentSession++;
+
+    //Populate mood input if active
+    if (selectedMood != "no") {
+        var mood = "";
+        mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
+        mood += "                            <input id=\"mood-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
+
+        document.getElementById("your-mood-box-session").innerHTML = mood;
+        document.getElementById("your-mood-box-therapy").innerHTML = mood;
+    }
+    else {
+        document.getElementById("your-mood-box-session").innerHTML = "";
+        document.getElementById("your-mood-box-therapy").innerHTML = "";
+    }
+
+    //Populate SUDS input if active
+    if (selectedSUDS != "no") {
+        var suds = "";
+        suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
+        suds += "                            <input id=\"suds-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
+
+        document.getElementById("your-suds-box-session").innerHTML = suds;
+        document.getElementById("your-suds-box-therapy").innerHTML = suds;
+    }
+    else {
+        document.getElementById("your-suds-box-session").innerHTML = "";
+        document.getElementById("your-suds-box-therapy").innerHTML = "";
+    }
+
+    //Populate VAC input if active
+    if (selectedVAC != "no") {
+        var vac = "";
+        vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
+        vac += "                            <input id=\"vac-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
+
+        document.getElementById("your-vac-box-session").innerHTML = vac;
+        document.getElementById("your-vac-box-therapy").innerHTML = vac;
+    }
+    else {
+        document.getElementById("your-vac-box-session").innerHTML = "";
+        document.getElementById("your-vac-box-therapy").innerHTML = "";
+    }
 
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
         hideSessionSettings();
@@ -1235,6 +1732,14 @@ function nextSession() {
         }
     }, 1000);
 
+}
+
+function loadInstructions() {
+    $("#instructions-box").addClass("emdr-box-active");
+}
+
+function closeInstructions() {
+    $("#instructions-box").removeClass("emdr-box-active");
 }
 
 function startSession() {
@@ -1408,7 +1913,6 @@ function deleteSet(id, setName) {
                     //console.log("value" + therapyValue);
 
                     if (therapyValue == "") {
-                        console.log("ROACH LOVER");
                         var settingOption = "";
                         settingOption += "<div id=\"no-settings\" class=\"therapy-setting-box margin-top shadow\">";
                         settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">Add some sets\<\/span>";

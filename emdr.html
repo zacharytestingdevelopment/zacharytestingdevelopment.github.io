@@ -90,17 +90,19 @@
                     <div class="therapy-over-box-header">The session is over</div>
                     <div class="therapy-over-box-subheader text-center">Let's record your progress (optional)</div>
                     <div class="modal-body">
-                        <div class="highlight-color-blue">Your mood</div>
-                        <input id="mood-session-value" type="number" class="text-input" placeholder="Record mood (1-10)" />
+                        <div id="your-mood-box-session">
 
-                        <div class="highlight-color-blue margin-top-tiny">SUDS Score</div>
-                        <input id="suds-session-value" type="number" class="text-input" placeholder="Record SUDS (1-10)" />
+                        </div>
 
-                        <div class="highlight-color-blue margin-top-tiny">VAC Score</div>
-                        <input id="vac-session-value" type="number" class="text-input" placeholder="Record VAC (1-10)" />
+                        <div id="your-suds-box-session">
 
+                        </div>
 
-                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="How are you feeling?"
+                        <div id="your-vac-box-session">
+
+                        </div>
+
+                        <textarea id="edit-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
                     <div class="modal-footer">
@@ -118,17 +120,18 @@
                     <div class="therapy-over-box-header">The therapy is over</div>
                     <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)</div>
                     <div class="modal-body">
-                        <div class="highlight-color-blue">Your mood</div>
-                        <input id="mood-session-value" type="number" class="text-input" placeholder="Record mood (1-10)" />
+                        <div id="your-mood-box-therapy">
 
-                        <div class="highlight-color-blue margin-top-tiny">SUDS Score</div>
-                        <input id="suds-session-value" type="number" class="text-input" placeholder="Record SUDS (1-10)" />
+                        </div>
 
-                        <div class="highlight-color-blue margin-top-tiny">VAC Score</div>
-                        <input id="vac-session-value" type="number" class="text-input" placeholder="Record VAC (1-10)" />
+                        <div id="your-suds-box-therapy">
 
+                        </div>
 
-                        <textarea id="edit-set-description" maxlength="300" id="set-input-description" placeholder="How are you feeling?"
+                        <div id="your-vac-box-therapy">
+
+                        </div>
+                        <textarea id="edit-set-description" maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
                     <div class="modal-footer">
@@ -293,7 +296,7 @@
                     PTSD,
                     and much
                     more. View the research here.</div>
-                <div class="therapy-settings-useage white margin-top-tiny pad-right no-select">Instructions</div>
+                <div class="therapy-settings-useage white margin-top-tiny pad-right no-select" onclick="loadInstructions()">Instructions</div>
                 <div class="therapy-settings-useage white margin-top-tiny no-select" onclick="loadSettings()">Load
                     settings</div>
 
@@ -383,7 +386,28 @@
                                     <div id="ruby" class="preset-item no-select margin-left-right inline-block" onclick="theme('ruby')">Ruby</div>
                                     <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
                                 </div>
+                                <span id="theme-extra-text" class="hidden">
+                                    <div>
+                                        <div id="sunshine" class="preset-item no-select inline-block" onclick="theme('sunshine')">Sunshine</div>
+                                        <div id="sand" class="preset-item no-select inline-block" onclick="theme('sand')">Sand</div>
+                                        <div id="royal" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="theme('royal')">Royal</div>
+                                    </div>
+
+                                    <div>
+                                        <div id="forest" class="preset-item no-select inline-block" onclick="theme('forest')">Forest</div>
+                                        <div id="lilac" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="theme('lilac')">Lilac</div>
+                                        <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="theme('chestnut')">Chestnut</div>
+                                    </div>
+                                </span>
                             </div>
+                            <span id="theme-load-text">
+                                <span class="animated fadeIn">
+                                    <span class="load-more no-select" onclick="loadThemeSelection()">Show more</span>
+                                </span>
+                            </span>
 
                             <div class="setting-category margin-top-large">SWITCH DIRECTION SOUND <span class="information-circle"
                                     onclick="information('switchDirection')"><span class="question-mark">?</span></div>
@@ -395,9 +419,15 @@
                                     <div id="drop" class="preset-item no-select inline-block" onclick="switchDirection('drop')">Raindrop</div>
                                 </div>
 
-                                <div id="switch-direction-load">
 
-                                </div>
+                                <span id="switch-direction-load" class="hidden">
+                                    <div>
+                                        <div id="click" class="preset-item no-select inline-block" onclick="switchDirection('click')">Click</div>
+                                        <div id="beep" class="preset-item no-select inline-block" onclick="switchDirection('beep')">Beep</div>
+                                        <div id="buzz" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="switchDirection('buzz')">Buzz</div>
+                                    </div>
+                                </span>
 
                                 <span id="switch-direction-load-text">
                                     <span class="animated fadeIn">
@@ -422,12 +452,30 @@
                                     <div id="outdoors" class="preset-item no-select inline-block" onclick="backgroundSound('outdoors')">Outdoors</div>
                                     <div id="space" class="preset-item no-select margin-left-right inline-block"
                                         onclick="backgroundSound('space')">Space</div>
-                                    <div id="piano" class="preset-item no-select inline-block" onclick="backgroundSound('piano')">Piano</div>
+                                    <div id="piano1" class="preset-item no-select inline-block" onclick="backgroundSound('piano1')">Piano
+                                        1</div>
                                 </div>
 
-                                <div id="background-sound-load">
+                                <span id="background-sound-load" class="hidden">
+                                    <div>
+                                        <div id="piano2" class="preset-item no-select inline-block" onclick="backgroundSound('piano2')">Piano
+                                            2</div>
+                                        <div id="orchestra1" class="preset-item no-select inline-block" onclick="backgroundSound('orchestra1')">Orchestra
+                                            1</div>
+                                        <div id="orchestra2" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="backgroundSound('orchestra2')">Orchestra 2</div>
+                                    </div>
 
-                                </div>
+                                    <div>
+                                        <div id="nighttime" class="preset-item no-select inline-block" onclick="backgroundSound('nighttime')">Nighttime
+                                        </div>
+                                        <div id="wind" class="preset-item no-select inline-block" onclick="backgroundSound('wind')">Wind</div>
+                                        <div id="heartbeat" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="backgroundSound('heartbeat')">Heartbeat</div>
+                                    </div>
+                                </span>
+
+
 
                                 <span id="background-sound-load-text">
                                     <span class="animated fadeIn">
@@ -625,6 +673,81 @@
 
         <div id="therapy-main-box">
 
+        </div>
+
+
+    </div>
+
+    <div id="instructions-box" class="emdr-box instructions-box">
+        <span class="dashboard-button dashboard-button-blue dashboard-button-instructions no-select" onmouseover="dashBoard('enterInstructions')"
+            onmouseout="dashBoard('exitInstructions')" onclick="closeInstructions()">
+            <ion-icon id="instructions-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
+            CANCEL
+        </span>
+        <div class="instructions-box-header">INSTRUCTIONS</div>
+
+        <div class="col col-12 col-centered">
+            <div class="row">
+                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
+                    <div class="instructions-box-section-header">WHAT IS EMDR?</div>
+                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
+                        placeholder
+                        placeholder placeholder.
+                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
+                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+
+                        <div class="margin-top">
+                            <li>Item one this is an item hahaha</li>
+                            <li>Item two this is an item hahaha</li>
+                            <li>Item three this is an item hahaha</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-12 col-centered">
+            <div class="row">
+                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
+                    <div class="instructions-box-section-header">HOW TO USE</div>
+                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
+                        placeholder
+                        placeholder placeholder.
+                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
+                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+
+                        <div class="margin-top">
+                            <li>Item one this is an item hahaha</li>
+                            <li>Item two this is an item hahaha</li>
+                            <li>Item three this is an item hahaha</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-12 col-centered">
+            <div class="row">
+                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
+                    <div class="instructions-box-section-header">THE RESEARCH</div>
+                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
+                        placeholder
+                        placeholder placeholder.
+                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
+                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+
+                        <div class="margin-top">
+                            <li>Item one this is an item hahaha</li>
+                            <li>Item two this is an item hahaha</li>
+                            <li>Item three this is an item hahaha</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions-button no-select">
+            Get Started
         </div>
 
 
