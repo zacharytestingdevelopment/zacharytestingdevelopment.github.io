@@ -8,6 +8,11 @@
 
 var mainElement;
 
+var moodProgress = [];
+var sudsProgress = [];
+var vacProgress = [];
+var descriptionProgress = [];
+
 var switchDirectionExtra = "no";
 var switchBackgroundSound = "no";
 var themeExtra = "no";
@@ -19,7 +24,7 @@ var activeSetText = "none";
 var paused = "no";
 
 var selectedBackgroundAudio = "none";
-var selectedTheme = "light";
+var selectedTheme = "ruby";
 var switchDirectionSound = "none";
 var selectedSessionCount = "3";
 var selectedSessionLength = "45";
@@ -420,10 +425,10 @@ function theme(themeValue) {
         $("#chestnut").addClass("preset-item-selected");
 
         document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
-        document.getElementById("background-color").value = "#c7b198";
+        document.getElementById("background-color").value = "#B29D84";
         document.getElementById("element-color").value = "#7b3c3c";
 
-        document.getElementById("preview-pane").style.backgroundColor = "#c7b198";
+        document.getElementById("preview-pane").style.backgroundColor = "#B29D84";
         document.getElementById("element").style.backgroundColor = "#7b3c3c";
 
         selectedTheme = "chestnut";
@@ -1686,11 +1691,21 @@ function startNextSession() {
     }
 
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
+        //The therapy has ended 
+        saveTherapyResults();
+
+
         hideSessionSettings();
         helperHide();
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
-        $('#therapyOver').modal('toggle');
+        // $('#therapyOver').modal('toggle');
+
+        $('#therapyOver').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        })
+
     }
     else {
         hideSessionSettings();
@@ -1707,7 +1722,56 @@ function startNextSession() {
     stopCounting();
 }
 
+function saveTherapyResults() {
+    var d = new Date();
+    var user = firebase.auth().currentUser;
+    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    var setUsed = document.getElementById("active-set").innerText;
+
+    firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+        setUsed: setUsed,
+        setDate: date,
+        setSuds: sudsProgress,
+        setVac: vacProgress,
+        setDescription: descriptionProgress
+    });
+
+}
+
 function nextSession() {
+
+    if (selectedMood != "no") {
+        var moodSave = document.getElementById("mood-session-value").value;
+        if (moodSave.length > 0) {
+            moodProgress.push(moodSave);
+            console.log("mood progress: " + moodProgress);
+        }
+    }
+
+    if (selectedSUDS != "no") {
+        var sudsSave = document.getElementById("suds-session-value").value;
+        if (sudsSave.length > 0) {
+            sudsProgress.push(sudsSave);
+            console.log("suds progress: " + sudsProgress);
+        }
+    }
+
+    if (selectedVAC != "no") {
+        var vacSave = document.getElementById("vac-session-value").value;
+        if (vacSave.length > 0) {
+            vacProgress.push(vacSave);
+            console.log("vac progress: " + vacProgress);
+        }
+    }
+
+    var descriptionSave = document.getElementById("next-set-description").value;
+    if (descriptionSave.length > 0) {
+        descriptionProgress.push(descriptionSave);
+        console.log("description progress: " + descriptionProgress);
+    }
+
+    document.getElementById("next-set-description").value = "";
+
     showSessionSettings();
     $('#nextSession').modal('hide');
 
@@ -1736,16 +1800,63 @@ function nextSession() {
 
 function loadInstructions() {
     $("#instructions-box").addClass("emdr-box-active");
+
+    setTimeout(function () { hideMobileNav(); }, 320);
 }
 
 function closeInstructions() {
     $("#instructions-box").removeClass("emdr-box-active");
+    $("#instructions-box").animate({ scrollTop: 0 }, "fast");
+
+    showMobileNav();
 }
 
 function startSession() {
     $("#emdr-box").addClass("emdr-box-active");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").addClass("transition-delay");
+
+    if (selectedMood != "no") {
+        var moodSave = document.getElementById("mood-initial").value;
+        if (moodSave.length > 0) {
+            moodProgress.push(moodSave);
+            console.log("mood progress: " + moodProgress);
+        }
+    }
+
+    if (selectedSUDS != "no") {
+        var sudsSave = document.getElementById("suds-initial").value;
+        if (sudsSave.length > 0) {
+            sudsProgress.push(sudsSave);
+            console.log("suds progress: " + sudsProgress);
+        }
+    }
+
+    if (selectedVAC != "no") {
+        var vacSave = document.getElementById("vac-initial").value;
+        if (vacSave.length > 0) {
+            vacProgress.push(vacSave);
+            console.log("suds progress: " + vacProgress);
+        }
+    }
+
+    /*
+    if (selectedSUDS != "no") {
+        var sudsSave = document.getElementById("suds-session-value").value;
+        if (sudsSave.length > 0) {
+            sudsProgress.push(sudsSave);
+            console.log("suds progress: " + sudsProgress);
+        }
+    }
+
+    if (selectedVAC != "no") {
+        var vacSave = document.getElementById("vac-session-value").value;
+        if (vacSave.length > 0) {
+            vacProgress.push(vacSave);
+            console.log("vac progress: " + vacProgress);
+        }
+    }
+    */
 
     setTimeout(function () { hideMobileNav(); }, 320);
 
@@ -1775,6 +1886,13 @@ function endSessionComplete() {
 
 function endSession() {
     yourCurrentSession = 1;
+
+    //Reset tracking progress 
+    moodProgress = [];
+    sudsProgress = [];
+    vacProgress = [];
+    descriptionProgress = [];
+
     $("#emdr-box").removeClass("emdr-box-active");
     $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").removeClass("transition-delay");
@@ -2238,6 +2356,7 @@ function populateSettingsOptions(child) {
     var id = "";
     if (child.length > 0) {
 
+        //IF BROKEN: make child.length instead of child.length - 1 
         for (var i = 0; i < child.length; i++) {
 
             //console.log("SET NAME: " + child[i]);
