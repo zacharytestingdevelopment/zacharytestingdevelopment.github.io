@@ -38,7 +38,6 @@
     <link href="css/animate.css" rel="stylesheet" />
     <link href="css/morphext.css" rel="stylesheet" />
     <link href="css/therapy.css" rel="stylesheet" />
-    <link href="css/spectrum.css" rel="stylesheet" />
 
 </head>
 
@@ -77,8 +76,8 @@
                             class="text-input textarea margin-top-tiny" placeholder="Set description (optional)"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <span class="close-button no-select" data-dismiss="modal">Close</span>
-                        <span class="save-changes-button no-select" onclick="updatedEditSet()">SAVE CHANGES</span>
+                        <span class="close-button" data-dismiss="modal">Close</span>
+                        <span class="save-changes-button" onclick="updatedEditSet()">SAVE CHANGES</span>
                     </div>
                 </div>
             </div>
@@ -103,13 +102,12 @@
 
                         </div>
 
-                        <textarea id="next-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
+                        <textarea id="edit-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <span class="close-button no-select" data-dismiss="modal" onclick="endSessionComplete()">End
-                            Therapy</span>
-                        <span class="save-changes-button no-select" onclick="nextSession()">NEXT SESSION</span>
+                        <span class="close-button" data-dismiss="modal" onclick="endSessionComplete()">End Therapy</span>
+                        <span class="save-changes-button" onclick="nextSession()">NEXT SESSION</span>
                     </div>
                 </div>
             </div>
@@ -137,9 +135,8 @@
                             class="text-input textarea margin-top"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <span class="close-button no-select" data-dismiss="modal" onclick="endSessionComplete()">End
-                            Therapy</span>
-                        <span class="save-changes-button no-select" onclick="nextSession()">ANALYZE SESSION</span>
+                        <span class="close-button" data-dismiss="modal" onclick="endSessionComplete()">End Therapy</span>
+                        <span class="save-changes-button" onclick="nextSession()">ANALYZE SESSION</span>
                     </div>
                 </div>
             </div>
@@ -366,31 +363,27 @@
                             <div>
                                 <div>
                                     <div class="setting-category margin-top-setting">BACKGROUND — </div>
-                                    <!--<input type="color" id="background-color" class="color-picker" />-->
-
-                                    <input id="background-color" type="color" id="head" name="color" value="#2c415a"
+                                    <input id="background-color" type="color" id="head" name="color" value="#ffffff"
                                         onchange="updateBackground()" />
-
                                 </div>
                                 <div>
                                     <div class="setting-category margin-top-setting">ELEMENT — </div>
-                                    <input id="element-color" type="color" id="head" name="color" value="#ea5452"
+                                    <input id="element-color" type="color" id="head" name="color" value="#3ee986"
                                         onchange="updateElement()" />
                                 </div>
                             </div>
                             <div class="setting-category margin-top-setting">PRESETS</div>
                             <div class="presets">
                                 <div>
-                                    <div id="ruby" class="preset-item no-select margin-left-right preset-item-selected inline-block"
-                                        onclick="theme('ruby')">Ruby</div>
-                                    <div id="light" class="preset-item no-select inline-block" onclick="theme('light')">Light</div>
+                                    <div id="light" class="preset-item no-select preset-item-selected inline-block"
+                                        onclick="theme('light')">Light</div>
                                     <div id="dark" class="preset-item no-select margin-left-right inline-block" onclick="theme('dark')">Dark</div>
-
+                                    <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
                                 </div>
 
                                 <div>
-                                    <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
                                     <div id="contrast" class="preset-item no-select inline-block" onclick="theme('contrast')">Contrast</div>
+                                    <div id="ruby" class="preset-item no-select margin-left-right inline-block" onclick="theme('ruby')">Ruby</div>
                                     <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
                                 </div>
                                 <span id="theme-extra-text" class="hidden">
@@ -410,11 +403,11 @@
                                     </div>
                                 </span>
                             </div>
-                            <div id="theme-load-text">
+                            <span id="theme-load-text">
                                 <span class="animated fadeIn">
                                     <span class="load-more no-select" onclick="loadThemeSelection()">Show more</span>
                                 </span>
-                            </div>
+                            </span>
 
                             <div class="setting-category margin-top-large">SWITCH DIRECTION SOUND <span class="information-circle"
                                     onclick="information('switchDirection')"><span class="question-mark">?</span></div>
@@ -660,7 +653,7 @@
 
 
                 <div id="alternate">
-                    <div id="element" class="emdr-element el element-duration circle-start"></div>
+                    <div id="element" class="emdr-element el element-duration circle"></div>
                 </div>
             </div>
         </div>
@@ -691,7 +684,7 @@
             <ion-icon id="instructions-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
             CANCEL
         </span>
-        <div class="instructions-box-header instructions-mobile-move">INSTRUCTIONS</div>
+        <div class="instructions-box-header">INSTRUCTIONS</div>
 
         <div class="col col-12 col-centered">
             <div class="row">
@@ -722,37 +715,11 @@
                         placeholder placeholder.
                         placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
                         placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                        <div>
-                            <div class="instructions-steps margin-top no-select">
-                                FIRST STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                placeholder
-                                placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                            </div>
 
-                            <div class="instructions-steps margin-top no-select">
-                                SECOND STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                placeholder
-                                placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                            </div>
-
-                            <div class="instructions-steps margin-top no-select">
-                                THIRD STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                Feel better!
-                            </div>
+                        <div class="margin-top">
+                            <li>Item one this is an item hahaha</li>
+                            <li>Item two this is an item hahaha</li>
+                            <li>Item three this is an item hahaha</li>
                         </div>
                     </div>
                 </div>
@@ -779,7 +746,7 @@
             </div>
         </div>
 
-        <div class="instructions-button no-select" onclick="closeInstructions()">
+        <div class="instructions-button no-select">
             Get Started
         </div>
 
@@ -810,7 +777,6 @@
     <script src="js/gradient.js"></script>
     <script src="js/emdr.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-    <script src="js/spectrum.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -824,18 +790,7 @@
         firebase.initializeApp(config);
     </script>
 
-    <style>
-        .awesome {
-            border: 0px;
-            margin: 0px;
-            padding: 0px;
-
-        }
-    </style>
     <script>
-
-        document.getElementById("element").style.backgroundColor = "#ec5351";
-
         $("#modalCall").on("hidden.bs.modal", function () {
             $("#edit-set-name").removeClass("text-input-failure");
             document.getElementById("edit-set-failure").innerHTML = "";

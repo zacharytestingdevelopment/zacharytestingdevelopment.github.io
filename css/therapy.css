@@ -46,7 +46,7 @@ input[type="color"]::-webkit-color-swatch {
     height:155px !important;
     width:155px !important;
     border-radius: 155px;
-   
+    background:#3ee986;
     transition: border-radius .43s ease 0s !important;
     
     /*
@@ -138,17 +138,6 @@ input[type="color"]::-webkit-color-swatch {
     background:#3ee986;
     border-radius: 35px;
     transition: background .3s ease 0s;
-}
-
-.circle-start
-{
-    position: relative;
-    top:10px;
-    display: inline-block;
-  
-    background:#E74C3C;
-  
-    transition: background .3s ease 0s; 
 }
 
 .square
@@ -794,16 +783,6 @@ input[type="color"]::-webkit-color-swatch {
     transition: all .3s ease 0s;
 }
 
-.instructions-steps
-{
-    padding-left: 8px;
-    padding-right: 8px;
-    border-bottom: 3.2px solid #4257b2;
-    color:#4257b2;
-    font-size: 20px;
-    display: inline-block;
-}
-
 .number-input-style:focus
 {
   
@@ -813,7 +792,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .preview-pane
 {
- background: #2c415a;  
+   
 }
 
 .preview-text
@@ -998,13 +977,6 @@ input[type="color"]::-webkit-color-swatch {
     color:#4257b2;
 }
 
-.awesome {
-    background: purple;
-}
-.color-picker
-{
-    background:blue !important;
-}
 .therapy-setting-box-button-green
 {
     padding:7px;
@@ -1295,38 +1267,6 @@ input:focus::-webkit-input-placeholder {
 .failure-text
 {
     color:#e64c3c;
-}
-
-@media only screen 
-and (max-width:356px)
-{
-    .instructions-mobile-move
-    {
-        font-size: 23px !important;
-    }
-
-    .instructions-box-section-header
-    {
-        font-size: 23px;
-    }
-    
-    .instructions-box-section
-    {
-        padding-left:20px;
-        padding-right: 20px;    
-    }
-}
-
-@media only screen 
-and (max-width: 774px)
-{
-    .instructions-mobile-move
-    {
-        position: relative;
-        top:20px;
-        margin-bottom: 20px;
-        font-size: 30px;
-    }
 }
 
 @media only screen 
