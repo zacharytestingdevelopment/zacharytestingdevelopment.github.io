@@ -160,11 +160,11 @@ function theme(themeValue) {
         $("#lilac").removeClass("preset-item-selected");
         $("#chestnut").removeClass("preset-item-selected");
 
-        document.getElementById("background-color").value = "#ffffff";
+        document.getElementById("background-color").value = "#FCFCFC";
         document.getElementById("element-color").value = "#3ee986";
 
         document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
-        document.getElementById("preview-pane").style.backgroundColor = "#fff";
+        document.getElementById("preview-pane").style.backgroundColor = "#FCFCFC";
         document.getElementById("element").style.backgroundColor = "#3ee986";
 
         selectedTheme = "light";
@@ -505,17 +505,50 @@ function easing(easingValue) {
 }
 
 function speed(speedValue) {
-    if (speedValue == "slow") {
-        speedSlider.value = "25";
-        speedOutput.innerHTML = "25";
+    if (speedValue == "verySlow") {
+        document.getElementById("speedRange").value = "1";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Very slow</span>";
+        $("#speed-very-slow").addClass("preset-item-selected");
+        $("#speed-slow").removeClass("preset-item-selected");
+        $("#speed-medium").removeClass("preset-item-selected");
+        $("#speed-fast").removeClass("preset-item-selected");
+        $("#speed-very-fast").removeClass("preset-item-selected");
+    }
+    else if (speedValue == "slow") {
+        document.getElementById("speedRange").value = "2";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Slow</span>";
+        $("#speed-very-slow").removeClass("preset-item-selected");
+        $("#speed-slow").addClass("preset-item-selected");
+        $("#speed-medium").removeClass("preset-item-selected");
+        $("#speed-fast").removeClass("preset-item-selected");
+        $("#speed-very-fast").removeClass("preset-item-selected");
     }
     else if (speedValue == "medium") {
-        speedSlider.value = "50";
-        speedOutput.innerHTML = "50";
+        document.getElementById("speedRange").value = "3";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Medium</span>";
+        $("#speed-very-slow").removeClass("preset-item-selected");
+        $("#speed-slow").removeClass("preset-item-selected");
+        $("#speed-medium").addClass("preset-item-selected");
+        $("#speed-fast").removeClass("preset-item-selected");
+        $("#speed-very-fast").removeClass("preset-item-selected");
     }
     else if (speedValue == "fast") {
-        speedSlider.value = "75";
-        speedOutput.innerHTML = "75";
+        document.getElementById("speedRange").value = "4";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Fast</span>";
+        $("#speed-very-slow").removeClass("preset-item-selected");
+        $("#speed-slow").removeClass("preset-item-selected");
+        $("#speed-medium").removeClass("preset-item-selected");
+        $("#speed-fast").addClass("preset-item-selected");
+        $("#speed-very-fast").removeClass("preset-item-selected");
+    }
+    else if (speedValue == "veryFast") {
+        document.getElementById("speedRange").value = "5";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Very fast</span>";
+        $("#speed-very-slow").removeClass("preset-item-selected");
+        $("#speed-slow").removeClass("preset-item-selected");
+        $("#speed-medium").removeClass("preset-item-selected");
+        $("#speed-fast").removeClass("preset-item-selected");
+        $("#speed-very-fast").addClass("preset-item-selected");
     }
 }
 
@@ -576,6 +609,14 @@ function dashBoard(setting) {
     else if (setting == "exitInstructions") {
         $("#instructions-icon").addClass("white");
         $("#instructions-icon").removeClass("highlight-color-blue");
+    }
+    else if (setting == "enterAnalyze") {
+        $("#analyze-icon").removeClass("white");
+        $("#analyze-icon").addClass("highlight-color-blue");
+    }
+    else if (setting == "exitAnalyze") {
+        $("#analyze-icon").addClass("white");
+        $("#analyze-icon").removeClass("highlight-color-blue");
     }
 
 }
@@ -1294,7 +1335,7 @@ function deleteAll() {
                     var database = firebase.database();
                     document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
                     var user = firebase.auth().currentUser;
-                    firebase.database().ref('users/' + user.uid + "/emdr").remove();
+                    firebase.database().ref('users/' + user.uid + "/emdr/savedSets").remove();
                     var settingOption = "";
                     settingOption += "<div id=\"no-settings\" class=\"therapy-setting-box margin-top shadow\">";
                     settingOption += "                    <span id = \"therapy-setting-box-header\" class=\"therapy-setting-box-header\">Add some sets\<\/span>";
@@ -1320,7 +1361,7 @@ function loadSettings() {
 
         var userID = firebase.auth().currentUser.uid;
         var rootRef = firebase.database().ref('users');
-        var newRoot = rootRef.child(userID).child('emdr')
+        var newRoot = rootRef.child(userID + "/emdr").child('savedSets')
         newRoot.once('value', function (snapshot) {
             snapshot.forEach(function (_child) {
                 var childElement = _child.key;
@@ -1692,6 +1733,43 @@ function startNextSession() {
 
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
         //The therapy has ended 
+
+        if (selectedMood != "no") {
+            var moodSave = document.getElementById("mood-initial").value;
+            if (moodSave.length > 0) {
+                moodProgress.push(moodSave);
+                console.log("mood progress: " + moodProgress);
+            }
+            else {
+                moodProgress.push("empty");
+            }
+        }
+
+        if (selectedSUDS != "no") {
+            var sudsSave = document.getElementById("suds-initial").value;
+            if (sudsSave.length > 0) {
+                sudsProgress.push(sudsSave);
+                console.log("suds progress: " + sudsProgress);
+            }
+            else {
+                sudsProgress.push("empty");
+            }
+        }
+
+        if (selectedVAC != "no") {
+            var vacSave = document.getElementById("vac-initial").value;
+            if (vacSave.length > 0) {
+                vacProgress.push(vacSave);
+                console.log("suds progress: " + vacProgress);
+            }
+            else {
+                vacProgress.push("empty");
+            }
+        }
+        console.log(moodProgress);
+        console.log(sudsProgress);
+        console.log(vacProgress);
+        console.log(descriptionProgress)
         saveTherapyResults();
 
 
@@ -1731,9 +1809,10 @@ function saveTherapyResults() {
     firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
         setUsed: setUsed,
         setDate: date,
-        setSuds: sudsProgress,
-        setVac: vacProgress,
-        setDescription: descriptionProgress
+        setMoodResults: moodProgress,
+        setSudsProgress: sudsProgress,
+        setVacProgress: vacProgress,
+        setDescriptionProgress: descriptionProgress
     });
 
 }
@@ -1744,30 +1823,41 @@ function nextSession() {
         var moodSave = document.getElementById("mood-session-value").value;
         if (moodSave.length > 0) {
             moodProgress.push(moodSave);
-            console.log("mood progress: " + moodProgress);
         }
+        else {
+            moodProgress.push("empty");
+        }
+        console.log("mood progress: " + moodProgress);
     }
 
     if (selectedSUDS != "no") {
         var sudsSave = document.getElementById("suds-session-value").value;
         if (sudsSave.length > 0) {
             sudsProgress.push(sudsSave);
-            console.log("suds progress: " + sudsProgress);
         }
+        else {
+            sudsProgress.push("empty");
+        }
+        console.log("suds progress: " + sudsProgress);
     }
 
     if (selectedVAC != "no") {
         var vacSave = document.getElementById("vac-session-value").value;
         if (vacSave.length > 0) {
             vacProgress.push(vacSave);
-            console.log("vac progress: " + vacProgress);
         }
+        else {
+            vacProgress.push("empty");
+        }
+        console.log("vac progress: " + vacProgress);
     }
 
     var descriptionSave = document.getElementById("next-set-description").value;
     if (descriptionSave.length > 0) {
         descriptionProgress.push(descriptionSave);
-        console.log("description progress: " + descriptionProgress);
+    }
+    else {
+        descriptionProgress.push("empty");
     }
 
     document.getElementById("next-set-description").value = "";
@@ -1784,7 +1874,7 @@ function nextSession() {
             easing: 'linear'
         });
         document.getElementById("therapy-main-box").className = "animated fadeIn";
-        document.getElementById("session-end-box").className = "hidden";
+        //document.getElementById("session-end-box").className = "hidden";
 
     }, 525);
 
@@ -1798,10 +1888,23 @@ function nextSession() {
 
 }
 
+function analyzeSession() {
+    $("#results-box").addClass("emdr-box-active");
+    endSessionComplete();
+    $('#therapyOver').modal('hide');
+    setTimeout(function () { hideMobileNav(); }, 320);
+}
+
 function loadInstructions() {
     $("#instructions-box").addClass("emdr-box-active");
-
     setTimeout(function () { hideMobileNav(); }, 320);
+}
+
+function closeAnalyze() {
+    $("#results-box").removeClass("emdr-box-active");
+    $("#results-box").animate({ scrollTop: 0 }, "fast");
+
+    showMobileNav();
 }
 
 function closeInstructions() {
@@ -1822,6 +1925,9 @@ function startSession() {
             moodProgress.push(moodSave);
             console.log("mood progress: " + moodProgress);
         }
+        else {
+            moodProgress.push("empty");
+        }
     }
 
     if (selectedSUDS != "no") {
@@ -1829,6 +1935,9 @@ function startSession() {
         if (sudsSave.length > 0) {
             sudsProgress.push(sudsSave);
             console.log("suds progress: " + sudsProgress);
+        }
+        else {
+            sudsProgress.push("empty");
         }
     }
 
@@ -1838,25 +1947,10 @@ function startSession() {
             vacProgress.push(vacSave);
             console.log("suds progress: " + vacProgress);
         }
-    }
-
-    /*
-    if (selectedSUDS != "no") {
-        var sudsSave = document.getElementById("suds-session-value").value;
-        if (sudsSave.length > 0) {
-            sudsProgress.push(sudsSave);
-            console.log("suds progress: " + sudsProgress);
+        else {
+            vacProgress.push("empty");
         }
     }
-
-    if (selectedVAC != "no") {
-        var vacSave = document.getElementById("vac-session-value").value;
-        if (vacSave.length > 0) {
-            vacProgress.push(vacSave);
-            console.log("vac progress: " + vacProgress);
-        }
-    }
-    */
 
     setTimeout(function () { hideMobileNav(); }, 320);
 
@@ -1920,9 +2014,9 @@ function loadSet(set) {
 
     var database = firebase.database();
     var user = firebase.auth().currentUser;
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr" + "/" + activeSet);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + "savedSets/" + activeSet);
 
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
     desc.once('value', function (snapshot) {
         activeSetText = snapshot.val().setName;
     });
@@ -1934,6 +2028,24 @@ function loadSet(set) {
 
         //Load EMDR settings 
         document.getElementById("speedRange").value = snapshot.val().emdrSpeed;
+        var emdrSpeed = snapshot.val().emdrSpeed;
+
+        if (emdrSpeed == "Very slow") {
+            speed("verySlow");
+        }
+        else if (emdrSpeed == "slow") {
+            speed("slow");
+        }
+        else if (emdrSpeed == "medium") {
+            speed("medium");
+        }
+        else if (emdrSpeed == "fast") {
+            speed("fast");
+        }
+        else if (emdrSpeed == "Very fast") {
+            speed("veryFast");
+        }
+
         document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
         shapeCategorySelect(snapshot.val().emdrShape);
         if (snapshot.val().elementThemeName == "custom") {
@@ -2002,7 +2114,7 @@ function loadSet(set) {
 function deleteSet(id, setName) {
     var deleteText = "";
     var user = firebase.auth().currentUser;
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + setName);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + setName);
     desc.once('value', function (snapshot) {
         deleteText = snapshot.val().setName;
     });
@@ -2023,7 +2135,7 @@ function deleteSet(id, setName) {
                 case "OK":
                     var database = firebase.database();
                     var user = firebase.auth().currentUser;
-                    firebase.database().ref('users/' + user.uid + "/emdr" + "/" + setName).remove();
+                    firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + "/" + setName).remove();
                     swal("SUCCESS!", "Your set has been deleted.", "success");
                     document.getElementById(id).remove();
 
@@ -2071,7 +2183,7 @@ function updateSet(updatedSet) {
     console.log(user);
     console.log(selectedSessionCount);
 
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
     //var description, name;
 
     desc.once('value', function (snapshot) {
@@ -2126,11 +2238,28 @@ function updateSet(updatedSet) {
     var id = "descriptiontherapy-setting-box" + str;
 
     const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
-    const speedValue = document.getElementById("speedRange").value;
+    var speedValue = document.getElementById("speedRange").value;
+
+    if (speedValue == "1") {
+        speedValue = "Very slow";
+    }
+    else if (speedValue == "2") {
+        speedValue = "slow";
+    }
+    else if (speedValue == "3") {
+        speedValue = "medium";
+    }
+    else if (speedValue == "4") {
+        speedValue = "fast";
+    }
+    else if (speedValue == "5") {
+        speedValue = "Very fast";
+    }
+
     const backgroundTheme = document.getElementById("background-color").value;
     const elementTheme = document.getElementById("element-color").value;
 
-    firebase.database().ref('users/' + user.uid + "/emdr/" + updatedSet).update({
+    firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + updatedSet).update({
         //setDescription: setDescription,
         //setDescriptionID: id,
         emdrSpeed: speedValue,
@@ -2192,7 +2321,7 @@ function populateSettingsBox(child) {
 
     console.log("ACTIVE SET: " + activeSet);
     if (activeSet != "none") {
-        var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+        var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
         desc.once('value', function (snapshot) {
             activeSetText = snapshot.val().setName;
         });
@@ -2206,7 +2335,7 @@ function populateSettingsBox(child) {
         selectedTherapy += "                    <div class=\"therapy-setting-box-description-green\">Update your currently selected set<\/div>";
         selectedTherapy += "";
         selectedTherapy += "                    <div class=\"therapy-setting-box-buttons margin-top-setting\">";
-        selectedTherapy += "                        <span class=\"therapy-setting-box-button-green no-select\" onclick='updateSet(\"" + activeSet + "\");'\">Update Set";
+        selectedTherapy += "                        <span class=\"therapy-setting-box-button-green no-select\" onclick='updateSet(\"" + activeSet + "\");'\">Update";
         selectedTherapy += "";
         selectedTherapy += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
         selectedTherapy += "                        <\/span>";
@@ -2235,7 +2364,7 @@ function populateSettingsBox(child) {
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
             settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='updateSet(\"" + child[i] + "\");'\">";
-            settingOption += "                            Update set";
+            settingOption += "                            Update";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "";
@@ -2248,7 +2377,7 @@ function populateSettingsBox(child) {
 
             document.getElementById("therapy-setting-boxes-saved").innerHTML += settingOption;
 
-            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + child[i]);
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + child[i]);
 
             desc.on('value', function (snapshot) {
 
@@ -2285,13 +2414,13 @@ function updatedEditSet() {
         var database = firebase.database();
         var user = firebase.auth().currentUser;
 
-        firebase.database().ref('users/' + user.uid + "/emdr/" + editedSet).update({
+        firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + editedSet).update({
             setName: newName,
             setDescription: newDescription
         });
 
         if (editedSet == activeSet) {
-            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
 
             desc.once('value', function (snapshot) {
                 activeSetText = snapshot.val().setName;
@@ -2320,7 +2449,7 @@ function editSet(id) {
 
     //var database = firebase.database();
     var user = firebase.auth().currentUser;
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + id);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + id);
     var description, name;
     $('#modalCall').modal('toggle');
     editedSet = id;
@@ -2346,10 +2475,7 @@ function populateSettingsOptions(child) {
     //console.log(child);
 
     document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
-    //console.log(child);
 
-
-    // TO DO: FILL THESE BOXES WITH SET DESCRIPTION
     var database = firebase.database();
     var user = firebase.auth().currentUser;
     var description = "";
@@ -2362,11 +2488,6 @@ function populateSettingsOptions(child) {
             //console.log("SET NAME: " + child[i]);
             var str = child[i].replace(/\s+/g, '');
             id = "box" + str;
-            //console.log(id);
-            //console.log("name" + str);
-            //console.log("Box ID — " + id);
-
-            //console.log("description" + str);
 
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\");'\"><\/ion-icon>";
@@ -2390,7 +2511,7 @@ function populateSettingsOptions(child) {
             document.getElementById("therapy-setting-boxes").innerHTML += settingOption;
             document.getElementById("therapy-setting-empty").innerHTML = "";
 
-            var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + child[i]);
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + child[i]);
             //console.log("ID: " + id);
 
 
@@ -2455,21 +2576,21 @@ function saveSettingsBox() {
 
     if (selectedSUDS == "yes") {
         if (document.getElementById("suds-initial").value.length == 0) {
-            selectedSUDS = "1";
+            //selectedSUDS = "1";
             document.getElementById("suds-initial").value = selectedSUDS;
         }
     }
 
     if (selectedMood == "yes") {
         if (document.getElementById("mood-initial").value.length == 0) {
-            selectedMood = "5";
+            //selectedMood = "5";
             document.getElementById("mood-initial").value = selectedMood;
         }
     }
 
     if (selectedVAC == "yes") {
         if (document.getElementById("vac-initial").value.length == 0) {
-            selectedVAC = "1";
+            //selectedVAC = "1";
             document.getElementById("vac-initial").value = selectedVAC;
         }
     }
@@ -2481,7 +2602,7 @@ function saveSettingsBox() {
 
         var userID = firebase.auth().currentUser.uid;
         var rootRef = firebase.database().ref('users');
-        var newRoot = rootRef.child(userID).child('emdr')
+        var newRoot = rootRef.child(userID + "/emdr").child('savedSets')
         newRoot.once('value', function (snapshot) {
             snapshot.forEach(function (_child) {
                 var childElement = _child.key;
@@ -2505,7 +2626,7 @@ function saveSettings() {
     activeSet = value;
     var user = firebase.auth().currentUser;
 
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/" + activeSet);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
     //var description, name;
 
     desc.once('value', function (snapshot) {
@@ -2561,11 +2682,27 @@ function saveSettings() {
         var nameId = "name" + str
 
         const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
-        const speedValue = document.getElementById("speedRange").value;
+        var speedValue = document.getElementById("speedRange").value;
         const backgroundTheme = document.getElementById("background-color").value;
         const elementTheme = document.getElementById("element-color").value;
 
-        firebase.database().ref('users/' + user.uid + "/emdr" + sessionSave).set({
+        if (speedValue == "1") {
+            speedValue = "Very slow";
+        }
+        else if (speedValue == "2") {
+            speedValue = "slow";
+        }
+        else if (speedValue == "3") {
+            speedValue = "medium";
+        }
+        else if (speedValue == "4") {
+            speedValue = "fast";
+        }
+        else if (speedValue == "5") {
+            speedValue = "Very fast";
+        }
+
+        firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + sessionSave).set({
             setDescription: setDescription,
             setDescriptionID: id,
             emdrSpeed: speedValue,

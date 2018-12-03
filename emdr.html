@@ -43,7 +43,10 @@
 </head>
 
 <body id="page-top">
-
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
     <!-- Navigation -->
     <span id="mobile-nav">
         <nav id="navigation" class="d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top"
@@ -69,7 +72,7 @@
                 <div class="modal-content">
                     <div class="modal-header-element">Edit set</div>
                     <div class="modal-body">
-                        <input id="edit-set-name" type="text" class="text-input" placeholder="Enter set name" />
+                        <input id="edit-set-name" maxlength="50" type="text" class="text-input" placeholder="Enter set name" />
                         <div id="edit-set-failure">
 
                         </div>
@@ -139,54 +142,11 @@
                     <div class="modal-footer">
                         <span class="close-button no-select" data-dismiss="modal" onclick="endSessionComplete()">End
                             Therapy</span>
-                        <span class="save-changes-button no-select" onclick="nextSession()">ANALYZE SESSION</span>
+                        <span class="save-changes-button no-select" onclick="analyzeSession()">ANALYZE SESSION</span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--
-            <div id="therapy-over-box" class="hidden">
-            <div class="therapy-over-box-header">The therapy is over</div>
-            <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)!</div>
-            <div class="col col-12 col-md-11 col-lg-11 text-center col-centered">
-                <div class="col col-lg-10 col-centered">
-                    <div class="row">
-                        <div class="col-centered">
-                            <input type="number" class="therapy-value-record-input margin-top" placeholder="Mood (1-10)" />
-                            <input type="number" class="therapy-value-record-input margin-left-right margin-top"
-                                placeholder="VAC (1-7)" />
-                            <input type="number" class="therapy-value-record-input margin-top" placeholder="SUDS (1-9)" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="inline col col-12 col-lg-10 col-centered">
-                <div class="therapy-over-box-subheader text-left margin-top-medium">How are you feeling?</div>
-                <textarea placeholder="Enter notes" class="text-input-style textarea-input therapy-over-box-input col col-lg-12 col-centered"></textarea>
-            </div>
-            <div class="form-check text-center">
-                <span style="position: relative;left:-22px">
-                    <label class="form-check-label white margin-top-tiny no-select" for="save-check">Always
-                        save on
-                        exit</label>
-                    <input type="checkbox" class="form-check-input position-check" id="save-check">
-                </span>
-            </div>
-            <div class="text-center margin-top-large">
-                <span class="save-therapy-button margin-top pointer no-select" onclick="endSessionComplete()">
-                    End Therapy
-                </span>
-
-                <span class="save-therapy-button margin-top pointer no-select">
-                    Analyze Results
-                </span>
-            </div>
-        </div>
-        -->
-
-
 
         <div class="row therapy-element-height">
 
@@ -313,15 +273,24 @@
                 <div id="speedMovement" class="collapse show multi-collapse">
                     <div class="section-card animated fadeIn">
                         <div class="white">
-                            <div class="setting-category text-left margin-top-setting">SPEED — <span id="speedOutput">50</span></div>
+                            <div class="setting-category text-left margin-top-setting">SPEED — <span id="speedOutput">Medium</span></div>
                             <div>
-                                <input id="speedRange" class="range-slider" type="range" min="1" max="100" value="50">
+                                <input id="speedRange" class="hidden range-slider" type="range" min="1" max="100" value="3">
                             </div>
                             <div class="presets">
-                                <div class="preset-item no-select inline-block" onclick="speed('slow')">Slow</div>
-                                <div id="speed-medium" class="preset-item no-select margin-left-right inline-block"
+                                <div id="speed-very-slow" class="preset-item no-select inline-block" onclick="speed('verySlow')">Very
+                                    slow</div>
+                                <div id="speed-slow" class="preset-item no-select margin-left-right inline-block"
+                                    onclick="speed('slow')">Slow</div>
+                                <div id="speed-medium" class="preset-item preset-item-selected no-select inline-block"
                                     onclick="speed('medium')">Medium</div>
-                                <div class="preset-item no-select inline-block" onclick="speed('fast')">Fast</div>
+                            </div>
+
+                            <div class="presets">
+                                <div id="speed-fast" class="preset-item no-select inline-block" onclick="speed('fast')">Fast</div>
+                                <div id="speed-very-fast" class="preset-item no-select margin-left-right inline-block"
+                                    onclick="speed('veryFast')">Very fast</div>
+
                             </div>
 
                             <div class="setting-category margin-top-setting margin-top-large">ELEMENT SHAPE</div>
@@ -391,7 +360,8 @@
                                 <div>
                                     <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
                                     <div id="contrast" class="preset-item no-select inline-block" onclick="theme('contrast')">Contrast</div>
-                                    <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
+                                    <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
+                                        onclick="theme('chestnut')">Chestnut</div>
                                 </div>
                                 <span id="theme-extra-text" class="hidden">
                                     <div>
@@ -405,8 +375,8 @@
                                         <div id="forest" class="preset-item no-select inline-block" onclick="theme('forest')">Forest</div>
                                         <div id="lilac" class="preset-item no-select margin-left-right inline-block"
                                             onclick="theme('lilac')">Lilac</div>
-                                        <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
-                                            onclick="theme('chestnut')">Chestnut</div>
+
+                                        <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
                                     </div>
                                 </span>
                             </div>
@@ -655,7 +625,7 @@
             <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
                 <div class="preview-text text-right animated fadeInDown delay1Therapy">
                     PREVIEW
-                    <div class="preview-text-subheader">Loaded set: <span id="active-set">none</span></div>
+                    <div class="preview-text-subheader">Set: <span id="active-set">none</span></div>
                 </div>
 
 
@@ -785,70 +755,116 @@
 
 
     </div>
+
+    <div id="results-box" class="emdr-box instructions-box">
+        <span class="dashboard-button dashboard-button-blue dashboard-button-instructions no-select" onmouseover="dashBoard('enterAnalyze')"
+            onmouseout="dashBoard('exitAnalyze')" onclick="closeAnalyze()">
+            <ion-icon id="analyze-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
+            CANCEL
+        </span>
+        <div class="instructions-box-header instructions-mobile-move">ANALYZE RESULTS</div>
+
+        <div class="col col-12 col-centered">
+            <div class="row">
+                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
+                    <div class="instructions-box-section-header">WHAT IS EMDR?</div>
+                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
+                        placeholder
+                        placeholder placeholder.
+                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
+                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+
+                        <div class="margin-top">
+                            <li>Item one this is an item hahaha</li>
+                            <li>Item two this is an item hahaha</li>
+                            <li>Item three this is an item hahaha</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="instructions-button no-select" onclick="closeAnalyze()">
+            Get Started
+        </div>
+
+
+    </div>
+
     <span id="settings-hidden">
 
     </span>
 
     </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/anime.min.js"></script>
-    <script src="js/morphext.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/animationHome.js"></script>
-    <!-- <script src="js/therapy.js"></script>-->
-    <script src="js/gradient.js"></script>
-    <script src="js/emdr.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-    <script src="js/spectrum.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
-            authDomain: "mental-health-suite.firebaseapp.com",
-            databaseURL: "https://mental-health-suite.firebaseio.com",
-            projectId: "mental-health-suite",
-            storageBucket: "mental-health-suite.appspot.com",
-            messagingSenderId: "119327507370"
-        };
-        firebase.initializeApp(config);
-    </script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <style>
-        .awesome {
-            border: 0px;
-            margin: 0px;
-            padding: 0px;
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/animationHome.js"></script>
+<!-- <script src="js/therapy.js"></script>-->
+<script src="js/gradient.js"></script>
+<script src="js/emdr.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/spectrum.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+</script>
 
-        }
-    </style>
-    <script>
+<style>
+    .awesome {
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
 
-        document.getElementById("element").style.backgroundColor = "#ec5351";
+    }
+</style>
+<script>
 
-        $("#modalCall").on("hidden.bs.modal", function () {
-            $("#edit-set-name").removeClass("text-input-failure");
-            document.getElementById("edit-set-failure").innerHTML = "";
-        });
+    document.getElementById("element").style.backgroundColor = "#ec5351";
 
-        $("#nextSession").on("hidden.bs.modal", function () {
+    $("#modalCall").on("hidden.bs.modal", function () {
+        $("#edit-set-name").removeClass("text-input-failure");
+        document.getElementById("edit-set-failure").innerHTML = "";
+    });
 
-        });
-    </script>
+    $("#nextSession").on("hidden.bs.modal", function () {
+
+    });
+
+    jQuery(document).ready(function () {
+        // alert('s');
+        jQuery('#loader').fadeOut(220);
+    });
+
+</script>
 
 
-    <!-- Custom scripts for this template -->
-    <script src="js/creative.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
 </body>
 
 </html>
