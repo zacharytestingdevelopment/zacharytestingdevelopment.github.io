@@ -12,6 +12,7 @@ var moodProgress = [];
 var sudsProgress = [];
 var vacProgress = [];
 var descriptionProgress = [];
+var switchDirectionSoundPlayer;
 
 var switchDirectionExtra = "no";
 var switchBackgroundSound = "no";
@@ -29,7 +30,7 @@ var switchDirectionSound = "none";
 var selectedSessionCount = "3";
 var selectedSessionLength = "45";
 var pathing = "leftright";
-var selectedEasing = "standard";
+var selectedEasing = "easeInOutQuad";
 var selectedSUDS = "no";
 var selectedMood = "yes";
 var selectedVAC = "no";
@@ -45,13 +46,34 @@ var activeSet = "none";
 var editedSet = "none";
 var numberOfSessions;
 var yourCurrentSession = 1;
+var emdrSpeed = "5";
 var sessionLength;
 
 var sessionActive;
 
 speedSlider.oninput = function () {
-    adjustSpeed();
     speedOutput.innerHTML = this.value;
+    emdrSpeed = this.value;
+    adjustSpeed(this.value);
+}
+
+function adjustSpeed(speedVal) {
+    if (speedVal == "3" || speedVal == "5" || speedVal == "7") {
+        if (speedVal == "3") {
+            speed("3");
+        }
+        else if (speedVal == "5") {
+            speed("5");
+        }
+        else if (speedVal == "7") {
+            speed("7");
+        }
+    }
+    else {
+        $("#speed-slow").removeClass("preset-item-selected");
+        $("#speed-medium").removeClass("preset-item-selected");
+        $("#speed-fast").removeClass("preset-item-selected");
+    }
 }
 
 var element = document.getElementById('preview-pane');
@@ -66,12 +88,6 @@ var alternate = anime({
     easing: 'linear'
 });
 
-function adjustSpeed() {
-    var width = positionInfo.width - 175;
-    var startingPosition = element.getBoundingClientRect();
-
-    alternate.duration = 400;
-}
 
 function recalibrateEMDR() {
     var element = document.getElementById('alternate');
@@ -97,6 +113,9 @@ var advanced = true;
 /* Music files */
 var rainAudio = new Audio('rain.mp3');
 var pianoAudio = new Audio('piano.mp3');
+
+/* Sound files */
+var popAudio = new Audio('sounds/pop.wav');
 
 rainAudio.loop = true;
 
@@ -436,7 +455,7 @@ function theme(themeValue) {
 }
 
 function easing(easingValue) {
-    if (easingValue == "standard") {
+    if (easingValue == "easeInOutQuad") {
         document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">STANDARD<\/span>";
         $("#standard").addClass("preset-item-selected");
         $("#linear").removeClass("preset-item-selected");
@@ -445,10 +464,10 @@ function easing(easingValue) {
         $("#circ").removeClass("preset-item-selected");
         $("#back").removeClass("preset-item-selected");
 
-        selectedEasing = "standard";
+        selectedEasing = "easeInOutQuad";
     }
     else if (easingValue == "linear") {
-        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">LINEAR<\/span>";
+        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">NONE<\/span>";
         $("#standard").removeClass("preset-item-selected");
         $("#linear").addClass("preset-item-selected");
         $("#cubic").removeClass("preset-item-selected");
@@ -458,8 +477,8 @@ function easing(easingValue) {
 
         selectedEasing = "linear";
     }
-    else if (easingValue == "cubic") {
-        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">CUBIC<\/span>";
+    else if (easingValue == "easeInOutQuart") {
+        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">STRETCH<\/span>";
         $("#standard").removeClass("preset-item-selected");
         $("#linear").removeClass("preset-item-selected");
         $("#cubic").addClass("preset-item-selected");
@@ -467,10 +486,10 @@ function easing(easingValue) {
         $("#circ").removeClass("preset-item-selected");
         $("#back").removeClass("preset-item-selected");
 
-        selectedEasing = "cubic";
+        selectedEasing = "easeInOutQuart";
     }
-    else if (easingValue == "sine") {
-        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">SINE<\/span>";
+    else if (easingValue == "easeInOutQuint") {
+        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">QUICK<\/span>";
         $("#standard").removeClass("preset-item-selected");
         $("#linear").removeClass("preset-item-selected");
         $("#cubic").removeClass("preset-item-selected");
@@ -478,10 +497,10 @@ function easing(easingValue) {
         $("#circ").removeClass("preset-item-selected");
         $("#back").removeClass("preset-item-selected");
 
-        selectedEasing = "sine";
+        selectedEasing = "easeInOutQuint";
     }
-    else if (easingValue == "circ") {
-        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">CIRC<\/span>";
+    else if (easingValue == "easeInOutCubic") {
+        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">SMOOTH<\/span>";
         $("#standard").removeClass("preset-item-selected");
         $("#linear").removeClass("preset-item-selected");
         $("#cubic").removeClass("preset-item-selected");
@@ -489,66 +508,41 @@ function easing(easingValue) {
         $("#circ").addClass("preset-item-selected");
         $("#back").removeClass("preset-item-selected");
 
-        selectedEasing = "circ";
-    }
-    else if (easingValue == "back") {
-        document.getElementById("easingOutput").innerHTML = "<span class = \"animated fadeIn\">BACK<\/span>";
-        $("#standard").removeClass("preset-item-selected");
-        $("#linear").removeClass("preset-item-selected");
-        $("#cubic").removeClass("preset-item-selected");
-        $("#sine").removeClass("preset-item-selected");
-        $("#circ").removeClass("preset-item-selected");
-        $("#back").addClass("preset-item-selected");
-
-        selectedEasing = "back";
+        selectedEasing = "easeInOutCubic";
+        console.log(selectedEasing);
     }
 }
 
 function speed(speedValue) {
-    if (speedValue == "verySlow") {
-        document.getElementById("speedRange").value = "1";
-        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Very slow</span>";
-        $("#speed-very-slow").addClass("preset-item-selected");
-        $("#speed-slow").removeClass("preset-item-selected");
-        $("#speed-medium").removeClass("preset-item-selected");
-        $("#speed-fast").removeClass("preset-item-selected");
-        $("#speed-very-fast").removeClass("preset-item-selected");
-    }
-    else if (speedValue == "slow") {
-        document.getElementById("speedRange").value = "2";
-        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Slow</span>";
-        $("#speed-very-slow").removeClass("preset-item-selected");
+    if (speedValue == "3") {
+        document.getElementById("speedRange").value = "3";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>3</span>";
+
         $("#speed-slow").addClass("preset-item-selected");
         $("#speed-medium").removeClass("preset-item-selected");
         $("#speed-fast").removeClass("preset-item-selected");
-        $("#speed-very-fast").removeClass("preset-item-selected");
+
+        emdrSpeed = "3";
     }
-    else if (speedValue == "medium") {
-        document.getElementById("speedRange").value = "3";
-        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Medium</span>";
-        $("#speed-very-slow").removeClass("preset-item-selected");
+    else if (speedValue == "5") {
+        document.getElementById("speedRange").value = "5";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>5</span>";
+
         $("#speed-slow").removeClass("preset-item-selected");
         $("#speed-medium").addClass("preset-item-selected");
         $("#speed-fast").removeClass("preset-item-selected");
-        $("#speed-very-fast").removeClass("preset-item-selected");
+
+        emdrSpeed = "5";
     }
-    else if (speedValue == "fast") {
-        document.getElementById("speedRange").value = "4";
-        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Fast</span>";
-        $("#speed-very-slow").removeClass("preset-item-selected");
+    else if (speedValue == "7") {
+        document.getElementById("speedRange").value = "7";
+        speedOutput.innerHTML = "<span class = 'animated fadeIn'>7</span>";
+
         $("#speed-slow").removeClass("preset-item-selected");
         $("#speed-medium").removeClass("preset-item-selected");
         $("#speed-fast").addClass("preset-item-selected");
-        $("#speed-very-fast").removeClass("preset-item-selected");
-    }
-    else if (speedValue == "veryFast") {
-        document.getElementById("speedRange").value = "5";
-        speedOutput.innerHTML = "<span class = 'animated fadeIn'>Very fast</span>";
-        $("#speed-very-slow").removeClass("preset-item-selected");
-        $("#speed-slow").removeClass("preset-item-selected");
-        $("#speed-medium").removeClass("preset-item-selected");
-        $("#speed-fast").removeClass("preset-item-selected");
-        $("#speed-very-fast").addClass("preset-item-selected");
+
+        emdrSpeed = "7";
     }
 }
 
@@ -1379,6 +1373,7 @@ function loadSettings() {
 function hideSessionSettings() {
     $("#emdr-box-buttons").removeClass("transition-delay");
     $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
+
     setTimeout(function () { sessionExpandShow(); }, 300);
 }
 
@@ -1397,6 +1392,10 @@ function showSessionSettings() {
     $("#emdr-box-buttons").addClass("transition-delay");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
 
+    $("#top-bottom-line").removeClass("fadeIn");
+    $("#top-bottom-line").addClass("fadeOut");
+
+
     helperHide();
 }
 
@@ -1412,6 +1411,11 @@ function sessionExpandShow() {
     settingsHidden += "                    <span id = \"hide-dis\" class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
+    if (pathing == "topbottom") {
+        $("#top-bottom-line").removeClass("fadeOut");
+        $("#top-bottom-line").addClass("fadeIn");
+    }
+
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
 }
 
@@ -1425,6 +1429,13 @@ function loadSessionSettings() {
     $("#emdr-box-buttons").addClass("transition-delay");
 
     setTimeout(function () { spawnTherapyMain(); }, 420);
+}
+
+function switchDirectionSoundPlay() {
+    if (switchDirectionSound == "drop") {
+        popAudio.play();
+    }
+
 }
 
 function spawnTherapyMain() {
@@ -1489,20 +1500,18 @@ function spawnTherapyMain() {
         document.getElementById("your-total-sessions").innerHTML = "<span class = \"inherit animated fadeIn\">" + numberOfSessions + "</span>";
     }
 
-    /*
-        mainElement = anime({
-            targets: '#alternate-main .el',
-            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
-            direction: 'alternate',
-            loop: true,
-            easing: 'linear'
-        });
-        */
-
-    var spawnTherapy = "<span class = \"animated fadeIn\">";
-    spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
-    spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
-    spawnTherapy += "        <\/div></span>";
+    if (pathing == "leftright") {
+        var spawnTherapy = "<span class = \"animated fadeIn\">";
+        spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
+        spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
+        spawnTherapy += "        <\/div></span>";
+    }
+    else if (pathing == "topbottom") {
+        var spawnTherapy = "<span class = \"animated fadeIn\">";
+        spawnTherapy += "<div id=\"alternate-main\" class=\"alternate-main-top\">";
+        spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
+        spawnTherapy += "        <\/div></span>";
+    }
 
     document.getElementById("therapy-main-box").className = "animated fadeIn";
     document.getElementById("therapy-main-box").innerHTML = spawnTherapy;
@@ -1526,19 +1535,323 @@ function spawnTherapyMain() {
     document.getElementById("emdr-element-main").style.background = document.getElementById("element").style.backgroundColor;
 
 
-    mainElement = anime({
-        targets: '#alternate-main .el',
-        translateX: document.getElementById("emdr-box").offsetWidth - 150,
-        direction: 'alternate',
-        loop: true,
-        easing: 'linear'
-    });
+
+    console.log(pathing);
+
+    var destination;
+    if (pathing == "leftright") {
+        destination = document.getElementById("emdr-box").offsetWidth - 155;
+        if (emdrSpeed == "1") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+    else if (pathing == "topbottom") {
+
+
+        destination = document.getElementById("emdr-box").offsetHeight - 212;
+
+        if (emdrSpeed == "1") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+
+
 
     //console.log("individual session length: ");
 
     sessionActive = setInterval(function () {
         seconds++;
-        console.log("Seconds elapsed: " + seconds);
+        //console.log("Seconds elapsed: " + seconds);
         if (seconds >= sessionLength) {
             startNextSession();
         }
@@ -1975,10 +2288,13 @@ function endSessionComplete() {
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
     //document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutDown col col-lg-10 col-md-11 col-10";
     //document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeOutDown hidden col col-lg-10 col-md-11 col-10";
+
+
     endSession();
 }
 
 function endSession() {
+
     yourCurrentSession = 1;
 
     //Reset tracking progress 
@@ -1987,10 +2303,17 @@ function endSession() {
     vacProgress = [];
     descriptionProgress = [];
 
+    if (pathing == "topbottom") {
+        $("#top-bottom-line").removeClass("fadeIn");
+        $("#top-bottom-line").addClass("fadeOut");
+    }
+
     $("#emdr-box").removeClass("emdr-box-active");
     $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").removeClass("transition-delay");
     $("#mobile-nav").removeClass("hidden");
+
+    clearInterval(switchDirectionSoundPlayer);
 
     setTimeout(function () { hideEmdrElement(); }, 320);
 
@@ -2028,22 +2351,28 @@ function loadSet(set) {
 
         //Load EMDR settings 
         document.getElementById("speedRange").value = snapshot.val().emdrSpeed;
-        var emdrSpeed = snapshot.val().emdrSpeed;
+        emdrSpeed = snapshot.val().emdrSpeed;
 
-        if (emdrSpeed == "Very slow") {
-            speed("verySlow");
+        console.log("EASING: " + snapshot.val().easing);
+
+        easing(snapshot.val().easing);
+
+        if (emdrSpeed == "3" || emdrSpeed == "5" || emdrSpeed == "7") {
+
+            if (emdrSpeed == "3") {
+                speed("3");
+            }
+            else if (emdrSpeed == "5") {
+                speed("5");
+            }
+            else if (emdrSpeed == "7") {
+                speed("7");
+            }
         }
-        else if (emdrSpeed == "slow") {
-            speed("slow");
-        }
-        else if (emdrSpeed == "medium") {
-            speed("medium");
-        }
-        else if (emdrSpeed == "fast") {
-            speed("fast");
-        }
-        else if (emdrSpeed == "Very fast") {
-            speed("veryFast");
+        else {
+            $("#speed-slow").removeClass("preset-item-selected");
+            $("#speed-medium").removeClass("preset-item-selected");
+            $("#speed-fast").removeClass("preset-item-selected");
         }
 
         document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
@@ -2076,7 +2405,6 @@ function loadSet(set) {
         }
 
         myPathing(snapshot.val().selectedPathing);
-        easing(snapshot.val().easing);
 
         if (snapshot.val().SUDS != "no") {
             suds("yes");
@@ -2102,11 +2430,8 @@ function loadSet(set) {
             mood("no");
         }
 
-
-
         var description = snapshot.val().setDescription;
         var setDescription = snapshot.val().setDescriptionID;
-        console.log(description);
     });
 
 }
@@ -2240,6 +2565,7 @@ function updateSet(updatedSet) {
     const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
     var speedValue = document.getElementById("speedRange").value;
 
+    /*
     if (speedValue == "1") {
         speedValue = "Very slow";
     }
@@ -2255,6 +2581,7 @@ function updateSet(updatedSet) {
     else if (speedValue == "5") {
         speedValue = "Very fast";
     }
+    */
 
     const backgroundTheme = document.getElementById("background-color").value;
     const elementTheme = document.getElementById("element-color").value;
@@ -2686,6 +3013,7 @@ function saveSettings() {
         const backgroundTheme = document.getElementById("background-color").value;
         const elementTheme = document.getElementById("element-color").value;
 
+        /*
         if (speedValue == "1") {
             speedValue = "Very slow";
         }
@@ -2701,6 +3029,7 @@ function saveSettings() {
         else if (speedValue == "5") {
             speedValue = "Very fast";
         }
+        */
 
         firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + sessionSave).set({
             setDescription: setDescription,
@@ -2755,6 +3084,7 @@ function saveSettings() {
     }
 
 }
+
 
 
 window.addEventListener('resize', recalibrateEMDR);

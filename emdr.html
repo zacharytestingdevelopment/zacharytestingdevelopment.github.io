@@ -273,24 +273,17 @@
                 <div id="speedMovement" class="collapse show multi-collapse">
                     <div class="section-card animated fadeIn">
                         <div class="white">
-                            <div class="setting-category text-left margin-top-setting">SPEED — <span id="speedOutput">Medium</span></div>
+                            <div class="setting-category text-left margin-top-setting">SPEED — <span id="speedOutput">5</span></div>
                             <div>
-                                <input id="speedRange" class="hidden range-slider" type="range" min="1" max="100" value="3">
+                                <input id="speedRange" class="range-slider" type="range" min="1" max="10" value="5">
                             </div>
                             <div class="presets">
-                                <div id="speed-very-slow" class="preset-item no-select inline-block" onclick="speed('verySlow')">Very
-                                    slow</div>
+
                                 <div id="speed-slow" class="preset-item no-select margin-left-right inline-block"
-                                    onclick="speed('slow')">Slow</div>
+                                    onclick="speed('3')">Slow</div>
                                 <div id="speed-medium" class="preset-item preset-item-selected no-select inline-block"
-                                    onclick="speed('medium')">Medium</div>
-                            </div>
-
-                            <div class="presets">
-                                <div id="speed-fast" class="preset-item no-select inline-block" onclick="speed('fast')">Fast</div>
-                                <div id="speed-very-fast" class="preset-item no-select margin-left-right inline-block"
-                                    onclick="speed('veryFast')">Very fast</div>
-
+                                    onclick="speed('5')">Medium</div>
+                                <div id="speed-fast" class="preset-item no-select inline-block" onclick="speed('7')">Fast</div>
                             </div>
 
                             <div class="setting-category margin-top-setting margin-top-large">ELEMENT SHAPE</div>
@@ -536,19 +529,16 @@
                             <div class="presets">
                                 <div>
                                     <div id="standard" class="preset-item inline-block no-select preset-item-selected"
-                                        onclick="easing('standard')">Standard</div>
-                                    <div id="linear" class="preset-item inline-block no-select margin-left-right"
-                                        onclick="easing('linear')">Linear</div>
-                                    <div id="cubic" class="preset-item inline-block no-select" onclick="easing('cubic')">Ease
-                                        Cubic</div>
+                                        onclick="easing('easeInOutQuad')">Standard</div>
+
+                                    <div id="circ" class="preset-item inline-block no-select margin-left-right" onclick="easing('easeInOutCubic')">Smooth</div>
+                                    <div id="cubic" class="preset-item inline-block no-select" onclick="easing('easeInOutQuart')">Stretch</div>
                                 </div>
                                 <div>
-                                    <div id="sine" class="preset-item inline-block no-select" onclick="easing('sine')">Ease
-                                        Sine</div>
-                                    <div id="circ" class="preset-item inline-block no-select margin-left-right" onclick="easing('circ')">Ease
-                                        Circ</div>
-                                    <div id="back" class="preset-item inline-block no-select" onclick="easing('back')">Ease
-                                        Back</div>
+
+                                    <div id="sine" class="preset-item inline-block no-select" onclick="easing('easeInOutQuint')">Quick</div>
+                                    <div id="linear" class="preset-item inline-block no-select margin-left-right"
+                                        onclick="easing('linear')">None</div>
                                 </div>
                             </div>
 
@@ -647,6 +637,7 @@
                     class="inherit">1</span>/<span class="inherit" id="your-total-sessions">5</span></div>
             <ion-icon name="arrow-dropup" class="emdr-hide-button no-select" onclick="hideSessionSettings()" style="z-index:999!important"></ion-icon>
         </div>
+        <div id="top-bottom-line" class="top-bottom-line animated fadeOut"></div>
 
         <div id="therapy-main-box">
 
