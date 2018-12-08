@@ -51,11 +51,374 @@ var sessionLength;
 
 var sessionActive;
 
+var element = document.getElementById('preview-pane');
+var positionInfo = element.getBoundingClientRect();
+var width = positionInfo.width - 175;
+
+var alternate = anime({
+    targets: '#alternate .el',
+    translateX: width,
+    direction: 'alternate',
+    loop: true,
+    easing: 'linear'
+});
+
 speedSlider.oninput = function () {
     speedOutput.innerHTML = this.value;
     emdrSpeed = this.value;
     adjustSpeed(this.value);
+
+    updatePreview();
 }
+
+function updatePreview() {
+
+    console.log(emdrSpeed);
+
+    var destination;
+
+    /*
+    var alternate = "";
+    alternate += "<span class=\"animated fadeIn\">";
+    alternate += "                        <div id=\"element\" class=\"emdr-element el element-duration circle-start\"><\/div>";
+    alternate += "                    <\/span>";
+
+    */
+
+    if (pathing == "leftright") {
+        var alternate = "";
+        alternate += "<span class=\"animated fadeIn\">";
+        alternate += "                        <div id=\"element\" class=\"emdr-element el element-duration circle-start\"><\/div>";
+        alternate += "                    <\/span>";
+    }
+    else if (pathing == "topbottom") {
+        var alternate = "<span class = \"animated fadeIn\">";
+        alternate += "<div id=\"alternate\" class=\"alternate-preview-top\">";
+        alternate += "            <div id=\"element\" class=\"emdr-element el element-duration circle\"><\/div>";
+        alternate += "        <\/div></span>";
+    }
+    clearInterval(switchDirectionSoundPlayer);
+
+    document.getElementById("alternate").innerHTML = "";
+    document.getElementById("alternate").innerHTML = alternate;
+
+    console.log(selectedshape);
+    if (selectedshape == "circle") {
+        $("#element").addClass("circle");
+        $("#element").removeClass("rounded-square");
+        $("#element").removeClass("triangle-element");
+        $("#element").removeClass("square");
+    }
+    else if (selectedshape == "squareRounded") {
+        $("#element").removeClass("circle");
+        $("#element").addClass("rounded-square");
+        $("#element").removeClass("triangle-element");
+        $("#element").removeClass("square");
+    }
+    else if (selectedshape == "square") {
+        $("#element").removeClass("circle");
+        $("#element").removeClass("rounded-square");
+        $("#element").removeClass("triangle-element");
+        $("#element").addClass("square");
+    }
+
+
+    document.getElementById("element").style.backgroundColor = $("#element-color").val();
+    document.getElementById("preview-pane").style.backgroundColor = $("#background-color").val();
+
+    if (pathing == "leftright") {
+        destination = document.getElementById("preview-pane").offsetWidth - 175;
+
+        if (emdrSpeed == "1") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+    else if (pathing == "topbottom") {
+        destination = document.getElementById("preview-pane").offsetHeight - 175;
+
+        if (emdrSpeed == "1") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            alternate = anime({
+                targets: '#alternate .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+}
+
 
 function adjustSpeed(speedVal) {
     if (speedVal == "3" || speedVal == "5" || speedVal == "7") {
@@ -76,31 +439,13 @@ function adjustSpeed(speedVal) {
     }
 }
 
-var element = document.getElementById('preview-pane');
-var positionInfo = element.getBoundingClientRect();
-var width = positionInfo.width - 175;
-
-var alternate = anime({
-    targets: '#alternate .el',
-    translateX: width,
-    direction: 'alternate',
-    loop: true,
-    easing: 'linear'
-});
-
 
 function recalibrateEMDR() {
     var element = document.getElementById('alternate');
     var positionInfo = element.getBoundingClientRect();
     var width = positionInfo.width - 175;
 
-    var alternate = anime({
-        targets: '#alternate .el',
-        translateX: [0, width],
-        direction: 'alternate',
-        loop: true,
-        easing: "linear"
-    });
+
 }
 
 /* Closing and opening options */
@@ -160,6 +505,8 @@ function myPathing(pathType) {
 
         pathing = "diagonal";
     }
+
+    updatePreview();
 }
 
 
@@ -509,11 +856,13 @@ function easing(easingValue) {
         $("#back").removeClass("preset-item-selected");
 
         selectedEasing = "easeInOutCubic";
-        console.log(selectedEasing);
     }
+
+    updatePreview();
 }
 
 function speed(speedValue) {
+
     if (speedValue == "3") {
         document.getElementById("speedRange").value = "3";
         speedOutput.innerHTML = "<span class = 'animated fadeIn'>3</span>";
@@ -544,6 +893,8 @@ function speed(speedValue) {
 
         emdrSpeed = "7";
     }
+
+    updatePreview();
 }
 
 
@@ -1130,6 +1481,8 @@ function switchDirection(directionType) {
 
         switchDirectionSound = "buzz";
     }
+
+    updatePreview();
 }
 
 function sessionCount(sessionCount) {
@@ -1411,6 +1764,8 @@ function sessionExpandShow() {
     settingsHidden += "                    <span id = \"hide-dis\" class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
+    window.scrollTo(0, 0);
+
     if (pathing == "topbottom") {
         $("#top-bottom-line").removeClass("fadeOut");
         $("#top-bottom-line").addClass("fadeIn");
@@ -1500,6 +1855,793 @@ function spawnTherapyMain() {
         document.getElementById("your-total-sessions").innerHTML = "<span class = \"inherit animated fadeIn\">" + numberOfSessions + "</span>";
     }
 
+    if (pathing == "leftright") {
+        var spawnTherapy = "<span class = \"animated fadeIn\">";
+        spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
+        spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
+        spawnTherapy += "        <\/div></span>";
+    }
+    else if (pathing == "topbottom") {
+        var spawnTherapy = "<span class = \"animated fadeIn\">";
+        spawnTherapy += "<div id=\"alternate-main\" class=\"alternate-main-top\">";
+        spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
+        spawnTherapy += "        <\/div></span>";
+    }
+
+    document.getElementById("therapy-main-box").className = "animated fadeIn";
+    document.getElementById("therapy-main-box").innerHTML = spawnTherapy;
+
+
+
+
+    if (selectedshape == "circle") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration circle";
+    }
+    else if (selectedshape == "squareRounded") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration rounded-square";
+    }
+    else if (selectedshape == "square") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration square";
+    }
+    else if (selectedshape == "triangle") {
+        document.getElementById("emdr-element-main").className = "emdr-element el element-duration triangle";
+    }
+
+    document.getElementById("emdr-element-main").style.background = document.getElementById("element").style.backgroundColor;
+
+    var destination;
+    if (pathing == "leftright") {
+        destination = document.getElementById("emdr-box").offsetWidth - 155;
+        if (emdrSpeed == "1") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateX: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                //console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+    else if (pathing == "topbottom") {
+
+
+        destination = document.getElementById("emdr-box").offsetHeight - 212;
+
+        if (emdrSpeed == "1") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 3100
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 3100);
+        }
+        else if (emdrSpeed == "2") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 2160
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 2160);
+        }
+        else if (emdrSpeed == "3") {
+
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1340
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1340);
+        }
+        else if (emdrSpeed == "4") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 1000
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 1000);
+        }
+        else if (emdrSpeed == "5") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 750
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 750);
+        }
+        else if (emdrSpeed == "6") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 680
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 680);
+        }
+        else if (emdrSpeed == "7") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 570
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                switchDirectionSoundPlay();
+            }, 570);
+        }
+        else if (emdrSpeed == "8") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 520
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 520);
+        }
+        else if (emdrSpeed == "9") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 400
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 400);
+        }
+        else if (emdrSpeed == "10") {
+            mainElement = anime({
+                targets: '#alternate-main .el',
+                translateY: destination,
+                direction: 'alternate',
+                loop: true,
+                easing: selectedEasing,
+                duration: 320
+            });
+
+            switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log(switchDirectionSound);
+                switchDirectionSoundPlay();
+            }, 320);
+        }
+    }
+
+
+
+    //console.log("individual session length: ");
+
+    sessionActive = setInterval(function () {
+        seconds++;
+        //console.log("Seconds elapsed: " + seconds);
+        if (seconds >= sessionLength) {
+            yourCurrentSession++;
+            startNextSession();
+        }
+    }, 1000);
+
+}
+
+function pauseSession() {
+
+    if (paused == "no") {
+
+        console.log("paused");
+
+        paused = "yes";
+        var pause = "";
+        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Resume Session<\/div></span>";
+        mainElement.pause;
+    }
+    else {
+        paused = "no";
+        var pause = "";
+        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Pause Session<\/div></span>";
+    }
+
+    document.getElementById("session-pause").innerHTML = pause;
+}
+
+function loadThemeSelection() {
+
+    if (themeExtra == "no") {
+        $("#theme-extra-text").removeClass("hidden");
+        themeExtra = "yes";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("theme-load-text").innerHTML = loadMoreText;
+    }
+    else {
+        themeExtra = "no";
+        $("#theme-extra-text").addClass("hidden");
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("theme-load-text").innerHTML = loadMoreText;
+    }
+}
+
+function loadBackgroundSounds() {
+
+    if (switchBackgroundSound == "no") {
+
+        $("#background-sound-load").removeClass("hidden");
+        switchBackgroundSound = "yes";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+
+    }
+    else {
+        $("#background-sound-load").addClass("hidden");
+        switchBackgroundSound = "no";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+    }
+
+    /*
+    if (switch(BackgroundSound) == "no") {
+        var switchDirection = "";
+        switchDirection += " <span class=\"animated fadeIn\">";
+        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
+        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
+        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
+        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
+        switchDirection += "                                    <\/span>";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+
+        document.getElementById("background-sound-load").innerHTML = switchDirection;
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+        switchBackgroundSound = "yes";
+    }
+    else {
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("background-sound-load").innerHTML = ""
+        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
+
+        switchBackgroundSound = "no";
+    }
+    */
+}
+
+function loadSwitchDirection() {
+
+    if (switchDirectionExtra == "no") {
+
+        $("#switch-direction-load").removeClass("hidden");
+        switchDirectionExtra = "yes";
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
+        switchDirectionExtra = "yes";
+    }
+    else {
+
+        $("#switch-direction-load").addClass("hidden");
+
+        var loadMoreText = "";
+        loadMoreText += "<span class=\"animated fadeIn\">";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
+        loadMoreText += "                                    <\/span>";
+
+        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
+
+        switchDirectionExtra = "no";
+    }
+}
+
+function startEndSession() {
+    //Populate mood input if active
+    if (selectedMood != "no") {
+        var mood = "";
+        mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
+        mood += "                            <input id=\"mood-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
+
+        document.getElementById("your-mood-box-therapy").innerHTML = mood;
+        //document.getElementById("your-mood-box-therapy").innerHTML = mood;
+    }
+    else {
+        //document.getElementById("your-mood-box-session").innerHTML = "";
+        document.getElementById("your-mood-box-therapy").innerHTML = "";
+    }
+
+    //Populate SUDS input if active
+    if (selectedSUDS != "no") {
+        var suds = "";
+        suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
+        suds += "                            <input id=\"suds-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
+
+        document.getElementById("your-suds-box-therapy").innerHTML = suds;
+    }
+    else {
+        // document.getElementById("your-suds-box-session").innerHTML = "";
+        document.getElementById("your-suds-box-therapy").innerHTML = "";
+    }
+
+    //Populate VAC input if active
+    if (selectedVAC != "no") {
+        var vac = "";
+        vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
+        vac += "                            <input id=\"vac-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
+
+        //document.getElementById("your-vac-box-session").innerHTML = vac;
+        document.getElementById("your-vac-box-therapy").innerHTML = vac;
+    }
+    else {
+        //   document.getElementById("your-vac-box-session").innerHTML = "";
+        document.getElementById("your-vac-box-therapy").innerHTML = "";
+    }
+
+    document.getElementById("therapy-input-description").value = "";
+
+    //The therapy has ended 
+
+    console.log(descriptionProgress)
+
+    hideSessionSettings();
+    helperHide();
+    document.getElementById("therapy-main-box").className = "animated fadeOut";
+    document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+    // $('#therapyOver').modal('toggle');
+
+    $('#therapyOver').modal({
+        backdrop: 'static',
+        keyboard: false  // to prevent closing with Esc button (if you want this too)
+    })
+
+    stopCounting();
+}
+
+function startNextSession() {
+
+
+
+    //Populate mood input if active
+    if (selectedMood != "no") {
+        var mood = "";
+        mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
+        mood += "                            <input id=\"mood-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
+
+        document.getElementById("your-mood-box-session").innerHTML = mood;
+        document.getElementById("your-mood-box-therapy").innerHTML = mood;
+    }
+    else {
+        document.getElementById("your-mood-box-session").innerHTML = "";
+        document.getElementById("your-mood-box-therapy").innerHTML = "";
+    }
+
+    //Populate SUDS input if active
+    if (selectedSUDS != "no") {
+        var suds = "";
+        suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
+        suds += "                            <input id=\"suds-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
+
+        document.getElementById("your-suds-box-session").innerHTML = suds;
+        document.getElementById("your-suds-box-therapy").innerHTML = suds;
+    }
+    else {
+        document.getElementById("your-suds-box-session").innerHTML = "";
+        document.getElementById("your-suds-box-therapy").innerHTML = "";
+    }
+
+    //Populate VAC input if active
+    if (selectedVAC != "no") {
+        var vac = "";
+        vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
+        vac += "                            <input id=\"vac-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
+
+        document.getElementById("your-vac-box-session").innerHTML = vac;
+        document.getElementById("your-vac-box-therapy").innerHTML = vac;
+    }
+    else {
+        document.getElementById("your-vac-box-session").innerHTML = "";
+        document.getElementById("your-vac-box-therapy").innerHTML = "";
+    }
+
+    if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
+        //The therapy has ended 
+
+        console.log(descriptionProgress)
+
+        hideSessionSettings();
+        helperHide();
+        document.getElementById("therapy-main-box").className = "animated fadeOut";
+        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+        // $('#therapyOver').modal('toggle');
+
+        $('#therapyOver').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        })
+
+    }
+    else {
+        hideSessionSettings();
+        helperHide();
+        document.getElementById("therapy-main-box").className = "animated fadeOut";
+        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
+        //$('#nextSession').modal('toggle');
+        $('#nextSession').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        })
+    }
+
+    stopCounting();
+}
+
+function saveTherapyResults(type) {
+
+    console.log("TRIGGERED");
+
+    if (selectedMood != "no") {
+        var moodSave = document.getElementById("mood-therapy-value").value;
+        if (moodSave.length > 0) {
+            moodProgress.push(moodSave);
+            console.log("mood progress: " + moodProgress);
+        }
+        else {
+            moodProgress.push("empty");
+        }
+    }
+
+    if (selectedSUDS != "no") {
+        var sudsSave = document.getElementById("suds-therapy-value").value;
+        if (sudsSave.length > 0) {
+            sudsProgress.push(sudsSave);
+            console.log("suds progress: " + sudsProgress);
+        }
+        else {
+            sudsProgress.push("empty");
+        }
+    }
+
+    if (selectedVAC != "no") {
+        var vacSave = document.getElementById("vac-therapy-value").value;
+        if (vacSave.length > 0) {
+            vacProgress.push(vacSave);
+            console.log("suds progress: " + vacProgress);
+        }
+        else {
+            vacProgress.push("empty");
+        }
+    }
+
+    var descriptionSave = document.getElementById("therapy-input-description").value;
+    if (descriptionSave.length > 0) {
+        descriptionProgress.push(descriptionSave);
+    }
+    else {
+        descriptionProgress.push("empty");
+    }
+
+    var d = new Date();
+    var user = firebase.auth().currentUser;
+    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    var setUsed = document.getElementById("active-set").innerText;
+
+    firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+        setUsed: setUsed,
+        setDate: date,
+        setMoodResults: moodProgress,
+        setSudsProgress: sudsProgress,
+        setVacProgress: vacProgress,
+        setDescriptionProgress: descriptionProgress
+    });
+
+    if (type == "end") {
+        endSessionComplete();
+    }
+    else if (type == "analyze") {
+        analyzeSession();
+    }
+
+}
+
+function nextSession() {
+
+    if (selectedMood != "no") {
+        var moodSave = document.getElementById("mood-session-value").value;
+        if (moodSave.length > 0) {
+            moodProgress.push(moodSave);
+        }
+        else {
+            moodProgress.push("empty");
+        }
+        console.log("mood progress: " + moodProgress);
+    }
+
+    if (selectedSUDS != "no") {
+        var sudsSave = document.getElementById("suds-session-value").value;
+        if (sudsSave.length > 0) {
+            sudsProgress.push(sudsSave);
+        }
+        else {
+            sudsProgress.push("empty");
+        }
+        console.log("suds progress: " + sudsProgress);
+    }
+
+    if (selectedVAC != "no") {
+        var vacSave = document.getElementById("vac-session-value").value;
+        if (vacSave.length > 0) {
+            vacProgress.push(vacSave);
+        }
+        else {
+            vacProgress.push("empty");
+        }
+        console.log("vac progress: " + vacProgress);
+    }
+
+    var descriptionSave = document.getElementById("next-set-description").value;
+    if (descriptionSave.length > 0) {
+        descriptionProgress.push(descriptionSave);
+    }
+    else {
+        descriptionProgress.push("empty");
+    }
+
+    document.getElementById("next-set-description").value = "";
+
+    showSessionSettings();
+    $('#nextSession').modal('hide');
+
+    /*
+    setTimeout(function () {
+        /*
+        mainElement = anime({
+            targets: '#alternate-main .el',
+            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
+            direction: 'alternate',
+            loop: true,
+            easing: 'linear'
+        });
+        */
+    // test();
+    //document.getElementById("therapy-main-box").className = "animated fadeIn";
+    //document.getElementById("session-end-box").className = "hidden";
+
+    //}, 525);
+
+    test();
+
+    sessionActive = setInterval(function () {
+        seconds++;
+        console.log("Seconds elapsed: " + seconds);
+        if (seconds >= sessionLength) {
+            yourCurrentSession++;
+            if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
+                startEndSession();
+            }
+            else {
+                startNextSession();
+            }
+        }
+    }, 1000);
+
+}
+
+function test() {
     if (pathing == "leftright") {
         var spawnTherapy = "<span class = \"animated fadeIn\">";
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
@@ -1685,7 +2827,7 @@ function spawnTherapyMain() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+                //console.log(switchDirectionSound);
                 switchDirectionSoundPlay();
             }, 320);
         }
@@ -1847,359 +2989,8 @@ function spawnTherapyMain() {
 
 
 
-    //console.log("individual session length: ");
-
-    sessionActive = setInterval(function () {
-        seconds++;
-        //console.log("Seconds elapsed: " + seconds);
-        if (seconds >= sessionLength) {
-            startNextSession();
-        }
-    }, 1000);
-
 }
 
-function pauseSession() {
-
-    if (paused == "no") {
-
-        console.log("paused");
-
-        paused = "yes";
-        var pause = "";
-        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Resume Session<\/div></span>";
-        mainElement.pause;
-    }
-    else {
-        paused = "no";
-        var pause = "";
-        pause += "<span class = \"animated fadeIn\"><div class=\"emdr-box-button no-select\" onclick=\"pauseSession()\">Pause Session<\/div></span>";
-    }
-
-    document.getElementById("session-pause").innerHTML = pause;
-}
-
-function loadThemeSelection() {
-
-    if (themeExtra == "no") {
-        $("#theme-extra-text").removeClass("hidden");
-        themeExtra = "yes";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("theme-load-text").innerHTML = loadMoreText;
-    }
-    else {
-        themeExtra = "no";
-        $("#theme-extra-text").addClass("hidden");
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show more<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("theme-load-text").innerHTML = loadMoreText;
-    }
-}
-
-function loadBackgroundSounds() {
-
-    if (switchBackgroundSound == "no") {
-
-        $("#background-sound-load").removeClass("hidden");
-        switchBackgroundSound = "yes";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-
-    }
-    else {
-        $("#background-sound-load").addClass("hidden");
-        switchBackgroundSound = "no";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-    }
-
-    /*
-    if (switch(BackgroundSound) == "no") {
-        var switchDirection = "";
-        switchDirection += " <span class=\"animated fadeIn\">";
-        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
-        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
-        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
-        switchDirection += "                                    <\/span>";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-
-        document.getElementById("background-sound-load").innerHTML = switchDirection;
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-        switchBackgroundSound = "yes";
-    }
-    else {
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("background-sound-load").innerHTML = ""
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-
-        switchBackgroundSound = "no";
-    }
-    */
-}
-
-function loadSwitchDirection() {
-
-    if (switchDirectionExtra == "no") {
-
-        $("#switch-direction-load").removeClass("hidden");
-        switchDirectionExtra = "yes";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
-        switchDirectionExtra = "yes";
-    }
-    else {
-
-        $("#switch-direction-load").addClass("hidden");
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
-
-        switchDirectionExtra = "no";
-    }
-}
-
-function startNextSession() {
-
-    yourCurrentSession++;
-
-    //Populate mood input if active
-    if (selectedMood != "no") {
-        var mood = "";
-        mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
-        mood += "                            <input id=\"mood-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
-
-        document.getElementById("your-mood-box-session").innerHTML = mood;
-        document.getElementById("your-mood-box-therapy").innerHTML = mood;
-    }
-    else {
-        document.getElementById("your-mood-box-session").innerHTML = "";
-        document.getElementById("your-mood-box-therapy").innerHTML = "";
-    }
-
-    //Populate SUDS input if active
-    if (selectedSUDS != "no") {
-        var suds = "";
-        suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
-        suds += "                            <input id=\"suds-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
-
-        document.getElementById("your-suds-box-session").innerHTML = suds;
-        document.getElementById("your-suds-box-therapy").innerHTML = suds;
-    }
-    else {
-        document.getElementById("your-suds-box-session").innerHTML = "";
-        document.getElementById("your-suds-box-therapy").innerHTML = "";
-    }
-
-    //Populate VAC input if active
-    if (selectedVAC != "no") {
-        var vac = "";
-        vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
-        vac += "                            <input id=\"vac-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
-
-        document.getElementById("your-vac-box-session").innerHTML = vac;
-        document.getElementById("your-vac-box-therapy").innerHTML = vac;
-    }
-    else {
-        document.getElementById("your-vac-box-session").innerHTML = "";
-        document.getElementById("your-vac-box-therapy").innerHTML = "";
-    }
-
-    if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
-        //The therapy has ended 
-
-        if (selectedMood != "no") {
-            var moodSave = document.getElementById("mood-initial").value;
-            if (moodSave.length > 0) {
-                moodProgress.push(moodSave);
-                console.log("mood progress: " + moodProgress);
-            }
-            else {
-                moodProgress.push("empty");
-            }
-        }
-
-        if (selectedSUDS != "no") {
-            var sudsSave = document.getElementById("suds-initial").value;
-            if (sudsSave.length > 0) {
-                sudsProgress.push(sudsSave);
-                console.log("suds progress: " + sudsProgress);
-            }
-            else {
-                sudsProgress.push("empty");
-            }
-        }
-
-        if (selectedVAC != "no") {
-            var vacSave = document.getElementById("vac-initial").value;
-            if (vacSave.length > 0) {
-                vacProgress.push(vacSave);
-                console.log("suds progress: " + vacProgress);
-            }
-            else {
-                vacProgress.push("empty");
-            }
-        }
-        console.log(moodProgress);
-        console.log(sudsProgress);
-        console.log(vacProgress);
-        console.log(descriptionProgress)
-        saveTherapyResults();
-
-
-        hideSessionSettings();
-        helperHide();
-        document.getElementById("therapy-main-box").className = "animated fadeOut";
-        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
-        // $('#therapyOver').modal('toggle');
-
-        $('#therapyOver').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        })
-
-    }
-    else {
-        hideSessionSettings();
-        helperHide();
-        document.getElementById("therapy-main-box").className = "animated fadeOut";
-        document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
-        //$('#nextSession').modal('toggle');
-        $('#nextSession').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        })
-    }
-
-    stopCounting();
-}
-
-function saveTherapyResults() {
-    var d = new Date();
-    var user = firebase.auth().currentUser;
-    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
-    var setUsed = document.getElementById("active-set").innerText;
-
-    firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
-        setUsed: setUsed,
-        setDate: date,
-        setMoodResults: moodProgress,
-        setSudsProgress: sudsProgress,
-        setVacProgress: vacProgress,
-        setDescriptionProgress: descriptionProgress
-    });
-
-}
-
-function nextSession() {
-
-    if (selectedMood != "no") {
-        var moodSave = document.getElementById("mood-session-value").value;
-        if (moodSave.length > 0) {
-            moodProgress.push(moodSave);
-        }
-        else {
-            moodProgress.push("empty");
-        }
-        console.log("mood progress: " + moodProgress);
-    }
-
-    if (selectedSUDS != "no") {
-        var sudsSave = document.getElementById("suds-session-value").value;
-        if (sudsSave.length > 0) {
-            sudsProgress.push(sudsSave);
-        }
-        else {
-            sudsProgress.push("empty");
-        }
-        console.log("suds progress: " + sudsProgress);
-    }
-
-    if (selectedVAC != "no") {
-        var vacSave = document.getElementById("vac-session-value").value;
-        if (vacSave.length > 0) {
-            vacProgress.push(vacSave);
-        }
-        else {
-            vacProgress.push("empty");
-        }
-        console.log("vac progress: " + vacProgress);
-    }
-
-    var descriptionSave = document.getElementById("next-set-description").value;
-    if (descriptionSave.length > 0) {
-        descriptionProgress.push(descriptionSave);
-    }
-    else {
-        descriptionProgress.push("empty");
-    }
-
-    document.getElementById("next-set-description").value = "";
-
-    showSessionSettings();
-    $('#nextSession').modal('hide');
-
-    setTimeout(function () {
-        mainElement = anime({
-            targets: '#alternate-main .el',
-            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
-            direction: 'alternate',
-            loop: true,
-            easing: 'linear'
-        });
-        document.getElementById("therapy-main-box").className = "animated fadeIn";
-        //document.getElementById("session-end-box").className = "hidden";
-
-    }, 525);
-
-    sessionActive = setInterval(function () {
-        seconds++;
-        console.log("Seconds elapsed: " + seconds);
-        if (seconds >= sessionLength) {
-            startNextSession();
-        }
-    }, 1000);
-
-}
 
 function analyzeSession() {
     $("#results-box").addClass("emdr-box-active");
@@ -2231,6 +3022,8 @@ function startSession() {
     $("#emdr-box").addClass("emdr-box-active");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").addClass("transition-delay");
+
+    clearInterval(switchDirectionSoundPlayer);
 
     if (selectedMood != "no") {
         var moodSave = document.getElementById("mood-initial").value;
@@ -2373,7 +3166,11 @@ function loadSet(set) {
             $("#speed-slow").removeClass("preset-item-selected");
             $("#speed-medium").removeClass("preset-item-selected");
             $("#speed-fast").removeClass("preset-item-selected");
+
+            emdrSpeed = document.getElementById("speedRange").value;
         }
+
+
 
         document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
         shapeCategorySelect(snapshot.val().emdrShape);
@@ -2433,6 +3230,9 @@ function loadSet(set) {
         var description = snapshot.val().setDescription;
         var setDescription = snapshot.val().setDescriptionID;
     });
+
+    updatePreview();
+
 
 }
 

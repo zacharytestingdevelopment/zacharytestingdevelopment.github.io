@@ -136,13 +136,14 @@
                         <div id="your-vac-box-therapy">
 
                         </div>
-                        <textarea id="edit-set-description" maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
+                        <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <span class="close-button no-select" data-dismiss="modal" onclick="endSessionComplete()">End
+                        <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('end')">End
                             Therapy</span>
-                        <span class="save-changes-button no-select" onclick="analyzeSession()">ANALYZE SESSION</span>
+                        <span class="save-changes-button no-select" onclick="saveTherapyResults('analyze')">ANALYZE
+                            SESSION</span>
                     </div>
                 </div>
             </div>
@@ -519,7 +520,9 @@
                                     onclick="myPathing('leftright')">Left/Right</div>
                                 <div id="topbottom" class="preset-item inline-block no-select margin-left-right inline-block"
                                     onclick="myPathing('topbottom')">Top/Bottom</div>
+                                <!--
                                 <div id="diagonal" class="preset-item inline-block no-select inline-block" onclick="myPathing('diagonal')">Diagonal</div>
+                                -->
                             </div>
 
                             <div class="setting-category text-left margin-top-large">EASING — <span id="easingOutput">STANDARD</span>
@@ -620,14 +623,16 @@
 
 
                 <div id="alternate">
-                    <div id="element" class="emdr-element el element-duration circle-start"></div>
+                    <span class="animated fadeIn">
+                        <div id="element" class="emdr-element el element-duration circle-start"></div>
+                    </span>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div id="emdr-box" class="emdr-box">
+    <div id="emdr-box" class="emdr-box" style="overflow-y: hidden;">
         <div id="emdr-box-buttons" class="emdr-box-buttons">
             <div class="emdr-box-button margin-right-larger no-select" onclick="endSession()">End Therapy</div>
             <span id="session-pause">
