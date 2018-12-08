@@ -932,8 +932,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .preview-pane
 {
- background: #2c415a;  
- -webkit-overflow-scrolling: touch;
+    background: #2c415a;  
+}
+
+.rubber-band
+{
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .preview-text
