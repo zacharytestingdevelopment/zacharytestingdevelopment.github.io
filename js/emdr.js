@@ -95,7 +95,7 @@ function updatePreview() {
     document.getElementById("alternate").innerHTML = "";
     document.getElementById("alternate").innerHTML = alternate;
 
-    console.log(selectedshape);
+    //console.log(selectedshape);
     if (selectedshape == "circle") {
         $("#element").addClass("circle");
         $("#element").removeClass("rounded-square");
@@ -180,7 +180,7 @@ function updatePreview() {
             }, 1000);
         }
         else if (emdrSpeed == "5") {
-            console.log("ENTER THIS");
+            //console.log("ENTER THIS");
             alternate = anime({
                 targets: '#alternate .el',
                 translateX: destination,
@@ -191,7 +191,7 @@ function updatePreview() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log("PLEASE GOD: " + switchDirectionSound);
+                //console.log("PLEASE GOD: " + switchDirectionSound);
                 switchDirectionSoundPlay();
             }, 750);
         }
@@ -309,7 +309,7 @@ function updatePreview() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+                //console.log(switchDirectionSound);
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -616,6 +616,11 @@ function theme(themeValue) {
         $("#forest").removeClass("preset-item-selected");
         $("#lilac").removeClass("preset-item-selected");
         $("#chestnut").removeClass("preset-item-selected");
+
+        console.log("green");
+
+        document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+
 
         selectedTheme = "custom";
 
@@ -1789,7 +1794,7 @@ function loadSessionSettings() {
 
 function switchDirectionSoundPlay() {
     if (switchDirectionSound == "drop") {
-        console.log("Tdsadsdas I G G E R");
+        //console.log("Tdsadsdas I G G E R");
         popAudio.play();
     }
 
@@ -3131,6 +3136,19 @@ function stopCounting() {
     sessionActive = false;
 }
 
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+function rgb2hex(rgb) {
+    if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
 function loadSet(set) {
     activeSet = set;
     closeSettingsPanel();
@@ -3153,7 +3171,7 @@ function loadSet(set) {
         document.getElementById("speedRange").value = snapshot.val().emdrSpeed;
         emdrSpeed = snapshot.val().emdrSpeed;
 
-        console.log("EASING: " + snapshot.val().easing);
+        //console.log("EASING: " + snapshot.val().easing);
 
         easing(snapshot.val().easing);
 
@@ -3181,10 +3199,22 @@ function loadSet(set) {
 
         document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
         shapeCategorySelect(snapshot.val().emdrShape);
+
+
+
         if (snapshot.val().elementThemeName == "custom") {
-            document.getElementById("preview-pane").style.backgroundColor = snapshot.val().backgroundColorTheme;
-            document.getElementById("element").style.backgroundColor = snapshot.val().elementColorTheme;
+
+            document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
+
+
+            document.getElementById("background-color").value = rgb2hex(snapshot.val().backgroundColorTheme);
+            document.getElementById("element-color").value = rgb2hex(snapshot.val().elementColorTheme);
+
+            document.getElementById("preview-pane").style.backgroundColor = rgb2hex(snapshot.val().backgroundColorTheme);
+            document.getElementById("element").style.backgroundColor = rgb2hex(snapshot.val().elementColorTheme);
+
             theme("custom");
+
         }
         else {
             theme(snapshot.val().elementThemeName);
@@ -3312,8 +3342,8 @@ function updateSet(updatedSet) {
 
     var database = firebase.database();
     var user = firebase.auth().currentUser;
-    console.log(user);
-    console.log(selectedSessionCount);
+    //console.log(user);
+    //console.log(selectedSessionCount);
 
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
     //var description, name;
@@ -3453,7 +3483,7 @@ function populateSettingsBox(child) {
     var description = "";
     var id = "";
 
-    console.log("ACTIVE SET: " + activeSet);
+    //console.log("ACTIVE SET: " + activeSet);
     if (activeSet != "none") {
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
         desc.once('value', function (snapshot) {
@@ -3462,7 +3492,7 @@ function populateSettingsBox(child) {
 
         document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
-        console.log('active set is ' + activeSet);
+        //console.log('active set is ' + activeSet);
         var selectedTherapy = "";
         selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIN margin-top shadow\">";
         selectedTherapy += "                    <div id = \"active-set-text-box\" class=\"therapy-setting-box-header-green\">" + activeSetText + "<\/div>";
@@ -3579,7 +3609,7 @@ function updatedEditSet() {
 }
 
 function editSet(id) {
-    console.log("This is the ID: " + id);
+    //console.log("This is the ID: " + id);
 
     //var database = firebase.database();
     var user = firebase.auth().currentUser;
@@ -3773,8 +3803,8 @@ function saveSettings() {
         sessionSave = "/" + value;
         var database = firebase.database();
         var user = firebase.auth().currentUser;
-        console.log(user);
-        console.log(selectedSessionCount);
+        //console.log(user);
+        //console.log(selectedSessionCount);
 
 
 
@@ -3817,26 +3847,13 @@ function saveSettings() {
 
         const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
         var speedValue = document.getElementById("speedRange").value;
-        const backgroundTheme = document.getElementById("background-color").value;
-        const elementTheme = document.getElementById("element-color").value;
 
-        /*
-        if (speedValue == "1") {
-            speedValue = "Very slow";
-        }
-        else if (speedValue == "2") {
-            speedValue = "slow";
-        }
-        else if (speedValue == "3") {
-            speedValue = "medium";
-        }
-        else if (speedValue == "4") {
-            speedValue = "fast";
-        }
-        else if (speedValue == "5") {
-            speedValue = "Very fast";
-        }
-        */
+        const backgroundTheme = document.getElementById("preview-pane").style.backgroundColor;
+        const elementTheme = document.getElementById("element").style.backgroundColor;
+
+        //console.log("DSDAS:" + backgroundTheme);
+        //const backgroundTheme = document.getElementById("background-color").value;
+        //const elementTheme = document.getElementById("element-color").value;
 
         firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + sessionSave).set({
             setDescription: setDescription,
