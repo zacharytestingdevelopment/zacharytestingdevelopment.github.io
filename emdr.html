@@ -139,6 +139,13 @@
                         <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
+                    <div class="position-therapy-check">
+                        <label class="form-check-label no-select" for="therapyCheck">
+                            Save therapy results
+                        </label>
+                        <input class="form-check-input position-check" type="checkbox" value="" id="therapyCheck"
+                            checked>
+                    </div>
                     <div class="modal-footer">
                         <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('end')">End
                             Therapy</span>
@@ -264,7 +271,7 @@
                 <div class="therapy-settings-useage white margin-top-tiny no-select" onclick="loadSettings()">Load
                     settings</div>
 
-                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#speedMovement" role="button"
+                <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#speedMovement" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('speedMovement')">
                     <div class="margin-top section-card-header">
                         Speed and movement
@@ -312,8 +319,8 @@
                     </div>
                 </div>
 
-                <a class="kill-link-style toggle-element relative" data-toggle="collapse" href="#theming" role="button"
-                    aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('theming')">
+                <a class="kill-link-style toggle-element relative no-select" data-toggle="collapse" href="#theming"
+                    role="button" aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('theming')">
                     <div class="margin-top section-card-header">
 
                         Theming and sounds
@@ -329,10 +336,8 @@
                             <div>
                                 <div>
                                     <div class="setting-category margin-top-setting">BACKGROUND — </div>
-                                    <!--<input type="color" id="background-color" class="color-picker" />-->
 
-                                    <input id="background-color" type="color" id="head" name="color" value="#2c415a"
-                                        onchange="updateBackground()" />
+                                    <input id="background-color" type="color" name="color" value="#2c415a" onchange="updateBackground()" />
 
                                 </div>
                                 <div>
@@ -354,13 +359,15 @@
                                 <div>
                                     <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
                                     <div id="contrast" class="preset-item no-select inline-block" onclick="theme('contrast')">Contrast</div>
-                                    <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
-                                        onclick="theme('chestnut')">Chestnut</div>
+                                    <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
+
                                 </div>
                                 <span id="theme-extra-text" class="hidden">
                                     <div>
                                         <div id="sunshine" class="preset-item no-select inline-block" onclick="theme('sunshine')">Sunshine</div>
-                                        <div id="sand" class="preset-item no-select inline-block" onclick="theme('sand')">Sand</div>
+                                        <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="theme('chestnut')">Chestnut</div>
+
                                         <div id="royal" class="preset-item no-select margin-left-right inline-block"
                                             onclick="theme('royal')">Royal</div>
                                     </div>
@@ -370,7 +377,7 @@
                                         <div id="lilac" class="preset-item no-select margin-left-right inline-block"
                                             onclick="theme('lilac')">Lilac</div>
 
-                                        <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
+                                        <div id="sand" class="preset-item no-select inline-block" onclick="theme('sand')">Sand</div>
                                     </div>
                                 </span>
                             </div>
@@ -460,7 +467,7 @@
                     </div>
                 </div>
 
-                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#session" role="button"
+                <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#session" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('session')">
                     <div class="margin-top section-card-header">
                         Session settings <ion-icon id="settingArrow4" class="collapse-arrow" name="arrow-dropup"></ion-icon>
@@ -503,7 +510,7 @@
                     </div>
                 </div>
 
-                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#path" role="button"
+                <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#path" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('path')">
                     <div class="margin-top section-card-header">
                         Path and easing <ion-icon id="settingArrow3" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
@@ -553,7 +560,7 @@
 
                 </div>
 
-                <a class="kill-link-style toggle-element" data-toggle="collapse" href="#advanced" role="button"
+                <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#advanced" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('advanced')">
                     <div class="margin-top section-card-header">
                         Tracking options <ion-icon id="settingArrow5" class="collapse-arrow arrow-down" name="arrow-dropup"></ion-icon>
@@ -616,11 +623,10 @@
                 </div>
             </div>
             <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
-                <div class="preview-text text-right animated fadeInDown delay1Therapy">
+                <div class="preview-text-box text-right animated fadeInDown delay1Therapy">
                     PREVIEW
-                    <div class="preview-text-subheader">Set: <span id="active-set">none</span></div>
+                    <div class="preview-text-subheader">Set: <span id="active-set">none</span></div>
                 </div>
-
 
                 <div id="alternate">
                     <span class="animated fadeIn">
@@ -644,14 +650,14 @@
         </div>
         <div id="top-bottom-line" class="top-bottom-line animated fadeOut"></div>
 
-        <div id="therapy-main-box">
+        <div id="therapy-main-box" style="padding-left:10px !important;padding-top:10px !important;">
 
         </div>
 
 
     </div>
 
-    <div id="instructions-box" class="emdr-box instructions-box">
+    <div id=" instructions-box" class="emdr-box instructions-box">
         <span class="dashboard-button dashboard-button-blue dashboard-button-instructions no-select" onmouseover="dashBoard('enterInstructions')"
             onmouseout="dashBoard('exitInstructions')" onclick="closeInstructions()">
             <ion-icon id="instructions-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
@@ -695,10 +701,14 @@
                             <div class="margin-top-tiny">
                                 placeholder
                                 placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+                                placeholder placeholder placeholder placeholder placeholder. Placeholder
+                                placeholder
+                                placeholder placeholder. placeholder placeholder placeholder placeholder
+                                placeholder.
+                                placeholder placeholder placeholder placeholder placeholder. Placeholder
+                                placeholder
+                                placeholder placeholder. placeholder placeholder placeholder placeholder
+                                placeholder.
                             </div>
 
                             <div class="instructions-steps margin-top no-select">
@@ -707,10 +717,14 @@
                             <div class="margin-top-tiny">
                                 placeholder
                                 placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+                                placeholder placeholder placeholder placeholder placeholder. Placeholder
+                                placeholder
+                                placeholder placeholder. placeholder placeholder placeholder placeholder
+                                placeholder.
+                                placeholder placeholder placeholder placeholder placeholder. Placeholder
+                                placeholder
+                                placeholder placeholder. placeholder placeholder placeholder placeholder
+                                placeholder.
                             </div>
 
                             <div class="instructions-steps margin-top no-select">
@@ -855,6 +869,16 @@
         // alert('s');
         jQuery('#loader').fadeOut(220);
     });
+
+/*
+    $("#background-color").spectrum({
+        color: "#2c415a",
+        showSelectionPalette: true,
+    });
+*/
+
+
+
 
 </script>
 

@@ -41,6 +41,11 @@ input[type="color"]::-webkit-color-swatch {
     transition: background-color 0.19s ease 0s!important;
 }   
 
+.emdr-element-top-bottom
+{
+    position: relative;
+}
+
 .emdr-element
 {
     height:155px !important;
@@ -572,6 +577,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .emdr-box
 {
     position: fixed;
+    /*padding-left:40px;*/
     overflow-x: hidden !important;
     top:100vh;
     width:100%;
@@ -624,7 +630,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     left: -moz-calc(50% - 77.5px);
     left: -o-calc(50% - 77.5px);
     left: calc(50% - 77.5px);
-    top:47px;
+    top:57px;
    
     margin-left:auto;
     margin-right: auto;
@@ -923,6 +929,19 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     display: inline-block;
 }
 
+.position-therapy-check
+{
+    position: relative;
+    left:17px;
+    top:-15px;
+}
+
+.position-check
+{
+    position: relative;
+    left:21px;
+}
+
 .number-input-style:focus
 {
   
@@ -940,9 +959,23 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     -webkit-overflow-scrolling: touch !important;
 }
 
+.preview-text-box
+{
+    position: absolute;
+    right:20px;
+    top:15px;
+    background:#fff;
+    border-radius: 10px;
+    padding-top:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    letter-spacing: 3px;
+}
+
 .preview-text
 {
-
+    text-align: right;
     padding-top:5px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -958,7 +991,6 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .preview-text-subheader
 {
-    font-size: 19.5px;
     letter-spacing:1px;
 }
 

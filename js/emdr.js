@@ -5,6 +5,7 @@
 // - Allow users to edit session names + descriptions (COMPLETED)
 // - Update loaded set text (COMPLETED)
 // - When you delete the active set, active set text resets and activeSet = "none" (COMPLETED)
+// - Add a new switch direction sound player for the preview, it doesnt seem to keep playing when you leave a session 
 
 var mainElement;
 
@@ -38,6 +39,7 @@ var selectedVAC = "no";
 var settingsLoaded = false;
 var settingsBoxLoaded = false;
 var settingsBox = false;
+var sessionSettingsShown = true;
 
 var sessionOptions = [];
 var sessionOptionsBox = [];
@@ -60,7 +62,7 @@ var alternate = anime({
     translateX: width,
     direction: 'alternate',
     loop: true,
-    easing: 'linear'
+    easing: selectedEasing
 });
 
 speedSlider.oninput = function () {
@@ -73,17 +75,7 @@ speedSlider.oninput = function () {
 
 function updatePreview() {
 
-    console.log(emdrSpeed);
-
     var destination;
-
-    /*
-    var alternate = "";
-    alternate += "<span class=\"animated fadeIn\">";
-    alternate += "                        <div id=\"element\" class=\"emdr-element el element-duration circle-start\"><\/div>";
-    alternate += "                    <\/span>";
-
-    */
 
     if (pathing == "leftright") {
         var alternate = "";
@@ -97,6 +89,7 @@ function updatePreview() {
         alternate += "            <div id=\"element\" class=\"emdr-element el element-duration circle\"><\/div>";
         alternate += "        <\/div></span>";
     }
+
     clearInterval(switchDirectionSoundPlayer);
 
     document.getElementById("alternate").innerHTML = "";
@@ -187,6 +180,7 @@ function updatePreview() {
             }, 1000);
         }
         else if (emdrSpeed == "5") {
+            console.log("ENTER THIS");
             alternate = anime({
                 targets: '#alternate .el',
                 translateX: destination,
@@ -197,6 +191,7 @@ function updatePreview() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
+                console.log("PLEASE GOD: " + switchDirectionSound);
                 switchDirectionSoundPlay();
             }, 750);
         }
@@ -1724,6 +1719,9 @@ function loadSettings() {
 }
 
 function hideSessionSettings() {
+
+    sessionSettingsShown = false;
+
     $("#emdr-box-buttons").removeClass("transition-delay");
     $("#emdr-box-buttons").removeClass("emdr-box-buttons-active");
 
@@ -1742,6 +1740,9 @@ function helperHide() {
 }
 
 function showSessionSettings() {
+
+    sessionSettingsShown = true;
+
     $("#emdr-box-buttons").addClass("transition-delay");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
 
@@ -1788,6 +1789,7 @@ function loadSessionSettings() {
 
 function switchDirectionSoundPlay() {
     if (switchDirectionSound == "drop") {
+        console.log("Tdsadsdas I G G E R");
         popAudio.play();
     }
 
@@ -1856,10 +1858,13 @@ function spawnTherapyMain() {
     }
 
     if (pathing == "leftright") {
+        console.log("morning");
         var spawnTherapy = "<span class = \"animated fadeIn\">";
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
         spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
         spawnTherapy += "        <\/div></span>";
+
+
     }
     else if (pathing == "topbottom") {
         var spawnTherapy = "<span class = \"animated fadeIn\">";
@@ -1891,7 +1896,7 @@ function spawnTherapyMain() {
 
     var destination;
     if (pathing == "leftright") {
-        destination = document.getElementById("emdr-box").offsetWidth - 155;
+        destination = document.getElementById("emdr-box").offsetWidth - 175;
         if (emdrSpeed == "1") {
             mainElement = anime({
                 targets: '#alternate-main .el',
@@ -2044,7 +2049,7 @@ function spawnTherapyMain() {
     else if (pathing == "topbottom") {
 
 
-        destination = document.getElementById("emdr-box").offsetHeight - 212;
+        destination = document.getElementById("emdr-box").offsetHeight - 232;
 
         if (emdrSpeed == "1") {
             mainElement = anime({
@@ -2351,6 +2356,7 @@ function loadSwitchDirection() {
 }
 
 function startEndSession() {
+
     //Populate mood input if active
     if (selectedMood != "no") {
         var mood = "";
@@ -2461,9 +2467,10 @@ function startNextSession() {
     if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
         //The therapy has ended 
 
-        console.log(descriptionProgress)
+        startEndSession();
 
         hideSessionSettings();
+
         helperHide();
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
@@ -2476,7 +2483,14 @@ function startNextSession() {
 
     }
     else {
-        hideSessionSettings();
+        if (sessionSettingsShown) {
+            hideSessionSettings();
+            sessionSettingsShown = true;
+        }
+        else {
+            hideSessionSettings();
+        }
+
         helperHide();
         document.getElementById("therapy-main-box").className = "animated fadeOut";
         document.getElementById("your-current-session").innerHTML = "<span class = \"inherit animated fadeIn\">" + yourCurrentSession + "</span>";
@@ -2492,69 +2506,70 @@ function startNextSession() {
 
 function saveTherapyResults(type) {
 
-    console.log("TRIGGERED");
+    if (document.getElementById("therapyCheck").checked) {
 
-    if (selectedMood != "no") {
-        var moodSave = document.getElementById("mood-therapy-value").value;
-        if (moodSave.length > 0) {
-            moodProgress.push(moodSave);
-            console.log("mood progress: " + moodProgress);
+        if (selectedMood != "no") {
+            var moodSave = document.getElementById("mood-therapy-value").value;
+            if (moodSave.length > 0) {
+                moodProgress.push(moodSave);
+                console.log("mood progress: " + moodProgress);
+            }
+            else {
+                moodProgress.push("empty");
+            }
+        }
+
+        if (selectedSUDS != "no") {
+            var sudsSave = document.getElementById("suds-therapy-value").value;
+            if (sudsSave.length > 0) {
+                sudsProgress.push(sudsSave);
+                console.log("suds progress: " + sudsProgress);
+            }
+            else {
+                sudsProgress.push("empty");
+            }
+        }
+
+        if (selectedVAC != "no") {
+            var vacSave = document.getElementById("vac-therapy-value").value;
+            if (vacSave.length > 0) {
+                vacProgress.push(vacSave);
+                console.log("suds progress: " + vacProgress);
+            }
+            else {
+                vacProgress.push("empty");
+            }
+        }
+
+        var descriptionSave = document.getElementById("therapy-input-description").value;
+        if (descriptionSave.length > 0) {
+            descriptionProgress.push(descriptionSave);
         }
         else {
-            moodProgress.push("empty");
+            descriptionProgress.push("empty");
         }
+
+        var d = new Date();
+        var user = firebase.auth().currentUser;
+        var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+        var setUsed = document.getElementById("active-set").innerText;
+
+        firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+            setUsed: setUsed,
+            setDate: date,
+            setMoodResults: moodProgress,
+            setSudsProgress: sudsProgress,
+            setVacProgress: vacProgress,
+            setDescriptionProgress: descriptionProgress
+        });
     }
-
-    if (selectedSUDS != "no") {
-        var sudsSave = document.getElementById("suds-therapy-value").value;
-        if (sudsSave.length > 0) {
-            sudsProgress.push(sudsSave);
-            console.log("suds progress: " + sudsProgress);
-        }
-        else {
-            sudsProgress.push("empty");
-        }
-    }
-
-    if (selectedVAC != "no") {
-        var vacSave = document.getElementById("vac-therapy-value").value;
-        if (vacSave.length > 0) {
-            vacProgress.push(vacSave);
-            console.log("suds progress: " + vacProgress);
-        }
-        else {
-            vacProgress.push("empty");
-        }
-    }
-
-    var descriptionSave = document.getElementById("therapy-input-description").value;
-    if (descriptionSave.length > 0) {
-        descriptionProgress.push(descriptionSave);
-    }
-    else {
-        descriptionProgress.push("empty");
-    }
-
-    var d = new Date();
-    var user = firebase.auth().currentUser;
-    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
-    var setUsed = document.getElementById("active-set").innerText;
-
-    firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
-        setUsed: setUsed,
-        setDate: date,
-        setMoodResults: moodProgress,
-        setSudsProgress: sudsProgress,
-        setVacProgress: vacProgress,
-        setDescriptionProgress: descriptionProgress
-    });
-
     if (type == "end") {
         endSessionComplete();
     }
     else if (type == "analyze") {
         analyzeSession();
     }
+
 
 }
 
@@ -2603,27 +2618,15 @@ function nextSession() {
 
     document.getElementById("next-set-description").value = "";
 
-    showSessionSettings();
+    if (sessionSettingsShown) {
+        showSessionSettings();
+    }
+    else {
+        hideSessionSettings();
+    }
     $('#nextSession').modal('hide');
 
-    /*
-    setTimeout(function () {
-        /*
-        mainElement = anime({
-            targets: '#alternate-main .el',
-            translateX: [0, document.getElementById("emdr-box").offsetWidth - 150],
-            direction: 'alternate',
-            loop: true,
-            easing: 'linear'
-        });
-        */
-    // test();
-    //document.getElementById("therapy-main-box").className = "animated fadeIn";
-    //document.getElementById("session-end-box").className = "hidden";
-
-    //}, 525);
-
-    test();
+    transferSettings();
 
     sessionActive = setInterval(function () {
         seconds++;
@@ -2631,6 +2634,7 @@ function nextSession() {
         if (seconds >= sessionLength) {
             yourCurrentSession++;
             if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
+
                 startEndSession();
             }
             else {
@@ -2641,7 +2645,7 @@ function nextSession() {
 
 }
 
-function test() {
+function transferSettings() {
     if (pathing == "leftright") {
         var spawnTherapy = "<span class = \"animated fadeIn\">";
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
@@ -2834,8 +2838,7 @@ function test() {
     }
     else if (pathing == "topbottom") {
 
-
-        destination = document.getElementById("emdr-box").offsetHeight - 212;
+        destination = document.getElementById("emdr-box").offsetHeight - 232;
 
         if (emdrSpeed == "1") {
             mainElement = anime({
@@ -3088,6 +3091,9 @@ function endSessionComplete() {
 
 function endSession() {
 
+    updatePreview();
+
+    clearInterval(switchDirectionSoundPlayer);
     yourCurrentSession = 1;
 
     //Reset tracking progress 
@@ -3095,6 +3101,7 @@ function endSession() {
     sudsProgress = [];
     vacProgress = [];
     descriptionProgress = [];
+    sessionSettingsShown = true;
 
     if (pathing == "topbottom") {
         $("#top-bottom-line").removeClass("fadeIn");
