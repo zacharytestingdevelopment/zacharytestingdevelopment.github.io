@@ -526,6 +526,7 @@ input[type="color"]::-webkit-color-swatch {
 {
     background: rgb(57,76,156);
     background: linear-gradient(324deg, rgba(57,76,156,1) 10%, rgba(66,87,178,1) 77%);
+    -webkit-overflow-scrolling: touch !important;
     overflow-y:scroll;
 }
 
@@ -652,6 +653,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .session-selection
 {
+    -webkit-overflow-scrolling: touch !important;
     background: rgb(57,76,156);
     background: linear-gradient(324deg, rgba(57,76,156,1) 10%, rgba(66,87,178,1) 77%);
     height: 100vh;
@@ -747,6 +749,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .therapy-over-box
 {
+    -webkit-overflow-scrolling: touch !important;
     min-height:450px;
     overflow-y:scroll;
     overflow-x:hidden;
@@ -1408,6 +1411,7 @@ input:focus::-webkit-input-placeholder {
 
 .settings-panel
 {
+    -webkit-overflow-scrolling: touch !important;
     overflow-y:scroll;
     padding-left:20px;
     padding-top:5vh;

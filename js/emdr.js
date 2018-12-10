@@ -3522,7 +3522,7 @@ function populateSettingsBox(child) {
 
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\",\"" + description + "\");'\"><\/ion-icon>";
-            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "x" + "<\/span>";
+            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "Loading..." + "<\/span>";
             settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
@@ -3655,7 +3655,7 @@ function populateSettingsOptions(child) {
 
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\");'\"><\/ion-icon>";
-            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "x" + "<\/span>";
+            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "Loading..." + "<\/span>";
             settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
