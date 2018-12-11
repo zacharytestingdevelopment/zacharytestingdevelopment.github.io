@@ -388,7 +388,7 @@
                             </div>
 
                             <div class="setting-category margin-top-large">SWITCH DIRECTION SOUND <span class="information-circle"
-                                    onclick="information('switchDirection')"><span class="question-mark">?</span></div>
+                                    onclick="information('switchDirection')"><span class="question-mark no-select">?</span></div>
                             <div class="presets">
                                 <div>
                                     <div id="none-direction" class="preset-item no-select preset-item-selected inline-block"
@@ -533,7 +533,7 @@
                             </div>
 
                             <div class="setting-category text-left margin-top-large">EASING — <span id="easingOutput">STANDARD</span>
-                                <span class="information-circle" onclick="information('easing')"><span class="question-mark">?</span></span>
+                                <span class="information-circle" onclick="information('easing')"><span class="question-mark no-select">?</span></span>
                             </div>
 
                             <div class="presets">
@@ -572,7 +572,7 @@
 
 
                             <div class="setting-category margin-top">INCLUDE MOOD SCALE <span class="information-circle"
-                                    onclick="information('mood')"><span class="question-mark">?</span></div>
+                                    onclick="information('mood')"><span class="question-mark no-select">?</span></div>
                             <div>
                                 <div id="moodNo" class="preset-item inline-block no-select" onclick="mood('no')">No</div>
                                 <div id="moodYes" class="preset-item inline-block no-select margin-left-right preset-item-selected"
@@ -581,12 +581,12 @@
                             </div>
 
                             <div id="moodInput" class="visible margin-top-medium">
-                                <input id="mood-initial" type="number" placeholder="Initial mood (1-10)" class="number-input-style"
-                                    min="1" />
+                                <input onfocusout="valueCheck('mood')" id="mood-initial" type="number" placeholder="Initial mood (1-10)"
+                                    class="number-input-style" min="1" />
                             </div>
 
                             <div class="setting-category margin-top-large">INCLUDE SUDS SCALE <span class="information-circle"
-                                    onclick="information('suds')"><span class="question-mark">?</span></div>
+                                    onclick="information('suds')"><span class="question-mark no-select">?</span></div>
                             <div>
                                 <div id="sudsNo" class="preset-item inline-block no-select preset-item-selected"
                                     onclick="suds('no')">No</div>
@@ -594,19 +594,31 @@
 
                             </div>
                             <div id="sudsInput" class="hidden">
-                                <input id="suds-initial" type="number" placeholder="Your initial value (1-7)" class="number-input-style"
-                                    min="1" />
+                                <input onfocusout="valueCheck('suds')" id="suds-initial" type="number" placeholder="Your initial value (1-10)"
+                                    class="number-input-style" min="1" />
                             </div>
 
                             <div class="setting-category margin-top-large">INCLUDE VAC SCALE <span class="information-circle"
-                                    onclick="information('vac')"><span class="question-mark">?</span></div>
+                                    onclick="information('vac')"><span class="question-mark no-select">?</span></div>
                             <div>
                                 <div id="vacNo" class="preset-item inline-block no-select preset-item-selected" onclick="vac('no')">No</div>
                                 <div id="vacYes" class="preset-item inline-block no-select margin-left-right" onclick="vac('yes')">Yes</div>
                             </div>
                             <div id="vacInput" class="hidden">
-                                <input id="vac-initial" type="number" placeholder="Enter initial value (1-9)" class="number-input-style"
-                                    min="1" />
+                                <input onfocusout="valueCheck('vac')" id="vac-initial" type="number" placeholder="Enter initial value (1-7)"
+                                    class="number-input-style" min="1" />
+                            </div>
+
+                            <div class="setting-category margin-top-large">SET CLIENT NAME <span class="information-circle"
+                                    onclick="information('client')"><span class="question-mark no-select">?</span></div>
+                            <div>
+                                <div id="clientNo" class="preset-item inline-block no-select preset-item-selected"
+                                    onclick="client('no')">No</div>
+                                <div id="clientYes" class="preset-item inline-block no-select margin-left-right"
+                                    onclick="client('yes')">Yes</div>
+                            </div>
+                            <div id="clientInput" class="hidden">
+                                <input id="client-initial" type="text" placeholder="Enter client name" class="number-input-style" />
                             </div>
 
 

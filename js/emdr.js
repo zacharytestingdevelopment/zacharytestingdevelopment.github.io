@@ -35,6 +35,7 @@ var selectedEasing = "easeInOutQuad";
 var selectedSUDS = "no";
 var selectedMood = "yes";
 var selectedVAC = "no";
+var selectedClient = "no";
 
 var settingsLoaded = false;
 var settingsBoxLoaded = false;
@@ -90,7 +91,7 @@ function updatePreview() {
         alternate += "        <\/div></span>";
     }
 
-    clearInterval(switchDirectionSoundPlayer);
+    //clearInterval(switchDirectionSoundPlayer);
 
     document.getElementById("alternate").innerHTML = "";
     document.getElementById("alternate").innerHTML = alternate;
@@ -118,6 +119,7 @@ function updatePreview() {
 
     document.getElementById("element").style.backgroundColor = $("#element-color").val();
     document.getElementById("preview-pane").style.backgroundColor = $("#background-color").val();
+
 
     if (pathing == "leftright") {
         destination = document.getElementById("preview-pane").offsetWidth - 175;
@@ -180,7 +182,8 @@ function updatePreview() {
             }, 1000);
         }
         else if (emdrSpeed == "5") {
-            //console.log("ENTER THIS");
+
+
             alternate = anime({
                 targets: '#alternate .el',
                 translateX: destination,
@@ -189,9 +192,10 @@ function updatePreview() {
                 easing: selectedEasing,
                 duration: 750
             });
+            console.log("S" + emdrSpeed);
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                //console.log("PLEASE GOD: " + switchDirectionSound);
+                //console.log("ENDED SESSION: " + switchDirectionSound);
                 switchDirectionSoundPlay();
             }, 750);
         }
@@ -1171,6 +1175,13 @@ function information(informationType) {
             icon: "info"
         });
     }
+    else if (informationType == "client") {
+        swal({
+            title: "Setting a client name",
+            text: "This setting is useful if you want to track therapy results for several different people. For example, a therapist could track results for specific clients by entering their name here. This will allow you to better track results during analysis after the therapy.",
+            icon: "info"
+        });
+    }
 }
 
 function backgroundSound(soundType) {
@@ -1411,6 +1422,7 @@ function backgroundSound(soundType) {
 }
 
 function switchDirection(directionType) {
+    //clearInterval(switchDirectionSoundPlayer);
     if (directionType == "none") {
         $("#none-direction").addClass("preset-item-selected");
         $("#ding").removeClass("preset-item-selected");
@@ -1637,6 +1649,24 @@ function suds(sudsInput) {
         document.getElementById("sudsInput").className = "animated fadeIn margin-top-medium";
 
         selectedSUDS = "yes";
+    }
+}
+
+function client(clientInput) {
+    if (clientInput == "no") {
+        $("#clientNo").addClass("preset-item-selected");
+        $("#clientYes").removeClass("preset-item-selected");
+
+        document.getElementById("clientInput").className = "hidden";
+        selectedClient = "no";
+
+    }
+    else if (clientInput == "yes") {
+        $("#clientNo").removeClass("preset-item-selected");
+        $("#clientYes").addClass("preset-item-selected");
+
+        document.getElementById("clientInput").className = "animated fadeIn margin-top-medium";
+        selectedClient = "yes";
     }
 }
 
@@ -2366,7 +2396,7 @@ function startEndSession() {
     if (selectedMood != "no") {
         var mood = "";
         mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
-        mood += "                            <input id=\"mood-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
+        mood += "                            <input onfocusout = \"valueCheck('therapyMood')\" id=\"mood-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
 
         document.getElementById("your-mood-box-therapy").innerHTML = mood;
         //document.getElementById("your-mood-box-therapy").innerHTML = mood;
@@ -2380,7 +2410,7 @@ function startEndSession() {
     if (selectedSUDS != "no") {
         var suds = "";
         suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
-        suds += "                            <input id=\"suds-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
+        suds += "                            <input onfocusout = \"valueCheck('therapySUDS')\" id=\"suds-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
 
         document.getElementById("your-suds-box-therapy").innerHTML = suds;
     }
@@ -2393,7 +2423,7 @@ function startEndSession() {
     if (selectedVAC != "no") {
         var vac = "";
         vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
-        vac += "                            <input id=\"vac-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
+        vac += "                            <input onfocusout = \"valueCheck('therapyVAC')\" id=\"vac-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-7)\" \/>";
 
         //document.getElementById("your-vac-box-session").innerHTML = vac;
         document.getElementById("your-vac-box-therapy").innerHTML = vac;
@@ -2431,7 +2461,7 @@ function startNextSession() {
     if (selectedMood != "no") {
         var mood = "";
         mood += "<div class=\"highlight-color-blue\">Your mood<\/div>";
-        mood += "                            <input id=\"mood-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
+        mood += "                            <input onfocusout=\"valueCheck('sessionMood')\" id=\"mood-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
 
         document.getElementById("your-mood-box-session").innerHTML = mood;
         document.getElementById("your-mood-box-therapy").innerHTML = mood;
@@ -2445,7 +2475,7 @@ function startNextSession() {
     if (selectedSUDS != "no") {
         var suds = "";
         suds += "<div class=\"highlight-color-blue margin-top-tiny\">SUDS Score<\/div>";
-        suds += "                            <input id=\"suds-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
+        suds += "                            <input onfocusout=\"valueCheck('sessionSUDS')\" id=\"suds-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record SUDS (1-10)\" \/>";
 
         document.getElementById("your-suds-box-session").innerHTML = suds;
         document.getElementById("your-suds-box-therapy").innerHTML = suds;
@@ -2459,7 +2489,7 @@ function startNextSession() {
     if (selectedVAC != "no") {
         var vac = "";
         vac += "<div class=\"highlight-color-blue margin-top-tiny\">VAC Score<\/div>";
-        vac += "                            <input id=\"vac-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-10)\" \/>";
+        vac += "                            <input onfocusout=\"valueCheck('sessionVAC')\" id=\"vac-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record VAC (1-7)\" \/>";
 
         document.getElementById("your-vac-box-session").innerHTML = vac;
         document.getElementById("your-vac-box-therapy").innerHTML = vac;
@@ -2507,6 +2537,90 @@ function startNextSession() {
     }
 
     stopCounting();
+}
+
+function valueCheck(valueCheck) {
+    if (valueCheck == "mood") {
+        if (document.getElementById("mood-initial").value > 10) {
+            document.getElementById("mood-initial").value = 10;
+        }
+
+        if (document.getElementById("mood-initial").value < 1) {
+            document.getElementById("mood-initial").value = 1;
+        }
+    }
+    else if (valueCheck == "suds") {
+        if (document.getElementById("suds-initial").value > 10) {
+            document.getElementById("suds-initial").value = 10;
+        }
+
+        if (document.getElementById("suds-initial").value < 1) {
+            document.getElementById("suds-initial").value = 1;
+        }
+    }
+    else if (valueCheck == "vac") {
+        if (document.getElementById("vac-initial").value > 7) {
+            document.getElementById("vac-initial").value = 7;
+        }
+
+        if (document.getElementById("vac-initial").value < 1) {
+            document.getElementById("vac-initial").value = 1;
+        }
+    }
+    else if (valueCheck == "sessionMood") {
+        if (document.getElementById("mood-session-value").value > 10) {
+            document.getElementById("mood-session-value").value = 10;
+        }
+
+        if (document.getElementById("mood-session-value").value < 1) {
+            document.getElementById("mood-session-value").value = 1;
+        }
+    }
+    else if (valueCheck == "sessionSUDS") {
+        if (document.getElementById("suds-session-value").value > 10) {
+            document.getElementById("suds-session-value").value = 10;
+        }
+
+        if (document.getElementById("suds-session-value").value < 1) {
+            document.getElementById("suds-session-value").value = 1;
+        }
+    }
+    else if (valueCheck == "sessionVAC") {
+        if (document.getElementById("vac-session-value").value > 7) {
+            document.getElementById("vac-session-value").value = 7;
+        }
+
+        if (document.getElementById("vac-session-value").value < 1) {
+            document.getElementById("vac-session-value").value = 1;
+        }
+    }
+    else if (valueCheck == "therapyMood") {
+        if (document.getElementById("mood-therapy-value").value > 10) {
+            document.getElementById("mood-therapy-value").value = 10;
+        }
+
+        if (document.getElementById("mood-therapy-value").value < 1) {
+            document.getElementById("mood-therapy-value").value = 1;
+        }
+    }
+    else if (valueCheck == "therapySUDS") {
+        if (document.getElementById("suds-therapy-value").value > 10) {
+            document.getElementById("suds-therapy-value").value = 10;
+        }
+
+        if (document.getElementById("suds-therapy-value").value < 1) {
+            document.getElementById("suds-therapy-value").value = 1;
+        }
+    }
+    else if (valueCheck == "therapyVAC") {
+        if (document.getElementById("vac-therapy-value").value > 7) {
+            document.getElementById("vac-therapy-value").value = 7;
+        }
+
+        if (document.getElementById("vac-therapy-value").value < 1) {
+            document.getElementById("vac-therapy-value").value = 1;
+        }
+    }
 }
 
 function saveTherapyResults(type) {
@@ -2558,6 +2672,11 @@ function saveTherapyResults(type) {
         var user = firebase.auth().currentUser;
         var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
         var setUsed = document.getElementById("active-set").innerText;
+        var clientName = "None";
+
+
+        clientName = document.getElementById("client-initial").value;
+
 
         firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
             setUsed: setUsed,
@@ -2565,7 +2684,8 @@ function saveTherapyResults(type) {
             setMoodResults: moodProgress,
             setSudsProgress: sudsProgress,
             setVacProgress: vacProgress,
-            setDescriptionProgress: descriptionProgress
+            setDescriptionProgress: descriptionProgress,
+            clientUsed: clientName
         });
     }
     if (type == "end") {
@@ -3098,6 +3218,10 @@ function endSession() {
 
     updatePreview();
 
+    if (switchDirectionSound) {
+
+    }
+
     clearInterval(switchDirectionSoundPlayer);
     yourCurrentSession = 1;
 
@@ -3171,8 +3295,6 @@ function loadSet(set) {
         document.getElementById("speedRange").value = snapshot.val().emdrSpeed;
         emdrSpeed = snapshot.val().emdrSpeed;
 
-        //console.log("EASING: " + snapshot.val().easing);
-
         easing(snapshot.val().easing);
 
         if (emdrSpeed == "3" || emdrSpeed == "5" || emdrSpeed == "7") {
@@ -3195,12 +3317,8 @@ function loadSet(set) {
             emdrSpeed = document.getElementById("speedRange").value;
         }
 
-
-
         document.getElementById("speedOutput").innerHTML = snapshot.val().emdrSpeed;
         shapeCategorySelect(snapshot.val().emdrShape);
-
-
 
         if (snapshot.val().elementThemeName == "custom") {
 
@@ -3264,13 +3382,19 @@ function loadSet(set) {
             mood("no");
         }
 
+        if (snapshot.val().client != "no") {
+            client("yes");
+            document.getElementById("client-initial").value = snapshot.val().client;
+        }
+        else {
+            client("no");
+        }
+
         var description = snapshot.val().setDescription;
         var setDescription = snapshot.val().setDescriptionID;
     });
 
     updatePreview();
-
-
 }
 
 function deleteSet(id, setName) {
@@ -3302,7 +3426,6 @@ function deleteSet(id, setName) {
                     document.getElementById(id).remove();
 
                     var therapyValue = document.getElementById("therapy-setting-boxes").innerHTML;
-                    //console.log("value" + therapyValue);
 
                     if (therapyValue == "") {
                         var settingOption = "";
@@ -3396,29 +3519,15 @@ function updateSet(updatedSet) {
         selectedMood = document.getElementById("mood-initial").value;
     }
 
+    if (selectedClient == "yes") {
+        selectedClient = document.getElementById("client-initial").value;
+    }
+
     var str = updatedSet.replace(/\s+/g, '');
     var id = "descriptiontherapy-setting-box" + str;
 
     const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
     var speedValue = document.getElementById("speedRange").value;
-
-    /*
-    if (speedValue == "1") {
-        speedValue = "Very slow";
-    }
-    else if (speedValue == "2") {
-        speedValue = "slow";
-    }
-    else if (speedValue == "3") {
-        speedValue = "medium";
-    }
-    else if (speedValue == "4") {
-        speedValue = "fast";
-    }
-    else if (speedValue == "5") {
-        speedValue = "Very fast";
-    }
-    */
 
     const backgroundTheme = document.getElementById("background-color").value;
     const elementTheme = document.getElementById("element-color").value;
@@ -3439,7 +3548,8 @@ function updateSet(updatedSet) {
         easing: selectedEasing,
         SUDS: selectedSUDS,
         VAC: selectedVAC,
-        mood: selectedMood
+        mood: selectedMood,
+        client: selectedClient
     });
 
     if (selectedSessionCount != "one" && selectedSessionCount != "three" && selectedSessionCount != "five" && selectedSessionLength != "unlimited") {
@@ -3461,6 +3571,11 @@ function updateSet(updatedSet) {
     if (selectedMood != "no") {
         selectedMood = "yes";
     }
+
+    if (selectedClient != "no") {
+        selectedClient = "yes";
+    }
+
 
 
 
@@ -3841,6 +3956,10 @@ function saveSettings() {
             selectedVAC = document.getElementById("vac-initial").value;
         }
 
+        if (selectedClient == "yes") {
+            selectedClient = document.getElementById("client-initial").value;
+        }
+
         var str = value.replace(/\s+/g, '');
         var id = "description" + str;
         var nameId = "name" + str
@@ -3873,7 +3992,8 @@ function saveSettings() {
             easing: selectedEasing,
             SUDS: selectedSUDS,
             VAC: selectedVAC,
-            mood: selectedMood
+            mood: selectedMood,
+            client: selectedClient
         });
 
         if (selectedSessionCount != "one" && selectedSessionCount != "three" && selectedSessionCount != "five" && selectedSessionLength != "unlimited") {
@@ -3894,6 +4014,10 @@ function saveSettings() {
 
         if (selectedMood != "no") {
             selectedMood = "yes";
+        }
+
+        if (selectedClient != "no") {
+            selectedClient = "yes";
         }
 
         swal("SUCCESS!", "Your set has been created.", "success");
