@@ -453,6 +453,23 @@ input[type="color"]::-webkit-color-swatch {
     }
   }
 
+  .analyze-box-section
+  {
+    border-radius: 10px;
+    background: #fff;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left:25px;
+    padding-right: 25px;
+  }
+
+  .analyze-box-section-header
+  {
+      color:#4257b2;
+      font-size:18px;
+      text-transform: uppercase;
+  }
+
 .instructions-box-section
 {
     border-radius: 10px;
@@ -1038,6 +1055,13 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     transition: all .3s ease 0s;
 }
 
+.arrow
+{
+    animation-duration: 0.2s !important;
+    margin-top:2.8px;
+    position: absolute;
+}
+
 .arrow-down
 {
     transform: rotate(180deg);
@@ -1157,6 +1181,11 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     color:inherit;
 }
 
+.move-therapy-box
+{
+    margin-left: 5px;
+}
+
 .therapy-setting-box-header-green
 {
     font-size: 24px;
@@ -1166,11 +1195,29 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .therapy-setting-box-header
 {
     word-wrap: break-word !important;
-    display: block;
+    display: inline-block !important;
     width:90%;
     line-height: 25px;
     font-size: 22px;
     color:#4257b2;
+}
+
+.therapy-setting-box-header-change
+{
+    border-radius: 10px;
+    transition: all .3s ease;
+    padding:5px;
+}
+
+.therapy-setting-box-header-change:hover
+{
+    background:#4257b2;
+    color:#fff;
+}
+
+.therapy-setting-box-description-change
+{
+    padding-left: 5px;
 }
 
 .awesome {

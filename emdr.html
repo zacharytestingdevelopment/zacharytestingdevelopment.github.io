@@ -276,7 +276,7 @@
                 <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#speedMovement" role="button"
                     aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('speedMovement')">
                     <div class="margin-top section-card-header">
-                        Speed and movement
+                        Speed and shape
                         <ion-icon id="settingArrow1" class="collapse-arrow" name="arrow-dropup"></ion-icon>
                     </div>
                 </a>
@@ -790,30 +790,12 @@
         </span>
         <div class="instructions-box-header instructions-mobile-move">ANALYZE RESULTS</div>
 
-        <div class="col col-12 col-centered">
+        <div class="col col-12 margin-top col-centered">
             <div class="row">
-                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
-                    <div class="instructions-box-section-header">WHAT IS EMDR?</div>
-                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
-                        placeholder
-                        placeholder placeholder.
-                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-
-                        <div class="margin-top">
-                            <li>Item one this is an item hahaha</li>
-                            <li>Item two this is an item hahaha</li>
-                            <li>Item three this is an item hahaha</li>
-                        </div>
-                    </div>
+                <div class="col col-11 col-lg-10 col-centered analyze-box-section shadow">
+                    <div class="analyze-box-section-header">Your results</div>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="instructions-button no-select" onclick="closeAnalyze()">
-            Get Started
         </div>
 
 
@@ -883,7 +865,7 @@
 
     //Update EMDR element path on resize 
     $(window).resize(function () {
-        updatePreview();
+        resizeEMDR();
     });
 
 

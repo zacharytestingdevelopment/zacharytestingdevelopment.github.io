@@ -74,6 +74,12 @@ speedSlider.oninput = function () {
     updatePreview();
 }
 
+function resizeEMDR() {
+    updatePreview();
+    spawnVisuals();
+    //transferSettings();
+}
+
 function updatePreview() {
 
     clearInterval(switchDirectionSoundPlayer);
@@ -1824,6 +1830,8 @@ function switchDirectionSoundPlay() {
 
 function spawnTherapyMain() {
 
+    clearInterval(switchDirectionSoundPlayer);
+
     var seconds = 0;
     sessionLength = 0;
     sessionActive = true;
@@ -1884,8 +1892,23 @@ function spawnTherapyMain() {
         document.getElementById("your-total-sessions").innerHTML = "<span class = \"inherit animated fadeIn\">" + numberOfSessions + "</span>";
     }
 
+    spawnVisuals();
+
+    sessionActive = setInterval(function () {
+        seconds++;
+        if (seconds >= sessionLength) {
+            yourCurrentSession++;
+            startNextSession();
+        }
+    }, 1000);
+
+}
+
+function spawnVisuals() {
+
+    clearInterval(switchDirectionSoundPlayer);
+
     if (pathing == "leftright") {
-        console.log("morning");
         var spawnTherapy = "<span class = \"animated fadeIn\">";
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
         spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
@@ -2227,20 +2250,6 @@ function spawnTherapyMain() {
             }, 320);
         }
     }
-
-
-
-    //console.log("individual session length: ");
-
-    sessionActive = setInterval(function () {
-        seconds++;
-        //console.log("Seconds elapsed: " + seconds);
-        if (seconds >= sessionLength) {
-            yourCurrentSession++;
-            startNextSession();
-        }
-    }, 1000);
-
 }
 
 function pauseSession() {
@@ -2386,6 +2395,8 @@ function loadSwitchDirection() {
 
 function startEndSession() {
 
+    clearInterval(switchDirectionSoundPlayer);
+
     //Populate mood input if active
     if (selectedMood != "no") {
         var mood = "";
@@ -2449,7 +2460,9 @@ function startEndSession() {
 
 function startNextSession() {
 
-
+    console.log("STARTING NEXT");
+    clearInterval(switchDirectionSoundPlayer);
+    //spawnVisuals();
 
     //Populate mood input if active
     if (selectedMood != "no") {
@@ -2765,6 +2778,9 @@ function nextSession() {
 }
 
 function transferSettings() {
+
+    clearInterval(switchDirectionSoundPlayer);
+
     if (pathing == "leftright") {
         var spawnTherapy = "<span class = \"animated fadeIn\">";
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
@@ -2805,7 +2821,7 @@ function transferSettings() {
 
     var destination;
     if (pathing == "leftright") {
-        destination = document.getElementById("emdr-box").offsetWidth - 155;
+        destination = document.getElementById("emdr-box").offsetWidth - 175;
         if (emdrSpeed == "1") {
             mainElement = anime({
                 targets: '#alternate-main .el',
@@ -2956,6 +2972,7 @@ function transferSettings() {
         }
     }
     else if (pathing == "topbottom") {
+
 
         destination = document.getElementById("emdr-box").offsetHeight - 232;
 
@@ -3116,7 +3133,7 @@ function transferSettings() {
 
 function analyzeSession() {
     $("#results-box").addClass("emdr-box-active");
-    endSessionComplete();
+    //endSessionComplete();
     $('#therapyOver').modal('hide');
     setTimeout(function () { hideMobileNav(); }, 320);
 }
@@ -3127,6 +3144,8 @@ function loadInstructions() {
 }
 
 function closeAnalyze() {
+
+    endSessionComplete();
     $("#results-box").removeClass("emdr-box-active");
     $("#results-box").animate({ scrollTop: 0 }, "fast");
 
@@ -3569,15 +3588,23 @@ function updateSet(updatedSet) {
     swal("SUCCESS!", "Your set has been updated.", "success");
     closeSavePanel();
 }
+/*
+function addArrow(arrow, originText) {
+
+    document.getElementById(arrow).innerHTML = originText + "<ion-icon class = 'animated fadeIn highlight-color-blue arrow' name='arrow-round-forward'></ion-icon>";
+}
+
+
+function removeArrow(arrow, originText) {
+    document.getElementById(arrow).innerHTML = originText + "<ion-icon class = 'animated fadeOut highlight-color-blue arrow' name='arrow-round-forward'></ion-icon>";
+}*/
 
 function populateSettingsBox(child) {
-    //console.log(child);
+
 
     settingsBox = true;
 
     document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
-    //console.log(child);
-
 
     // TO DO: FILL THESE BOXES WITH SET DESCRIPTION
     var database = firebase.database();
@@ -3585,7 +3612,6 @@ function populateSettingsBox(child) {
     var description = "";
     var id = "";
 
-    //console.log("ACTIVE SET: " + activeSet);
     if (activeSet != "none") {
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
         desc.once('value', function (snapshot) {
@@ -3594,7 +3620,6 @@ function populateSettingsBox(child) {
 
         document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
-        //console.log('active set is ' + activeSet);
         var selectedTherapy = "";
         selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIN margin-top shadow\">";
         selectedTherapy += "                    <div id = \"active-set-text-box\" class=\"therapy-setting-box-header-green\">" + activeSetText + "<\/div>";
@@ -3621,11 +3646,10 @@ function populateSettingsBox(child) {
             var str = child[i].replace(/\s+/g, '');
             id = "therapy-setting-box" + str;
 
-
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\",\"" + description + "\");'\"><\/ion-icon>";
-            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "Loading..." + "<\/span>";
-            settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description\">" + description + "";
+            settingOption += "                    <span onclick='loadSetName(\"" + child[i] + "\");'\" id=name" + str + " class=\"therapy-setting-box-header therapy-setting-box-header-change pointer\">" + "Loading..." + "<\/span>";
+            settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description therapy-setting-box-description-change\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
@@ -3634,7 +3658,7 @@ function populateSettingsBox(child) {
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button move-therapy-box set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
             settingOption += "                            Delete";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"trash\"><\/ion-icon>";
             settingOption += "                        <\/span>";
@@ -3661,6 +3685,11 @@ function populateSettingsBox(child) {
     else {
 
     }
+}
+
+function loadSetName(child) {
+    closeSavePanel();
+    loadSet(child);
 }
 
 function updatedEditSet() {
