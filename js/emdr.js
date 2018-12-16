@@ -76,6 +76,7 @@ speedSlider.oninput = function () {
 
 function updatePreview() {
 
+    clearInterval(switchDirectionSoundPlayer);
     var destination;
 
     if (pathing == "leftright") {
@@ -436,15 +437,6 @@ function adjustSpeed(speedVal) {
         $("#speed-medium").removeClass("preset-item-selected");
         $("#speed-fast").removeClass("preset-item-selected");
     }
-}
-
-
-function recalibrateEMDR() {
-    var element = document.getElementById('alternate');
-    var positionInfo = element.getBoundingClientRect();
-    var width = positionInfo.width - 175;
-
-
 }
 
 /* Closing and opening options */
@@ -2299,6 +2291,8 @@ function loadThemeSelection() {
 
 function loadBackgroundSounds() {
 
+
+
     if (switchBackgroundSound == "no") {
 
         $("#background-sound-load").removeClass("hidden");
@@ -2318,7 +2312,7 @@ function loadBackgroundSounds() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
@@ -3216,13 +3210,6 @@ function endSessionComplete() {
 
 function endSession() {
 
-    updatePreview();
-
-    if (switchDirectionSound) {
-
-    }
-
-    clearInterval(switchDirectionSoundPlayer);
     yourCurrentSession = 1;
 
     //Reset tracking progress 
@@ -3243,6 +3230,7 @@ function endSession() {
     $("#mobile-nav").removeClass("hidden");
 
     clearInterval(switchDirectionSoundPlayer);
+    updatePreview();
 
     setTimeout(function () { hideEmdrElement(); }, 320);
 
@@ -3323,7 +3311,6 @@ function loadSet(set) {
         if (snapshot.val().elementThemeName == "custom") {
 
             document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
-
 
             document.getElementById("background-color").value = rgb2hex(snapshot.val().backgroundColorTheme);
             document.getElementById("element-color").value = rgb2hex(snapshot.val().elementColorTheme);
@@ -4030,10 +4017,35 @@ function saveSettings() {
         inputError += "<span class=\"set-input-error-text animated fadeIn\">Please enter a value<\/span>";
         document.getElementById("set-input-error").innerHTML = inputError;
     }
+}
+
+
+function recalibrateEMDR() {
+    console.log("Recalibrating...");
+
+    if (pathing == "leftright") {
+        var alternate = "";
+        alternate += "<span class=\"animated fadeIn\">";
+        alternate += "                        <div id=\"element\" class=\"emdr-element el element-duration circle-start\"><\/div>";
+        alternate += "                    <\/span>";
+    }
+    else if (pathing == "topbottom") {
+        var alternate = "<span class = \"animated fadeIn\">";
+        alternate += "<div id=\"alternate\" class=\"alternate-preview-top\">";
+        alternate += "            <div id=\"element\" class=\"emdr-element el element-duration circle\"><\/div>";
+        alternate += "        <\/div></span>";
+    }
+
+    //clearInterval(switchDirectionSoundPlayer);
+
+    document.getElementById("alternate").innerHTML = "";
+    document.getElementById("alternate").innerHTML = alternate;
+
+    if (sessionActive) {
+
+    }
 
 }
 
 
-
-window.addEventListener('resize', recalibrateEMDR);
 

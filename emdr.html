@@ -55,10 +55,12 @@
                 <span class="dashboard animated fadeInDown">
                     <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
                 </span>
-                <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
-                    <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye"
-                            class="preview-nav-arrow"></ion-icon></span>
-                </a>
+                <span id="preview-pane-button">
+                    <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
+                        <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye"
+                                class="preview-nav-arrow"></ion-icon></span>
+                    </a>
+                </span>
             </div>
             </div>
         </nav>
@@ -337,13 +339,14 @@
                                 <div>
                                     <div class="setting-category margin-top-setting">BACKGROUND — </div>
 
-                                    <input id="background-color" type="color" name="color" value="#2c415a" onchange="updateBackground()" />
+                                    <input class="color-pick" id="background-color" type="color" name="color" value="#2c415a"
+                                        onchange="updateBackground()" />
 
                                 </div>
                                 <div>
                                     <div class="setting-category margin-top-setting">ELEMENT — </div>
-                                    <input id="element-color" type="color" id="head" name="color" value="#ea5452"
-                                        onchange="updateElement()" />
+                                    <input class="color-pick" id="element-color" type="color" id="head" name="color"
+                                        value="#ea5452" onchange="updateElement()" />
                                 </div>
                             </div>
                             <div class="setting-category margin-top-setting">PRESETS</div>
@@ -635,6 +638,7 @@
                 </div>
             </div>
             <div id="preview-pane" class="vertical-center col col-12 col-md-6 col-lg-7 pad-preview preview-pane">
+                <span id="preview-pane-secondary" style="position: absolute;top:-58px;"></span>
                 <div class="preview-text-box text-right animated fadeInDown delay1Therapy">
                     PREVIEW
                     <div class="preview-text-subheader">Set: <span id="active-set">none</span></div>
@@ -837,7 +841,7 @@
 <script src="js/morphext.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="js/animationHome.js"></script>
+<!--<script src="js/animationHome.js"></script>-->
 <!-- <script src="js/therapy.js"></script>-->
 <script src="js/gradient.js"></script>
 <script src="js/emdr.js"></script>
@@ -877,20 +881,91 @@
 
     });
 
+    //Update EMDR element path on resize 
+    $(window).resize(function () {
+        updatePreview();
+    });
+
+
+    //Check if element is scrolled to the preview
+    var mobileScrolledDown = false;
+    $(window).scroll(function () {
+        if ($(window).width() < 768) {
+            var topofDiv = $("#preview-pane").offset().top; //gets offset of header
+            var height = $("#preview-pane").outerHeight(); //gets height of header
+            if ($(window).scrollTop() > (topofDiv - 60)) {
+                if (!mobileScrolledDown) {
+
+                    var start = "";
+                    start += "<span onclick=\"startSession()\">";
+                    start += "                        <span class=\"float-right highlight-color preview-nav animated fadeIn\">START<ion-icon id=\"eye-icon\" name=\"happy\"";
+                    start += "                                class=\"preview-nav-arrow\"><\/ion-icon><\/span>";
+                    start += "                    <\/span>";
+
+                    document.getElementById("preview-pane-button").innerHTML = start;
+                    mobileScrolledDown = true;
+                }
+
+            }
+            else {
+                if (mobileScrolledDown) {
+
+                    var end = "";
+
+                    end += "                    <a href=\"#preview-pane-secondary\" class=\"js-scroll-trigger animated fadeInDown\">";
+                    end += "                        <span class=\"float-right highlight-color preview-nav animated fadeIn\">PREVIEW<ion-icon id=\"eye-icon\" name=\"eye\"";
+                    end += "                                class=\"preview-nav-arrow\"><\/ion-icon><\/span>";
+                    end += "                    <\/a>";
+
+
+
+                    document.getElementById("preview-pane-button").innerHTML = end;
+                    mobileScrolledDown = false;
+
+                }
+            }
+        }
+    });
+
     jQuery(document).ready(function () {
-        // alert('s');
         jQuery('#loader').fadeOut(220);
+
+        if ($(window).width() < 768) {
+            var topofDiv = $("#preview-pane").offset().top; //gets offset of header
+            var height = $("#preview-pane").outerHeight(); //gets height of header
+            if ($(window).scrollTop() > (topofDiv - 60)) {
+                if (!mobileScrolledDown) {
+
+                    var start = "";
+                    start += "<span onclick=\"startSession()\">";
+                    start += "                        <span class=\"float-right highlight-color preview-nav animated fadeIn\">START<ion-icon id=\"eye-icon\" name=\"happy\"";
+                    start += "                                class=\"preview-nav-arrow\"><\/ion-icon><\/span>";
+                    start += "                    <\/span>";
+
+                    document.getElementById("preview-pane-button").innerHTML = start;
+                    mobileScrolledDown = true;
+                }
+
+            }
+            else {
+                if (mobileScrolledDown) {
+
+                    var end = "";
+
+                    end += "                    <a href=\"#preview-pane-secondary\" class=\"js-scroll-trigger animated fadeInDown\">";
+                    end += "                        <span class=\"float-right highlight-color preview-nav animated fadeIn\">PREVIEW<ion-icon id=\"eye-icon\" name=\"eye\"";
+                    end += "                                class=\"preview-nav-arrow\"><\/ion-icon><\/span>";
+                    end += "                    <\/a>";
+
+
+
+                    document.getElementById("preview-pane-button").innerHTML = end;
+                    mobileScrolledDown = false;
+
+                }
+            }
+        }
     });
-
-/*
-    $("#background-color").spectrum({
-        color: "#2c415a",
-        showSelectionPalette: true,
-    });
-*/
-
-
-
 
 </script>
 
