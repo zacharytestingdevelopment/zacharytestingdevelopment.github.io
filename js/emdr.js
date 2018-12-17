@@ -199,10 +199,10 @@ function updatePreview() {
                 easing: selectedEasing,
                 duration: 750
             });
-            console.log("S" + emdrSpeed);
+
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                //console.log("ENDED SESSION: " + switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 750);
         }
@@ -320,7 +320,7 @@ function updatePreview() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                //console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -619,7 +619,7 @@ function theme(themeValue) {
         $("#lilac").removeClass("preset-item-selected");
         $("#chestnut").removeClass("preset-item-selected");
 
-        console.log("green");
+
 
         document.getElementById("preview-pane").className = "animation-transition vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
 
@@ -1742,8 +1742,7 @@ function loadSettings() {
                 var childElement = _child.key;
 
                 sessionOptions.push(childElement);
-                //console.log(childElement);
-                // populateSettingsOptions();
+
             });
             populateSettingsOptions(sessionOptions);
         });
@@ -1822,7 +1821,7 @@ function loadSessionSettings() {
 
 function switchDirectionSoundPlay() {
     if (switchDirectionSound == "drop") {
-        //console.log("Tdsadsdas I G G E R");
+
         popAudio.play();
     }
 
@@ -1958,7 +1957,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 3100);
         }
@@ -1973,7 +1972,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 2160);
         }
@@ -1989,7 +1988,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -2004,7 +2003,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1000);
         }
@@ -2061,7 +2060,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 520);
         }
@@ -2076,7 +2075,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 400);
         }
@@ -2091,7 +2090,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                //console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 320);
         }
@@ -2112,7 +2111,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 3100);
         }
@@ -2127,7 +2126,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 2160);
         }
@@ -2143,7 +2142,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -2158,7 +2157,7 @@ function spawnVisuals() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1000);
         }
@@ -3740,7 +3739,6 @@ function updatedEditSet() {
 }
 
 function editSet(id) {
-    //console.log("This is the ID: " + id);
 
     //var database = firebase.database();
     var user = firebase.auth().currentUser;
@@ -3749,25 +3747,20 @@ function editSet(id) {
     $('#modalCall').modal('toggle');
     editedSet = id;
 
-    //editedSet = child[i];
+
     desc.once('value', function (snapshot) {
-        //console.log("ACTIVE SET: " + activeSet);
+
         name = snapshot.val().setName;
-        //editedSet = name;
-        //console.log("EDIT SET: " + editedSet);
+
         description = snapshot.val().setDescription;
-        //console.log(description);
+
         document.getElementById("edit-set-name").value = name;
         document.getElementById("edit-set-description").value = description;
-        //document.getElementById("edit-set-name").value = snapshot.val().setName;
-        //document.getElementById("edit-set-description").value = description;
+
     });
 }
 
 function populateSettingsOptions(child) {
-
-
-    //console.log(child);
 
     document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
 
@@ -3780,7 +3773,6 @@ function populateSettingsOptions(child) {
         //IF BROKEN: make child.length instead of child.length - 1 
         for (var i = 0; i < child.length; i++) {
 
-            //console.log("SET NAME: " + child[i]);
             var str = child[i].replace(/\s+/g, '');
             id = "box" + str;
 
@@ -3807,8 +3799,6 @@ function populateSettingsOptions(child) {
             document.getElementById("therapy-setting-empty").innerHTML = "";
 
             var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + child[i]);
-            //console.log("ID: " + id);
-
 
             desc.on('value', function (snapshot) {
                 var description = snapshot.val().setDescription;
@@ -3903,8 +3893,7 @@ function saveSettingsBox() {
                 var childElement = _child.key;
 
                 sessionOptionsBox.push(childElement);
-                //console.log(childElement);
-                // populateSettingsOptions();
+
             });
             populateSettingsBox(sessionOptionsBox);
         });
@@ -3915,7 +3904,6 @@ function saveSettingsBox() {
 
 function saveSettings() {
 
-    //console.log("saved");
 
     var value = document.getElementById("set-input").value;
     activeSet = value;
@@ -3934,9 +3922,6 @@ function saveSettings() {
         sessionSave = "/" + value;
         var database = firebase.database();
         var user = firebase.auth().currentUser;
-        //console.log(user);
-        //console.log(selectedSessionCount);
-
 
 
         if (selectedSessionCount == "custom") {
@@ -3986,9 +3971,6 @@ function saveSettings() {
         const backgroundTheme = document.getElementById("preview-pane").style.backgroundColor;
         const elementTheme = document.getElementById("element").style.backgroundColor;
 
-        //console.log("DSDAS:" + backgroundTheme);
-        //const backgroundTheme = document.getElementById("background-color").value;
-        //const elementTheme = document.getElementById("element-color").value;
 
         firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + sessionSave).set({
             setDescription: setDescription,

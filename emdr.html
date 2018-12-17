@@ -597,7 +597,7 @@
 
                             </div>
                             <div id="sudsInput" class="hidden">
-                                <input onfocusout="valueCheck('suds')" id="suds-initial" type="number" placeholder="Your initial value (1-10)"
+                                <input onfocusout="valueCheck('suds')" id="suds-initial" type="number" placeholder="Initial SUDS (1-10)"
                                     class="number-input-style" min="1" />
                             </div>
 
@@ -608,7 +608,7 @@
                                 <div id="vacYes" class="preset-item inline-block no-select margin-left-right" onclick="vac('yes')">Yes</div>
                             </div>
                             <div id="vacInput" class="hidden">
-                                <input onfocusout="valueCheck('vac')" id="vac-initial" type="number" placeholder="Enter initial value (1-7)"
+                                <input onfocusout="valueCheck('vac')" id="vac-initial" type="number" placeholder="Initial VAC (1-7)"
                                     class="number-input-style" min="1" />
                             </div>
 
@@ -875,7 +875,7 @@
         if ($(window).width() < 768) {
             var topofDiv = $("#preview-pane").offset().top; //gets offset of header
             var height = $("#preview-pane").outerHeight(); //gets height of header
-            if ($(window).scrollTop() > (topofDiv - 60)) {
+            if ($(window).scrollTop() > (topofDiv - 77)) {
                 if (!mobileScrolledDown) {
 
                     var start = "";
@@ -915,7 +915,7 @@
         if ($(window).width() < 768) {
             var topofDiv = $("#preview-pane").offset().top; //gets offset of header
             var height = $("#preview-pane").outerHeight(); //gets height of header
-            if ($(window).scrollTop() > (topofDiv - 60)) {
+            if ($(window).scrollTop() > (topofDiv - 77)) {
                 if (!mobileScrolledDown) {
 
                     var start = "";

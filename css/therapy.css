@@ -1522,7 +1522,14 @@ input:focus::-webkit-input-placeholder {
     color:#e64c3c;
 }
 
-
+@media only screen 
+and (max-width:327px)
+{
+    .number-input-style
+    {
+        width:235px;
+    }
+}
 
 @media only screen 
 and (max-width:356px)
