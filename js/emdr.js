@@ -3657,7 +3657,7 @@ function populateSettingsBox(child) {
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
             settingOption += "";
-            settingOption += "                        <span class=\"therapy-setting-box-button move-therapy-box set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-delete no-select\" onclick='deleteSet(\"" + id + "\",\"" + child[i] + "\");'\">";
             settingOption += "                            Delete";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"trash\"><\/ion-icon>";
             settingOption += "                        <\/span>";
@@ -3778,8 +3778,8 @@ function populateSettingsOptions(child) {
 
             var settingOption = "";
             settingOption += "<div id=" + id + " class=\"therapy-setting-box margin-top animated fadeIn shadow\"><ion-icon class=\"edit-icon highlight-color-blue\" name=\"build\" onclick='editSet(\"" + child[i] + "\");'\"><\/ion-icon>";
-            settingOption += "                    <span id=name" + str + " class=\"therapy-setting-box-header\">" + "Loading..." + "<\/span>";
-            settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description\">" + description + "";
+            settingOption += "                    <span onclick='loadSetName(\"" + child[i] + "\");'\" id=name" + str + " class=\"therapy-setting-box-header therapy-setting-box-header-change pointer\">" + "Loading..." + "<\/span>";
+            settingOption += "                    <div id=description" + str + " class=\"therapy-setting-box-description therapy-setting-box-description-change\">" + description + "";
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";

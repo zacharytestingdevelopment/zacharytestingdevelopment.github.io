@@ -1181,11 +1181,6 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     color:inherit;
 }
 
-.move-therapy-box
-{
-    margin-left: 5px;
-}
-
 .therapy-setting-box-header-green
 {
     font-size: 24px;
@@ -1523,11 +1518,22 @@ input:focus::-webkit-input-placeholder {
 }
 
 @media only screen 
-and (max-width:327px)
+and (max-width:300px)
 {
     .number-input-style
     {
-        width:235px;
+        width:195px !important;
+    }
+}
+
+
+@media only screen 
+and (max-width:327px)
+and (min-width:301px)
+{
+    .number-input-style
+    {
+        width:235px !important;
     }
 }
 
