@@ -1526,6 +1526,14 @@ and (max-width:300px)
     }
 }
 
+@media only screen 
+and (max-width:500px)
+{
+    .number-input-style
+    {
+        width:205px !important;
+    }
+}
 
 @media only screen 
 and (max-width:327px)
