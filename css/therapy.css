@@ -145,6 +145,7 @@ input[type="color"]::-webkit-color-swatch {
     border-bottom: 30px solid #fff !important;
 }
 
+
 .circle
 {
     position: relative;
@@ -451,23 +452,6 @@ input[type="color"]::-webkit-color-swatch {
       transform: scale(1.0);
       -webkit-transform: scale(1.0);
     }
-  }
-
-  .analyze-box-section
-  {
-    border-radius: 10px;
-    background: #fff;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    padding-left:25px;
-    padding-right: 25px;
-  }
-
-  .analyze-box-section-header
-  {
-      color:#4257b2;
-      font-size:18px;
-      text-transform: uppercase;
   }
 
 .instructions-box-section

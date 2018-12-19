@@ -41,6 +41,7 @@ var settingsLoaded = false;
 var settingsBoxLoaded = false;
 var settingsBox = false;
 var sessionSettingsShown = true;
+var analyze1 = true;
 
 var sessionOptions = [];
 var sessionOptionsBox = [];
@@ -66,6 +67,8 @@ var alternate = anime({
     easing: selectedEasing
 });
 
+
+
 speedSlider.oninput = function () {
     speedOutput.innerHTML = this.value;
     emdrSpeed = this.value;
@@ -74,10 +77,36 @@ speedSlider.oninput = function () {
     updatePreview();
 }
 
+function changeChart(chart) {
+    if (chart == "line1") {
+        $("#lineChart1").addClass("analyze-box-section-choice-selected");
+        $("#barChart1").removeClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "bar1") {
+        $("#lineChart1").removeClass("analyze-box-section-choice-selected");
+        $("#barChart1").addClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "line2") {
+        $("#lineChart2").addClass("analyze-box-section-choice-selected");
+        $("#barChart2").removeClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "bar2") {
+        $("#lineChart2").removeClass("analyze-box-section-choice-selected");
+        $("#barChart2").addClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "line3") {
+        $("#lineChart3").addClass("analyze-box-section-choice-selected");
+        $("#barChart3").removeClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "bar3") {
+        $("#lineChart3").removeClass("analyze-box-section-choice-selected");
+        $("#barChart3").addClass("analyze-box-section-choice-selected");
+    }
+}
+
 function resizeEMDR() {
     updatePreview();
     spawnVisuals();
-    //transferSettings();
 }
 
 function updatePreview() {
@@ -1017,6 +1046,16 @@ function settingDropdown(setting) {
         else {
             $("#settingArrow5").removeClass("arrow-down");
             advanced = false;
+        }
+    }
+    else if (setting == "analyze1") {
+        if (!analyze1) {
+            $("#analyzeArrow1").addClass("arrow-down");
+            analyze1 = true;
+        }
+        else {
+            $("#analyzeArrow1").removeClass("arrow-down");
+            analyze1 = false;
         }
     }
 }
@@ -3124,13 +3163,128 @@ function transferSettings() {
             }, 320);
         }
     }
-
-
-
 }
 
-
 function analyzeSession() {
+
+    var ctx = document.getElementById('myChart').getContext('2d'),
+        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+
+    var ctx2 = document.getElementById('myChart2').getContext('2d'),
+        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+
+    var ctx3 = document.getElementById('myChart3').getContext('2d'),
+        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+    gradient.addColorStop(0, 'rgba(66,87,178, 0.7)');
+    gradient.addColorStop(0.5, 'rgba(66,87,178, 0.5)');
+    gradient.addColorStop(1, 'rgba(66,87,178, 0.33)');
+
+    var data = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Mood value',
+            backgroundColor: gradient,
+            pointBackgroundColor: '#4257b2',
+            borderWidth: 3,
+            borderColor: '#4257b2',
+            data: [4, 5, 5, 3, 6, 7]
+        }]
+    };
+    var options = {
+        bezierCurve: false,
+        responsive: true,
+        maintainAspectRatio: true,
+        intersect: false,
+        animation: {
+            easing: 'easeInOutQuad',
+            duration: 965
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    color: 'rgba(66,87,178, 0.1)',
+                    lineWidth: 1,
+                },
+                ticks: {
+                    fontColor: '#4257b2',
+                    fontStyle: 'bold',
+                    fontFamily: 'Montserrat',
+                    padding: 5
+
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    color: 'rgba(66,87,178, 0.1)',
+                    lineWidth: 1,
+
+                },
+                ticks: {
+                    padding: 10,
+                    beginAtZero: true,
+                    fontColor: '#4257b2',
+                    fontStyle: 'bold',
+                    fontFamily: 'Montserrat',
+                    userCallback: function (label, index, labels) {
+                        // when the floored value is the same as the value we have a whole number
+                        if (Math.floor(label) === label) {
+                            return label;
+                        }
+
+                    },
+                }
+            }]
+        },
+        elements: {
+            line: {
+                tension: 0
+            }
+        },
+        legend: {
+            display: false
+        },
+        point: {
+            backgroundColor: 'white'
+        },
+        tooltips: {
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            bodyFontStyle: 'bold',
+            borderColor: 'rgba(66,87,178, 1)',
+            borderWidth: 2,
+            bodyFontColor: '#4257b2',
+            backgroundColor: '#fff',
+            titleFontColor: '#4257b2',
+            color: '#4257b2',
+            caretSize: 5,
+            cornerRadius: 5,
+            xPadding: 20,
+            yPadding: 10
+        }
+    };
+
+    var chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+
+    var chartInstance2 = new Chart(ctx2, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+
+    var chartInstance3 = new Chart(ctx3, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+
+    document.getElementById("analysis-set").innerHTML = activeSetText;
     $("#results-box").addClass("emdr-box-active");
     //endSessionComplete();
     $('#therapyOver').modal('hide');

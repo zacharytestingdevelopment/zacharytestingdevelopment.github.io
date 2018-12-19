@@ -1509,12 +1509,117 @@ canvas {
     font-weight: 300 !important;
 }
 
+.analyze-box-section-choices
+{
+    position: absolute;
+    right:60px;
+    top:25px;
+}
+
+.blue-card
+{
+    background-color: #4257b2 !important;
+}
+
+.section-card-header-analyze
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background:transparent;
+    padding-left:12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 21px;
+    border: 3px solid #4257b2;
+    color:#4257b2;
+}
+
+.analyze-box-section-choice
+{
+    border-radius: 10px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+    border: 2.5px solid #4257b2;
+    transition: all .3s ease;
+}
+
+.analyze-box-section-choice:hover
+{
+    cursor: pointer;
+    background: #4257b2;
+    color:#fff;
+}
+
+.analyze-box-section-choice-selected
+{
+    background: #4257b2;
+    color:#fff;
+}
+
+.almost-full-width
+{
+    width:95%;
+}
+
+.analyze-box-notes-header
+{
+    font-size: 28px;
+}
+
+  .analyze-box-section
+  {
+    border-radius: 10px;
+    background: #fff;
+    padding-top: 20px;
+    padding-bottom: 35px;
+    padding-left:25px;
+    padding-right: 25px;
+  }
+
+  .analyze-box-section-header
+  {
+      color:#4257b2;
+      font-size:21px;
+      text-transform: uppercase;
+  }
+
 .col-centered
 {
     margin-left: auto;
     margin-right: auto;
     left:0;
     right:0;
+}
+
+.analyze-end-button
+{
+    border-radius: 10px;
+    margin-bottom: 40px;
+    font-size: 21.2px;
+    padding-bottom: 5.5px;
+    padding-top: 5.5px;
+    padding-left: 16.5px;
+    padding-right: 16.5px;
+    display: inline-block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2.5px solid #fff;
+    color:#fff;
+    text-align: center;
+    transition: all .3s ease;
+}
+
+.analyze-end-button:hover
+{
+    cursor: pointer;
+    background:#fff;
+    color:#4257b2;
 }
 
 .feature-right-pad
@@ -1583,6 +1688,22 @@ button:focus {
 .margin-top-large
 {
     margin-top:30px;
+}
+
+.margin-top-very-large
+{
+    margin-top: 45px;
+}
+
+.margin-bottom-very-large
+{
+    margin-bottom: 45px;
+}
+
+.padding-analyze
+{
+   padding-top:10px;
+   padding-right:10px;
 }
 
 .margin-bottom
