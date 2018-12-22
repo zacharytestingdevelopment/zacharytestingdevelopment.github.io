@@ -102,6 +102,14 @@ function changeChart(chart) {
         $("#lineChart3").removeClass("analyze-box-section-choice-selected");
         $("#barChart3").addClass("analyze-box-section-choice-selected");
     }
+    else if (chart == "line4") {
+        $("#lineChart4").addClass("analyze-box-section-choice-selected");
+        $("#barChart4").removeClass("analyze-box-section-choice-selected");
+    }
+    else if (chart == "bar4") {
+        $("#lineChart4").removeClass("analyze-box-section-choice-selected");
+        $("#barChart4").addClass("analyze-box-section-choice-selected");
+    }
 }
 
 function resizeEMDR() {
@@ -988,11 +996,11 @@ function dashBoard(setting) {
     }
     else if (setting == "enterAnalyze") {
         $("#analyze-icon").removeClass("white");
-        $("#analyze-icon").addClass("highlight-color-blue");
+        $("#analyze-icon").addClass("kinda-green");
     }
     else if (setting == "exitAnalyze") {
         $("#analyze-icon").addClass("white");
-        $("#analyze-icon").removeClass("highlight-color-blue");
+        $("#analyze-icon").removeClass("kinda-green");
     }
 
 }
@@ -3166,7 +3174,6 @@ function transferSettings() {
 }
 
 function analyzeSession() {
-
     var ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
@@ -3178,15 +3185,19 @@ function analyzeSession() {
     var ctx3 = document.getElementById('myChart3').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
-    gradient.addColorStop(0, 'rgba(66,87,178, 0.7)');
-    gradient.addColorStop(0.5, 'rgba(66,87,178, 0.5)');
-    gradient.addColorStop(1, 'rgba(66,87,178, 0.33)');
+    var ctx4 = document.getElementById('myChart4').getContext('2d'),
+        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+    gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
+    gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
+    gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
 
     var data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [{
             label: 'Mood value',
             backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
             pointBackgroundColor: '#4257b2',
             borderWidth: 3,
             borderColor: '#4257b2',
@@ -3250,13 +3261,16 @@ function analyzeSession() {
             backgroundColor: 'white'
         },
         tooltips: {
+            opacity: '0.4',
+            position: 'average',
+            // intersect: false,
             titleFontFamily: 'Montserrat',
             bodyFontFamily: 'Montserrat',
             bodyFontStyle: 'bold',
-            borderColor: 'rgba(66,87,178, 1)',
+            borderColor: 'rgba(66,87,178, 0.91)',
             borderWidth: 2,
             bodyFontColor: '#4257b2',
-            backgroundColor: '#fff',
+            backgroundColor: 'rgba(255,255,255, 0.91)',
             titleFontColor: '#4257b2',
             color: '#4257b2',
             caretSize: 5,
@@ -3283,6 +3297,19 @@ function analyzeSession() {
         data: data,
         options: options
     });
+
+    var chartInstance3 = new Chart(ctx4, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+
+    var instructions = "";
+    instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
+    instructions += "            RESULTS<\/div>";
+
+    document.getElementById("instructions-box-header-animate").innerHTML = instructions;
+
 
     document.getElementById("analysis-set").innerHTML = activeSetText;
     $("#results-box").addClass("emdr-box-active");

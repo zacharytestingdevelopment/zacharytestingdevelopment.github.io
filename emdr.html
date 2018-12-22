@@ -782,35 +782,34 @@
 
     </div>
 
-    <div id="results-box" class="emdr-box instructions-box">
-        <span class="dashboard-button dashboard-button-blue dashboard-button-instructions no-select" onmouseover="dashBoard('enterAnalyze')"
+    <div id="results-box" class="emdr-box analyze-box-background">
+        <span class="dashboard-button dashboard-button-turq dashboard-button-instructions no-select" onmouseover="dashBoard('enterAnalyze')"
             onmouseout="dashBoard('exitAnalyze')" onclick="closeAnalyze()">
             <ion-icon id="analyze-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
             CANCEL
         </span>
-        <div class="instructions-box-header instructions-mobile-move">ANALYZE RESULTS</div>
-        <div class="white col-centered text-center">Set used: <span class="white" id="analysis-set">none</span></div>
+        <span id="instructions-box-header-animate">
 
-        <div class="col col-12 margin-top-large col-centered">
-            <div class="row">
+        </span>
+        <div class="white col-centered text-center animated pulse">Set used: <span class="white" id="analysis-set">none</span></div>
 
-                <div class="col-centered almost-full-width analyze-box-section shadow">
-                    <div class="analyze-box-section-header">Your results</div>
-                    <div class="analyze-box-section-subheader">Average mood: 3</div>
-                    <div class="analyze-box-section-choices">
-                        <span id="lineChart1" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                            onclick="changeChart('line1')">Line</span>
-                        <span id="barChart1" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar1')">Bar</span>
+        <div class="col col-12 col-centered expand-analyze-section-mobile">
+            <div class="row col-centered almost-full-width expand-analyze-section-mobile">
+                <div class="col col-12 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">Your results</div>
+                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart1" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line1')">Line</span>
+                            <span id="barChart1" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar1')">Bar</span>
+                        </div>
+                        <canvas id="myChart" height="105" class="margin-top"></canvas>
                     </div>
-                    <canvas id="myChart" height="105" class="margin-top"></canvas>
                 </div>
 
-
-            </div>
-
-            <div class="row margin-top-very-large">
-                <div class="col col-12 col-md-6 col-lg-6 col-centered">
-                    <div class="col-centered almost-full-width analyze-box-section shadow">
+                <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">Mood results</div>
                         <div class="analyze-box-section-subheader">Average mood: 3</div>
                         <div class="analyze-box-section-choices">
@@ -821,8 +820,8 @@
                         <canvas id="myChart2" height="120" class="margin-top"></canvas>
                     </div>
                 </div>
-                <div class="col col-12 col-md-6 col-lg-6 col-centered">
-                    <div class="col-centered almost-full-width analyze-box-section shadow">
+                <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">VAC results</div>
                         <div class="analyze-box-section-subheader">Average mood: 3</div>
                         <div class="analyze-box-section-choices">
@@ -833,91 +832,117 @@
                         <canvas id="myChart3" height="120" class="margin-top"></canvas>
                     </div>
                 </div>
-            </div>
 
-            <div class="row margin-top-very-large margin-bottom-very-large">
-
-                <div class="col-centered almost-full-width analyze-box-section shadow padding-bottom">
-                    <div class="col-centered text-center highlight-color-blue analyze-box-notes-header">Your notes</div>
-                    <div class="col-centered text-center analyze-box-notes-subheader">Here's what you wrote during the
-                        therapy
-                    </div>
-
-                    <div class="col col-10 col-centered">
-                        <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze1"
-                            role="button" aria-expanded="false" aria-controls="analyze1" onclick="settingDropdown('analyze1')">
-                            <div class="margin-top section-card-header-analyze">
-                                First session
-                                <ion-icon id="analyzeArrow1" class="collapse-arrow highlight-color-blue arrow-down"
-                                    name="arrow-dropup"></ion-icon>
-                            </div>
-                        </a>
-                        <div id="analyze1" class="collapse multi-collapse">
-                            <div class="section-card blue-card animated fadeIn">
-                                <div class="white padding-analyze">
-                                    Today, I felt okay. I realized that my problem is that I am a narcassistic,
-                                    soulless idiot and I should probably go jump off a bridge. lololo leoas help me
-                                    lololo leoas help me lololo leoas help me lololo leoas help me lololo leoas help me
-
-
-                                    lololo leoas help me lololo leoas help me lololo leoas help me lololo leoas help me
-                                    lololo leoas help me lololo leoas help me lololo leoas help me
-                                </div>
-                            </div>
+                <div class="col col-12 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">Your results</div>
+                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart4" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line4')">Line</span>
+                            <span id="barChart4" class="analyze-box-section-choice right-round no-select" onclick="changeChart('line4')">Bar</span>
                         </div>
-                    </div>
-
-                    <div class="col col-10 col-centered">
-                        <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze2"
-                            role="button" aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('analyze2')">
-                            <div class="margin-top section-card-header-analyze">
-                                Second session
-                                <ion-icon id="analyzeArrow2" class="collapse-arrow highlight-color-blue arrow-down"
-                                    name="arrow-dropup"></ion-icon>
-                            </div>
-                        </a>
-                        <div id="analyze2" class="collapse multi-collapse">
-                            <div class="section-card blue-card animated fadeIn">
-                                <div class="white padding-analyze">
-                                    Today, I decided to try to cut my own head off.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col col-10 col-centered">
-                        <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze3"
-                            role="button" aria-expanded="false" aria-controls="analyze3" onclick="settingDropdown('analyze3')">
-                            <div class="margin-top section-card-header-analyze">
-                                Third session
-                                <ion-icon id="analyzeArrow3" class="collapse-arrow highlight-color-blue arrow-down"
-                                    name="arrow-dropup"></ion-icon>
-                            </div>
-                        </a>
-                        <div id="analyze3" class="collapse multi-collapse">
-                            <div class="section-card blue-card animated fadeIn">
-                                <div class="white padding-analyze">
-                                    sup liam
-                                </div>
-                            </div>
-                        </div>
+                        <canvas id="myChart4" height="105" class="margin-top"></canvas>
                     </div>
                 </div>
 
+                <div class="col col-12 margin-top-large col-centered">
+                    <div class="analyze-box-section shadow">
+
+                        <div class="col-centered text-center highlight-color-blue analyze-box-notes-header">Your notes</div>
+                        <div class="col-centered text-center analyze-box-notes-subheader">Here's what you wrote during
+                            the
+                            therapy
+                        </div>
+
+                        <div class="col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile">
+                            <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze1"
+                                role="button" aria-expanded="false" aria-controls="analyze1" onclick="settingDropdown('analyze1')">
+                                <div class="margin-top section-card-header-analyze">
+                                    First session
+                                    <ion-icon id="analyzeArrow1" class="collapse-arrow highlight-color-blue arrow-down"
+                                        name="arrow-dropup"></ion-icon>
+                                </div>
+                            </a>
+                            <div id="analyze1" class="collapse multi-collapse">
+                                <div class="section-card blue-card animated fadeIn">
+                                    <div class="white padding-analyze">
+                                        Today, I felt okay. I realized that my problem is that I am a narcassistic,
+                                        soulless idiot and I should probably go jump off a bridge. lololo leoas help me
+                                        lololo leoas help me lololo leoas help me lololo leoas help me lololo leoas
+                                        help me
+
+
+                                        lololo leoas help me lololo leoas help me lololo leoas help me lololo leoas
+                                        help me
+                                        lololo leoas help me lololo leoas help me lololo leoas help me
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile">
+                            <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze2"
+                                role="button" aria-expanded="false" aria-controls="speedMovement" onclick="settingDropdown('analyze2')">
+                                <div class="margin-top section-card-header-analyze">
+                                    Second session
+                                    <ion-icon id="analyzeArrow2" class="collapse-arrow highlight-color-blue arrow-down"
+                                        name="arrow-dropup"></ion-icon>
+                                </div>
+                            </a>
+                            <div id="analyze2" class="collapse multi-collapse">
+                                <div class="section-card blue-card animated fadeIn">
+                                    <div class="white padding-analyze">
+                                        Today, I decided to try to cut my own head off.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile">
+                            <a class="kill-link-style toggle-element no-select" data-toggle="collapse" href="#analyze3"
+                                role="button" aria-expanded="false" aria-controls="analyze3" onclick="settingDropdown('analyze3')">
+                                <div class="margin-top section-card-header-analyze">
+                                    Third session
+                                    <ion-icon id="analyzeArrow3" class="collapse-arrow highlight-color-blue arrow-down"
+                                        name="arrow-dropup"></ion-icon>
+                                </div>
+                            </a>
+                            <div id="analyze3" class="collapse multi-collapse">
+                                <div class="section-card blue-card animated fadeIn">
+                                    <div class="white padding-analyze">
+                                        sup liam
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col col-12 margin-top-large col-centered">
+
+
+        </div>
+
+
+        <div class="col col-11 col-centered text-center">
+            <div onclick="closeAnalyze()" class="analyze-end-button no-select">
+                I'm finished
+            </div>
+            <div>
             </div>
 
-            <div class="col col-11 col-centered text-center">
-                <div onclick="closeAnalyze()" class="analyze-end-button no-select">
-                    I'm finished
-                </div>
-                <div>
-                </div>
+            <span id="settings-hidden">
 
-                <span id="settings-hidden">
+            </span>
 
-                </span>
-
-            </div>
+        </div>
 
 </body>
 

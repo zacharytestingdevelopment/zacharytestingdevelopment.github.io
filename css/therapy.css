@@ -454,6 +454,12 @@ input[type="color"]::-webkit-color-swatch {
     }
   }
 
+  .instructions-box-section-header-top
+  {
+      font-size:34px;
+      margin-top: 45px;
+  }
+
 .instructions-box-section
 {
     border-radius: 10px;
@@ -533,6 +539,18 @@ input[type="color"]::-webkit-color-swatch {
 .instructions-box-section-body
 {
     font-size: 16.5px;
+}
+
+.analyze-box-background
+{
+    background: rgb(72,190,191);
+    background: linear-gradient(183deg, rgba(72,190,191,1) 0%, rgba(55,231,180,1) 100%);
+    /*
+    background: rgb(72,190,191);
+background: linear-gradient(0deg, rgba(72,190,191,1) 0%, rgba(55,231,180,1) 100%);
+*/
+-webkit-overflow-scrolling: touch !important;
+    overflow-y:scroll;
 }
 
 .instructions-box
@@ -1513,6 +1531,12 @@ and (max-width:300px)
 @media only screen 
 and (max-width:500px)
 {
+
+    .analyze-box-section
+    {
+        width: 100% !important;
+    }
+
     .number-input-style
     {
         width:205px !important;
