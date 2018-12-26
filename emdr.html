@@ -822,20 +822,23 @@
                 <div class="col col-12 margin-top-large">
                     <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">Your results</div>
-                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-subheader">Average mood: <span id="average-mood">3</span></div>
                         <div class="analyze-box-section-choices">
                             <span id="lineChart1" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
                                 onclick="changeChart('line1')">Line</span>
                             <span id="barChart1" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar1')">Bar</span>
                         </div>
+
                         <canvas id="myChart" height="105" class="margin-top"></canvas>
+
+
                     </div>
                 </div>
 
                 <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
                     <div class="analyze-box-section shadow">
-                        <div class="analyze-box-section-header">Mood results</div>
-                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-header">SUDS results</div>
+                        <div class="analyze-box-section-subheader">Average SUDS: <span id="average-suds">3</span></div>
                         <div class="analyze-box-section-choices">
                             <span id="lineChart2" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
                                 onclick="changeChart('line2')">Line</span>
@@ -847,7 +850,7 @@
                 <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
                     <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">VAC results</div>
-                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-subheader">Average VAC: <span id="average-vac">3</span></div>
                         <div class="analyze-box-section-choices">
                             <span id="lineChart3" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
                                 onclick="changeChart('line3')">Line</span>
@@ -859,12 +862,12 @@
 
                 <div class="col col-12 margin-top-large">
                     <div class="analyze-box-section shadow">
-                        <div class="analyze-box-section-header">Your results</div>
-                        <div class="analyze-box-section-subheader">Average mood: 3</div>
+                        <div class="analyze-box-section-header">Recall results</div>
+                        <div class="analyze-box-section-subheader">Average recall: <span id="average-recall">3</span></div>
                         <div class="analyze-box-section-choices">
                             <span id="lineChart4" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
                                 onclick="changeChart('line4')">Line</span>
-                            <span id="barChart4" class="analyze-box-section-choice right-round no-select" onclick="changeChart('line4')">Bar</span>
+                            <span id="barChart4" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar4')">Bar</span>
                         </div>
                         <canvas id="myChart4" height="105" class="margin-top"></canvas>
                     </div>

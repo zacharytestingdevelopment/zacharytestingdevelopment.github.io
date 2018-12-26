@@ -7,9 +7,25 @@
 // - When you delete the active set, active set text resets and activeSet = "none" (COMPLETED)
 // - Add a new switch direction sound player for the preview, it doesnt seem to keep playing when you leave a session 
 // - On a scale of 1-10, how well are you able to access this memory now 
+// - Instead of instantiating charts based on what categories are enabled, can you just hide the ones that are disabled? 
 
 var mainElement;
 
+
+/*
+var moodProgressData = [];
+var sudsProgressData = [];
+var vacProgressData = [];
+var recallProgressData = [];
+*/
+
+var chartInstance1, chartInstance2, chartInstance3, chartInstance4;
+var ctx, ctx2, ctx3, ctx4;
+var dataMood, dataSUDS, dataVAC, dataRecall, options;
+var sessionFinished = "no";
+
+var chartsDisplayedCount = 0;
+var numberOfSessionsData = [];
 var moodProgress = [];
 var sudsProgress = [];
 var vacProgress = [];
@@ -78,41 +94,6 @@ speedSlider.oninput = function () {
     adjustSpeed(this.value);
 
     updatePreview();
-}
-
-function changeChart(chart) {
-    if (chart == "line1") {
-        $("#lineChart1").addClass("analyze-box-section-choice-selected");
-        $("#barChart1").removeClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "bar1") {
-        $("#lineChart1").removeClass("analyze-box-section-choice-selected");
-        $("#barChart1").addClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "line2") {
-        $("#lineChart2").addClass("analyze-box-section-choice-selected");
-        $("#barChart2").removeClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "bar2") {
-        $("#lineChart2").removeClass("analyze-box-section-choice-selected");
-        $("#barChart2").addClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "line3") {
-        $("#lineChart3").addClass("analyze-box-section-choice-selected");
-        $("#barChart3").removeClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "bar3") {
-        $("#lineChart3").removeClass("analyze-box-section-choice-selected");
-        $("#barChart3").addClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "line4") {
-        $("#lineChart4").addClass("analyze-box-section-choice-selected");
-        $("#barChart4").removeClass("analyze-box-section-choice-selected");
-    }
-    else if (chart == "bar4") {
-        $("#lineChart4").removeClass("analyze-box-section-choice-selected");
-        $("#barChart4").addClass("analyze-box-section-choice-selected");
-    }
 }
 
 function resizeEMDR() {
@@ -2753,7 +2734,7 @@ function saveTherapyResults(type) {
             var moodSave = document.getElementById("mood-therapy-value").value;
             if (moodSave.length > 0) {
                 moodProgress.push(moodSave);
-                console.log("mood progress: " + moodProgress);
+                //console.log("mood progress: " + moodProgress);
             }
             else {
                 moodProgress.push("empty");
@@ -2764,10 +2745,10 @@ function saveTherapyResults(type) {
             var recallSave = document.getElementById("recall-therapy-value").value;
             if (recallSave.length > 0) {
                 recallProgress.push(recallSave);
-                console.log("recall progress: " + recallProgress);
+                //console.log("recall progress: " + recallProgress);
             }
             else {
-                sudsProgress.push("empty");
+                recallProgress.push("empty");
             }
         }
 
@@ -2775,7 +2756,7 @@ function saveTherapyResults(type) {
             var sudsSave = document.getElementById("suds-therapy-value").value;
             if (sudsSave.length > 0) {
                 sudsProgress.push(sudsSave);
-                console.log("suds progress: " + sudsProgress);
+                //console.log("suds progress: " + sudsProgress);
             }
             else {
                 sudsProgress.push("empty");
@@ -2786,7 +2767,7 @@ function saveTherapyResults(type) {
             var vacSave = document.getElementById("vac-therapy-value").value;
             if (vacSave.length > 0) {
                 vacProgress.push(vacSave);
-                console.log("suds progress: " + vacProgress);
+                //console.log("suds progress: " + vacProgress);
             }
             else {
                 vacProgress.push("empty");
@@ -3268,47 +3249,221 @@ function transferSettings() {
 
 function convertToInt(array) {
 
+    /*
+    How I want data to be displayed when plotted: 
+    - Mood value on left hand side
+    - Session number on bottom
+    - If value is empty, skip to the next session number
+    - Remove empty values 
+    */
+
     var arrayLength = array.length;
+
     for (var i = 0; i < arrayLength; i++) {
-        if (array[i] != "empty") {
-            //alert("EMTPY");
+        if (array[i] == "empty") {
             array.splice(i, 1);
         }
     }
 
-    // alert("result:" + array);
+    return array;
+}
+
+function calculateSessionCount(array) {
+    for (var i = 0; i <= numberOfSessions; i++) {
+        if (array[i] != "empty") {
+            if (i == 0) {
+                numberOfSessionsData.push("Initial");
+            }
+            else {
+                numberOfSessionsData.push(i.toString());
+            }
+        }
+    }
+}
+
+function calculateAverageScore(scoreToAverage) {
+    var arrayLength = scoreToAverage.length;
+    var average = 0;
+    //console.log("Length of array: " + arrayLength);
+    console.log("SCURR: " + scoreToAverage);
+    if (arrayLength > 2) {
+        console.log("ARRAY IS BIGGER THAN ONE");
+
+        for (var i = 0, len = scoreToAverage.length; i < len; i++) {
+            if (scoreToAverage[i] != "empty") {
+                console.log("Y: " + scoreToAverage[i]);
+                average += parseFloat(scoreToAverage[i]);
+            }
+            else {
+                console.log("Remove a value");
+                arrayLength--;
+            }
+
+            console.log("Current average: " + average);
+        }
+    }
+    else {
+        console.log("ARRAY IS ONE");
+        for (var i = 0; i < arrayLength; i++) {
+            if (scoreToAverage[i] != "empty") {
+                average += parseFloat(scoreToAverage[i]);
+                console.log("XX: " + average);
+            }
+            else {
+                arrayLength--;
+            }
+        }
+    }
+    console.log("final average: " + average);
+    console.log("length: " + arrayLength);
+    return parseFloat((average / arrayLength).toFixed(2));
+
+}
+
+function changeChart(chart) {
+    if (chart == "line1") {
+        $("#lineChart1").addClass("analyze-box-section-choice-selected");
+        $("#barChart1").removeClass("analyze-box-section-choice-selected");
+
+        chartInstance1.destroy();
+        chartInstance1 = new Chart(ctx, {
+            type: 'line',
+            data: dataMood,
+            options: options
+        });
+    }
+    else if (chart == "bar1") {
+        $("#lineChart1").removeClass("analyze-box-section-choice-selected");
+        $("#barChart1").addClass("analyze-box-section-choice-selected");
+
+        chartInstance1.destroy();
+        chartInstance1 = new Chart(ctx, {
+            type: 'bar',
+            data: dataMood,
+            options: options
+        });
+    }
+    else if (chart == "line2") {
+
+        $("#lineChart2").addClass("analyze-box-section-choice-selected");
+        $("#barChart2").removeClass("analyze-box-section-choice-selected");
+
+        chartInstance2.destroy();
+        chartInstance2 = new Chart(ctx2, {
+            type: 'line',
+            data: dataSUDS,
+            options: options
+        });
+    }
+    else if (chart == "bar2") {
+
+        console.log("bar2");
+
+        $("#lineChart2").removeClass("analyze-box-section-choice-selected");
+        $("#barChart2").addClass("analyze-box-section-choice-selected");
+
+        chartInstance2.destroy();
+        chartInstance2 = new Chart(ctx2, {
+            type: 'bar',
+            data: dataSUDS,
+            options: options
+        });
+    }
+    else if (chart == "line3") {
+        $("#lineChart3").addClass("analyze-box-section-choice-selected");
+        $("#barChart3").removeClass("analyze-box-section-choice-selected");
+
+        chartInstance3.destroy();
+        chartInstance3 = new Chart(ctx3, {
+            type: 'line',
+            data: dataVAC,
+            options: options
+        });
+    }
+    else if (chart == "bar3") {
+        $("#lineChart3").removeClass("analyze-box-section-choice-selected");
+        $("#barChart3").addClass("analyze-box-section-choice-selected");
+
+        chartInstance3.destroy();
+        chartInstance3 = new Chart(ctx3, {
+            type: 'bar',
+            data: dataVAC,
+            options: options
+        });
+    }
+    else if (chart == "line4") {
+        $("#lineChart4").addClass("analyze-box-section-choice-selected");
+        $("#barChart4").removeClass("analyze-box-section-choice-selected");
+
+        chartInstance4.destroy();
+        chartInstance4 = new Chart(ctx4, {
+            type: 'line',
+            data: dataRecall,
+            options: options
+        });
+    }
+    else if (chart == "bar4") {
+        $("#lineChart4").removeClass("analyze-box-section-choice-selected");
+        $("#barChart4").addClass("analyze-box-section-choice-selected");
+
+        chartInstance4.destroy();
+        chartInstance4 = new Chart(ctx4, {
+            type: 'bar',
+            data: dataRecall,
+            options: options
+        });
+    }
 }
 
 function analyzeSession() {
 
-    console.log(moodProgress);
-    console.log(vacProgress);
-    console.log(sudsProgress);
-    console.log(descriptionProgress);
+    if (selectedMood == "yes") {
+        chartsDisplayedCount++;
+        document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
+    }
 
+    if (selectedSUDS == "yes") {
+        chartsDisplayedCount++;
+        document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
+    }
+
+    if (selectedVAC == "yes") {
+        chartsDisplayedCount++;
+        document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
+    }
+
+    if (selectedRecall == "yes") {
+        chartsDisplayedCount++;
+        document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
+    }
+
+    console.log("count: " + chartsDisplayedCount);
+
+    sessionFinished = "yes";
+
+    calculateSessionCount(moodProgress);
     convertToInt(moodProgress);
 
-
-    var ctx = document.getElementById('myChart').getContext('2d'),
+    ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
 
-    var ctx2 = document.getElementById('myChart2').getContext('2d'),
+    ctx2 = document.getElementById('myChart2').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
 
-    var ctx3 = document.getElementById('myChart3').getContext('2d'),
+    ctx3 = document.getElementById('myChart3').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
-    var ctx4 = document.getElementById('myChart4').getContext('2d'),
+    ctx4 = document.getElementById('myChart4').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
     gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
     gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
     gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
 
-    var data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    dataMood = {
+        labels: numberOfSessionsData,
         datasets: [{
             label: 'Mood value',
             backgroundColor: gradient,
@@ -3316,10 +3471,50 @@ function analyzeSession() {
             pointBackgroundColor: '#4257b2',
             borderWidth: 3,
             borderColor: '#4257b2',
-            data: [4, 5, 5, 3, 6, 7]
+            data: convertToInt(moodProgress)
         }]
     };
-    var options = {
+
+    dataSUDS = {
+        labels: numberOfSessionsData,
+        datasets: [{
+            label: 'SUDS value',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
+            borderWidth: 3,
+            borderColor: '#4257b2',
+            data: convertToInt(sudsProgress)
+        }]
+    };
+
+    dataVAC = {
+        labels: numberOfSessionsData,
+        datasets: [{
+            label: 'VAC value',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
+            borderWidth: 3,
+            borderColor: '#4257b2',
+            data: convertToInt(vacProgress)
+        }]
+    };
+
+    dataRecall = {
+        labels: numberOfSessionsData,
+        datasets: [{
+            label: 'Recall value',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
+            borderWidth: 3,
+            borderColor: '#4257b2',
+            data: convertToInt(recallProgress)
+        }]
+    };
+
+    options = {
         bezierCurve: false,
         responsive: true,
         maintainAspectRatio: true,
@@ -3395,29 +3590,34 @@ function analyzeSession() {
         }
     };
 
-    var chartInstance = new Chart(ctx, {
+    chartInstance1 = new Chart(ctx, {
         type: 'line',
-        data: data,
+        data: dataMood,
         options: options
     });
 
-    var chartInstance2 = new Chart(ctx2, {
+    chartInstance2 = new Chart(ctx2, {
         type: 'line',
-        data: data,
+        data: dataSUDS,
         options: options
     });
 
-    var chartInstance3 = new Chart(ctx3, {
-        type: 'bar',
-        data: data,
+    chartInstance3 = new Chart(ctx3, {
+        type: 'line',
+        data: dataVAC,
         options: options
     });
 
-    var chartInstance3 = new Chart(ctx4, {
-        type: 'bar',
-        data: data,
+    chartInstance4 = new Chart(ctx4, {
+        type: 'line',
+        data: dataRecall,
         options: options
     });
+
+    changeChart("line1");
+    changeChart("line2");
+    changeChart("line3");
+    changeChart("line4");
 
     var instructions = "";
     instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
@@ -3465,7 +3665,6 @@ function startSession() {
         var moodSave = document.getElementById("mood-initial").value;
         if (moodSave.length > 0) {
             moodProgress.push(moodSave);
-            console.log("mood progress: " + moodProgress);
         }
         else {
             moodProgress.push("empty");
@@ -3476,7 +3675,6 @@ function startSession() {
         var sudsSave = document.getElementById("suds-initial").value;
         if (sudsSave.length > 0) {
             sudsProgress.push(sudsSave);
-            console.log("suds progress: " + sudsProgress);
         }
         else {
             sudsProgress.push("empty");
@@ -3487,7 +3685,6 @@ function startSession() {
         var vacSave = document.getElementById("vac-initial").value;
         if (vacSave.length > 0) {
             vacProgress.push(vacSave);
-            console.log("suds progress: " + vacProgress);
         }
         else {
             vacProgress.push("empty");
@@ -3498,7 +3695,6 @@ function startSession() {
         var recallSave = document.getElementById("recall-initial").value;
         if (recallSave.length > 0) {
             recallProgress.push(recallSave);
-            console.log("recall progress: " + recallProgress);
         }
         else {
             recallProgress.push("empty");
@@ -3519,22 +3715,20 @@ function showMobileNav() {
 }
 
 function endSessionComplete() {
-    //sessionCount = 0;
+
     var settingsHidden = "";
     settingsHidden += "<span class=\"animated fadeOut faster-animation\"\">";
     settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
-    //document.getElementById("session-end-box").className = "therapy-over-box vertical-center-box animated fadeOutDown col col-lg-10 col-md-11 col-10";
-    //document.getElementById("therapy-over-box").className = "therapy-over-box vertical-center-box animated fadeOutDown hidden col col-lg-10 col-md-11 col-10";
-
 
     endSession();
 }
 
 function endSession() {
 
+    chartsDisplayedCount = 0;
     yourCurrentSession = 1;
 
     //Reset tracking progress 
@@ -3543,7 +3737,16 @@ function endSession() {
     vacProgress = [];
     recallProgress = [];
     descriptionProgress = [];
+    numberOfSessionsData = [];
     sessionSettingsShown = true;
+
+    if (sessionFinished == "yes") {
+        chartInstance1.destroy();
+        chartInstance2.destroy();
+        chartInstance3.destroy();
+        chartInstance4.destroy();
+        sessionFinished = "no";
+    }
 
     if (pathing == "topbottom") {
         $("#top-bottom-line").removeClass("fadeIn");
