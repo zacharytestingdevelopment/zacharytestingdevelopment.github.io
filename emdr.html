@@ -108,6 +108,10 @@
 
                         </div>
 
+                        <div id="your-recall-box-session">
+
+                        </div>
+
                         <textarea id="next-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
@@ -138,6 +142,11 @@
                         <div id="your-vac-box-therapy">
 
                         </div>
+
+                        <div id="your-recall-box-therapy">
+
+                        </div>
+
                         <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
                     </div>
@@ -585,6 +594,21 @@
 
                             <div id="moodInput" class="visible margin-top-medium">
                                 <input onfocusout="valueCheck('mood')" id="mood-initial" type="number" placeholder="Initial mood (1-10)"
+                                    class="number-input-style" min="1" />
+                            </div>
+
+                            <div class="setting-category margin-top-large">INCLUDE RECALL SCALE <span class="information-circle"
+                                    onclick="information('recall')"><span class="question-mark no-select">?</span></div>
+                            <div>
+                                <div id="recallNo" class="preset-item inline-block no-select preset-item-selected"
+                                    onclick="recall('no')">No</div>
+                                <div id="recallYes" class="preset-item inline-block no-select margin-left-right"
+                                    onclick="recall('yes')">Yes</div>
+
+                            </div>
+
+                            <div id="recallInput" class="hidden margin-top-medium">
+                                <input onfocusout="valueCheck('recall')" id="recall-initial" type="number" placeholder="Initial recall (1-10)"
                                     class="number-input-style" min="1" />
                             </div>
 

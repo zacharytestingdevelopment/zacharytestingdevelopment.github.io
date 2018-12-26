@@ -6,12 +6,14 @@
 // - Update loaded set text (COMPLETED)
 // - When you delete the active set, active set text resets and activeSet = "none" (COMPLETED)
 // - Add a new switch direction sound player for the preview, it doesnt seem to keep playing when you leave a session 
+// - On a scale of 1-10, how well are you able to access this memory now 
 
 var mainElement;
 
 var moodProgress = [];
 var sudsProgress = [];
 var vacProgress = [];
+var recallProgress = [];
 var descriptionProgress = [];
 var switchDirectionSoundPlayer;
 
@@ -34,6 +36,7 @@ var pathing = "leftright";
 var selectedEasing = "easeInOutQuad";
 var selectedSUDS = "no";
 var selectedMood = "yes";
+var selectedRecall = "no";
 var selectedVAC = "no";
 var selectedClient = "no";
 
@@ -1227,6 +1230,13 @@ function information(informationType) {
             icon: "info"
         });
     }
+    else if (informationType == "recall") {
+        swal({
+            title: "Recall scale",
+            text: "The recall scale tracks how clearly you are able to recall the event or issue that you choose to focus on during the therapy. Enter a value 1 - 10 of how easy it is for you to recall the event (1 is not at all, 10 is a complete recollection of the event). Fill in how this number changes when prompted during the therapy.",
+            icon: "info"
+        });
+    }
 }
 
 function backgroundSound(soundType) {
@@ -1656,6 +1666,25 @@ function timeCount(timeCount) {
         document.getElementById("custom-session-length").className = "animated fadeIn margin-top-medium";
 
         selectedSessionLength = "custom";
+    }
+}
+
+function recall(recallInput) {
+    if (recallInput == "no") {
+        $("#recallNo").addClass("preset-item-selected");
+        $("#recallYes").removeClass("preset-item-selected");
+
+        document.getElementById("recallInput").className = "hidden";
+
+        selectedRecall = "no";
+    }
+    else if (recallInput == "yes") {
+        $("#recallNo").removeClass("preset-item-selected");
+        $("#recallYes").addClass("preset-item-selected");
+
+        document.getElementById("recallInput").className = "animated fadeIn margin-top-medium";
+
+        selectedRecall = "yes";
     }
 }
 
@@ -2450,11 +2479,21 @@ function startEndSession() {
         mood += "                            <input onfocusout = \"valueCheck('therapyMood')\" id=\"mood-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record mood (1-10)\" \/>";
 
         document.getElementById("your-mood-box-therapy").innerHTML = mood;
-        //document.getElementById("your-mood-box-therapy").innerHTML = mood;
     }
     else {
-        //document.getElementById("your-mood-box-session").innerHTML = "";
         document.getElementById("your-mood-box-therapy").innerHTML = "";
+    }
+
+    //Populate recall input if active
+    if (selectedRecall != "no") {
+        var recall = "";
+        recall += "<div class=\"highlight-color-blue margin-top-tiny\">Your recall<\/div>";
+        recall += "                            <input onfocusout = \"valueCheck('therapyRecall')\" id=\"recall-therapy-value\" type=\"number\" class=\"text-input\" placeholder=\"Record recall (1-10)\" \/>";
+
+        document.getElementById("your-recall-box-therapy").innerHTML = recall;
+    }
+    else {
+        document.getElementById("your-recall-box-therapy").innerHTML = "";
     }
 
     //Populate SUDS input if active
@@ -2466,7 +2505,6 @@ function startEndSession() {
         document.getElementById("your-suds-box-therapy").innerHTML = suds;
     }
     else {
-        // document.getElementById("your-suds-box-session").innerHTML = "";
         document.getElementById("your-suds-box-therapy").innerHTML = "";
     }
 
@@ -2480,7 +2518,6 @@ function startEndSession() {
         document.getElementById("your-vac-box-therapy").innerHTML = vac;
     }
     else {
-        //   document.getElementById("your-vac-box-session").innerHTML = "";
         document.getElementById("your-vac-box-therapy").innerHTML = "";
     }
 
@@ -2522,6 +2559,20 @@ function startNextSession() {
     else {
         document.getElementById("your-mood-box-session").innerHTML = "";
         document.getElementById("your-mood-box-therapy").innerHTML = "";
+    }
+
+    //Populate recall input if active
+    if (selectedRecall != "no") {
+        var recall = "";
+        recall += "<div class=\"highlight-color-blue margin-top-tiny\">Your recall score<\/div>";
+        recall += "                            <input onfocusout=\"valueCheck('sessionRecall')\" id=\"recall-session-value\" type=\"number\" class=\"text-input\" placeholder=\"Record recall (1-10)\" \/>";
+
+        document.getElementById("your-recall-box-session").innerHTML = recall;
+        document.getElementById("your-recall-box-therapy").innerHTML = recall;
+    }
+    else {
+        document.getElementById("your-recall-box-session").innerHTML = "";
+        document.getElementById("your-recall-box-therapy").innerHTML = "";
     }
 
     //Populate SUDS input if active
@@ -2674,6 +2725,24 @@ function valueCheck(valueCheck) {
             document.getElementById("vac-therapy-value").value = 1;
         }
     }
+    else if (valueCheck == "recall") {
+        if (document.getElementById("recall-initial").value > 10) {
+            document.getElementById("recall-initial").value = 10;
+        }
+
+        if (document.getElementById("recall-initial").value < 1) {
+            document.getElementById("recall-initial").value = 1;
+        }
+    }
+    else if (valueCheck == "sessionRecall") {
+        if (document.getElementById("recall-session-value").value > 10) {
+            document.getElementById("recall-session-value").value = 10;
+        }
+
+        if (document.getElementById("recall-session-value").value < 1) {
+            document.getElementById("recall-session-value").value = 1;
+        }
+    }
 }
 
 function saveTherapyResults(type) {
@@ -2688,6 +2757,17 @@ function saveTherapyResults(type) {
             }
             else {
                 moodProgress.push("empty");
+            }
+        }
+
+        if (selectedRecall != "no") {
+            var recallSave = document.getElementById("recall-therapy-value").value;
+            if (recallSave.length > 0) {
+                recallProgress.push(recallSave);
+                console.log("recall progress: " + recallProgress);
+            }
+            else {
+                sudsProgress.push("empty");
             }
         }
 
@@ -2721,6 +2801,7 @@ function saveTherapyResults(type) {
             descriptionProgress.push("empty");
         }
 
+
         var d = new Date();
         var user = firebase.auth().currentUser;
         var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
@@ -2737,6 +2818,7 @@ function saveTherapyResults(type) {
             setMoodResults: moodProgress,
             setSudsProgress: sudsProgress,
             setVacProgress: vacProgress,
+            setRecallProgress: recallProgress,
             setDescriptionProgress: descriptionProgress,
             clientUsed: clientName
         });
@@ -2784,6 +2866,17 @@ function nextSession() {
             vacProgress.push("empty");
         }
         console.log("vac progress: " + vacProgress);
+    }
+
+    if (selectedRecall != "no") {
+        var recallSave = document.getElementById("recall-session-value").value;
+        if (recallSave.length > 0) {
+            recallProgress.push(recallSave);
+        }
+        else {
+            recallProgress.push("empty");
+        }
+        console.log("recall progress: " + recallProgress);
     }
 
     var descriptionSave = document.getElementById("next-set-description").value;
@@ -3173,7 +3266,29 @@ function transferSettings() {
     }
 }
 
+function convertToInt(array) {
+
+    var arrayLength = array.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if (array[i] != "empty") {
+            //alert("EMTPY");
+            array.splice(i, 1);
+        }
+    }
+
+    // alert("result:" + array);
+}
+
 function analyzeSession() {
+
+    console.log(moodProgress);
+    console.log(vacProgress);
+    console.log(sudsProgress);
+    console.log(descriptionProgress);
+
+    convertToInt(moodProgress);
+
+
     var ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
@@ -3379,6 +3494,17 @@ function startSession() {
         }
     }
 
+    if (selectedRecall != "no") {
+        var recallSave = document.getElementById("recall-initial").value;
+        if (recallSave.length > 0) {
+            recallProgress.push(recallSave);
+            console.log("recall progress: " + recallProgress);
+        }
+        else {
+            recallProgress.push("empty");
+        }
+    }
+
     setTimeout(function () { hideMobileNav(); }, 320);
 
     loadSessionSettings();
@@ -3415,6 +3541,7 @@ function endSession() {
     moodProgress = [];
     sudsProgress = [];
     vacProgress = [];
+    recallProgress = [];
     descriptionProgress = [];
     sessionSettingsShown = true;
 
@@ -3550,6 +3677,14 @@ function loadSet(set) {
         }
         else {
             suds("no");
+        }
+
+        if (snapshot.val().recall != "no") {
+            recall("yes");
+            document.getElementById("recall-initial").value = snapshot.val().recall;
+        }
+        else {
+            recall("no");
         }
 
         if (snapshot.val().VAC != "no") {
@@ -3705,6 +3840,10 @@ function updateSet(updatedSet) {
         selectedMood = document.getElementById("mood-initial").value;
     }
 
+    if (selectedRecall == "yes") {
+        selectedRecall = document.getElementById("recall-initial").value;
+    }
+
     if (selectedClient == "yes") {
         selectedClient = document.getElementById("client-initial").value;
     }
@@ -3735,6 +3874,7 @@ function updateSet(updatedSet) {
         SUDS: selectedSUDS,
         VAC: selectedVAC,
         mood: selectedMood,
+        recall: selectedRecall,
         client: selectedClient
     });
 
@@ -3756,6 +3896,10 @@ function updateSet(updatedSet) {
 
     if (selectedMood != "no") {
         selectedMood = "yes";
+    }
+
+    if (selectedRecall != "no") {
+        selectedRecall = "yes";
     }
 
     if (selectedClient != "no") {
@@ -4142,6 +4286,10 @@ function saveSettings() {
             selectedClient = document.getElementById("client-initial").value;
         }
 
+        if (selectedRecall == "yes") {
+            selectedRecall = document.getElementById("recall-initial").value;
+        }
+
         var str = value.replace(/\s+/g, '');
         var id = "description" + str;
         var nameId = "name" + str
@@ -4172,6 +4320,7 @@ function saveSettings() {
             SUDS: selectedSUDS,
             VAC: selectedVAC,
             mood: selectedMood,
+            recall: selectedRecall,
             client: selectedClient
         });
 
@@ -4193,6 +4342,10 @@ function saveSettings() {
 
         if (selectedMood != "no") {
             selectedMood = "yes";
+        }
+
+        if (selectedRecall != "no") {
+            selectedRecall = "yes";
         }
 
         if (selectedClient != "no") {
