@@ -19,9 +19,9 @@ var vacProgressData = [];
 var recallProgressData = [];
 */
 
-var chartInstance1, chartInstance2, chartInstance3, chartInstance4;
-var ctx, ctx2, ctx3, ctx4;
-var dataMood, dataSUDS, dataVAC, dataRecall, options;
+var chartInstance1, chartInstance2, chartInstance3, chartInstance4, chartInstance5;
+var ctx, ctx2, ctx3, ctx4, ctx5;
+var dataMood, dataSUDS, dataVAC, dataRecall, optionsMain, optionsMood, optionsSUDS, optionsVAC, optionsRecall;
 var sessionFinished = "no";
 
 var chartsDisplayedCount = 0;
@@ -1179,7 +1179,7 @@ function information(informationType) {
     else if (informationType == "mood") {
         swal({
             title: "Mood tracking",
-            text: "This setting allows you to track your mood throughout the duration of the therapy to see how it changes. Enter a starting value between 1 and 10, and fill in how you are feeling when prompted during the therapy.",
+            text: "This setting allows you to track your mood throughout the duration of the therapy to see how it changes. Enter a starting value 1 - 10, and fill in how you are feeling when prompted during the therapy.",
             icon: "info"
         });
     }
@@ -3329,7 +3329,7 @@ function changeChart(chart) {
         chartInstance1 = new Chart(ctx, {
             type: 'line',
             data: dataMood,
-            options: options
+            options: optionsMain
         });
     }
     else if (chart == "bar1") {
@@ -3340,7 +3340,7 @@ function changeChart(chart) {
         chartInstance1 = new Chart(ctx, {
             type: 'bar',
             data: dataMood,
-            options: options
+            options: optionsMain
         });
     }
     else if (chart == "line2") {
@@ -3352,7 +3352,7 @@ function changeChart(chart) {
         chartInstance2 = new Chart(ctx2, {
             type: 'line',
             data: dataSUDS,
-            options: options
+            options: optionsMain
         });
     }
     else if (chart == "bar2") {
@@ -3366,7 +3366,7 @@ function changeChart(chart) {
         chartInstance2 = new Chart(ctx2, {
             type: 'bar',
             data: dataSUDS,
-            options: options
+            options: optionsMain
         });
     }
     else if (chart == "line3") {
@@ -3377,7 +3377,7 @@ function changeChart(chart) {
         chartInstance3 = new Chart(ctx3, {
             type: 'line',
             data: dataVAC,
-            options: options
+            options: optionsVAC
         });
     }
     else if (chart == "bar3") {
@@ -3388,7 +3388,7 @@ function changeChart(chart) {
         chartInstance3 = new Chart(ctx3, {
             type: 'bar',
             data: dataVAC,
-            options: options
+            options: optionsVAC
         });
     }
     else if (chart == "line4") {
@@ -3399,7 +3399,7 @@ function changeChart(chart) {
         chartInstance4 = new Chart(ctx4, {
             type: 'line',
             data: dataRecall,
-            options: options
+            options: optionsMain
         });
     }
     else if (chart == "bar4") {
@@ -3410,7 +3410,29 @@ function changeChart(chart) {
         chartInstance4 = new Chart(ctx4, {
             type: 'bar',
             data: dataRecall,
-            options: options
+            options: optionsMain
+        });
+    }
+    else if (chart == "line5") {
+        $("#lineChart5").addClass("analyze-box-section-choice-selected");
+        $("#barChart5").removeClass("analyze-box-section-choice-selected");
+
+        chartInstance5.destroy();
+        chartInstance5 = new Chart(ctx5, {
+            type: 'line',
+            data: dataMood,
+            options: optionsMain
+        });
+    }
+    else if (chart == "bar5") {
+        $("#lineChart5").removeClass("analyze-box-section-choice-selected");
+        $("#barChart5").addClass("analyze-box-section-choice-selected");
+
+        chartInstance5.destroy();
+        chartInstance5 = new Chart(ctx5, {
+            type: 'bar',
+            data: dataMood,
+            options: optionsMain
         });
     }
 }
@@ -3437,6 +3459,15 @@ function analyzeSession() {
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
 
+    if (selectedClient == "yes" && document.getElementById("client-initial").value.length > 0) {
+        var client = "";
+        client += "<div class=\"white col-centered text-center\">Client name: <span class=\"white\" id=\"client-name\">none<\/span>";
+        client += "            <\/div>";
+
+        document.getElementById("client-name-box").innerHTML = client;
+        document.getElementById("client-name").innerHTML = document.getElementById("client-initial").value;
+    }
+
     console.log("count: " + chartsDisplayedCount);
 
     sessionFinished = "yes";
@@ -3456,6 +3487,9 @@ function analyzeSession() {
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
     ctx4 = document.getElementById('myChart4').getContext('2d'),
+        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+    ctx5 = document.getElementById('myChart5').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
     gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
@@ -3514,7 +3548,7 @@ function analyzeSession() {
         }]
     };
 
-    options = {
+    optionsMain = {
         bezierCurve: false,
         responsive: true,
         maintainAspectRatio: true,
@@ -3544,6 +3578,84 @@ function analyzeSession() {
 
                 },
                 ticks: {
+                    max: 10,
+                    padding: 10,
+                    beginAtZero: true,
+                    fontColor: '#4257b2',
+                    fontStyle: 'bold',
+                    fontFamily: 'Montserrat',
+                    userCallback: function (label, index, labels) {
+                        // when the floored value is the same as the value we have a whole number
+                        if (Math.floor(label) === label) {
+                            return label;
+                        }
+
+                    },
+                }
+            }]
+        },
+        elements: {
+            line: {
+                tension: 0
+            }
+        },
+        legend: {
+            display: false
+        },
+        point: {
+            backgroundColor: 'white'
+        },
+        tooltips: {
+            opacity: '0.4',
+            position: 'average',
+            // intersect: false,
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            bodyFontStyle: 'bold',
+            borderColor: 'rgba(66,87,178, 0.91)',
+            borderWidth: 2,
+            bodyFontColor: '#4257b2',
+            backgroundColor: 'rgba(255,255,255, 0.91)',
+            titleFontColor: '#4257b2',
+            color: '#4257b2',
+            caretSize: 5,
+            cornerRadius: 5,
+            xPadding: 20,
+            yPadding: 10
+        }
+    };
+
+    optionsVAC = {
+        bezierCurve: false,
+        responsive: true,
+        maintainAspectRatio: true,
+        intersect: false,
+        animation: {
+            easing: 'easeInOutQuad',
+            duration: 965
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    color: 'rgba(66,87,178, 0.1)',
+                    lineWidth: 1,
+                },
+                ticks: {
+                    fontColor: '#4257b2',
+                    fontStyle: 'bold',
+                    fontFamily: 'Montserrat',
+                    padding: 5
+
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    color: 'rgba(66,87,178, 0.1)',
+                    lineWidth: 1,
+
+                },
+                ticks: {
+                    max: 7,
                     padding: 10,
                     beginAtZero: true,
                     fontColor: '#4257b2',
@@ -3593,31 +3705,38 @@ function analyzeSession() {
     chartInstance1 = new Chart(ctx, {
         type: 'line',
         data: dataMood,
-        options: options
+        options: optionsMain
     });
 
     chartInstance2 = new Chart(ctx2, {
         type: 'line',
         data: dataSUDS,
-        options: options
+        options: optionsMain
     });
 
     chartInstance3 = new Chart(ctx3, {
         type: 'line',
         data: dataVAC,
-        options: options
+        options: optionsVAC
     });
 
     chartInstance4 = new Chart(ctx4, {
         type: 'line',
         data: dataRecall,
-        options: options
+        options: optionsMain
+    });
+
+    chartInstance5 = new Chart(ctx5, {
+        type: 'line',
+        data: dataMood,
+        options: optionsMain
     });
 
     changeChart("line1");
     changeChart("line2");
     changeChart("line3");
     changeChart("line4");
+    changeChart("line5");
 
     var instructions = "";
     instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
@@ -3740,11 +3859,14 @@ function endSession() {
     numberOfSessionsData = [];
     sessionSettingsShown = true;
 
+    document.getElementById("client-name-box").innerHTML = "";
+
     if (sessionFinished == "yes") {
         chartInstance1.destroy();
         chartInstance2.destroy();
         chartInstance3.destroy();
         chartInstance4.destroy();
+        chartInstance5.destroy();
         sessionFinished = "no";
     }
 

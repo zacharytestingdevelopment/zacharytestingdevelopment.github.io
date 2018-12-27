@@ -100,6 +100,10 @@
 
                         </div>
 
+                        <div id="your-recall-box-session">
+
+                        </div>
+
                         <div id="your-suds-box-session">
 
                         </div>
@@ -108,9 +112,7 @@
 
                         </div>
 
-                        <div id="your-recall-box-session">
 
-                        </div>
 
                         <textarea id="next-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
@@ -135,6 +137,10 @@
 
                         </div>
 
+                        <div id="your-recall-box-therapy">
+
+                        </div>
+
                         <div id="your-suds-box-therapy">
 
                         </div>
@@ -143,9 +149,7 @@
 
                         </div>
 
-                        <div id="your-recall-box-therapy">
 
-                        </div>
 
                         <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
@@ -816,13 +820,17 @@
 
         </span>
         <div class="white col-centered text-center animated pulse">Set used: <span class="white" id="analysis-set">none</span></div>
+        <span id="client-name-box">
 
-        <div class="col col-12 col-centered expand-analyze-section-mobile">
+        </span>
+
+
+        <div id="analysis-overall-results" class="col col-12 col-centered expand-analyze-section-mobile">
             <div class="row col-centered almost-full-width expand-analyze-section-mobile">
-                <div class="col col-12 margin-top-large">
+                <div class="col col-12 margin-top-medium">
                     <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">Your results</div>
-                        <div class="analyze-box-section-subheader">Average mood: <span id="average-mood">3</span></div>
+                        <div class="analyze-box-section-subheader">Average mood: <span id="average-x">3</span></div>
                         <div class="analyze-box-section-choices">
                             <span id="lineChart1" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
                                 onclick="changeChart('line1')">Line</span>
@@ -835,32 +843,20 @@
                     </div>
                 </div>
 
-                <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                <div id="analysis-mood-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
                     <div class="analyze-box-section shadow">
-                        <div class="analyze-box-section-header">SUDS results</div>
-                        <div class="analyze-box-section-subheader">Average SUDS: <span id="average-suds">3</span></div>
+                        <div class="analyze-box-section-header">Mood results</div>
+                        <div class="analyze-box-section-subheader">Average mood: <span id="average-mood">3</span></div>
                         <div class="analyze-box-section-choices">
-                            <span id="lineChart2" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                onclick="changeChart('line2')">Line</span>
-                            <span id="barChart2" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar2')">Bar</span>
+                            <span id="lineChart5" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line5')">Line</span>
+                            <span id="barChart5" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar5')">Bar</span>
                         </div>
-                        <canvas id="myChart2" height="120" class="margin-top"></canvas>
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-6 margin-top-large">
-                    <div class="analyze-box-section shadow">
-                        <div class="analyze-box-section-header">VAC results</div>
-                        <div class="analyze-box-section-subheader">Average VAC: <span id="average-vac">3</span></div>
-                        <div class="analyze-box-section-choices">
-                            <span id="lineChart3" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                onclick="changeChart('line3')">Line</span>
-                            <span id="barChart3" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar3')">Bar</span>
-                        </div>
-                        <canvas id="myChart3" height="120" class="margin-top"></canvas>
+                        <canvas id="myChart5" height="105" class="margin-top"></canvas>
                     </div>
                 </div>
 
-                <div class="col col-12 margin-top-large">
+                <div id="analysis-recall-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
                     <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">Recall results</div>
                         <div class="analyze-box-section-subheader">Average recall: <span id="average-recall">3</span></div>
@@ -870,6 +866,32 @@
                             <span id="barChart4" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar4')">Bar</span>
                         </div>
                         <canvas id="myChart4" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysis-suds-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">SUDS results</div>
+                        <div class="analyze-box-section-subheader">Average SUDS: <span id="average-suds">3</span></div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart2" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line2')">Line</span>
+                            <span id="barChart2" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar2')">Bar</span>
+                        </div>
+                        <canvas id="myChart2" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysis-vac-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">VAC results</div>
+                        <div class="analyze-box-section-subheader">Average VAC: <span id="average-vac">3</span></div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart3" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line3')">Line</span>
+                            <span id="barChart3" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar3')">Bar</span>
+                        </div>
+                        <canvas id="myChart3" height="105" class="margin-top"></canvas>
                     </div>
                 </div>
 

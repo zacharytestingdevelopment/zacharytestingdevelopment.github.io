@@ -2247,9 +2247,19 @@ and (max-width: 767px)
 }
 
 @media only screen 
+and (max-width: 340px)
+{
+    .analyze-box-section-header
+    {
+        font-size:16px !important;
+    }
+}
+
+@media only screen 
 and (min-width: 319px)
 and (max-width: 375px)
 {
+
     .tracking-box
     {
         font-size:11px !important;
