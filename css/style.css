@@ -1336,6 +1336,13 @@ html.sr .load-hidden {
     color:#4257b2 !important;
 }
 
+.hide-analysis
+{
+    position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .hidden
 {
     display: none;

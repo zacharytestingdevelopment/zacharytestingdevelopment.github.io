@@ -24,8 +24,12 @@ var ctx, ctx2, ctx3, ctx4, ctx5;
 var dataMood, dataSUDS, dataVAC, dataRecall, optionsMain, optionsMood, optionsSUDS, optionsVAC, optionsRecall;
 var sessionFinished = "no";
 
-var chartsDisplayedCount = 0;
 var numberOfSessionsData = [];
+var numberOfSessionsDataMood = [];
+var numberOfSessionsDataSuds = [];
+var numberOfSessionsDataVac = [];
+var numberOfSessionsDataRecall = [];
+
 var moodProgress = [];
 var sudsProgress = [];
 var vacProgress = [];
@@ -3249,14 +3253,6 @@ function transferSettings() {
 
 function convertToInt(array) {
 
-    /*
-    How I want data to be displayed when plotted: 
-    - Mood value on left hand side
-    - Session number on bottom
-    - If value is empty, skip to the next session number
-    - Remove empty values 
-    */
-
     var arrayLength = array.length;
 
     for (var i = 0; i < arrayLength; i++) {
@@ -3268,23 +3264,10 @@ function convertToInt(array) {
     return array;
 }
 
-function calculateSessionCount(array) {
-    for (var i = 0; i <= numberOfSessions; i++) {
-        if (array[i] != "empty") {
-            if (i == 0) {
-                numberOfSessionsData.push("Initial");
-            }
-            else {
-                numberOfSessionsData.push(i.toString());
-            }
-        }
-    }
-}
-
 function calculateAverageScore(scoreToAverage) {
     var arrayLength = scoreToAverage.length;
     var average = 0;
-    //console.log("Length of array: " + arrayLength);
+
     console.log("SCURR: " + scoreToAverage);
     if (arrayLength > 2) {
         console.log("ARRAY IS BIGGER THAN ONE");
@@ -3299,7 +3282,6 @@ function calculateAverageScore(scoreToAverage) {
                 arrayLength--;
             }
 
-            console.log("Current average: " + average);
         }
     }
     else {
@@ -3437,26 +3419,137 @@ function changeChart(chart) {
     }
 }
 
+function calculateSessionCount(array, type) {
+    if (type == "mood") {
+        console.log("M O O D");
+        for (var i = 0; i <= numberOfSessions; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    numberOfSessionsDataMood.push("Initial");
+                }
+                else {
+                    numberOfSessionsDataMood.push(i.toString());
+                }
+            }
+        }
+    }
+    else if (type == "recall") {
+        console.log("R E C A L L ");
+        for (var i = 0; i <= numberOfSessions; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    numberOfSessionsDataRecall.push("Initial");
+                }
+                else {
+                    numberOfSessionsDataRecall.push(i.toString());
+                }
+            }
+        }
+    }
+    else if (type == "suds") {
+        for (var i = 0; i <= numberOfSessions; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    numberOfSessionsDataSuds.push("Initial");
+                }
+                else {
+                    numberOfSessionsDataSuds.push(i.toString());
+                }
+            }
+        }
+    }
+    else if (type == "vac") {
+        for (var i = 0; i <= numberOfSessions; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    numberOfSessionsDataVac.push("Initial");
+                }
+                else {
+                    numberOfSessionsDataVac.push(i.toString());
+                }
+            }
+        }
+    }
+}
+
 function analyzeSession() {
 
-    if (selectedMood == "yes") {
-        chartsDisplayedCount++;
+    document.getElementById("analysis-mood-results").className = "hide-analysis";
+    document.getElementById("analysis-recall-results").className = "hide-analysis";
+    document.getElementById("analysis-suds-results").className = "hide-analysis";
+    document.getElementById("analysis-vac-results").className = "hide-analysis";
+
+
+    //Must also check that the array length is greater than 0 
+
+    if (selectedMood == "yes" && selectedRecall == "yes") {
+
+        calculateSessionCount(moodProgress, "mood");
+        convertToInt(moodProgress);
+
+        calculateSessionCount(recallProgress, "recall");
+        convertToInt(recallProgress);
+
+        document.getElementById("analysis-mood-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+
+        document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
+        document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
+    }
+    else if (selectedMood == "yes" && selectedRecall != "yes") {
+
+        calculateSessionCount(moodProgress, "mood");
+        convertToInt(moodProgress);
+
+        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
     }
+    else if (selectedMood != "yes" && selectedRecall == "yes") {
 
-    if (selectedSUDS == "yes") {
-        chartsDisplayedCount++;
-        document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
+        calculateSessionCount(recallProgress, "recall");
+        convertToInt(recallProgress);
+
+        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-recall-results").className = "col col-12 margin-top-large visible";
+
+        document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
 
-    if (selectedVAC == "yes") {
-        chartsDisplayedCount++;
+    if (selectedSUDS == "yes" && selectedVAC == "yes") {
+
+        calculateSessionCount(sudsProgress, "suds");
+        convertToInt(sudsProgress);
+
+        calculateSessionCount(vacProgress, "vac");
+        convertToInt(vacProgress);
+
+        document.getElementById("analysis-suds-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+
+        document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
+    else if (selectedSUDS == "yes" && selectedVAC != "yes") {
 
-    if (selectedRecall == "yes") {
-        chartsDisplayedCount++;
-        document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
+        calculateSessionCount(sudsProgress, "suds");
+        convertToInt(sudsProgress);
+
+        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-vac-results").className = "hide-analysis";
+
+        document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
+    }
+    else if (selectedSUDS != "yes" && selectedVAC == "yes") {
+
+        calculateSessionCount(vacProgress, "vac");
+        convertToInt(vacProgress);
+
+        document.getElementById("analysis-suds-results").className = "hide-analysis";
+        document.getElementById("analysis-vac-results").className = "col col-12 margin-top-large visible";
+
+        document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
 
     if (selectedClient == "yes" && document.getElementById("client-initial").value.length > 0) {
@@ -3468,12 +3561,11 @@ function analyzeSession() {
         document.getElementById("client-name").innerHTML = document.getElementById("client-initial").value;
     }
 
-    console.log("count: " + chartsDisplayedCount);
-
     sessionFinished = "yes";
 
-    calculateSessionCount(moodProgress);
-    convertToInt(moodProgress);
+    //Number of sessions data is only being calculated for mood, must be calculated and properly inputted for each active chart
+    //calculateSessionCount(moodProgress, "mood");
+    //convertToInt(moodProgress);
 
     ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
@@ -3497,7 +3589,7 @@ function analyzeSession() {
     gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
 
     dataMood = {
-        labels: numberOfSessionsData,
+        labels: numberOfSessionsDataMood,
         datasets: [{
             label: 'Mood value',
             backgroundColor: gradient,
@@ -3510,7 +3602,7 @@ function analyzeSession() {
     };
 
     dataSUDS = {
-        labels: numberOfSessionsData,
+        labels: numberOfSessionsDataSuds,
         datasets: [{
             label: 'SUDS value',
             backgroundColor: gradient,
@@ -3523,7 +3615,7 @@ function analyzeSession() {
     };
 
     dataVAC = {
-        labels: numberOfSessionsData,
+        labels: numberOfSessionsDataVac,
         datasets: [{
             label: 'VAC value',
             backgroundColor: gradient,
@@ -3536,7 +3628,7 @@ function analyzeSession() {
     };
 
     dataRecall = {
-        labels: numberOfSessionsData,
+        labels: numberOfSessionsDataRecall,
         datasets: [{
             label: 'Recall value',
             backgroundColor: gradient,
@@ -3847,7 +3939,6 @@ function endSessionComplete() {
 
 function endSession() {
 
-    chartsDisplayedCount = 0;
     yourCurrentSession = 1;
 
     //Reset tracking progress 
@@ -3856,7 +3947,14 @@ function endSession() {
     vacProgress = [];
     recallProgress = [];
     descriptionProgress = [];
+
     numberOfSessionsData = [];
+    numberOfSessionsDataRecall = [];
+    numberOfSessionsDataMood = [];
+    numberOfSessionsDataSuds = [];
+    numberOfSessionsDataVac = [];
+
+
     sessionSettingsShown = true;
 
     document.getElementById("client-name-box").innerHTML = "";
