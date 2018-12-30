@@ -3480,36 +3480,69 @@ function analyzeSession() {
     document.getElementById("analysis-vac-results").className = "hide-analysis";
 
 
-    //Must also check that the array length is greater than 0 
-
-    if (selectedMood == "yes" && selectedRecall == "yes") {
-
+    if (selectedMood == "yes") {
         calculateSessionCount(moodProgress, "mood");
         convertToInt(moodProgress);
+    }
 
+    if (selectedRecall == "yes") {
         calculateSessionCount(recallProgress, "recall");
         convertToInt(recallProgress);
+    }
 
+    if (selectedSUDS == "yes") {
+        calculateSessionCount(sudsProgress, "suds");
+        convertToInt(sudsProgress);
+    }
+
+    if (selectedVAC == "yes") {
+        calculateSessionCount(vacProgress, "vac");
+        convertToInt(vacProgress);
+    }
+
+    console.log(numberOfSessionsDataMood.length);
+
+    /*
+        Cases: 
+        - Both active and greater than zero 
+        - Mood active, but less than zero 
+        - Recall active, but less than zero 
+        - None active 
+        - Mood active, greater than zero
+        - Recall active, greater than zero 
+    */
+
+    //Case where mood and recall are both active and greater than 0
+    if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
         document.getElementById("analysis-mood-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
         document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
 
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
-    else if (selectedMood == "yes" && selectedRecall != "yes") {
+    else if ((selectedMood == "yes") && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
+        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-recall-results").className = "col col-12 margin-top-large visible";
 
-        calculateSessionCount(moodProgress, "mood");
-        convertToInt(moodProgress);
+        document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
+    }
+    //Case where mood is active and greater than zero, recall is less than zero 
+    else if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes") && numberOfSessionsDataRecall.length <= 0) {
+        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+
+        document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
+    }
+    //Case where mood is active and greater than zero, recall is disabled
+    else if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall != "yes")) {
 
         document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large visible";
         document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
     }
-    else if (selectedMood != "yes" && selectedRecall == "yes") {
-
-        calculateSessionCount(recallProgress, "recall");
-        convertToInt(recallProgress);
+    //Case where recall is active and greater than zero
+    else if ((selectedMood != "yes") && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
 
         document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large hide-analysis";
         document.getElementById("analysis-recall-results").className = "col col-12 margin-top-large visible";
@@ -3517,36 +3550,40 @@ function analyzeSession() {
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
 
-    if (selectedSUDS == "yes" && selectedVAC == "yes") {
 
-        calculateSessionCount(sudsProgress, "suds");
-        convertToInt(sudsProgress);
-
-        calculateSessionCount(vacProgress, "vac");
-        convertToInt(vacProgress);
-
+    //Case where mood and recall are both active and greater than 0
+    if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
         document.getElementById("analysis-suds-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
         document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
 
         document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
-    else if (selectedSUDS == "yes" && selectedVAC != "yes") {
+    else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length <= 0) && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
+        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-vac-results").className = "col col-12 margin-top-large visible";
 
-        calculateSessionCount(sudsProgress, "suds");
-        convertToInt(sudsProgress);
-
+        document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
+    }
+    //Case where mood is active and greater than zero, recall is less than zero 
+    else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC == "yes") && numberOfSessionsDataVac.length <= 0) {
         document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large visible";
-        document.getElementById("analysis-vac-results").className = "hide-analysis";
+        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
     }
-    else if (selectedSUDS != "yes" && selectedVAC == "yes") {
+    //Case where mood is active and greater than zero, recall is disabled
+    else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC != "yes")) {
 
-        calculateSessionCount(vacProgress, "vac");
-        convertToInt(vacProgress);
+        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
-        document.getElementById("analysis-suds-results").className = "hide-analysis";
+        document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
+    }
+    //Case where recall is active and greater than zero
+    else if ((selectedSUDS != "yes") && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
+
+        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large hide-analysis";
         document.getElementById("analysis-vac-results").className = "col col-12 margin-top-large visible";
 
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
@@ -3562,10 +3599,6 @@ function analyzeSession() {
     }
 
     sessionFinished = "yes";
-
-    //Number of sessions data is only being calculated for mood, must be calculated and properly inputted for each active chart
-    //calculateSessionCount(moodProgress, "mood");
-    //convertToInt(moodProgress);
 
     ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
