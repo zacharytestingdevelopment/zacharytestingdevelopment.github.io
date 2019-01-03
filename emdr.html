@@ -89,6 +89,38 @@
             </div>
         </div>
 
+        <div id="pauseSession" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header-element">Session paused</div>
+                    <div class="therapy-over-box-subheader text-center">You can exit to edit your settings.</div>
+
+                    <div class="modal-body">
+                        You can <span data-dismiss="modal" onclick="analyzeFromPause()" class="link-style">click here</span>
+                        to analyze the
+                        results of the session so
+                        far, or exit/resume the session by
+                        clicking the buttons below.
+                        <div>
+                            <label class="margin-top form-check-label no-select" for="therapyCheckPause">
+                                Save therapy results on exit
+                            </label>
+                            <input class="form-check-input position-check" type="checkbox" value="" id="therapyCheckPause"
+                                checked>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <span class="close-button no-select" onclick="saveTherapyResults('paused')" data-dismiss="modal">End
+                            Session</span>
+                        <span class="save-changes-button no-select" data-dismiss="modal" onclick="resumeSession()">RESUME
+                            SESSION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="nextSession" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -116,9 +148,20 @@
 
                         <textarea id="next-set-description" maxlength="300" id="session-input-description" placeholder="How are you feeling?"
                             class="text-input textarea margin-top"></textarea>
+
+
+
                     </div>
+                    <div class="position-therapy-check">
+                        <label class="form-check-label no-select" for="sessionCheck">
+                            Save therapy results on exit
+                        </label>
+                        <input class="form-check-input position-check" type="checkbox" value="" id="sessionCheck"
+                            checked>
+                    </div>
+
                     <div class="modal-footer">
-                        <span class="close-button no-select" data-dismiss="modal" onclick="endSessionComplete()">End
+                        <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('ending')">End
                             Therapy</span>
                         <span class="save-changes-button no-select" onclick="nextSession()">NEXT SESSION</span>
                     </div>
@@ -824,10 +867,9 @@
 
         </span>
 
-
-        <div id="analysis-overall-results" class="col col-12 col-centered expand-analyze-section-mobile">
+        <div class="col col-12 col-centered expand-analyze-section-mobile">
             <div class="row col-centered almost-full-width expand-analyze-section-mobile">
-                <div class="col col-12 margin-top-medium">
+                <div id="analysis-overall-results" class="col col-12 margin-top-medium">
                     <div class="analyze-box-section shadow">
                         <div class="analyze-box-section-header">Your results</div>
                         <div class="analyze-box-section-subheader">Average mood: <span id="average-x">3</span></div>
