@@ -5,12 +5,12 @@
 // - Allow users to edit session names + descriptions (COMPLETED)
 // - Update loaded set text (COMPLETED)
 // - When you delete the active set, active set text resets and activeSet = "none" (COMPLETED)
-// - Add a new switch direction sound player for the preview, it doesnt seem to keep playing when you leave a session 
-// - On a scale of 1-10, how well are you able to access this memory now 
-// - Instead of instantiating charts based on what categories are enabled, can you just hide the ones that are disabled? 
+// - Add a new switch direction sound player for the preview, it doesnt seem to keep playing when you leave a session (COMPLETED)
+// - On a scale of 1-10, how well are you able to access this memory now (COMPLETED)
+// - Make sure that the EMDR element doesn't reappear if the user is going to the next session or the therapy is over
 
 var mainElement;
-
+var timeSet;
 
 /*
 var moodProgressData = [];
@@ -104,7 +104,9 @@ speedSlider.oninput = function () {
 }
 
 function resizeEMDR() {
+
     if (paused != "yes") {
+        //console.log("RESIZE IT!");
         updatePreview();
         spawnVisuals();
     }
@@ -1976,8 +1978,6 @@ function spawnVisuals() {
         spawnTherapy += "<div id=\"alternate-main\" class=\"vertical-center alternate-main\">";
         spawnTherapy += "            <div id=\"emdr-element-main\" class=\"emdr-element el element-duration circle\"><\/div>";
         spawnTherapy += "        <\/div></span>";
-
-
     }
     else if (pathing == "topbottom") {
         var spawnTherapy = "<span class = \"animated fadeIn\">";
@@ -2327,7 +2327,7 @@ function pauseSession() {
 
         clearInterval(sessionActive);
         clearInterval(switchDirectionSoundPlayer);
-        console.log("SECONDS PAUSED ON: " + seconds);
+
     }
     else {
         paused = "no";
@@ -2366,8 +2366,6 @@ function loadThemeSelection() {
 
 function loadBackgroundSounds() {
 
-
-
     if (switchBackgroundSound == "no") {
 
         $("#background-sound-load").removeClass("hidden");
@@ -2392,41 +2390,6 @@ function loadBackgroundSounds() {
 
         document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
     }
-
-    /*
-    if (switch(BackgroundSound) == "no") {
-        var switchDirection = "";
-        switchDirection += " <span class=\"animated fadeIn\">";
-        switchDirection += "                                        <div id=\"beep\" class=\"preset-item no-select inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('beep')\">Beep<\/div>";
-        switchDirection += "                                        <div id=\"whoosh\" class=\"preset-item no-select margin-left-right inline-block\"";
-        switchDirection += "                                            onclick=\"switchDirection('whoosh')\">Whoosh<\/div>";
-        switchDirection += "                                        <div id=\"bang\" class=\"preset-item no-select inline-block\" onclick=\"switchDirection('bang')\">Bang<\/div>";
-        switchDirection += "                                    <\/span>";
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-
-        document.getElementById("background-sound-load").innerHTML = switchDirection;
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-        switchBackgroundSound = "yes";
-    }
-    else {
-
-        var loadMoreText = "";
-        loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
-        loadMoreText += "                                    <\/span>";
-
-        document.getElementById("background-sound-load").innerHTML = ""
-        document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
-
-        switchBackgroundSound = "no";
-    }
-    */
 }
 
 function loadSwitchDirection() {
@@ -2605,7 +2568,7 @@ function startNextSession() {
 
         $('#therapyOver').modal({
             backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
+            keyboard: false
         })
 
     }
@@ -2790,18 +2753,18 @@ function saveTherapyResults(type) {
                 descriptionProgress.push("empty");
             }
 
-
             var d = new Date();
             var user = firebase.auth().currentUser;
             var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
 
 
-            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
                 setMoodResults: moodProgress,
@@ -2824,11 +2787,12 @@ function saveTherapyResults(type) {
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
 
 
-            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
                 setMoodResults: moodProgress,
@@ -2908,11 +2872,12 @@ function saveTherapyResults(type) {
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
 
 
-            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + d.getTime()).set({
+            firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
                 setMoodResults: moodProgress,
@@ -2947,7 +2912,6 @@ function nextSession() {
         else {
             moodProgress.push("empty");
         }
-        console.log("mood progress: " + moodProgress);
     }
 
     if (selectedSUDS != "no") {
@@ -2978,7 +2942,6 @@ function nextSession() {
         else {
             recallProgress.push("empty");
         }
-        console.log("recall progress: " + recallProgress);
     }
 
     var descriptionSave = document.getElementById("next-set-description").value;
@@ -3003,7 +2966,6 @@ function nextSession() {
 
     sessionActive = setInterval(function () {
         seconds++;
-        console.log("Seconds elapsed: " + seconds);
         if (seconds >= sessionLength) {
             yourCurrentSession++;
             if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
@@ -3024,7 +2986,6 @@ function resumeSession() {
 
     sessionActive = setInterval(function () {
         seconds++;
-        console.log("Seconds elapsed: " + seconds);
         if (seconds >= sessionLength) {
             yourCurrentSession++;
             if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
@@ -3059,9 +3020,6 @@ function transferSettings() {
     document.getElementById("therapy-main-box").className = "animated fadeIn";
     document.getElementById("therapy-main-box").innerHTML = spawnTherapy;
 
-
-
-
     if (selectedshape == "circle") {
         document.getElementById("emdr-element-main").className = "emdr-element el element-duration circle";
     }
@@ -3077,10 +3035,6 @@ function transferSettings() {
 
     document.getElementById("emdr-element-main").style.background = document.getElementById("element").style.backgroundColor;
 
-
-
-    console.log(pathing);
-
     var destination;
     if (pathing == "leftright") {
         destination = document.getElementById("emdr-box").offsetWidth - 175;
@@ -3095,7 +3049,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 3100);
         }
@@ -3110,7 +3064,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 2160);
         }
@@ -3126,7 +3080,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -3141,7 +3095,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1000);
         }
@@ -3198,7 +3152,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 520);
         }
@@ -3213,7 +3167,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 400);
         }
@@ -3228,7 +3182,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                //console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 320);
         }
@@ -3249,7 +3203,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 3100);
         }
@@ -3264,7 +3218,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 2160);
         }
@@ -3280,7 +3234,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1340);
         }
@@ -3295,7 +3249,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 1000);
         }
@@ -3352,7 +3306,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 520);
         }
@@ -3367,7 +3321,7 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 400);
         }
@@ -3382,11 +3336,41 @@ function transferSettings() {
             });
 
             switchDirectionSoundPlayer = window.setInterval(function () {
-                console.log(switchDirectionSound);
+
                 switchDirectionSoundPlay();
             }, 320);
         }
     }
+}
+
+function convertToIntAll(array) {
+
+    console.log("ARRAY COMING IN: " + array);
+    var arrayLength = array.length;
+    //var lastNum = array[0];
+
+    for (var i = 0; i < arrayLength; i++) {
+        if (array[i] == "empty") {
+            array[i] = null;
+        }
+    }
+    console.log("ARRAY COMING OUT: " + array);
+    return array;
+
+
+    /*
+    for (var i = 0; i < arrayLength; i++) {
+        if (array[i] == "empty") {
+            array[i] = lastNum;
+        }
+        else {
+            lastNum = array[i];
+        }
+        *
+    }
+    */
+
+
 }
 
 function convertToInt(array) {
@@ -3406,36 +3390,33 @@ function calculateAverageScore(scoreToAverage) {
     var arrayLength = scoreToAverage.length;
     var average = 0;
 
-    console.log("SCURR: " + scoreToAverage);
+
     if (arrayLength > 2) {
-        console.log("ARRAY IS BIGGER THAN ONE");
 
         for (var i = 0, len = scoreToAverage.length; i < len; i++) {
             if (scoreToAverage[i] != "empty") {
-                console.log("Y: " + scoreToAverage[i]);
+
                 average += parseFloat(scoreToAverage[i]);
             }
             else {
-                console.log("Remove a value");
+
                 arrayLength--;
             }
 
         }
     }
     else {
-        console.log("ARRAY IS ONE");
         for (var i = 0; i < arrayLength; i++) {
             if (scoreToAverage[i] != "empty") {
                 average += parseFloat(scoreToAverage[i]);
-                console.log("XX: " + average);
+
             }
             else {
                 arrayLength--;
             }
         }
     }
-    console.log("final average: " + average);
-    console.log("length: " + arrayLength);
+
     return parseFloat((average / arrayLength).toFixed(2));
 
 }
@@ -3477,7 +3458,7 @@ function changeChart(chart) {
     }
     else if (chart == "bar2") {
 
-        console.log("bar2");
+
 
         $("#lineChart2").removeClass("analyze-box-section-choice-selected");
         $("#barChart2").addClass("analyze-box-section-choice-selected");
@@ -3559,8 +3540,8 @@ function changeChart(chart) {
 
 function calculateSessionCount(array, type) {
     if (type == "mood") {
-        console.log("M O O D");
-        for (var i = 0; i <= numberOfSessions; i++) {
+
+        for (var i = 0; i <= yourCurrentSession; i++) {
             if (array[i] != "empty") {
                 if (i == 0) {
                     numberOfSessionsDataMood.push("Initial");
@@ -3572,8 +3553,8 @@ function calculateSessionCount(array, type) {
         }
     }
     else if (type == "recall") {
-        console.log("R E C A L L ");
-        for (var i = 0; i <= numberOfSessions; i++) {
+
+        for (var i = 0; i <= yourCurrentSession; i++) {
             if (array[i] != "empty") {
                 if (i == 0) {
                     numberOfSessionsDataRecall.push("Initial");
@@ -3585,7 +3566,7 @@ function calculateSessionCount(array, type) {
         }
     }
     else if (type == "suds") {
-        for (var i = 0; i <= numberOfSessions; i++) {
+        for (var i = 0; i <= yourCurrentSession; i++) {
             if (array[i] != "empty") {
                 if (i == 0) {
                     numberOfSessionsDataSuds.push("Initial");
@@ -3597,7 +3578,7 @@ function calculateSessionCount(array, type) {
         }
     }
     else if (type == "vac") {
-        for (var i = 0; i <= numberOfSessions; i++) {
+        for (var i = 0; i <= yourCurrentSession; i++) {
             if (array[i] != "empty") {
                 if (i == 0) {
                     numberOfSessionsDataVac.push("Initial");
@@ -3611,14 +3592,18 @@ function calculateSessionCount(array, type) {
 }
 
 function analyzeFromPause() {
+    saveTherapyResults("paused");
+    //pauseSession();
     analyzeSession();
 }
 
 function longestData(array1, array2, array3, array4) {
-    var max = Math.max(array1.length, array2.length, array3.length, array4.length);
-    console.log("M A X: " + max);
 
-    for (i = 0; i <= max; i++) {
+    console.log("first array" + array1);
+    var max = Math.max(array1.length, array2.length, array3.length, array4.length);
+    //console.log("M A X: " + max);
+
+    for (i = 0; i < max; i++) {
         if (i == 0) {
             longestDataInstance.push("Initial");
         }
@@ -3626,12 +3611,13 @@ function longestData(array1, array2, array3, array4) {
             longestDataInstance.push(i);
         }
     }
-    console.log("Longest data: " + longestDataInstance);
 }
 
 function analyzeSession() {
 
-    console.log("SESSIONS COMPLETED: " + yourCurrentSession);
+    yourCurrentSession--;
+
+    var numberOfCharts = 0;
 
     document.getElementById("analysis-mood-results").className = "hide-analysis";
     document.getElementById("analysis-recall-results").className = "hide-analysis";
@@ -3642,24 +3628,28 @@ function analyzeSession() {
     if (selectedMood == "yes") {
         calculateSessionCount(moodProgress, "mood");
         convertToInt(moodProgress);
+        numberOfCharts++;
     }
 
     if (selectedRecall == "yes") {
         calculateSessionCount(recallProgress, "recall");
         convertToInt(recallProgress);
+        numberOfCharts++;
     }
 
     if (selectedSUDS == "yes") {
         calculateSessionCount(sudsProgress, "suds");
         convertToInt(sudsProgress);
+        numberOfCharts++;
     }
 
     if (selectedVAC == "yes") {
         calculateSessionCount(vacProgress, "vac");
         convertToInt(vacProgress);
+        numberOfCharts++;
     }
 
-    longestData(numberOfSessionsDataMood, numberOfSessionsDataRecall, numberOfSessionsDataSuds, numberOfSessionsDataVac);
+    longestData(convertToInt(numberOfSessionsDataMood), convertToInt(numberOfSessionsDataRecall), convertToInt(numberOfSessionsDataSuds), convertToInt(numberOfSessionsDataVac));
 
     if ((selectedMood != "yes" && selectedRecall != "yes" && selectedSUDS != "yes" && selectedVAC != "yes") || (numberOfSessionsDataMood.length <= 0 && numberOfSessionsDataRecall.length <= 0) && numberOfSessionsDataSuds.length <= 0 && numberOfSessionsDataVac.length <= 0) {
         document.getElementById("analysis-overall-results").className = "hide-analysis";
@@ -3705,7 +3695,6 @@ function analyzeSession() {
 
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
-
 
     //Case where mood and recall are both active and greater than 0
     if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
@@ -3778,49 +3767,55 @@ function analyzeSession() {
     dataAll = {
         labels: longestDataInstance,
         datasets: [{
-            label: 'Mood value',
-            backgroundColor: "transparent",
-            fill: false,
+            label: 'VAC value',
+            backgroundColor: gradient,
             hoverBackgroundColor: "#4257b2",
             pointBackgroundColor: '#4257b2',
             borderWidth: 3,
             borderColor: '#4257b2',
-            data: convertToInt(moodProgress)
+            data: convertToIntAll(moodProgress)
+        }]
+
+        /*
+        datasets: [{
+            label: 'Mood value',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
+            borderWidth: 3,
+            borderColor: '#4257b2',
+            data: convertToIntAll(moodProgress)
         },
         {
             label: 'SUDS value',
-            backgroundColor: "transparent",
-            fill: false,
-            hoverBackgroundColor: "#B24242",
-            pointBackgroundColor: '#B24242',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
             borderWidth: 3,
-            borderColor: '#B24242',
-            data: convertToInt(sudsProgress)
+            borderColor: '#4257b2',
+            data: convertToIntAll(sudsProgress)
         },
         {
             label: 'VAC value',
-            backgroundColor: "transparent",
-            fill: false,
-            hoverBackgroundColor: "#42B24A",
-            pointBackgroundColor: '#42B24A',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
             borderWidth: 3,
-            borderColor: '#42B24A',
-            data: convertToInt(vacProgress)
+            borderColor: '#4257b2',
+            data: convertToIntAll(vacProgress)
         },
         {
             label: 'Recall value',
-            backgroundColor: "transparent",
-            fill: false,
-            hoverBackgroundColor: "#9F42B2",
-            pointBackgroundColor: '#9F42B2',
+            backgroundColor: gradient,
+            hoverBackgroundColor: "#4257b2",
+            pointBackgroundColor: '#4257b2',
             borderWidth: 3,
-            borderColor: '#9F42B2',
-            data: convertToInt(recallProgress)
+            borderColor: '#4257b2',
+            data: convertToIntAll(recallProgress)
         }
-
-
-        ]
+        ]*/
     };
+
 
     dataMood = {
         labels: numberOfSessionsDataMood,
@@ -4064,6 +4059,12 @@ function analyzeSession() {
     changeChart("line4");
     changeChart("line5");
 
+    if (numberOfCharts <= 1) {
+
+        document.getElementById("analysis-overall-results").className = "col col-12 margin-top-medium hide-analysis";
+        //chartInstance1.destroy();
+    }
+
     var instructions = "";
     instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
     instructions += "            RESULTS<\/div>";
@@ -4076,6 +4077,65 @@ function analyzeSession() {
     //endSessionComplete();
     $('#therapyOver').modal('hide');
     setTimeout(function () { hideMobileNav(); }, 320);
+
+    spawnNotes();
+}
+
+function settingDropdownNotes(dropChoice) {
+
+    if (document.getElementById("analyzeArrow" + dropChoice).classList.contains("arrow-down")) {
+        $("#analyzeArrow" + dropChoice).removeClass("arrow-down");
+        $("#analyzeArrow" + dropChoice).addClass("arrow-up");
+    }
+    else {
+        $("#analyzeArrow" + dropChoice).removeClass("arrow-up");
+        $("#analyzeArrow" + dropChoice).addClass("arrow-down");
+    }
+}
+
+function spawnNotes() {
+
+    var user = firebase.auth().currentUser;
+    var descriptionArray;
+    var notesCount = 0;
+
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + timeSet);
+
+    desc.once('value', function (snapshot) {
+        descriptionArray = snapshot.val().setDescriptionProgress;
+    });
+
+    for (i = 0; i < descriptionArray.length; i++) {
+
+        if (descriptionArray[i] != "empty") {
+            var sessionNumberDisplay = parseInt(i);
+            sessionNumberDisplay++;
+
+            var notesBox = "";
+            notesBox += "<div class=\"col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile\">";
+            notesBox += "                            <a class=\"kill-link-style toggle-element no-select\" data-toggle=\"collapse\" href=\"#analyze" + i + "\"";
+            notesBox += "                                role=\"button\" aria-expanded=\"false\" aria-controls=\"analyze1\" onclick='settingDropdownNotes(\"" + i + "\");'\">";
+            notesBox += "                                <div class=\"margin-top section-card-header-analyze\">Session " + sessionNumberDisplay;
+            notesBox += "                                    <ion-icon id=\"analyzeArrow" + i + "\" class=\"collapse-arrow highlight-color-blue arrow-down\"";
+            notesBox += "                                        name=\"arrow-dropup\"><\/ion-icon>";
+            notesBox += "                                <\/div>";
+            notesBox += "                            <\/a>";
+            notesBox += "                            <div id=\"analyze" + i + "\" class=\"collapse multi-collapse\">";
+            notesBox += "                                <div class=\"section-card blue-card animated fadeIn\">";
+            notesBox += "                                    <div class=\"white padding-analyze\">" + descriptionArray[i];
+            notesBox += "                                    <\/div>";
+            notesBox += "                                <\/div>";
+            notesBox += "                            <\/div>";
+            notesBox += "                        <\/div>";
+
+            notesCount++;
+            document.getElementById("notesBox").innerHTML += notesBox;
+        }
+    }
+
+    if (notesCount == 0) {
+        document.getElementById("notesSub").innerHTML = "You didn't take any notes during this therapy session."
+    }
 }
 
 function loadInstructions() {
@@ -4088,6 +4148,9 @@ function closeAnalyze() {
     endSessionComplete();
     $("#results-box").removeClass("emdr-box-active");
     $("#results-box").animate({ scrollTop: 0 }, "fast");
+
+    document.getElementById("notesBox").innerHTML = "";
+    document.getElementById("notesSub").innerHTML = "Here's what you wrote during the therapy";
 
     showMobileNav();
 }
