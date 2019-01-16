@@ -38,6 +38,13 @@ var sudsProgress = [];
 var vacProgress = [];
 var recallProgress = [];
 var descriptionProgress = [];
+
+var moodProgressAll = [];
+var sudsProgressAll = [];
+var vacProgressAll = [];
+var recallProgressAll = [];
+
+
 var switchDirectionSoundPlayer;
 
 var switchDirectionExtra = "no";
@@ -2309,6 +2316,12 @@ function spawnVisuals() {
     }
 }
 
+function viewSessionDetails() {
+    $('#sessionDetails').modal({
+        keyboard: true  // to prevent closing with Esc button (if you want this too)
+    })
+}
+
 function pauseSession() {
 
     if (paused == "no") {
@@ -2601,7 +2614,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("mood-initial").value < 1) {
-            document.getElementById("mood-initial").value = 1;
+            document.getElementById("mood-initial").value = 5;
         }
     }
     else if (valueCheck == "suds") {
@@ -2610,7 +2623,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("suds-initial").value < 1) {
-            document.getElementById("suds-initial").value = 1;
+            document.getElementById("suds-initial").value = 5;
         }
     }
     else if (valueCheck == "vac") {
@@ -2619,7 +2632,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("vac-initial").value < 1) {
-            document.getElementById("vac-initial").value = 1;
+            document.getElementById("vac-initial").value = 4;
         }
     }
     else if (valueCheck == "sessionMood") {
@@ -2628,7 +2641,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("mood-session-value").value < 1) {
-            document.getElementById("mood-session-value").value = 1;
+            document.getElementById("mood-session-value").value = 5;
         }
     }
     else if (valueCheck == "sessionSUDS") {
@@ -2637,7 +2650,16 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("suds-session-value").value < 1) {
-            document.getElementById("suds-session-value").value = 1;
+            document.getElementById("suds-session-value").value = 5;
+        }
+    }
+    else if (valueCheck == "therapyRecall") {
+        if (document.getElementById("recall-therapy-value").value > 10) {
+            document.getElementById("recall-therapy-value").value = 10;
+        }
+
+        if (document.getElementById("recall-therapy-value").value < 1) {
+            document.getElementById("recall-therapy-value").value = 5;
         }
     }
     else if (valueCheck == "sessionVAC") {
@@ -2646,7 +2668,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("vac-session-value").value < 1) {
-            document.getElementById("vac-session-value").value = 1;
+            document.getElementById("vac-session-value").value = 4;
         }
     }
     else if (valueCheck == "therapyMood") {
@@ -2655,7 +2677,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("mood-therapy-value").value < 1) {
-            document.getElementById("mood-therapy-value").value = 1;
+            document.getElementById("mood-therapy-value").value = 5;
         }
     }
     else if (valueCheck == "therapySUDS") {
@@ -2664,7 +2686,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("suds-therapy-value").value < 1) {
-            document.getElementById("suds-therapy-value").value = 1;
+            document.getElementById("suds-therapy-value").value = 5;
         }
     }
     else if (valueCheck == "therapyVAC") {
@@ -2673,7 +2695,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("vac-therapy-value").value < 1) {
-            document.getElementById("vac-therapy-value").value = 1;
+            document.getElementById("vac-therapy-value").value = 4;
         }
     }
     else if (valueCheck == "recall") {
@@ -2682,7 +2704,7 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("recall-initial").value < 1) {
-            document.getElementById("recall-initial").value = 1;
+            document.getElementById("recall-initial").value = 5;
         }
     }
     else if (valueCheck == "sessionRecall") {
@@ -2691,14 +2713,15 @@ function valueCheck(valueCheck) {
         }
 
         if (document.getElementById("recall-session-value").value < 1) {
-            document.getElementById("recall-session-value").value = 1;
+            document.getElementById("recall-session-value").value = 5;
         }
     }
 }
 
 function saveTherapyResults(type) {
 
-    if (type != "paused" && type != "ending") {
+    if (type != "paused" && type != "ending" && type != "pausedClose") {
+        console.log("WOOOOOOOOOO");
         if (document.getElementById("therapyCheck").checked) {
 
             if (selectedMood != "no") {
@@ -2777,7 +2800,8 @@ function saveTherapyResults(type) {
         }
     }
 
-    if (type == "paused") {
+
+    if (type == "paused" || type == "pausedClose") {
 
         if (document.getElementById("therapyCheckPause").checked) {
 
@@ -2805,7 +2829,9 @@ function saveTherapyResults(type) {
         }
 
         pauseSession();
-        endSessionComplete();
+        if (type == "pausedClose") {
+            endSessionComplete();
+        }
     }
 
     if (type == "ending") {
@@ -3351,7 +3377,7 @@ function convertToIntAll(array) {
 
     for (var i = 0; i < arrayLength; i++) {
         if (array[i] == "empty") {
-            array[i] = null;
+            array[i] = 0;
         }
     }
     console.log("ARRAY COMING OUT: " + array);
@@ -3389,17 +3415,17 @@ function convertToInt(array) {
 function calculateAverageScore(scoreToAverage) {
     var arrayLength = scoreToAverage.length;
     var average = 0;
+    var numOfValues = 0;
 
 
     if (arrayLength > 2) {
 
         for (var i = 0, len = scoreToAverage.length; i < len; i++) {
             if (scoreToAverage[i] != "empty") {
-
                 average += parseFloat(scoreToAverage[i]);
+                numOfValues++;
             }
             else {
-
                 arrayLength--;
             }
 
@@ -3409,7 +3435,7 @@ function calculateAverageScore(scoreToAverage) {
         for (var i = 0; i < arrayLength; i++) {
             if (scoreToAverage[i] != "empty") {
                 average += parseFloat(scoreToAverage[i]);
-
+                numOfValues++;
             }
             else {
                 arrayLength--;
@@ -3417,8 +3443,14 @@ function calculateAverageScore(scoreToAverage) {
         }
     }
 
-    return parseFloat((average / arrayLength).toFixed(2));
-
+    console.log("Number: " + numOfValues);
+    if (numOfValues != 1) {
+        return parseFloat((average / arrayLength).toFixed(2));
+    }
+    else {
+        console.log(average);
+        return average;
+    }
 }
 
 function changeChart(chart) {
@@ -3592,8 +3624,8 @@ function calculateSessionCount(array, type) {
 }
 
 function analyzeFromPause() {
+    console.log("Paused: " + moodProgress);
     saveTherapyResults("paused");
-    //pauseSession();
     analyzeSession();
 }
 
@@ -3613,11 +3645,19 @@ function longestData(array1, array2, array3, array4) {
     }
 }
 
+function equalize(array, category) {
+    if (category == "mood") {
+        for (var i = 0; i < array.length; i++) {
+            moodProgressAll.push(array[i]);
+        }
+    }
+}
+
 function analyzeSession() {
 
-    yourCurrentSession--;
+    console.log("MOOD: " + moodProgress);
 
-    var numberOfCharts = 0;
+    yourCurrentSession--;
 
     document.getElementById("analysis-mood-results").className = "hide-analysis";
     document.getElementById("analysis-recall-results").className = "hide-analysis";
@@ -3628,35 +3668,34 @@ function analyzeSession() {
     if (selectedMood == "yes") {
         calculateSessionCount(moodProgress, "mood");
         convertToInt(moodProgress);
-        numberOfCharts++;
     }
 
     if (selectedRecall == "yes") {
         calculateSessionCount(recallProgress, "recall");
         convertToInt(recallProgress);
-        numberOfCharts++;
     }
 
     if (selectedSUDS == "yes") {
         calculateSessionCount(sudsProgress, "suds");
         convertToInt(sudsProgress);
-        numberOfCharts++;
     }
 
     if (selectedVAC == "yes") {
         calculateSessionCount(vacProgress, "vac");
         convertToInt(vacProgress);
-        numberOfCharts++;
     }
+
 
     longestData(convertToInt(numberOfSessionsDataMood), convertToInt(numberOfSessionsDataRecall), convertToInt(numberOfSessionsDataSuds), convertToInt(numberOfSessionsDataVac));
 
+    /*
     if ((selectedMood != "yes" && selectedRecall != "yes" && selectedSUDS != "yes" && selectedVAC != "yes") || (numberOfSessionsDataMood.length <= 0 && numberOfSessionsDataRecall.length <= 0) && numberOfSessionsDataSuds.length <= 0 && numberOfSessionsDataVac.length <= 0) {
         document.getElementById("analysis-overall-results").className = "hide-analysis";
     }
     else {
         document.getElementById("analysis-overall-results").className = "col col-12 margin-top-medium";
     }
+    */
 
     //Case where mood and recall are both active and greater than 0
     if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
@@ -3745,25 +3784,28 @@ function analyzeSession() {
 
     sessionFinished = "yes";
 
+    /*
     ctx = document.getElementById('myChart').getContext('2d'),
         gradient = ctx.createLinearGradient(0, 0, 0, 450);
-
+*/
     ctx2 = document.getElementById('myChart2').getContext('2d'),
-        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
     ctx3 = document.getElementById('myChart3').getContext('2d'),
-        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
     ctx4 = document.getElementById('myChart4').getContext('2d'),
-        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
     ctx5 = document.getElementById('myChart5').getContext('2d'),
-        gradient = ctx.createLinearGradient(0, 0, 0, 450);
+        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
     gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
     gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
     gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
 
+    /*
+    console.log("Mood progress all: " + moodProgressAll);
     dataAll = {
         labels: longestDataInstance,
         datasets: [{
@@ -3773,48 +3815,10 @@ function analyzeSession() {
             pointBackgroundColor: '#4257b2',
             borderWidth: 3,
             borderColor: '#4257b2',
-            data: convertToIntAll(moodProgress)
+            data: convertToIntAll(moodProgressAll)
         }]
-
-        /*
-        datasets: [{
-            label: 'Mood value',
-            backgroundColor: gradient,
-            hoverBackgroundColor: "#4257b2",
-            pointBackgroundColor: '#4257b2',
-            borderWidth: 3,
-            borderColor: '#4257b2',
-            data: convertToIntAll(moodProgress)
-        },
-        {
-            label: 'SUDS value',
-            backgroundColor: gradient,
-            hoverBackgroundColor: "#4257b2",
-            pointBackgroundColor: '#4257b2',
-            borderWidth: 3,
-            borderColor: '#4257b2',
-            data: convertToIntAll(sudsProgress)
-        },
-        {
-            label: 'VAC value',
-            backgroundColor: gradient,
-            hoverBackgroundColor: "#4257b2",
-            pointBackgroundColor: '#4257b2',
-            borderWidth: 3,
-            borderColor: '#4257b2',
-            data: convertToIntAll(vacProgress)
-        },
-        {
-            label: 'Recall value',
-            backgroundColor: gradient,
-            hoverBackgroundColor: "#4257b2",
-            pointBackgroundColor: '#4257b2',
-            borderWidth: 3,
-            borderColor: '#4257b2',
-            data: convertToIntAll(recallProgress)
-        }
-        ]*/
     };
+    */
 
 
     dataMood = {
@@ -4023,11 +4027,13 @@ function analyzeSession() {
         }
     };
 
+    /*
     chartInstance1 = new Chart(ctx, {
         type: 'line',
         data: dataAll,
         options: optionsMain
     });
+    */
 
     chartInstance2 = new Chart(ctx2, {
         type: 'line',
@@ -4053,17 +4059,19 @@ function analyzeSession() {
         options: optionsMain
     });
 
+    /*
     changeChart("line1");
     changeChart("line2");
+    */
     changeChart("line3");
     changeChart("line4");
     changeChart("line5");
 
+    /*
     if (numberOfCharts <= 1) {
-
         document.getElementById("analysis-overall-results").className = "col col-12 margin-top-medium hide-analysis";
-        //chartInstance1.destroy();
     }
+    */
 
     var instructions = "";
     instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
@@ -4072,7 +4080,9 @@ function analyzeSession() {
     document.getElementById("instructions-box-header-animate").innerHTML = instructions;
 
 
-    document.getElementById("analysis-set").innerHTML = activeSetText;
+    //document.getElementById("analysis-set").innerHTML = activeSetText;
+
+
     $("#results-box").addClass("emdr-box-active");
     //endSessionComplete();
     $('#therapyOver').modal('hide');
@@ -4105,31 +4115,33 @@ function spawnNotes() {
         descriptionArray = snapshot.val().setDescriptionProgress;
     });
 
-    for (i = 0; i < descriptionArray.length; i++) {
+    if (descriptionArray != null) {
+        for (i = 0; i < descriptionArray.length; i++) {
 
-        if (descriptionArray[i] != "empty") {
-            var sessionNumberDisplay = parseInt(i);
-            sessionNumberDisplay++;
+            if (descriptionArray[i] != "empty") {
+                var sessionNumberDisplay = parseInt(i);
+                sessionNumberDisplay++;
 
-            var notesBox = "";
-            notesBox += "<div class=\"col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile\">";
-            notesBox += "                            <a class=\"kill-link-style toggle-element no-select\" data-toggle=\"collapse\" href=\"#analyze" + i + "\"";
-            notesBox += "                                role=\"button\" aria-expanded=\"false\" aria-controls=\"analyze1\" onclick='settingDropdownNotes(\"" + i + "\");'\">";
-            notesBox += "                                <div class=\"margin-top section-card-header-analyze\">Session " + sessionNumberDisplay;
-            notesBox += "                                    <ion-icon id=\"analyzeArrow" + i + "\" class=\"collapse-arrow highlight-color-blue arrow-down\"";
-            notesBox += "                                        name=\"arrow-dropup\"><\/ion-icon>";
-            notesBox += "                                <\/div>";
-            notesBox += "                            <\/a>";
-            notesBox += "                            <div id=\"analyze" + i + "\" class=\"collapse multi-collapse\">";
-            notesBox += "                                <div class=\"section-card blue-card animated fadeIn\">";
-            notesBox += "                                    <div class=\"white padding-analyze\">" + descriptionArray[i];
-            notesBox += "                                    <\/div>";
-            notesBox += "                                <\/div>";
-            notesBox += "                            <\/div>";
-            notesBox += "                        <\/div>";
+                var notesBox = "";
+                notesBox += "<div class=\"col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile\">";
+                notesBox += "                            <a class=\"kill-link-style toggle-element no-select\" data-toggle=\"collapse\" href=\"#analyze" + i + "\"";
+                notesBox += "                                role=\"button\" aria-expanded=\"false\" aria-controls=\"analyze1\" onclick='settingDropdownNotes(\"" + i + "\");'\">";
+                notesBox += "                                <div class=\"margin-top section-card-header-analyze\">Session " + sessionNumberDisplay;
+                notesBox += "                                    <ion-icon id=\"analyzeArrow" + i + "\" class=\"collapse-arrow highlight-color-blue arrow-down\"";
+                notesBox += "                                        name=\"arrow-dropup\"><\/ion-icon>";
+                notesBox += "                                <\/div>";
+                notesBox += "                            <\/a>";
+                notesBox += "                            <div id=\"analyze" + i + "\" class=\"collapse multi-collapse\">";
+                notesBox += "                                <div class=\"section-card blue-card animated fadeIn\">";
+                notesBox += "                                    <div class=\"white padding-analyze\">" + descriptionArray[i];
+                notesBox += "                                    <\/div>";
+                notesBox += "                                <\/div>";
+                notesBox += "                            <\/div>";
+                notesBox += "                        <\/div>";
 
-            notesCount++;
-            document.getElementById("notesBox").innerHTML += notesBox;
+                notesCount++;
+                document.getElementById("notesBox").innerHTML += notesBox;
+            }
         }
     }
 
@@ -4177,6 +4189,8 @@ function startSession() {
         else {
             moodProgress.push("empty");
         }
+
+        console.log("MOOOOD: " + moodProgress);
     }
 
     if (selectedSUDS != "no") {
@@ -4245,6 +4259,11 @@ function endSession() {
     recallProgress = [];
     descriptionProgress = [];
 
+    moodProgressAll = [];
+    sudsProgressAll = [];
+    vacProgressAll = [];
+    recallProgressAll = [];
+
     numberOfSessionsAll = 0;
     longestDataInstance = [];
     numberOfSessionsData = [];
@@ -4256,10 +4275,10 @@ function endSession() {
 
     sessionSettingsShown = true;
 
-    document.getElementById("client-name-box").innerHTML = "";
+    //document.getElementById("client-name-box").innerHTML = "";
 
     if (sessionFinished == "yes") {
-        chartInstance1.destroy();
+        //chartInstance1.destroy();
         chartInstance2.destroy();
         chartInstance3.destroy();
         chartInstance4.destroy();

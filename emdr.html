@@ -112,10 +112,36 @@
                     </div>
 
                     <div class="modal-footer">
-                        <span class="close-button no-select" onclick="saveTherapyResults('paused')" data-dismiss="modal">End
+                        <span class="close-button no-select" onclick="saveTherapyResults('pausedClose')" data-dismiss="modal">End
                             Session</span>
                         <span class="save-changes-button no-select" data-dismiss="modal" onclick="resumeSession()">RESUME
                             SESSION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sessionDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header-element">Therapy details</div>
+                    <div class="therapy-over-box-subheader text-center">January 7th, 2019</div>
+
+                    <div class="modal-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                Set used: Quick session
+                            </li>
+                            <li class="list-group-item">Client name: Zachary Jordan </li>
+                            <li class="list-group-item">Sessions completed: 2/3</li>
+                            <li class="list-group-item">Notes taken: 3</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-footer">
+                        <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                        </span>
                     </div>
                 </div>
             </div>
@@ -417,7 +443,8 @@
 
                                 <div>
                                     <div id="aqua" class="preset-item no-select inline-block" onclick="theme('aqua')">Aqua</div>
-                                    <div id="contrast" class="preset-item no-select inline-block" onclick="theme('contrast')">Contrast</div>
+                                    <div id="contrast" class="preset-item no-select margin-left-right inline-block"
+                                        onclick="theme('contrast')">Contrast</div>
                                     <div id="custom" class="preset-item no-select inline-block" onclick="theme('custom')">Custom</div>
 
                                 </div>
@@ -427,8 +454,7 @@
                                         <div id="chestnut" class="preset-item no-select margin-left-right inline-block"
                                             onclick="theme('chestnut')">Chestnut</div>
 
-                                        <div id="royal" class="preset-item no-select margin-left-right inline-block"
-                                            onclick="theme('royal')">Royal</div>
+                                        <div id="royal" class="preset-item no-select inline-block" onclick="theme('royal')">Royal</div>
                                     </div>
 
                                     <div>
@@ -497,18 +523,19 @@
                                     <div>
                                         <div id="piano2" class="preset-item no-select inline-block" onclick="backgroundSound('piano2')">Piano
                                             2</div>
-                                        <div id="orchestra1" class="preset-item no-select inline-block" onclick="backgroundSound('orchestra1')">Orchestra
+                                        <div id="orchestra1" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="backgroundSound('orchestra1')">Orchestra
                                             1</div>
-                                        <div id="orchestra2" class="preset-item no-select margin-left-right inline-block"
-                                            onclick="backgroundSound('orchestra2')">Orchestra 2</div>
+                                        <div id="orchestra2" class="preset-item no-select inline-block" onclick="backgroundSound('orchestra2')">Orchestra
+                                            2</div>
                                     </div>
 
                                     <div>
                                         <div id="nighttime" class="preset-item no-select inline-block" onclick="backgroundSound('nighttime')">Nighttime
                                         </div>
-                                        <div id="wind" class="preset-item no-select inline-block" onclick="backgroundSound('wind')">Wind</div>
-                                        <div id="heartbeat" class="preset-item no-select margin-left-right inline-block"
-                                            onclick="backgroundSound('heartbeat')">Heartbeat</div>
+                                        <div id="wind" class="preset-item no-select margin-left-right inline-block"
+                                            onclick="backgroundSound('wind')">Wind</div>
+                                        <div id="heartbeat" class="preset-item no-select inline-block" onclick="backgroundSound('heartbeat')">Heartbeat</div>
                                     </div>
                                 </span>
 
@@ -859,31 +886,24 @@
             <ion-icon id="analyze-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
             CANCEL
         </span>
-        <span id="instructions-box-header-animate">
 
+        <span id="instructions-box-header-animate">
         </span>
+
+        <div class="col col-10 col-centered text-center">
+
+            <div class="therapy-info shadow no-select" onclick="viewSessionDetails()">View therapy details</div>
+        </div>
+        <!--
+       
         <div class="white col-centered text-center animated pulse">Set used: <span class="white" id="analysis-set">none</span></div>
         <span id="client-name-box">
 
         </span>
+    -->
 
         <div class="col col-12 col-centered expand-analyze-section-mobile">
             <div class="row col-centered almost-full-width expand-analyze-section-mobile">
-                <div id="analysis-overall-results" class="col col-12 margin-top-medium">
-                    <div class="analyze-box-section shadow">
-                        <div class="analyze-box-section-header">Your results</div>
-                        <div class="analyze-box-section-subheader">Charts of your data</div>
-                        <div class="analyze-box-section-choices">
-                            <span id="lineChart1" class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                onclick="changeChart('line1')">Line</span>
-                            <span id="barChart1" class="analyze-box-section-choice right-round no-select" onclick="changeChart('bar1')">Bar</span>
-                        </div>
-
-                        <canvas id="myChart" height="105" class="margin-top"></canvas>
-
-
-                    </div>
-                </div>
 
                 <div id="analysis-mood-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
                     <div class="analyze-box-section shadow">
@@ -940,8 +960,10 @@
                 <div class="col col-12 margin-top-large col-centered">
                     <div class="analyze-box-section shadow">
 
-                        <div class="col-centered text-center highlight-color-blue analyze-box-notes-header">Your notes</div>
-                        <div id="notesSub" class="col-centered text-center analyze-box-notes-subheader">Here's what you
+                        <div class="col-centered text-center highlight-color-blue analyze-box-notes-header">Your
+                            notes</div>
+                        <div id="notesSub" class="col-centered text-center analyze-box-notes-subheader">Here's what
+                            you
                             wrote during
                             the
                             therapy

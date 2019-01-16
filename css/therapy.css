@@ -485,15 +485,6 @@ input[type="color"]::-webkit-color-swatch {
     color:#fff;
 }
 
-.dashboard-button-instructions
-{
-    position: relative;
-    top: 35px;
-    left: 30px;
-    padding-top:12px !important;
-    padding-bottom: 12px !important;
-}
-
 .instructions-button
 {
     border:2.5px solid #fff;
