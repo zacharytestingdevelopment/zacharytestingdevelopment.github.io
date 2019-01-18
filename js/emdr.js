@@ -10,7 +10,7 @@
 // - Make sure that the EMDR element doesn't reappear if the user is going to the next session or the therapy is over
 
 var mainElement;
-var timeSet;
+var timeSet = 0;
 
 /*
 var moodProgressData = [];
@@ -44,6 +44,7 @@ var sudsProgressAll = [];
 var vacProgressAll = [];
 var recallProgressAll = [];
 
+var completedSessions = 0;
 
 var switchDirectionSoundPlayer;
 
@@ -1969,6 +1970,7 @@ function spawnTherapyMain() {
     sessionActive = setInterval(function () {
         seconds++;
         if (seconds >= sessionLength) {
+            completedSessions++;
             yourCurrentSession++;
             startNextSession();
         }
@@ -2316,9 +2318,48 @@ function spawnVisuals() {
     }
 }
 
+function countNotes() {
+
+    var count = 0;
+
+    if (descriptionProgress.length > 0) {
+        for (i = 0; i < descriptionProgress.length; i++) {
+            if (descriptionProgress[i] != "empty") {
+                count++;
+            }
+        }
+    }
+
+    return count;
+}
+
 function viewSessionDetails() {
+
+    var d = new Date();
+    var date = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    date = calculateDate(date);
+    document.getElementById("therapy-date").innerHTML = date;
+
+    if (selectedClient == "yes" && document.getElementById("client-initial").value.length > 0) {
+        document.getElementById("therapy-client").innerHTML = document.getElementById("client-initial").value;
+    }
+    else {
+        document.getElementById("therapy-client").innerHTML = "N/A";
+    }
+
+    if (activeSetText != "none") {
+        document.getElementById("therapy-set").innerHTML = activeSetText;
+    }
+    else {
+        document.getElementById("therapy-set").innerHTML = "N/A";
+    }
+
+    document.getElementById("therapy-sessions-completed").innerHTML = completedSessions;
+    document.getElementById("therapy-sessions-total").innerHTML = numberOfSessions;
+    document.getElementById("therapy-notes-count").innerHTML = countNotes();
+
     $('#sessionDetails').modal({
-        keyboard: true  // to prevent closing with Esc button (if you want this too)
+        keyboard: true
     })
 }
 
@@ -2721,7 +2762,7 @@ function valueCheck(valueCheck) {
 function saveTherapyResults(type) {
 
     if (type != "paused" && type != "ending" && type != "pausedClose") {
-        console.log("WOOOOOOOOOO");
+        //console.log("WOOOOOOOOOO");
         if (document.getElementById("therapyCheck").checked) {
 
             if (selectedMood != "no") {
@@ -2782,6 +2823,8 @@ function saveTherapyResults(type) {
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            date = calculateDate(date);
+
             timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
@@ -2795,7 +2838,9 @@ function saveTherapyResults(type) {
                 setVacProgress: vacProgress,
                 setRecallProgress: recallProgress,
                 setDescriptionProgress: descriptionProgress,
-                clientUsed: clientName
+                clientUsed: clientName,
+                sessionProgress: completedSessions,
+                totalSessions: numberOfSessions
             });
         }
     }
@@ -2811,6 +2856,8 @@ function saveTherapyResults(type) {
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            date = calculateDate(date);
+
             timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
@@ -2824,7 +2871,9 @@ function saveTherapyResults(type) {
                 setVacProgress: vacProgress,
                 setRecallProgress: recallProgress,
                 setDescriptionProgress: descriptionProgress,
-                clientUsed: clientName
+                clientUsed: clientName,
+                sessionProgress: completedSessions,
+                totalSessions: numberOfSessions
             });
         }
 
@@ -2898,6 +2947,8 @@ function saveTherapyResults(type) {
             var setUsed = document.getElementById("active-set").innerText;
             var clientName = "None";
 
+            date = calculateDate(date);
+
             timeSet = d.getTime();
 
             clientName = document.getElementById("client-initial").value;
@@ -2911,7 +2962,9 @@ function saveTherapyResults(type) {
                 setVacProgress: vacProgress,
                 setRecallProgress: recallProgress,
                 setDescriptionProgress: descriptionProgress,
-                clientUsed: clientName
+                clientUsed: clientName,
+                sessionProgress: completedSessions,
+                totalSessions: numberOfSessions
             });
 
         }
@@ -2925,6 +2978,54 @@ function saveTherapyResults(type) {
     else if (type == "analyze") {
         analyzeSession();
     }
+}
+
+//Return the date formatted as a string
+function calculateDate(date) {
+
+    var completedDate = "";
+    var splitData = date.split("-");
+
+    if (splitData[1] == 1) {
+        completedDate += "January";
+    }
+    else if (splitData[1] == 2) {
+        completedDate += "February";
+    }
+    else if (splitData[1] == 3) {
+        completedDate += "March";
+    }
+    else if (splitData[1] == 4) {
+        completedDate += "April";
+    }
+    else if (splitData[1] == 5) {
+        completedDate += "May";
+    }
+    else if (splitData[1] == 6) {
+        completedDate += "June";
+    }
+    else if (splitData[1] == 7) {
+        completedDate += "July";
+    }
+    else if (splitData[1] == 8) {
+        completedDate += "August";
+    }
+    else if (splitData[1] == 9) {
+        completedDate += "September";
+    }
+    else if (splitData[1] == 10) {
+        completedDate += "October";
+    }
+    else if (splitData[1] == 11) {
+        completedDate += "November";
+    }
+    else if (splitData[1] == 12) {
+        completedDate += "December";
+    }
+
+    completedDate = completedDate + " " + splitData[0] + ", " + splitData[2];
+
+    return completedDate;
 }
 
 function nextSession() {
@@ -2994,8 +3095,8 @@ function nextSession() {
         seconds++;
         if (seconds >= sessionLength) {
             yourCurrentSession++;
+            completedSessions++;
             if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
-
                 startEndSession();
             }
             else {
@@ -3013,6 +3114,7 @@ function resumeSession() {
     sessionActive = setInterval(function () {
         seconds++;
         if (seconds >= sessionLength) {
+            completedSessions++;
             yourCurrentSession++;
             if (parseInt(yourCurrentSession) > parseInt(numberOfSessions)) {
 
@@ -3413,44 +3515,21 @@ function convertToInt(array) {
 }
 
 function calculateAverageScore(scoreToAverage) {
+
     var arrayLength = scoreToAverage.length;
     var average = 0;
-    var numOfValues = 0;
+    var numOfValues = scoreToAverage.length;
 
-
-    if (arrayLength > 2) {
-
-        for (var i = 0, len = scoreToAverage.length; i < len; i++) {
-            if (scoreToAverage[i] != "empty") {
-                average += parseFloat(scoreToAverage[i]);
-                numOfValues++;
-            }
-            else {
-                arrayLength--;
-            }
-
+    for (var i = 0; i < arrayLength; i++) {
+        if (scoreToAverage[i] == "empty") {
+            numOfValues--;
         }
-    }
-    else {
-        for (var i = 0; i < arrayLength; i++) {
-            if (scoreToAverage[i] != "empty") {
-                average += parseFloat(scoreToAverage[i]);
-                numOfValues++;
-            }
-            else {
-                arrayLength--;
-            }
+        else {
+            average += parseFloat(scoreToAverage[i]);
         }
     }
 
-    console.log("Number: " + numOfValues);
-    if (numOfValues != 1) {
-        return parseFloat((average / arrayLength).toFixed(2));
-    }
-    else {
-        console.log(average);
-        return average;
-    }
+    return parseFloat((average / numOfValues).toFixed(2));
 }
 
 function changeChart(chart) {
@@ -3624,16 +3703,13 @@ function calculateSessionCount(array, type) {
 }
 
 function analyzeFromPause() {
-    console.log("Paused: " + moodProgress);
     saveTherapyResults("paused");
     analyzeSession();
 }
 
 function longestData(array1, array2, array3, array4) {
 
-    console.log("first array" + array1);
     var max = Math.max(array1.length, array2.length, array3.length, array4.length);
-    //console.log("M A X: " + max);
 
     for (i = 0; i < max; i++) {
         if (i == 0) {
@@ -3654,8 +3730,6 @@ function equalize(array, category) {
 }
 
 function analyzeSession() {
-
-    console.log("MOOD: " + moodProgress);
 
     yourCurrentSession--;
 
@@ -3685,17 +3759,8 @@ function analyzeSession() {
         convertToInt(vacProgress);
     }
 
-
     longestData(convertToInt(numberOfSessionsDataMood), convertToInt(numberOfSessionsDataRecall), convertToInt(numberOfSessionsDataSuds), convertToInt(numberOfSessionsDataVac));
 
-    /*
-    if ((selectedMood != "yes" && selectedRecall != "yes" && selectedSUDS != "yes" && selectedVAC != "yes") || (numberOfSessionsDataMood.length <= 0 && numberOfSessionsDataRecall.length <= 0) && numberOfSessionsDataSuds.length <= 0 && numberOfSessionsDataVac.length <= 0) {
-        document.getElementById("analysis-overall-results").className = "hide-analysis";
-    }
-    else {
-        document.getElementById("analysis-overall-results").className = "col col-12 margin-top-medium";
-    }
-    */
 
     //Case where mood and recall are both active and greater than 0
     if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
@@ -3773,21 +3838,8 @@ function analyzeSession() {
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
 
-    if (selectedClient == "yes" && document.getElementById("client-initial").value.length > 0) {
-        var client = "";
-        client += "<div class=\"white col-centered text-center\">Client name: <span class=\"white\" id=\"client-name\">none<\/span>";
-        client += "            <\/div>";
-
-        document.getElementById("client-name-box").innerHTML = client;
-        document.getElementById("client-name").innerHTML = document.getElementById("client-initial").value;
-    }
-
     sessionFinished = "yes";
 
-    /*
-    ctx = document.getElementById('myChart').getContext('2d'),
-        gradient = ctx.createLinearGradient(0, 0, 0, 450);
-*/
     ctx2 = document.getElementById('myChart2').getContext('2d'),
         gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
@@ -3803,22 +3855,6 @@ function analyzeSession() {
     gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
     gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
     gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
-
-    /*
-    console.log("Mood progress all: " + moodProgressAll);
-    dataAll = {
-        labels: longestDataInstance,
-        datasets: [{
-            label: 'VAC value',
-            backgroundColor: gradient,
-            hoverBackgroundColor: "#4257b2",
-            pointBackgroundColor: '#4257b2',
-            borderWidth: 3,
-            borderColor: '#4257b2',
-            data: convertToIntAll(moodProgressAll)
-        }]
-    };
-    */
 
 
     dataMood = {
@@ -4027,14 +4063,6 @@ function analyzeSession() {
         }
     };
 
-    /*
-    chartInstance1 = new Chart(ctx, {
-        type: 'line',
-        data: dataAll,
-        options: optionsMain
-    });
-    */
-
     chartInstance2 = new Chart(ctx2, {
         type: 'line',
         data: dataSUDS,
@@ -4105,20 +4133,22 @@ function settingDropdownNotes(dropChoice) {
 
 function spawnNotes() {
 
-    var user = firebase.auth().currentUser;
-    var descriptionArray;
+    //var user = firebase.auth().currentUser;
+    //var descriptionArray;
     var notesCount = 0;
 
+    /*
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + timeSet);
 
     desc.once('value', function (snapshot) {
         descriptionArray = snapshot.val().setDescriptionProgress;
     });
+    */
 
-    if (descriptionArray != null) {
-        for (i = 0; i < descriptionArray.length; i++) {
+    if (descriptionProgress.length > 0) {
+        for (i = 0; i < descriptionProgress.length; i++) {
 
-            if (descriptionArray[i] != "empty") {
+            if (descriptionProgress[i] != "empty") {
                 var sessionNumberDisplay = parseInt(i);
                 sessionNumberDisplay++;
 
@@ -4133,7 +4163,7 @@ function spawnNotes() {
                 notesBox += "                            <\/a>";
                 notesBox += "                            <div id=\"analyze" + i + "\" class=\"collapse multi-collapse\">";
                 notesBox += "                                <div class=\"section-card blue-card animated fadeIn\">";
-                notesBox += "                                    <div class=\"white padding-analyze\">" + descriptionArray[i];
+                notesBox += "                                    <div class=\"white padding-analyze\">" + descriptionProgress[i];
                 notesBox += "                                    <\/div>";
                 notesBox += "                                <\/div>";
                 notesBox += "                            <\/div>";
@@ -4190,7 +4220,7 @@ function startSession() {
             moodProgress.push("empty");
         }
 
-        console.log("MOOOOD: " + moodProgress);
+        //console.log("MOOOOD: " + moodProgress);
     }
 
     if (selectedSUDS != "no") {
@@ -4251,6 +4281,8 @@ function endSessionComplete() {
 function endSession() {
 
     yourCurrentSession = 1;
+    completedSessions = 0;
+    timeSet = 0;
 
     //Reset tracking progress 
     moodProgress = [];

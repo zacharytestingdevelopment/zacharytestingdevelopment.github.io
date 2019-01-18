@@ -126,16 +126,17 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header-element">Therapy details</div>
-                    <div class="therapy-over-box-subheader text-center">January 7th, 2019</div>
+                    <div id="therapy-date" class="therapy-over-box-subheader text-center">January 7th, 2019</div>
 
                     <div class="modal-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Set used: Quick session
+                                Set used: <span id="therapy-set">Quick session</span>
                             </li>
-                            <li class="list-group-item">Client name: Zachary Jordan </li>
-                            <li class="list-group-item">Sessions completed: 2/3</li>
-                            <li class="list-group-item">Notes taken: 3</li>
+                            <li class="list-group-item">Client name: <span id="therapy-client">Zachary Jordan</span></li>
+                            <li class="list-group-item">Sessions completed: <span id="therapy-sessions-completed">2</span>/<span
+                                    id="therapy-sessions-total">3</span></li>
+                            <li class="list-group-item">Notes taken: <span id="therapy-notes-count">3</span></li>
                         </ul>
                     </div>
 
@@ -894,13 +895,6 @@
 
             <div class="therapy-info shadow no-select" onclick="viewSessionDetails()">View therapy details</div>
         </div>
-        <!--
-       
-        <div class="white col-centered text-center animated pulse">Set used: <span class="white" id="analysis-set">none</span></div>
-        <span id="client-name-box">
-
-        </span>
-    -->
 
         <div class="col col-12 col-centered expand-analyze-section-mobile">
             <div class="row col-centered almost-full-width expand-analyze-section-mobile">
