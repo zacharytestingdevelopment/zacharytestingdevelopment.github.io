@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/quill.core.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" />
+    <link rel="stylesheet" href="css/dash/theme.min.css" />
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="img/logo.ico">
+
+    <style>body { display: none; }</style>
+
+
+    <title>Wow</title>
+</head>
+
+<body class="d-flex align-items-center bg-auth" style="border-top:2px solid #4257b2 !important">
+    <div id="loader" class="spinner" style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    <a href="index.html" class="kill-link-style"><span class="go-home">Home &#8594;</span></a>
+    <!-- CONTENT
+    ================================================== -->
+    <div class="container-fluid">
+
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-md-5 col-lg-6 col-xl-4 px-lg-6 my-5">
+
+                <!-- Heading -->
+                <h1 class="display-4 text-center mb-3" style="color:#4257b2;">
+                    Sign in
+                </h1>
+
+                <!-- Subheading -->
+                <p class="text-center mb-5">
+                    Welcome back! You're well on your way to a healthier, happier you.
+                </p>
+
+                <!-- Form -->
+                <form>
+
+                    <!-- Email address -->
+                    <div class="form-group">
+
+                        <!-- Label -->
+                        <label class="larger-label">Email Address</label>
+
+                        <!-- Input -->
+                        <input id="txtEmail" type="email" class="text-input-style-small form-control" placeholder="Enter your email">
+
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Label -->
+                                <label class="larger-label">Password</label>
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Help text -->
+                                <a href="password-reset.html" class="form-text forgot-focus small text-muted">
+                                    Forgot password?
+                                </a>
+
+                            </div>
+                        </div> <!-- / .row -->
+
+                        <!-- Input group -->
+                        <div class="input-group input-group-merge">
+
+                            <!-- Input -->
+                            <input id="txtPassword" type="password" class="text-input-style-small form-control"
+                                placeholder="Enter your password">
+
+
+
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="button" id="btnLogIn" class="btn btn-lg btn-block btn-primary mb-3 btn-sign">
+                        Sign in
+                    </button>
+
+
+
+                    <!-- Link -->
+                    <p class="text-center">
+                        <small class="text-muted text-center">
+                            Don't have an account yet? <a class="highlight-color-blue link-style-blue" href="sign-up.html">Sign
+                                up</a>.
+                        </small>
+                    </p>
+
+                    <div class="margin-top text-center">You can also sign in with...</div>
+
+                    <div class="col col-12 margin-top text-center col-centered">
+
+                        <span class="facebook-button-small no-select">Facebook</span>
+                        <span class="twitter-button-small no-select">Twitter</span>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 col-xl-8 d-none d-lg-block">
+
+                <!-- Image -->
+                <div class="bg-cover vh-100 mt--1 mr--3" style="background-image: url(img/landingpage1.jpg);"></div>
+
+            </div>
+        </div> <!-- / .row -->
+    </div>
+
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+
+
+
+    <script src="js/dash/jquery.min.js"></script>
+    <script src="js/dash/bootstrap.bundle.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/dash/Chart.extension.min.js"></script>
+    <script src="js/dash/highlight.pack.min.js"></script>
+    <script src="js/dash/flatpickr.min.js"></script>
+    <script src="js/dash/jquery.mask.min.js"></script>
+    <script src="js/dash/list.min.js"></script>
+    <script src="js/dash/quill.min.js"></script>
+    <script src="js/dash/dropzone.min.js"></script>
+    <script src="js/dash/select2.min.js"></script>
+    <script src="js/dash/theme.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+            authDomain: "mental-health-suite.firebaseapp.com",
+            databaseURL: "https://mental-health-suite.firebaseio.com",
+            projectId: "mental-health-suite",
+            storageBucket: "mental-health-suite.appspot.com",
+            messagingSenderId: "119327507370"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="js/sign-up.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#loader').fadeOut(330);
+
+        });
+    </script>
+
+</body>
+
+</html>

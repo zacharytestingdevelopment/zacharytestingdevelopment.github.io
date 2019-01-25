@@ -1,0 +1,105 @@
+
+.list-group-green
+{
+
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top:3px;
+    padding-bottom: 3px;
+    border-radius: 5px;
+    font-size:12px;
+    text-transform: uppercase;
+
+    color:#3ee986;
+    background: #ccf6e5;
+}
+
+.large-goal-button
+{
+    font-size:17px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top:6px !important;
+    padding-bottom: 6px !important;
+}
+
+.dashboard-goal-time
+{
+    border-bottom: 3.1px solid #4257b2 !important;
+    color:#95a9c9 !important;
+    border-radius: 1.6px !important;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #95a9c9;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #95a9c9;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #95a9c9;
+  }
+
+  .dropdown-toggle::after {
+    display:none !important;
+}
+
+.dashboard-goal-input
+{
+    text-align: center;
+    color:#4257b2;
+    display: inline-block;
+    width:70px;
+    outline: none !important;
+    border-radius: 3.3px !important;
+    -webkit-appearance: none; box-shadow: none !important; 
+    border-bottom: 3.1px solid #4257b2;
+    border-top: 2px solid transparent;
+    border-right:2px solid transparent;
+    border-left: 2px solid transparent;
+    border-radius: 2px solid transparent;
+    box-shadow: none;
+}
+
+.goal-button
+{
+    background:#4257b2;
+    color:#fff;
+    border:1px solid #4257b2;
+
+    padding-left:6px;
+    padding-right:6px;
+    padding-top:3.5px;
+    padding-bottom: 3.5px;
+    border-radius: 5px;
+    transition: all .3s ease;
+}
+
+.goal-button:hover
+{
+    border: 1px solid #4257b2;
+    color:#4257b2;
+    cursor: pointer;
+    background:transparent;
+}
+
+.analyze-link
+{
+    color:#4257b2;
+    border-bottom: 2px solid transparent;
+    transition: border .3s ease;
+}
+
+.analyze-link:hover
+{
+    cursor: pointer;
+    border-bottom: 2px solid #4257b2;
+}
+
+.dashboard-goal
+{
+    font-size:32px;
+}

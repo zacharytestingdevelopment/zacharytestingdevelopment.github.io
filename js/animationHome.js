@@ -404,7 +404,7 @@ function enterTracking(trackingMethod) {
         document.getElementById("other1").className = "tracking-box col-centered no-select";
         document.getElementById("other2").className = "tracking-box col-centered no-select";
 
-        changeChart("substanceAbuse");
+        //changeChart("substanceAbuse");
     }
     else if (trackingMethod == "moodTracking") {
         document.getElementById("substanceAbuse").className = "tracking-box col-centered no-select";
@@ -448,7 +448,106 @@ function enterTracking(trackingMethod) {
     }
 }
 
-var ctx = document.getElementById("myChart");
+ctx = document.getElementById('myChart').getContext('2d'),
+    gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+dataA = {
+    labels: ["January", "February", "March", "April", "May"],
+    datasets: [{
+        label: 'VAC value',
+        backgroundColor: gradient,
+        hoverBackgroundColor: "#4257b2",
+        pointBackgroundColor: '#4257b2',
+        borderWidth: 3,
+        borderColor: '#4257b2',
+        data: [3, 6, 7, 6.5, 9]
+    }]
+};
+
+optionsMain = {
+
+    responsive: true,
+    maintainAspectRatio: true,
+    intersect: false,
+    animation: {
+        easing: 'easeInOutQuad',
+        duration: 965
+    },
+    scales: {
+        xAxes: [{
+            gridLines: {
+                color: 'rgba(66,87,178, 0.1)',
+                lineWidth: 1,
+            },
+            ticks: {
+                fontColor: '#4257b2',
+                fontStyle: 'bold',
+                fontFamily: 'Montserrat',
+                padding: 5
+
+            }
+        }],
+        yAxes: [{
+            gridLines: {
+                color: 'rgba(66,87,178, 0.1)',
+                lineWidth: 1,
+
+            },
+            ticks: {
+                max: 10,
+                padding: 10,
+                beginAtZero: true,
+                fontColor: '#4257b2',
+                fontStyle: 'bold',
+                fontFamily: 'Montserrat',
+                userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                        return label;
+                    }
+
+                },
+            }
+        }]
+    },
+    elements: {
+        line: {
+            tension: 0
+        }
+    },
+    legend: {
+        display: false
+    },
+    point: {
+        backgroundColor: 'white'
+    },
+    tooltips: {
+        opacity: '0.4',
+        position: 'average',
+        // intersect: false,
+        titleFontFamily: 'Montserrat',
+        bodyFontFamily: 'Montserrat',
+        bodyFontStyle: 'bold',
+        borderColor: 'rgba(66,87,178, 0.91)',
+        borderWidth: 2,
+        bodyFontColor: '#4257b2',
+        backgroundColor: 'rgba(255,255,255, 0.91)',
+        titleFontColor: '#4257b2',
+        color: '#4257b2',
+        caretSize: 5,
+        cornerRadius: 5,
+        xPadding: 20,
+        yPadding: 10
+    }
+};
+
+chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: dataA,
+    options: optionsMain
+});
+//var ctx = document.getElementById("myChart");
+/*
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -485,6 +584,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+*/
 
 function changeChart(trackingOption) {
     myChart.destroy();

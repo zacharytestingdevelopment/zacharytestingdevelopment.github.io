@@ -43,6 +43,11 @@
 
 <body id="page-top">
 
+  <div id="loader" class="spinner" style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+
   <!-- Navigation -->
   <nav class=" navbar cl-effect-13 navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -75,20 +80,22 @@
 
           <span class="row">
             <li class="nav-item hide-element">
-              <a href="login.html" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
+              <a href="sign-in.html" class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
                 href="#c">Log
                 In</a>
             </li>
-            <li class="nav-item hide-element">
-              <div class="sign-up animated fadeInDown delay2 no-select">SIGN UP</div>
-            </li>
+            <a href="signup.html">
+              <li class="nav-item hide-element">
+                <div class="sign-up animated fadeInDown delay2 no-select">SIGN UP</div>
+              </li>
+            </a>
           </span>
 
           <div class="col d-lg-none d-xl-none col-centered col-12 col-md-7">
             <div id="login-signup" class="row">
               <div class="col col-6 text-center margin-top-large">
 
-                <a href="login.html">
+                <a href="sign-in.html">
                   <li class="nav-item">
                     <div class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOG
                       IN</div>
@@ -97,9 +104,11 @@
 
               </div>
               <div class="col col-6 margin-top-large">
-                <li class="nav-item">
-                  <div class="center-abs-element sign-up animated fadeInDown delay2 no-select margin-bottom">SIGN UP</div>
-                </li>
+                <a href="signup.html">
+                  <li class="nav-item">
+                    <div class="center-abs-element sign-up animated fadeInDown delay2 no-select margin-bottom">SIGN UP</div>
+                  </li>
+                </a>
               </div>
             </div>
 
@@ -163,12 +172,11 @@
     <div class="row header-buttons header-buttons-width">
       <div class="col col-12 col-centered">
         <div class="row">
-          <div class="col col-6 col-md-6 push-top col-lg-6 text-center">
-            <span class="header-button push-top no-select animated fadeIn delay2">Sign up</span>
+          <div class="col col-12 push-top text-center">
+            <a href="sign-up.html" class="kill-link-style"> <span class="header-button push-top no-select animated fadeIn delay2">TRY
+                A DEMO</span></a>
           </div>
-          <div class="col col-6 col-md-6 col-lg-6 push-top text-center">
-            <a href="#subscribe" class="js-scroll-trigger"><span class="header-button push-top no-select animated fadeIn delay3">Subscribe</span></a>
-          </div>
+
         </div>
       </div>
     </div>
@@ -192,10 +200,10 @@
 
         <div class="col col-lg-8 animated fadeIn col-centered">
           <div class="col col-lg-11 eggshell therapy-intro-body col-centered margin-top">
-            We believe in options. That's why we have built a highly customizable
-            Save multiple session preferences that automatically sink across your devices, so that you can do
+            We believe in options. That's why we built highly customizable toolkits just for you.
+            Save multiple session preferences that automatically sink across your devices, so that you can practice
             meditation
-            anywhere, anytime. placeholder placehodler
+            anywhere, anytime.
 
 
           </div>
@@ -205,26 +213,29 @@
 
 
     <div class="row text-center col-centered">
-      <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
-        <div class="mission-box f1">
-          <ion-icon class="md mission-icon-style" name="people"></ion-icon>
-          <div class="sub-header">customizable and complete</div>
-          <div class="mission-box-header heavy">Flexible toolkits</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This is a bit of lololol.
-            Information ahaha woot woot
-            all aboard the brain train wooo.
-          </div>
-        </div>
-      </div>
+
       <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
 
         <div class="mission-box f2">
           <ion-icon class="md mission-icon-style" name="cog"></ion-icon>
           <div class="sub-header">COMPREHENSIVE SUPPORT</div>
           <div class="mission-box-header heavy">Here for you</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This is a bit of lololol.
-            Information ahaha woot woot
-            all aboard the brain train wooo.
+          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
+            out as development continues.
+            This information will be filled out as development continues.
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
+        <div class="mission-box f1">
+          <ion-icon class="md mission-icon-style" name="people"></ion-icon>
+          <div class="sub-header">customizable and complete</div>
+          <div class="mission-box-header heavy">Flexible toolkits</div>
+          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
+            out as development continues.
+            This information will be filled out as development continues.
           </div>
         </div>
       </div>
@@ -234,9 +245,9 @@
           <ion-icon class="md mission-icon-style" name="bookmarks"></ion-icon>
           <div class="sub-header">COMPREHENSIVE SUPPORT</div>
           <div class="mission-box-header heavy">Here for you</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This is a bit of lololol.
-            Information ahaha woot woot
-            all aboard the brain train wooo.
+          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
+            out as development continues.
+            This information will be filled out as development continues.
           </div>
         </div>
       </div>
@@ -376,7 +387,7 @@
       -->
 
       <div class="chart-card u1 margin-top-large col-centered">
-        <div class="chart-header text-center">Mood tracking</div>
+        <div class="chart-header text-center" style="color:#4257b2;">Mood tracking</div>
         <canvas id="myChart" width="300" height="122"></canvas>
 
         <div class="chart-body col col-md-10 col-centered col-lg-10">body text body text body text body text
@@ -409,12 +420,12 @@
           </div>
 
           <div class="col col-6 col-md-4 margin-top u2">
-            <div id="other1" class="tracking-box col-centered no-select" onclick="enterTracking('other1')">Dream
+            <div id="other1" class="tracking-box col-centered no-select" onclick="enterTracking('other1')">Other
               recording</div>
           </div>
 
           <div class="col col-6 col-md-4 margin-top u3">
-            <div id="other2" class="tracking-box col-centered no-select" onclick="enterTracking('other2')">lol</div>
+            <div id="other2" class="tracking-box col-centered no-select" onclick="enterTracking('other2')">Placeholder</div>
           </div>
 
 
@@ -574,7 +585,7 @@
         <div class="col col-md-4 f1 col-12 margin-top-large col-lg-4 col-sm-12 eliminate-margin-subscribe">
           <div class="subscribe-box eliminate-margin-pad">
             <div class="subscribe-box-header white">Weekly</div>
-            <div class="subscribe-box-subheader">$2.99/week</div>
+            <div class="subscribe-box-subheader">$3.99/week</div>
             <div class="inline-block text-center margin-top">
 
               <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
@@ -590,7 +601,7 @@
         <div class="col col-md-4 f2 elimiante-margin-pad col-12 margin-top-large col-lg-4 col-sm-12">
           <div class="subscribe-box eliminate-margin-pad">
             <div class="subscribe-box-header white">Monthly</div>
-            <div class="subscribe-box-subheader">$7.99/month</div>
+            <div class="subscribe-box-subheader">$11.99/month</div>
             <div class="inline-block text-center margin-top">
               <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
               <div class="white text-left bullet subscribe-box-point">37% cheaper than weekly</div>
@@ -602,7 +613,7 @@
         </div>
         <div class="col col-md-4 f3 col-12 margin-top-large col-lg-4 col-sm-12">
           <div class="subscribe-box">
-            <div class="subscribe-box-header white">Monthly</div>
+            <div class="subscribe-box-header white">Annually</div>
             <div class="subscribe-box-subheader">$7.99/month</div>
             <div class="inline-block text-center margin-top">
               <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
@@ -721,6 +732,13 @@
       firebase.initializeApp(config);
     </script>
     <script src="js/onboarding.js"></script>
+
+    <script>
+      jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(230);
+
+      });
+    </script>
 
 
 

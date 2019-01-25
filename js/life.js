@@ -9,7 +9,7 @@ var user = firebase.user.getCurrent();
 void lifeDecision()
 {
     if (user.getCurrentPleasure() < user.getFuturePleasureEstimate()) {
-        return terminate;
+        terminate();
     }
     else {
         identifyPleasure();
@@ -29,4 +29,9 @@ function getFuturePleasureEstimate() {
 //Estimated best path to aquire more pleasure
 function identifyPleasure() {
     return bestPath;
+}
+
+//Kill self 
+function terminate() {
+    return terminate;
 }
