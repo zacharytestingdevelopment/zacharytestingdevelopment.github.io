@@ -852,7 +852,7 @@ navbar
 }
 .text-input-style-small:focus
 {
-    border-color:#4257b2;
+    border-color:#4257b2 !important;
     color:#454545;
 }
 

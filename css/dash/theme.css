@@ -16,15 +16,15 @@
 :root
 {
     --blue: #3ee986;
-    --indigo: #727cf5;
+    --indigo: #4257b2;
     --purple: #6b5eae;
     --pink: #ff679b;
     --red: #e63757;
     --orange: #fd7e14;
     --yellow: #f6c343;
     --green: #00d97e;
-    --teal: #02a8b5;
-    --cyan: #39afd1;
+    --teal: #4257b2;
+    --cyan: #4257b2;
     --white: #fff;
     --gray: #95aac9;
     --gray-dark: #3b506c;
@@ -7542,7 +7542,8 @@ button.bg-light:focus
 
 .bg-dark
 {
-    background-color: #12263f !important;
+   background: rgb(124,146,238);
+background: linear-gradient(183deg, rgba(124,146,238,1) 0%, rgba(66,87,178,1) 100%);
 }
 
 a.bg-dark:hover,
@@ -14696,7 +14697,7 @@ a.text-white:focus
 {
     color: #fff;
     border-color: #283e59; 
-    background-color: #283e59;
+    background-color: #2b7be5;
 }
 
 .list-group-item-danger
@@ -16442,7 +16443,8 @@ button:focus
 .bg-ellipses.bg-dark
 {
     background-color: transparent !important;
-    background-image: radial-gradient(#12263f, #12263f 70%, transparent 70.1%);
+    background: rgb(124,146,238);
+background: linear-gradient(183deg, rgba(124,146,238,1) 0%, rgba(66,87,178,1) 100%);
     background-repeat: no-repeat;
     background-position: center bottom; 
     background-size: 200% 150%;
@@ -17322,6 +17324,9 @@ button:focus
     width: 100%;
     height: 100%;
 }
+
+
+
 .custom-checkbox-toggle .custom-control-label::after
 {
     width: 1.5rem;
@@ -17329,7 +17334,7 @@ button:focus
 
     transform: scale(.8); 
 
-    background-color: #fff;
+    background-color: #fff !important;
 }
 .custom-checkbox-toggle .custom-control-input:checked ~ .custom-control-label::after
 {
@@ -17440,7 +17445,7 @@ button:focus
 
 .flatpickr-calendar
 {
-    color: #12263f;
+    color: #4257b2;
     border: 1px solid #d2ddec;
     background-color: #fff;
     box-shadow: none;
@@ -17493,8 +17498,8 @@ button:focus
 .flatpickr-calendar .flatpickr-day.selected
 {
     color: #fff !important; 
-    border-color: #3ee986;
-    background-color: #3ee986;
+    border-color: #4257b2;
+    background-color: #4257b2;
 }
 .flatpickr-calendar .flatpickr-day.inRange
 {
