@@ -5,6 +5,69 @@
     font-size: 24px;
 }
 
+.cover-darken
+{
+    background-color:#000;
+    opacity: 0.35;
+    position: absolute;
+    width:100%;
+    height:calc(100% - 22vh) !important;
+    left:0;
+    top:0;
+}
+
+.return-dash-text
+{
+    color:#3ee986;
+    position: absolute;
+    z-index:99;
+    padding-left: 3px;
+    top:19px;
+}
+
+.journal-header
+{
+    background-size: cover !important;
+    background-position:  top top !important;
+    background-image: url("../img/landingpage2.png") !important;
+}
+
+.cover-arrow
+{
+    margin-top: 20px;
+}
+
+.tag-button
+{
+    margin-top: 100px !important;
+    border-radius: 5px;
+    border:2px solid #4257b2;
+    color:#4257b2;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-right: 2px;
+    transition: all .3s ease;
+}
+
+.tag-button:hover
+{
+    cursor: pointer;
+    background: #4257b2;
+    color:#fff;
+}   
+
+.eliminate-left-pad
+{
+    padding-left: 0px !important;
+}
+
+.highlight-blue-hover:hover
+{
+    color:#4257b2 !important;
+}
+
 .plan-features
 {
     border-bottom: 1px solid #4257b2 !important;
