@@ -1,6 +1,5 @@
 function changeGoalTimeline(timeline) {
     //also turn white
-    console.log("www");
     document.getElementById("timeline").innerHTML = timeline;
 }
 

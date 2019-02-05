@@ -20,7 +20,6 @@ var selectedSessionLength;
 function updateBackground() {
     document.getElementById("preview-pane").className = "vertical-center col col-md-6 col-lg-7 pad-preview preview-pane";
 
-
     document.getElementById("preview-pane").style.backgroundColor = $("#background-color").val();
     theme("custom");
 }

@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
     <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
 
@@ -43,6 +44,26 @@
         <div class="double-bounce2"></div>
     </div>
 
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg nav-journal fixed-top" id="mainNav">
+        <div class="container">
+
+            <div class="dashboard-return">
+                <a href="dashboard.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                    <span class="no-select no-select return-text" style="display:inline-block;">
+                        <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal" name="arrow-round-back"></ion-icon>
+                        <span class="return-dash-text" style="position:relative;top:0px;"> Return to main dashboard</span>
+                    </span>
+                </a>
+
+
+            </div>
+
+            <a href="journal-entry.html" class="kill-link-style"><span class="float-right entry-write no-select">Write
+                    an entry</span></a>
+        </div>
+    </nav>
+
     <!-- MAIN CONTENT
     ================================================== -->
     <div class="main-content">
@@ -51,30 +72,8 @@
 
 
         <!-- HEADER -->
-        <div class="header bg-dark journal-header pb-5" style="padding-bottom: 22vh !important">
-            <div class="cover-darken"></div>
+        <div id="journal-header" class="header bg-dark journal-header journal-header-1 pb-5" style="padding-bottom: 22vh !important">
             <div class="container-fluid">
-
-                <!-- Body -->
-
-                <div class="dashboard-return">
-                    <a href="dashboard.html" class="kill-link-style">
-                        <span class="no-select return-text">
-                            <ion-icon class="dashboard-arrow cover-arrow" name="arrow-round-back"></ion-icon>
-                            <span class="return-dash-text"> Return to main dashboard</span>
-                        </span>
-                    </a>
-                    <!--
-                        <span class="float-right">
-
-                            <a href="journal.html" class="kill-link-style">
-                                <div class="journal-view no-select">View full journal</div>
-                            </a>
-                        </span>
-                        -->
-                </div>
-
-
 
                 <!-- Footer -->
                 <div class="header-footer">
@@ -355,18 +354,17 @@
                                         Sort by tag
                                     </span>
 
-                                    <div id="tag-box" class="col-5 eliminate-left-pad tag-box margin-top">
+                                    <div id="tag-box" class="col-md-8 col-12 col-lg-6 eliminate-left-pad tag-box margin-top">
                                         <span class="tag-button no-select">Poetry</span>
                                         <span class="tag-button no-select">Venting</span>
                                         <span class="tag-button no-select">Creative writing</span>
                                         <span class="tag-button no-select">Poetry</span>
 
-                                        <!--
-                                        <span class="tag-button no-select">Poetry</span>
-                                        <span class="tag-button no-select">Venting</span>
-                                        <span class="tag-button no-select">Creative writing</span>
-                                        <span class="tag-button no-select">Poetry</span>
-                                        -->
+                                        <span class="tag-button no-select">Work</span>
+                                        <span class="tag-button no-select">Life stuff</span>
+                                        <span class="tag-button no-select">Kids</span>
+                                        <span class="tag-button no-select">Vacations</span>
+
                                     </div>
 
 
@@ -388,7 +386,7 @@
 
             </div>
             <div class="row">
-                <div class="col-12 col-lg-6 col-xl">
+                <div class="col-12 col-md-6 col-xl">
 
                     <!-- Card -->
                     <div class="card shadow e1">
@@ -424,7 +422,7 @@
                     </div>
 
                 </div>
-                <div class="col-12 col-lg-6 col-xl">
+                <div class="col-12 col-md-6 col-xl">
 
                     <!-- Card -->
                     <div class="card shadow e2">
@@ -435,7 +433,7 @@
                                     <!-- Title -->
                                     <h6 class="card-title text-uppercase text-muted mb-2">
                                         Progress towards goal
-                                        <span class="float-right goal-button">View goal</span>
+                                        <span class="float-right no-select goal-button">View goal</span>
                                     </h6>
 
                                     <div class="row align-items-center no-gutters">
@@ -568,7 +566,9 @@
                                     <div class="dashboard-goal margin-top-tiny">
                                         I want to complete
                                         <input type="number" min="1" placeholder="5" class="text-center dashboard-goal-input" />
-                                        sessions every <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
+                                        sessions every
+
+                                        <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
                                             class="dashboard-goal-time dashboard-goal-input dropdown-toggle" href="#"
                                             role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
@@ -582,8 +582,8 @@
                                             <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
                                         </div>
 
-                                        <div>
-                                            <span class="margin-top no-select goal-button large-goal-button">Save my
+                                        <div class="margin-top">
+                                            <span class="no-select goal-button large-goal-button">Save my
                                                 goal</span>
                                         </div>
 
@@ -602,13 +602,68 @@
                     </div>
 
                 </div> <!-- / .row -->
+            </div>
 
+            <div class="row">
+                <div class="col-12 col-xl">
 
+                    <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <!-- Title -->
+                                <h6 class="card-title text-uppercase text-muted mb-2">
+                                    CUSTOMIZE BANNER
+                                </h6>
+
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    Pick a cover photo
+                                </span>
+                                <div class="margin-top-tiny">
+                                    <small class="form-text text-muted">
+                                        This picture will display at the top of your journal.
+                                    </small>
+                                </div>
+                                <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="http://">
+
+                                    <div class="fallback">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="projectCoverUploads">
+                                            <label class="custom-file-label" for="projectCoverUploads">Choose
+                                                file</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="dz-preview dz-preview-single">
+                                        <div class="dz-preview-cover">
+                                            <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <span class="margin-top">Use one of our default cover photos</span>
+                                <div>
+                                    <span id="cover-button1" class="tag-button tag-button-active no-select" onclick="defaultCover('no')">No</span>
+                                    <span id="cover-button2" class="tag-button no-select" onclick="defaultCover('yes')">Yes</span>
+                                </div>
+                                <div id="spawn-defaults">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col col-8 col-centered text-center">
-                <div class="dashboard-back">Return to main dashboard</div>
+                <a class="kill-link-style" href="dashboard.html">
+                    <div class="dashboard-back no-select">Return to main dashboard</div>
+                </a>
             </div>
+
         </div> <!-- / .main-content -->
 
 
@@ -630,6 +685,11 @@
         <script src="js/therapy-analysis.js"></script>
         <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
         <script src="js/dashboard.js"></script>
+        <script src="js/spectrum.js"></script>
+        <script src="js/journal.js"></script>
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.js"></script>
+
         <script>
             // Initialize Firebase
             var config = {

@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
     <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
 
@@ -34,7 +35,7 @@
     </style>
 
 
-    <title>Dashkit</title>
+    <title>Therapy analysis</title>
 </head>
 
 <body>
@@ -57,10 +58,12 @@
                 <!-- Body -->
                 <div class="header-body">
                     <div class="dashboard-return">
-                        <span class="no-select return-text">
-                            <ion-icon class="dashboard-arrow" name="arrow-round-back"></ion-icon>
-                            Return to main dashboard
-                        </span>
+                        <a href="dashboard.html" class="kill-link-style">
+                            <span class="no-select return-text">
+                                <ion-icon class="dashboard-arrow" name="arrow-round-back"></ion-icon>
+                                Return to main dashboard
+                            </span>
+                        </a>
                         <span class="float-right">
 
                             <select class="styled-select">
@@ -71,6 +74,7 @@
                             </select>
                         </span>
                     </div>
+
                     <div class="row align-items-end">
 
                         <div class="col">
@@ -391,7 +395,7 @@
 
             </div> <!-- / .row -->
             <div class="row">
-                <div class="col-12 col-lg-6 col-xl">
+                <div class="col-12 col-md-6 col-xl">
 
                     <!-- Card -->
                     <div class="card shadow e1">
@@ -427,7 +431,7 @@
                     </div>
 
                 </div>
-                <div class="col-12 col-lg-6 col-xl">
+                <div class="col-12 col-md-6 col-xl">
 
                     <!-- Card -->
                     <div class="card shadow e2">
@@ -570,7 +574,9 @@
                                     <div class="dashboard-goal margin-top-tiny">
                                         I want to complete
                                         <input type="number" min="1" placeholder="5" class="text-center dashboard-goal-input" />
-                                        sessions every <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
+                                        sessions every
+
+                                        <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
                                             class="dashboard-goal-time dashboard-goal-input dropdown-toggle" href="#"
                                             role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
@@ -584,8 +590,8 @@
                                             <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
                                         </div>
 
-                                        <div>
-                                            <span class="margin-top no-select goal-button large-goal-button">Save my
+                                        <div class="margin-top">
+                                            <span class="no-select goal-button large-goal-button">Save my
                                                 goal</span>
                                         </div>
 
@@ -605,62 +611,67 @@
 
                 </div> <!-- / .row -->
 
+            </div> <!-- / .row -->
 
-            </div>
 
-            <div class="col col-8 col-centered text-center">
+        </div>
+
+        <div class="col col-8 col-centered text-center">
+            <a href="dashboard.html" class="kill-link-style">
                 <div class="dashboard-back">Return to main dashboard</div>
-            </div>
-        </div> <!-- / .main-content -->
+            </a>
+        </div>
+    </div> <!-- / .main-content -->
 
 
-        <script src="js/dash/jquery.min.js"></script>
-        <script src="js/dash/bootstrap.bundle.min.js"></script>
+    <script src="js/dash/jquery.min.js"></script>
+    <script src="js/dash/bootstrap.bundle.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-        <script src="js/dash/charts.js"></script>
-        <script src="js/dash/Chart.extension.min.js"></script>
-        <script src="js/dash/highlight.pack.min.js"></script>
-        <script src="js/dash/flatpickr.min.js"></script>
-        <script src="js/dash/jquery.mask.min.js"></script>
-        <script src="js/dash/list.min.js"></script>
-        <script src="js/dash/quill.min.js"></script>
-        <script src="js/dash/dropzone.min.js"></script>
-        <script src="js/dash/select2.min.js"></script>
-        <script src="js/dash/theme.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-        <script src="js/therapy-analysis.js"></script>
-        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-        <script src="js/dashboard.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
-                authDomain: "mental-health-suite.firebaseapp.com",
-                databaseURL: "https://mental-health-suite.firebaseio.com",
-                projectId: "mental-health-suite",
-                storageBucket: "mental-health-suite.appspot.com",
-                messagingSenderId: "119327507370"
-            };
-            firebase.initializeApp(config);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="js/dash/charts.js"></script>
+    <script src="js/dash/Chart.extension.min.js"></script>
+    <script src="js/dash/highlight.pack.min.js"></script>
+    <script src="js/dash/flatpickr.min.js"></script>
+    <script src="js/dash/jquery.mask.min.js"></script>
+    <script src="js/dash/list.min.js"></script>
+    <script src="js/dash/quill.min.js"></script>
+    <script src="js/dash/dropzone.min.js"></script>
+    <script src="js/dash/select2.min.js"></script>
+    <script src="js/dash/theme.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script src="js/therapy-analysis.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/creative.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+            authDomain: "mental-health-suite.firebaseapp.com",
+            databaseURL: "https://mental-health-suite.firebaseio.com",
+            projectId: "mental-health-suite",
+            storageBucket: "mental-health-suite.appspot.com",
+            messagingSenderId: "119327507370"
+        };
+        firebase.initializeApp(config);
 
-            ScrollReveal({ distance: '-20px' });
-            ScrollReveal().reveal('.e1');
-            ScrollReveal().reveal('.e2');
-            ScrollReveal().reveal('.e3');
-            ScrollReveal().reveal('.e4');
-            ScrollReveal().reveal('.e5');
+        ScrollReveal({ distance: '-20px' });
+        ScrollReveal().reveal('.e1');
+        ScrollReveal().reveal('.e2');
+        ScrollReveal().reveal('.e3');
+        ScrollReveal().reveal('.e4');
+        ScrollReveal().reveal('.e5');
 
-        </script>
-        <script src="js/sign-up.js"></script>
+    </script>
+    <script src="js/sign-up.js"></script>
 
-        <script>
-            jQuery(document).ready(function () {
-                jQuery('#loader').fadeOut(330);
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#loader').fadeOut(330);
 
-            });
+        });
 
-        </script>
+    </script>
 
 
 
