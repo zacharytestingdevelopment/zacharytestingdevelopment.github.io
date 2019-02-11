@@ -9,10 +9,12 @@
     <!-- Libs CSS -->
     <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
     <link rel="stylesheet" href="css/dash/quill.core.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/dash/select2.min.css" />
     <link rel="stylesheet" href="css/dash/theme-dark.min.css" />
     <link rel="stylesheet" href="css/dash/theme.min.css" />
     <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link href="css/therapy.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" href="img/logo.ico">
 
@@ -28,6 +30,31 @@
         <div class="double-bounce2"></div>
     </div>
     <a href="index.html" class="kill-link-style"><span class="go-home">Home &#8594;</span></a>
+
+    <div id="alreadySignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">You are already signed in!</div>
+                <div class="therapy-over-box-subheader text-center">You can go to the dashboard or sign out.</div>
+
+                <div class="modal-body">
+                    At your dashboard, you will have access to our meditations, activities, journaling, life tracking,
+                    and more. You can also
+                    sign out if you would like to switch accounts.
+                </div>
+
+                <div class="modal-footer">
+                    <span class="close-button no-select" onclick="signOut()" data-dismiss="modal">Sign
+                        out</span>
+                    <span class="save-changes-button no-select" data-dismiss="modal" onclick="goToDashboard()">GO TO
+                        DASHBOARD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- CONTENT
     ================================================== -->
     <div class="container-fluid">
@@ -93,7 +120,7 @@
                     </div>
 
                     <!-- Submit -->
-                    <button type="button" id="btnLogIn" class="btn btn-lg btn-block btn-primary mb-3 btn-sign">
+                    <button onclick="signIn()" id="btnSignIn" type="button" id="btnLogIn" class="btn btn-lg btn-block btn-primary mb-3 btn-sign">
                         Sign in
                     </button>
 
@@ -159,7 +186,7 @@
         };
         firebase.initializeApp(config);
     </script>
-    <script src="js/sign-up.js"></script>
+    <script src="js/sign-in.js"></script>
 
     <script>
         jQuery(document).ready(function () {

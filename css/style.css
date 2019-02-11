@@ -1845,6 +1845,33 @@ and (max-width: 929px)
     color:#fff;
 }
 
+.error-box
+{
+    margin-bottom: 25px;
+    color:#EC3C3C;
+    border-radius: 8px;
+    border: 2px solid #EC3C3C;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width:100%;
+}
+
+.error-box-header
+{
+    font-size: 17.4px;
+    color:#EC3C3C;
+    font-weight: bold;
+}
+
+.error-box-item
+{
+    color:#EC3C3C;
+}
+
+.error-box-item::before
+{
+    content:"• ";
+}
 
 .almost-full-width
 {
@@ -1960,6 +1987,11 @@ button:focus {
 .margin-top-tiny
 {
     margin-top:7px;
+}
+
+.margin-top-jump
+{
+    margin-top:12.5px;
 }
 
 .margin-top

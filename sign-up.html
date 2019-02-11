@@ -13,10 +13,16 @@
     <link rel="stylesheet" href="css/dash/theme-dark.min.css" />
     <link rel="stylesheet" href="css/dash/theme.min.css" />
     <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
+    <link href="css/therapy.css" rel="stylesheet" />
     <link rel="shortcut icon" href="img/logo.ico">
 
-    <style>body { display: none; }</style>
+    <style>
+        body {
+            display: none;
+        }
+    </style>
 
 
     <title>Sign up</title>
@@ -32,87 +38,122 @@
     <a href="index.html" class="kill-link-style"><span class="go-home">Home &#8594;</span></a>
     <!-- CONTENT
     ================================================== -->
+
+    <div id="alreadySignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">You are already signed in!</div>
+                <div class="therapy-over-box-subheader text-center">You can go to the dashboard or sign out.</div>
+
+                <div class="modal-body">
+                    At your dashboard, you will have access to our meditations, activities, journaling, life tracking,
+                    and more. You can also
+                    sign out if you would like to switch accounts.
+                </div>
+
+                <div class="modal-footer">
+                    <span class="close-button no-select" onclick="signOut()" data-dismiss="modal">Sign
+                        out</span>
+                    <span class="save-changes-button no-select" data-dismiss="modal" onclick="goToDashboard()">GO TO
+                        DASHBOARD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center">
-            <div class="col-12 col-md-6 offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0">
 
-
-
-            </div>
 
             <div class="col-12 col-md-5 col-lg-6 col-xl-4 px-lg-6 my-5">
 
-                <!-- Heading -->
                 <h1 class="display-4 text-center mb-3" style="color:#4257b2;">
                     Sign up
                 </h1>
 
-                <!-- Subheading -->
-                <p class="text-center mb-5">
-                    Get access to modern therapies, seamless life-tracking, and free updates.
-                </p>
 
-                <!-- Form -->
-                <form>
+                <div>
 
-                    <!-- Email address -->
-                    <div class="form-group">
+                    <p class="text-center mb-5">
+                        Get access to modern therapies, seamless life-tracking, and free updates.
+                    </p>
 
-                        <!-- Label -->
-                        <label class="larger-label">Email Address</label>
-
-                        <!-- Input -->
-                        <input type="email" class="text-input-style-small form-control" placeholder="Enter your email">
-
+                    <div id="error-box no-select">
+                        <!--
+                        <div id="error-box-contents" class="text-center no-select error-box">
+                            <span class="error-box-header">Error</span>
+                            <div class="error-box-item">Email field cannot be empty</div>
+                        </div>
+                        -->
                     </div>
 
-                    <!-- Password -->
-                    <div class="form-group">
+                    <form>
 
-                        <div class="row">
-                            <div class="col">
 
-                                <!-- Label -->
-                                <label class="larger-label">Password</label>
+                        <div class="form-group">
+
+
+                            <label class="larger-label">Email Address</label>
+
+
+                            <input id="txtEmail" type="email" class="text-input-style-small form-control" placeholder="Enter your email"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="col">
+
+
+                                    <label class="larger-label">Password</label>
+
+                                </div>
 
                             </div>
 
-                        </div> <!-- / .row -->
 
-                        <!-- Input group -->
-                        <div class="input-group input-group-merge">
-
-                            <!-- Input -->
-                            <input type="password" class="text-input-style-small form-control" placeholder="Enter your password">
+                            <div class="input-group input-group-merge">
 
 
+                                <input id="txtPassword" type="password" class="text-input-style-small form-control"
+                                    placeholder="Enter your password">
+
+
+
+                            </div>
+                        </div>
+
+
+                        <button onclick="signUp()" id="btnSignUp" type="button" class="btn btn-lg btn-block btn-primary mb-3 btn-sign">
+                            Sign up
+                        </button>
+
+
+                        <p class="text-center">
+                            <small class="text-muted text-center">
+                                Already have an account? <a class="highlight-color-blue link-style-blue" href="sign-in.html">Sign
+                                    in</a>.
+                            </small>
+                        </p>
+
+                        <div class="margin-top text-center">You can also sign up with...</div>
+
+                        <div class="col col-12 margin-top text-center col-centered">
+
+                            <span class="facebook-button-small no-select">Facebook</span>
+                            <span class="twitter-button-small no-select">Twitter</span>
 
                         </div>
-                    </div>
 
-                    <!-- Submit -->
-                    <button class="btn btn-lg btn-block btn-primary mb-3 btn-sign">
-                        Sign up
-                    </button>
+                    </form>
 
-                    <!-- Link -->
-                    <p class="text-center">
-                        <small class="text-muted text-center">
-                            Already have an account? <a class="highlight-color-blue link-style-blue" href="sign-in.html">Sign
-                                in</a>.
-                        </small>
-                    </p>
+                </div>
 
-                    <div class="margin-top text-center">You can also sign up with...</div>
 
-                    <div class="col col-12 margin-top text-center col-centered">
-
-                        <span class="facebook-button-small no-select">Facebook</span>
-                        <span class="twitter-button-small no-select">Twitter</span>
-
-                    </div>
-
-                </form>
 
             </div>
             <div class="col-12 col-md-7 col-lg-6 col-xl-8 d-none d-lg-block">
@@ -136,6 +177,7 @@
     <script src="js/chart.js"></script>
     <script src="js/dash/Chart.extension.min.js"></script>
     <script src="js/dash/highlight.pack.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <script src="js/dash/flatpickr.min.js"></script>
     <script src="js/dash/jquery.mask.min.js"></script>
     <script src="js/dash/list.min.js"></script>
@@ -144,12 +186,26 @@
     <script src="js/dash/select2.min.js"></script>
     <script src="js/dash/theme.min.js"></script>
 
+
+
     <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+            authDomain: "mental-health-suite.firebaseapp.com",
+            databaseURL: "https://mental-health-suite.firebaseio.com",
+            projectId: "mental-health-suite",
+            storageBucket: "mental-health-suite.appspot.com",
+            messagingSenderId: "119327507370"
+        };
+        firebase.initializeApp(config);
+
         jQuery(document).ready(function () {
             jQuery('#loader').fadeOut(330);
 
         });
     </script>
+    <script src="js/sign-up.js"></script>
 
 </body>
 

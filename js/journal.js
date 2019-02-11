@@ -17,9 +17,9 @@ function defaultCover(decision) {
 
             var coverPhotos = "";
             coverPhotos += "<div class=\"text-center-small animated fadeIn\">";
-            coverPhotos += "                                                    <span onclick=\"changeDefault('first')\" id=\"default1\" class=\"default-box landing2 margin-top-setting\"><\/span>";
-            coverPhotos += "                                                    <span id=\"default2\" onclick=\"changeDefault('second')\" class=\"default-box landing1 margin-top-setting\"><\/span>";
-            coverPhotos += "                                                    <span id=\"default3\" onclick=\"changeDefault('third')\" class=\"default-box landing2 margin-top-setting\"><\/span>";
+            coverPhotos += "                                                    <span onclick=\"changeDefault('third')\" id=\"default3\" class=\"default-box landing3 margin-top-setting\"><\/span>";
+            coverPhotos += "                                                    <span id=\"default2\" onclick=\"changeDefault('second')\" class=\"default-box landing2 margin-top-setting\"><\/span>";
+            coverPhotos += "                                                    <span id=\"default1\" onclick=\"changeDefault('first')\" class=\"default-box landing1 margin-top-setting\"><\/span>";
             coverPhotos += "";
             coverPhotos += "                                                    <div>";
             coverPhotos += "                                                        <span id=\"custom-default\" class=\"setting-category margin-top-setting\">Custom";
@@ -60,24 +60,24 @@ function customCoverColor() {
 
 function changeDefault(choice) {
     if (choice == "first") {
-        document.getElementById("default1").className = "default-box default-box-active landing2 margin-top-setting";
-        document.getElementById("default2").className = "default-box landing1 margin-top-setting";
-        document.getElementById("default3").className = "default-box landing2 margin-top-setting";
+        document.getElementById("default1").className = "default-box default-box-active landing1 margin-top-setting";
+        document.getElementById("default2").className = "default-box landing2 margin-top-setting";
+        document.getElementById("default3").className = "default-box landing3 margin-top-setting";
 
         document.getElementById("journal-header").className = "header bg-dark journal-header journal-header-1 pb-5";
     }
     else if (choice == "second") {
-        document.getElementById("default1").className = "default-box landing2 margin-top-setting";
-        document.getElementById("default2").className = "default-box default-box-active landing1 margin-top-setting";
-        document.getElementById("default3").className = "default-box landing2 margin-top-setting";
+        document.getElementById("default1").className = "default-box landing1 margin-top-setting";
+        document.getElementById("default2").className = "default-box default-box-active landing2 margin-top-setting";
+        document.getElementById("default3").className = "default-box landing3 margin-top-setting";
 
-        document.getElementById("journal-header").className = "header bg-dark journal-header journal-header-2 pb-5";
+        document.getElementById("journal-header").className = "header bg-dark journal-header journal-header-3 pb-5";
     }
     else if (choice == "third") {
-        document.getElementById("default1").className = "default-box landing2 margin-top-setting";
-        document.getElementById("default2").className = "default-box landing1 margin-top-setting";
-        document.getElementById("default3").className = "default-box default-box-active landing2 margin-top-setting";
+        document.getElementById("default1").className = "default-box landing1 margin-top-setting";
+        document.getElementById("default2").className = "default-box landing2 margin-top-setting";
+        document.getElementById("default3").className = "default-box default-box-active landing3 margin-top-setting";
 
-        document.getElementById("journal-header").className = "header bg-dark journal-header journal-header-1 pb-5";
+        document.getElementById("journal-header").className = "header bg-dark journal-header journal-header-2 pb-5";
     }
 }

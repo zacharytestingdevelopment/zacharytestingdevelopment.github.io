@@ -1,30 +1,22 @@
-
-
 var txtEmail = document.getElementById("txtEmail");
 var txtPassword = document.getElementById("txtPassword");
-var btnSignUp = document.getElementById("btnSignUp");
+var btnSignIn = document.getElementById("btnSignIn");
+
 var comingFromClick = false;
 
 function goToDashboard() {
     window.location = "dashboard.html";
 }
 
-function signUp() {
+function signIn() {
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
 
-    const promise = auth.createUserWithEmailAndPassword(email, pass);
+    const promise = auth.signInWithEmailAndPassword(email, pass);
     promise.catch(e => console.log(e.message));
 
-    console.log("user created");
-
     comingFromClick = true;
-
-}
-
-function signOut() {
-    firebase.auth().signOut();
 }
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -45,4 +37,3 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log("Not logged in");
     }
 });
-
