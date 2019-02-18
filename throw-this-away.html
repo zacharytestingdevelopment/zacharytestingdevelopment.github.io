@@ -35,15 +35,15 @@
 
     <!-- Custom styles for this template -->
 
-    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
     <link href="css/creative.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/dashboard.css" />
     <link href="css/animate.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
     <link href="css/morphext.css" rel="stylesheet" />
     <link href="css/therapy.css" rel="stylesheet" />
     <link href="css/spectrum.css" rel="stylesheet" />
-
 
 </head>
 
@@ -296,417 +296,6 @@
 
             </div>
 
-            <div id="therapy-results" class="full-width mobile-scroll results-box-inactive">
-                <div class="main-content">
-
-                    <!-- HEADER -->
-                    <div class="header bg-dark pb-5" style="background:#12253f !important;">
-                        <div class="container-fluid">
-
-                            <!-- Body -->
-                            <div class="header-body">
-                                <div class="dashboard-return">
-
-                                    <span class="no-select return-text" onclick="closeTherapyAnalyze()">
-                                        <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-                                        Close EMDR analysis
-                                    </span>
-
-                                    <span class="float-right">
-
-                                        <span class="float-right entry-write extra-padding no-select"
-                                            onclick="viewSessionDetails()">View session details
-                                        </span>
-
-                                    </span>
-                                </div>
-
-                                <div class="row align-items-end">
-
-                                    <div class="col">
-
-                                        <!-- Pretitle -->
-                                        <h6 class="margin-top header-pretitle text-secondary">
-                                            Overview
-                                        </h6>
-
-                                        <!-- Title -->
-                                        <h1 class="header-title text-white">
-                                            Average mood
-                                        </h1>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <!-- Nav -->
-                                        <ul class="nav nav-tabs header-tabs">
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                                data-prefix="$" data-suffix="k">
-                                                <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        Mood
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                                data-prefix="" data-suffix="k">
-                                                <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        Recall
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                                data-prefix="" data-suffix="%">
-                                                <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        SUDS
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                        </ul>
-
-
-
-
-                                    </div>
-                                </div> <!-- / .row -->
-                            </div> <!-- / .header-body -->
-
-                            <!-- Footer -->
-                            <div class="header-footer">
-
-                                <!-- Chart -->
-                                <div class="chart">
-
-                                    <canvas id="main-chart" style="height:100%;width:100%;"></canvas>
-
-                                    <!--<canvas id="headerChart" class="chart-style"></canvas>-->
-                                    <!--
-                                    <canvas id="mains-chart" style="height:100%;width:100%;"
-                                        class="chart-style"></canvas>
-                                    -->
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div> <!-- / .header -->
-
-                    <!-- CARDS -->
-                    <div class="container-fluid mt--6">
-                        <div class="row">
-                            <div class="col-12 col-centered col-xl-11">
-
-                                <!-- Goals -->
-                                <div class="card shadow animated slideInUp"
-                                    style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
-                                    <div class="card-header">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h4 class="card-header-title larger-card-header">
-                                                    Your notes
-                                                </h4>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="float-right no-select goal-button"
-                                                    onclick="restartSession()">Restart
-                                                    session</span>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div id="spawnNotes" class="text-center"></div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div id="analysis-mood" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    Mood
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average mood: <span id="average-mood" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart5"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line5')">Line</span>
-                                                    <span id="barChart5"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar5')">Bar</span>
-                                                </div>
-
-
-                                                <canvas id="myChart5" height="105" class="margin-top"></canvas>
-
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="analysis-recall" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    Recall
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average recall: <span id="average-recall" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart4"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line4')">Line</span>
-                                                    <span id="barChart4"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar4')">Bar</span>
-                                                </div>
-
-
-                                                <canvas id="myChart4" height="105" class="margin-top"></canvas>
-
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div id="analysis-suds" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    SUDS
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average SUDS: <span id="average-suds" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart2"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line2')">Line</span>
-                                                    <span id="barChart2"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar2')">Bar</span>
-                                                </div>
-
-
-                                                <canvas id="myChart2" height="105" class="margin-top"></canvas>
-
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="analysis-vac" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    VAC
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average VAC: <span id="average-vac" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart3"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line3')">Line</span>
-                                                    <span id="barChart3"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar3')">Bar</span>
-                                                </div>
-
-
-                                                <canvas id="myChart3" height="105" class="margin-top"></canvas>
-
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-12 col-xl">
-
-                                <!-- Card -->
-                                <div class="card shadow e5">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-                                                <!-- Title -->
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    You're finished!
-                                                </h6>
-
-                                                <!-- Heading -->
-                                                <span class="h2 mb-0">
-                                                    What's next?
-                                                </span>
-
-                                                <div
-                                                    class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
-                                                    Congratulations on completing the therapy! You can view your
-                                                    previous saved
-                                                    therapy results on the <a href="therapy-analysis-emdr.html"
-                                                        class="link-style">EMDR analysis page</a>, change your EMDR
-                                                    settings, or return to the main dashboard.
-                                                </div>
-                                                <div class="margin-top-setting">
-                                                    <span class="no-select goal-button margin-top-tiny"
-                                                        onclick="closeTherapyAnalyze()">
-                                                        Change EMDR settings
-                                                    </span>
-                                                    <a href="dashboard.html" class="kill-link-style">
-                                                        <span class="no-select goal-button margin-top-tiny">Back
-                                                            to
-                                                            main dashboard</span>
-                                                    </a>
-
-                                                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="col col-8 col-centered text-center">
-                        <div class="dashboard-back" onclick="closeTherapyAnalyze()">Close EMDR analysis</div>
-                    </div>
-                </div>
-            </div>
-
 
             <div id="gradient3"
                 class="col col-md-6 col-lg-5 session-selection animated fadeInDown rubber-band green-background">
@@ -808,7 +397,7 @@
                 <div id="speedMovement" class="collapse show multi-collapse">
                     <div class="section-card animated fadeIn">
                         <div class="white">
-                            <div class="setting-category text-left margin-top-setting">SPEED — <span
+                            <div class="setting-category text-left margin-top-setting">SPEED — <span
                                     id="speedOutput">5</span></div>
                             <div>
                                 <input id="speedRange" class="range-slider" type="range" min="1" max="10" value="5">
@@ -869,7 +458,7 @@
                         <div class=" white">
                             <div>
                                 <div>
-                                    <div class="setting-category margin-top-setting">BACKGROUND — </div>
+                                    <div class="setting-category margin-top-setting">BACKGROUND — </div>
 
                                     <input class="color-pick" id="background-color" type="color" name="color"
                                         value="#2c415a" onchange="updateBackground()" />
@@ -1105,7 +694,7 @@
                                 -->
                             </div>
 
-                            <div class="setting-category text-left margin-top-large">EASING — <span
+                            <div class="setting-category text-left margin-top-large">EASING — <span
                                     id="easingOutput">STANDARD</span>
                                 <span class="information-circle" onclick="information('easing')"><span
                                         class="question-mark no-select">?</span></span>
@@ -1389,6 +978,719 @@
 
     </div>
 
+    <div id="therapy-results" class="full-width mobile-scroll results-box-inactive">
+        <div class="main-content">
+
+            <!-- HEADER -->
+            <div class="header bg-dark pb-5" style="background:#12253f !important;">
+                <div class="container-fluid">
+
+                    <!-- Body -->
+                    <div class="header-body">
+                        <div class="dashboard-return">
+                            <a href="dashboard.html" class="kill-link-style">
+                                <span class="no-select return-text">
+                                    <ion-icon class="dashboard-arrow" name="arrow-round-back"></ion-icon>
+                                    Back to EMDR
+                                </span>
+                            </a>
+                            <span class="float-right">
+
+                                <span class="float-right entry-write extra-padding no-select"
+                                    onclick="viewSessionDetails()">View session details
+                                </span>
+
+                                <!--
+                                <select class=" styled-select">
+
+                                    <option value="0">EMDR</option>
+                                    <option value="1">Guided breathing</option>
+                                    <option value="2">Meditation</option>
+                                    </select>
+                                    -->
+                            </span>
+                        </div>
+
+                        <div class="row align-items-end">
+
+                            <div class="col">
+
+                                <!-- Pretitle -->
+                                <h6 class="margin-top header-pretitle text-secondary">
+                                    Overview
+                                </h6>
+
+                                <!-- Title -->
+                                <h1 class="header-title text-white">
+                                    Average mood
+                                </h1>
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Nav -->
+                                <ul class="nav nav-tabs header-tabs">
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                        data-prefix="$" data-suffix="k">
+                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Average
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Mood
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                        data-prefix="" data-suffix="k">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Average
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Recall
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                        data-prefix="" data-suffix="%">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Average
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                SUDS
+                                            </h3>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div> <!-- / .header-body -->
+
+                    <!-- Footer -->
+                    <div class="header-footer">
+
+                        <!-- Chart -->
+                        <div class="chart">
+
+                            <canvas id="headerChart" class="chart-style"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> <!-- / .header -->
+
+            <!-- CARDS -->
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col-12 col-centered col-xl-11">
+
+                        <!-- Goals -->
+                        <div class="card shadow animated slideInUp"
+                            style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h4 class="card-header-title">
+                                            Your sessions
+                                        </h4>
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <!-- Button -->
+                                        <a href="emdr.html">
+                                            <span class="float-right no-select goal-button">Start new session</span>
+                                        </a>
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                            <div class="table-responsive mb-0" data-toggle="lists"
+                                data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
+                                <table class="table table-sm table-nowrap card-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="goal-project">
+                                                    Session date
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="goal-status">
+                                                    Completion
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="goal-progress">
+                                                    Notes taken
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="goal-date">
+                                                    Set used
+                                                </a>
+                                            </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                        <tr>
+                                            <td class="goal-project">
+                                                1/8/2019
+                                            </td>
+                                            <td class="goal-status">
+                                                <span class="text-warning">●</span> Started
+                                            </td>
+                                            <td class="goal-progress">
+                                                5
+                                            </td>
+                                            <td class="goal-date">
+                                                <time datetime="2018-10-24">Quick set</time>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span class="analyze-link no-select">Analyze session</span>
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-boundary="window">
+                                                        <i class="fe fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                            Action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Another action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Something else here
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="goal-project">
+                                                1/19/2019
+                                            </td>
+                                            <td class="goal-status">
+                                                <span class="text-warning">●</span> Started
+                                            </td>
+                                            <td class="goal-progress">
+                                                2
+                                            </td>
+                                            <td class="goal-date">
+                                                <time datetime="2018-10-24">Nighttime</time>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span class="analyze-link no-select">Analyze session</span>
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-boundary="window">
+                                                        <i class="fe fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                            Action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Another action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Something else here
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="goal-project">
+                                                7/10/2019
+                                            </td>
+                                            <td class="goal-status">
+                                                <span class="text-success">●</span> Completed
+                                            </td>
+                                            <td class="goal-progress">
+                                                6
+                                            </td>
+                                            <td class="goal-date">
+                                                <time datetime="2018-10-24">Short sessions</time>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span class="analyze-link no-select">Analyze session</span>
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-boundary="window">
+                                                        <i class="fe fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                            Action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Another action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Something else here
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="goal-project">
+                                                3/4/2019
+                                            </td>
+                                            <td class="goal-status">
+                                                <span class="text-warning">●</span> Started
+                                            </td>
+                                            <td class="goal-progress">
+                                                5
+                                            </td>
+                                            <td class="goal-date">
+                                                <time datetime="2018-10-24">Slow</time>
+                                            </td>
+
+                                            <td class="text-right">
+
+                                                <span class="analyze-link no-select">Analyze session</span>
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-boundary="window">
+                                                        <span class="fe fe-more-vertical"></span>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                            Action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Another action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Something else here
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="goal-project">
+                                                7/4/2019
+                                            </td>
+                                            <td class="goal-status">
+                                                <span class="text-success">●</span> Completed
+                                            </td>
+                                            <td class="goal-progress">
+                                                4
+                                            </td>
+                                            <td class="goal-date">
+                                                <time datetime="2018-10-24">Special</time>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <span class="analyze-link no-select">Analyze session</span>
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-boundary="window">
+                                                        <i class="fe fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                            Action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Another action
+                                                        </a>
+                                                        <a href="#!" class="dropdown-item">
+                                                            Something else here
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- / .row -->
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e1">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Sessions completed
+                                        </h6>
+
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0">
+                                            210
+                                        </span>
+
+                                        <!-- Badge -->
+                                        <span class="badge badge-soft-success mt--1">
+                                            Average of 31 sessions a day
+                                        </span>
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div> <!-- / .row -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-6 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e2">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Progress towards goal
+                                            <span class="float-right goal-button">View goal</span>
+                                        </h6>
+
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col-auto">
+
+                                                <!-- Heading -->
+                                                <span class="h2 mr-2 mb-0">
+                                                    84.5%
+                                                </span>
+
+                                            </div>
+                                            <div class="col">
+
+                                                <!-- Progress -->
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar" role="progressbar" style="width: 85%"
+                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- / .row -->
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+
+                                    </div>
+                                </div> <!-- / .row -->
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div> <!-- / .row -->
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e3">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Most active day of the week
+                                        </h6>
+
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0">
+                                            Monday
+                                        </span>
+
+                                        <!-- Badge -->
+                                        <span class="badge badge-soft-success mt--1">
+                                            34 sessions on Mondays
+                                        </span>
+
+                                    </div>
+
+                                </div> <!-- / .row -->
+                                <div class="text-left relative" style="width:200px;padding-top:0px;height:200px;">
+                                    <canvas id="dayChart" class="margin-top"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e4">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Here's when you used the therapy
+                                        </h6>
+
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0">
+                                            Your activity
+                                        </span>
+
+                                        <!-- Badge 
+                                        <span class="badge badge-soft-success mt--1">
+                                            34 sessions on Mondays
+                                        </span>
+                                    -->
+
+                                    </div>
+
+                                </div> <!-- / .row -->
+                                <div class="text-left relative" style="width:100%;padding-top:0px;height:200px;">
+                                    <canvas id="timeChart" class="margin-top" style="width:100%;height:100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div> <!-- / .row -->
+
+                <div class="row">
+                    <div class="col-12 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e5">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Tracking progress
+                                        </h6>
+
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0">
+                                            Set a goal
+                                        </span>
+
+                                        <div class="dashboard-goal margin-top-tiny">
+                                            I want to complete
+                                            <input type="number" min="1" placeholder="5"
+                                                class="text-center dashboard-goal-input" />
+                                            sessions every
+
+                                            <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
+                                                class="dashboard-goal-time dashboard-goal-input dropdown-toggle"
+                                                href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="eggshell" id="timeline">week</span>
+                                            </a>
+
+                                            <div id="timelineDropdown" class="dropdown-menu"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <span class="dropdown-item"
+                                                    onclick="changeGoalTimeline('day')">Day</span>
+                                                <span class="dropdown-item"
+                                                    onclick="changeGoalTimeline('week')">Week</span>
+                                                <span class="dropdown-item"
+                                                    onclick="changeGoalTimeline('month')">Month</span>
+                                                <span class="dropdown-item"
+                                                    onclick="changeGoalTimeline('year')">Year</span>
+                                            </div>
+
+                                            <div class="margin-top">
+                                                <span class="no-select goal-button large-goal-button">Save my
+                                                    goal</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="col col-8 col-centered text-center">
+                <a href="dashboard.html" class="kill-link-style">
+                    <div class="dashboard-back">Return to main dashboard</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="results-box" class="emdr-box analyze-box-background">
+        <span class="dashboard-button dashboard-button-turq dashboard-button-instructions no-select"
+            onmouseover="dashBoard('enterAnalyze')" onmouseout="dashBoard('exitAnalyze')" onclick="closeAnalyze()">
+            <ion-icon id="analyze-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
+            CANCEL
+        </span>
+
+        <span id="instructions-box-header-animate">
+        </span>
+
+        <div class="col col-10 col-centered text-center">
+
+            <div class="therapy-info shadow no-select" onclick="viewSessionDetails()">View therapy details</div>
+        </div>
+
+        <div class="col col-12 col-centered expand-analyze-section-mobile">
+            <div class="row col-centered almost-full-width expand-analyze-section-mobile">
+
+                <div id="analysis-mood-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">Mood results</div>
+                        <div class="analyze-box-section-subheader">Average mood: <span id="average-mood">3</span></div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart5"
+                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line5')">Line</span>
+                            <span id="barChart5" class="analyze-box-section-choice right-round no-select"
+                                onclick="changeChart('bar5')">Bar</span>
+                        </div>
+                        <canvas id="myChart5" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysis-recall-results" class="col col-12 col-md-6 col-lg-6 margin-top-large hidden">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">Recall results</div>
+                        <div class="analyze-box-section-subheader">Average recall: <span id="average-recall">3</span>
+                        </div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart4"
+                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line4')">Line</span>
+                            <span id="barChart4" class="analyze-box-section-choice right-round no-select"
+                                onclick="changeChart('bar4')">Bar</span>
+                        </div>
+                        <canvas id="myChart4" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysis-suds-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">SUDS results</div>
+                        <div class="analyze-box-section-subheader">Average SUDS: <span id="average-suds">3</span></div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart2"
+                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line2')">Line</span>
+                            <span id="barChart2" class="analyze-box-section-choice right-round no-select"
+                                onclick="changeChart('bar2')">Bar</span>
+                        </div>
+                        <canvas id="myChart2" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysis-vac-results" class="col col-12 col-md-6 col-lg-6 margin-top-large">
+                    <div class="analyze-box-section shadow">
+                        <div class="analyze-box-section-header">VAC results</div>
+                        <div class="analyze-box-section-subheader">Average VAC: <span id="average-vac">3</span></div>
+                        <div class="analyze-box-section-choices">
+                            <span id="lineChart3"
+                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                onclick="changeChart('line3')">Line</span>
+                            <span id="barChart3" class="analyze-box-section-choice right-round no-select"
+                                onclick="changeChart('bar3')">Bar</span>
+                        </div>
+                        <canvas id="myChart3" height="105" class="margin-top"></canvas>
+                    </div>
+                </div>
+
+                <div class="col col-12 margin-top-large col-centered">
+                    <div class="analyze-box-section shadow">
+
+                        <div class="col-centered text-center highlight-color-blue analyze-box-notes-header">Your
+                            notes</div>
+                        <div id="notesSub" class="col-centered text-center analyze-box-notes-subheader">Here's what
+                            you
+                            wrote during
+                            the
+                            therapy
+                        </div>
+
+                        <div id="notesBox">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col col-12 margin-top-large col-centered">
+
+        </div>
+
+
+        <div class="col col-11 col-centered text-center">
+            <div onclick="closeAnalyze()" class="analyze-end-button no-select">
+                I'm finished
+            </div>
+            <div>
+            </div>
+
+            <span id="settings-hidden">
+
+            </span>
+
+        </div>
+
 </body>
 
 <!-- Bootstrap core JavaScript -->
@@ -1405,13 +1707,9 @@
 <script src="js/morphext.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!--<script src="js/animationHome.js"></script>-->
-<!-- <script src="js/therapy.js"></script>-->
-<script src="js/gradient.js"></script>
 <script src="js/emdr.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-<script src="js/spectrum.js"></script>
+
+<script src="js/dash/theme.min.js"></script>
 
 
 <script>

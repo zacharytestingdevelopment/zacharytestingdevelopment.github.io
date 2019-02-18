@@ -19,13 +19,19 @@ function signIn() {
     comingFromClick = true;
 }
 
+function signOut() {
+    firebase.auth().signOut();
+}
+
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
+        console.log("TRIGGER");
+
         if (!comingFromClick) {
-            //$('#alreadySignedIn').modal('toggle');
+
             $('#alreadySignedIn').modal({
                 backdrop: 'static',
-                keyboard: false  // to prevent closing with Esc button (if you want this too)
+                keyboard: false
             })
 
         }

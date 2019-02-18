@@ -1,17 +1,46 @@
 
 var defaultCoverOptions = false;
 
-
 function loadTest() {
     //Test the text entry by seeing if you can enter a default value. 
     //document.getElementById("data").innerHTML = "sdas";
+}
+
+function please() {
+    //document.getElementById("data").innerHTML = "<div class=\"ql-editor\" data-gramm=\"false\" contenteditable=\"true\"><p>dasd</p></div><div class=\"ql-clipboard\" contenteditable=\"true\" tabindex=\"-1\"></div><div class=\"ql-tooltip ql-hidden\"><a class=\"ql-preview\" target=\"_blank\" href=\"about:blank\"></a><input type=\"text\" data-formula=\"e=mc^2\" data-link=\"https://quilljs.com\" data-video=\"Embed URL\"><a class=\"ql-action\"></a><a class=\"ql-remove\"></a></div>";
+}
+
+function saveEntry() {
+
+    var d = new Date();
+    var timeSet = d.getTime();
+
+    var user = firebase.auth().currentUser;
+
+    firebase.database().ref('users/' + user.uid + "/journaling" + "/" + timeSet).set({
+        entryTitle: returnTitle(),
+        entryText: returnText()
+        // entryDate: returnDate()
+    });
+}
+
+function returnDate() {
+    document.getElementById("entryDate").value;
+}
+
+function returnText() {
+    return document.getElementById("data").innerHTML;
+}
+
+function returnTitle() {
+    return document.getElementById("entryTitle").value;
 }
 
 function defaultCover(decision) {
 
     if (decision == "yes") {
         if (!defaultCoverOptions) {
-            defaultCoverOptions = true;
+            defaultCoverOptios = true;
             document.getElementById("cover-button1").className = "tag-button no-select";
             document.getElementById("cover-button2").className = "tag-button tag-button-active no-select";
 

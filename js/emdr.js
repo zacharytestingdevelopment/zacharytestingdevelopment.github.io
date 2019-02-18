@@ -21,8 +21,8 @@ var recallProgressData = [];
 
 var seconds;
 var longestDataInstance = [];
-var chartInstance1, chartInstance2, chartInstance3, chartInstance4, chartInstance5;
-var ctx, ctx2, ctx3, ctx4, ctx5;
+var chartInstance1, chartInstance2, chartInstance3, chartInstance4, chartInstance5, headerChart;
+var ctx, ctx2, ctx3, ctx4, ctx5, headerCtx;
 var dataMood, dataSUDS, dataVAC, dataRecall, optionsMain, optionsMood, optionsSUDS, optionsVAC, optionsRecall;
 var sessionFinished = "no";
 
@@ -1837,12 +1837,14 @@ function hideSessionSettings() {
 }
 
 function helperHide() {
+    /*
     var settingsHidden = "";
     settingsHidden += "<span class=\"animated fadeOut\"\">";
     settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
     document.getElementById("settings-hidden").innerHTML = settingsHidden;
+*/
 
     setTimeout(function () { hideHideFade(); }, 300);
 }
@@ -1866,12 +1868,6 @@ function hideHideFade() {
 
 function sessionExpandShow() {
 
-    $("#settings-hidden").removeClass("hidden");
-    var settingsHidden = "";
-    settingsHidden += "<span id=\"alternative-arrow\" class=\"animated fadeIn\">";
-    settingsHidden += "                    <span id = \"hide-dis\" class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
-    settingsHidden += "                <\/span>";
-
     window.scrollTo(0, 0);
 
     if (pathing == "topbottom") {
@@ -1879,13 +1875,11 @@ function sessionExpandShow() {
         $("#top-bottom-line").addClass("fadeIn");
     }
 
-    document.getElementById("settings-hidden").innerHTML = settingsHidden;
 }
 
 function loadSessionSettings() {
 
     document.getElementById("emdr-box").style.background = $("#background-color").val();
-    //document.getElementById("emdr-element-main").style.background = "green";
 
     $("#emdr-box").addClass("emdr-box-active");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
@@ -3733,10 +3727,10 @@ function analyzeSession() {
 
     yourCurrentSession--;
 
-    document.getElementById("analysis-mood-results").className = "hide-analysis";
-    document.getElementById("analysis-recall-results").className = "hide-analysis";
-    document.getElementById("analysis-suds-results").className = "hide-analysis";
-    document.getElementById("analysis-vac-results").className = "hide-analysis";
+    document.getElementById("analysis-mood").className = "hide-analysis";
+    document.getElementById("analysis-recall").className = "hide-analysis";
+    document.getElementById("analysis-suds").className = "hide-analysis";
+    document.getElementById("analysis-vac").className = "hide-analysis";
 
 
     if (selectedMood == "yes") {
@@ -3761,79 +3755,77 @@ function analyzeSession() {
 
     longestData(convertToInt(numberOfSessionsDataMood), convertToInt(numberOfSessionsDataRecall), convertToInt(numberOfSessionsDataSuds), convertToInt(numberOfSessionsDataVac));
 
-
-    //Case where mood and recall are both active and greater than 0
     if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
-        document.getElementById("analysis-mood-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
-        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-mood").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-recall").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
 
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
     else if ((selectedMood == "yes") && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
-        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large hide-analysis";
-        document.getElementById("analysis-recall-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-mood").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-recall").className = "col col-12 margin-top-large visible";
 
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
-    //Case where mood is active and greater than zero, recall is less than zero 
+
     else if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall == "yes") && numberOfSessionsDataRecall.length <= 0) {
-        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large visible";
-        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+        document.getElementById("analysis-mood").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-recall").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
     }
-    //Case where mood is active and greater than zero, recall is disabled
+
     else if ((selectedMood == "yes" && numberOfSessionsDataMood.length > 0) && (selectedRecall != "yes")) {
 
-        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large visible";
-        document.getElementById("analysis-recall-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+        document.getElementById("analysis-mood").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-recall").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-mood").innerHTML = calculateAverageScore(moodProgress);
     }
-    //Case where recall is active and greater than zero
+
     else if ((selectedMood != "yes") && (selectedRecall == "yes" && numberOfSessionsDataRecall.length > 0)) {
 
-        document.getElementById("analysis-mood-results").className = "col col-12 margin-top-large hide-analysis";
-        document.getElementById("analysis-recall-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-mood").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-recall").className = "col col-12 margin-top-large visible";
 
         document.getElementById("average-recall").innerHTML = calculateAverageScore(recallProgress);
     }
 
-    //Case where mood and recall are both active and greater than 0
+
     if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
-        document.getElementById("analysis-suds-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
-        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-suds").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+        document.getElementById("analysis-vac").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
 
         document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
     else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length <= 0) && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
-        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large hide-analysis";
-        document.getElementById("analysis-vac-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-suds").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-vac").className = "col col-12 margin-top-large visible";
 
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
-    //Case where mood is active and greater than zero, recall is less than zero 
+
     else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC == "yes") && numberOfSessionsDataVac.length <= 0) {
-        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large visible";
-        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+        document.getElementById("analysis-suds").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-vac").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
     }
-    //Case where mood is active and greater than zero, recall is disabled
+
     else if ((selectedSUDS == "yes" && numberOfSessionsDataSuds.length > 0) && (selectedVAC != "yes")) {
 
-        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large visible";
-        document.getElementById("analysis-vac-results").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+        document.getElementById("analysis-suds").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-vac").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
 
         document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsProgress);
     }
-    //Case where recall is active and greater than zero
+
     else if ((selectedSUDS != "yes") && (selectedVAC == "yes" && numberOfSessionsDataVac.length > 0)) {
 
-        document.getElementById("analysis-suds-results").className = "col col-12 margin-top-large hide-analysis";
-        document.getElementById("analysis-vac-results").className = "col col-12 margin-top-large visible";
+        document.getElementById("analysis-suds").className = "col col-12 margin-top-large hide-analysis";
+        document.getElementById("analysis-vac").className = "col col-12 margin-top-large visible";
 
         document.getElementById("average-vac").innerHTML = calculateAverageScore(vacProgress);
     }
@@ -3852,9 +3844,26 @@ function analyzeSession() {
     ctx5 = document.getElementById('myChart5').getContext('2d'),
         gradient = ctx2.createLinearGradient(0, 0, 0, 450);
 
+    headerCtx = document.getElementById('main-chart').getContext('2d');
+    //  gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+
     gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
     gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
     gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
+
+    dataHeader = {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+            label: 'Mood value',
+            //backgroundColor: '#3ee986',
+            hoverBackgroundColor: "#3ee986",
+            pointBackgroundColor: '#3ee986',
+            borderWidth: 3,
+            fill: false,
+            borderColor: '#3ee986',
+            data: [3, 5, 7, 6, 8]
+        }]
+    };
 
 
     dataMood = {
@@ -3869,6 +3878,7 @@ function analyzeSession() {
             data: convertToInt(moodProgress)
         }]
     };
+
 
     dataSUDS = {
         labels: numberOfSessionsDataSuds,
@@ -3923,27 +3933,41 @@ function analyzeSession() {
                 gridLines: {
                     color: 'rgba(66,87,178, 0.1)',
                     lineWidth: 1,
+                    drawTicks: false,
+                    drawOnChartArea: false,
+                    defaultFontStyle: 'normal',
+                    defaultFontSize: 40,
+                    //drawBorder: false
                 },
                 ticks: {
-                    fontColor: '#4257b2',
-                    fontStyle: 'bold',
+                    fontColor: '#95aac9',
+                    defaultFontStyle: 'normal',
+                    fontSize: 13,
                     fontFamily: 'Montserrat',
-                    padding: 5
+                    padding: 20
 
                 }
             }],
             yAxes: [{
                 gridLines: {
-                    color: 'rgba(66,87,178, 0.1)',
-                    lineWidth: 1,
-
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: 'rgba(149,170,201, 0.21)',
+                    drawBorder: false,
+                    drawTicks: false,
+                    lineWidth: 0,
+                    zeroLineWidth: 0,
+                    zeroLineColor: 'rgba(149,170,201, 0.21)',
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
                 },
                 ticks: {
                     max: 10,
                     padding: 10,
                     beginAtZero: true,
-                    fontColor: '#4257b2',
-                    fontStyle: 'bold',
+                    fontColor: '#95aac9',
+                    fontSize: 13,
+                    defaultFontStyle: 'normal',
                     fontFamily: 'Montserrat',
                     userCallback: function (label, index, labels) {
                         // when the floored value is the same as the value we have a whole number
@@ -3952,6 +3976,7 @@ function analyzeSession() {
                         }
 
                     },
+                    maxBarThickness: 10
                 }
             }]
         },
@@ -3973,12 +3998,12 @@ function analyzeSession() {
             titleFontFamily: 'Montserrat',
             bodyFontFamily: 'Montserrat',
             bodyFontStyle: 'bold',
-            borderColor: 'rgba(66,87,178, 0.91)',
+            borderColor: '#000',
             borderWidth: 2,
-            bodyFontColor: '#4257b2',
+            bodyFontColor: '#000',
             backgroundColor: 'rgba(255,255,255, 0.91)',
-            titleFontColor: '#4257b2',
-            color: '#4257b2',
+            titleFontColor: '#000',
+            color: '#000',
             caretSize: 5,
             cornerRadius: 5,
             xPadding: 20,
@@ -4087,6 +4112,14 @@ function analyzeSession() {
         options: optionsMain
     });
 
+
+    headerChart = new Chart(headerCtx,
+        {
+            type: 'line',
+            data: dataHeader,
+            options: optionsMain
+        });
+
     /*
     changeChart("line1");
     changeChart("line2");
@@ -4101,17 +4134,19 @@ function analyzeSession() {
     }
     */
 
+    /*
     var instructions = "";
     instructions += "<div class=\"white instructions-box-section-header-top text-center animated pulse instructions-mobile-move\">ANALYZE";
     instructions += "            RESULTS<\/div>";
 
     document.getElementById("instructions-box-header-animate").innerHTML = instructions;
-
+*/
 
     //document.getElementById("analysis-set").innerHTML = activeSetText;
 
 
-    $("#results-box").addClass("emdr-box-active");
+    $("#therapy-results").addClass("results-box-active");
+    //$("#results-box").addClass("emdr-box-active");
     //endSessionComplete();
     $('#therapyOver').modal('hide');
     setTimeout(function () { hideMobileNav(); }, 320);
@@ -4133,17 +4168,8 @@ function settingDropdownNotes(dropChoice) {
 
 function spawnNotes() {
 
-    //var user = firebase.auth().currentUser;
-    //var descriptionArray;
+
     var notesCount = 0;
-
-    /*
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + timeSet);
-
-    desc.once('value', function (snapshot) {
-        descriptionArray = snapshot.val().setDescriptionProgress;
-    });
-    */
 
     if (descriptionProgress.length > 0) {
         for (i = 0; i < descriptionProgress.length; i++) {
@@ -4153,7 +4179,7 @@ function spawnNotes() {
                 sessionNumberDisplay++;
 
                 var notesBox = "";
-                notesBox += "<div class=\"col col-12 col-md-11 col-lg-10 col-centered expand-analyze-section-mobile\">";
+                notesBox += "<div class=\"col col-11 col-md-11 text-left col-lg-10 col-centered inline-block-norm expand-analyze-section-mobile\">";
                 notesBox += "                            <a class=\"kill-link-style toggle-element no-select\" data-toggle=\"collapse\" href=\"#analyze" + i + "\"";
                 notesBox += "                                role=\"button\" aria-expanded=\"false\" aria-controls=\"analyze1\" onclick='settingDropdownNotes(\"" + i + "\");'\">";
                 notesBox += "                                <div class=\"margin-top section-card-header-analyze\">Session " + sessionNumberDisplay;
@@ -4170,13 +4196,13 @@ function spawnNotes() {
                 notesBox += "                        <\/div>";
 
                 notesCount++;
-                document.getElementById("notesBox").innerHTML += notesBox;
+                document.getElementById("spawnNotes").innerHTML += notesBox;
             }
         }
     }
 
     if (notesCount == 0) {
-        document.getElementById("notesSub").innerHTML = "You didn't take any notes during this therapy session."
+        document.getElementById("spawnNotes").innerHTML = "<div class = 'col col-11 col-md-9 col-lg-8 col-centered no-notes'>You didn't take any notes during this therapy session.</div>"
     }
 }
 
@@ -4185,13 +4211,28 @@ function loadInstructions() {
     setTimeout(function () { hideMobileNav(); }, 320);
 }
 
+function closeTherapyAnalyze() {
+    endSessionComplete();
+
+    $("#therapy-results").removeClass("results-box-active");
+    $("#therapy-results").animate({ scrollTop: 0 }, "fast");
+
+    document.getElementById("spawnNotes").innerHTML = "";
+
+    //document.getElementById("notesBox").innerHTML = "";
+    //document.getElementById("notesSub").innerHTML = "Here's what you wrote during the therapy";
+
+    showMobileNav();
+
+}
+
 function closeAnalyze() {
 
     endSessionComplete();
     $("#results-box").removeClass("emdr-box-active");
     $("#results-box").animate({ scrollTop: 0 }, "fast");
 
-    document.getElementById("notesBox").innerHTML = "";
+    document.getElementById("spawnNotes").innerHTML = "";
     document.getElementById("notesSub").innerHTML = "Here's what you wrote during the therapy";
 
     showMobileNav();
@@ -4204,7 +4245,18 @@ function closeInstructions() {
     showMobileNav();
 }
 
+function restartSession() {
+    //sessionCount = "1";
+    //yourCurrentSession = 1;
+    document.getElementById("spawnNotes").innerHTML = "";
+    $("#therapy-results").removeClass("results-box-active");
+    $("#therapy-results").animate({ scrollTop: 0 }, "fast");
+    endSessionComplete();
+    startSession();
+}
+
 function startSession() {
+
     $("#emdr-box").addClass("emdr-box-active");
     $("#emdr-box-buttons").addClass("emdr-box-buttons-active");
     $("#emdr-box-buttons").addClass("transition-delay");
@@ -4273,7 +4325,7 @@ function endSessionComplete() {
     settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
     settingsHidden += "                <\/span>";
 
-    document.getElementById("settings-hidden").innerHTML = settingsHidden;
+    //document.getElementById("settings-hidden").innerHTML = settingsHidden;
 
     endSession();
 }
@@ -4315,6 +4367,7 @@ function endSession() {
         chartInstance3.destroy();
         chartInstance4.destroy();
         chartInstance5.destroy();
+        //headerChart.destroy();
         sessionFinished = "no";
     }
 

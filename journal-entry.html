@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
     <link href="css/therapy.css" rel="stylesheet" />
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
     <link href="css/animate.css" rel="stylesheet" />
@@ -39,8 +40,9 @@
     <title>Journal entry</title>
 </head>
 
-<body onload="loadTest()">
-    <div id="loader" class="spinner" style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+<body onload="please()">
+    <div id="loader" class="spinner"
+        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
@@ -53,25 +55,53 @@
 
 
         <!-- HEADER -->
-        <div id="journal-header" class="header bg-dark journal-header journal-header-2 pb-5" style="padding-bottom: 18vh !important">
+        <div id="journal-header" class="header bg-dark journal-header journal-header-2 pb-5"
+            style="padding-bottom: 18vh !important">
             <!-- <div class="cover-darken"></div>-->
             <div class="container-fluid">
 
                 <!-- Body -->
+                <!-- Navigation -->
+                <nav class="navbar navbar-expand-lg journal-top nav-journal fixed-top" id="mainNav"
+                    style="border-bottom: 0px solid #fff !important;">
+                    <div class="container">
 
+                        <div class="dashboard-return">
+                            <a href="journal.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                                <span class="no-select no-select return-text" style="display:inline-block;">
+                                    <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal"
+                                        name="arrow-round-back"></ion-icon>
+                                    <span class="return-dash-text" style="position:relative;top:0px;"> Return to journal
+                                    </span>
+                                </span>
+                            </a>
+
+
+                        </div>
+
+                        <a href="dashboard.html" class="kill-link-style"><span
+                                class="float-right entry-write no-select">Go to main dashboard
+                            </span></a>
+                    </div>
+                </nav>
                 <div class="dashboard-return">
+
+
+                    <!--
                     <a href="journal.html" class="kill-link-style">
                         <span class="no-select return-text">
                             <ion-icon class="dashboard-arrow cover-arrow" name="arrow-round-back"></ion-icon>
                             <span class="return-dash-text"> Your full journal</span>
                         </span>
                     </a>
+                -->
                 </div>
 
                 <!-- Footer -->
                 <div class="header-footer">
 
-                    <div id="journal-header-image" class="header-date-text animated fadeIn" style="padding-top: 18vh;">WRITE
+                    <div id="journal-header-image" class="header-date-text animated fadeIn" style="padding-top: 18vh;">
+                        WRITE
                         JOURNAL
                         ENTRY</div>
 
@@ -80,13 +110,15 @@
             </div>
         </div> <!-- / .header -->
 
+
         <!-- CARDS -->
         <div class="container-fluid mt--6">
             <div class="row">
                 <div class="col-12 col-centered col-xl-11">
 
                     <!-- Goals -->
-                    <div class="card shadow animated slideInUp" style="opacity:1 !important;padding-bottom: 15px;padding-top:5px;">
+                    <div class="card shadow animated slideInUp"
+                        style="opacity:1 !important;padding-bottom: 15px;padding-top:5px;">
                         <div class="card-header">
                             <div class="row justify-content-center">
                                 <div class="col-12 col-md-11 col-lg-11 col-xl-10">
@@ -120,7 +152,8 @@
                                             <label>
                                                 Entry title
                                             </label>
-                                            <input type="text" class="text-input-style-small form-control" placeholder="Enter a title">
+                                            <input id="entryTitle" type="text"
+                                                class="text-input-style-small form-control" placeholder="Enter a title">
                                         </div>
 
 
@@ -130,7 +163,8 @@
                                             </label>
                                             <small class="form-text text-muted">
                                                 A blank page can be anything you want it to be. </small>
-                                            <div id="data" class="text-entry-blue larger-entry" data-toggle="quill"></div>
+                                            <div id="data" class="text-entry-blue larger-entry" data-toggle="quill">
+                                            </div>
                                         </div>
 
 
@@ -158,8 +192,9 @@
                                                             here.
                                                         </small>
                                                     </label>
-                                                    <input type="text" class="form-control text-entry-blue" style="position: relative;top:-10px;"
-                                                        data-toggle="flatpickr">
+                                                    <input id="entryDate" type="text"
+                                                        class="form-control text-entry-blue"
+                                                        style="position: relative;top:-10px;" data-toggle="flatpickr">
                                                 </div>
 
                                             </div>
@@ -178,8 +213,10 @@
 
                                                 <div class="fallback">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="projectCoverUploads">
-                                                        <label class="custom-file-label" for="projectCoverUploads">Choose
+                                                        <input type="file" class="custom-file-input"
+                                                            id="projectCoverUploads">
+                                                        <label class="custom-file-label"
+                                                            for="projectCoverUploads">Choose
                                                             file</label>
                                                     </div>
                                                 </div>
@@ -197,7 +234,8 @@
                                             <div>
                                                 <span id="cover-button1" class="tag-button tag-button-active no-select"
                                                     onclick="defaultCover('no')">No</span>
-                                                <span id="cover-button2" class="tag-button no-select" onclick="defaultCover('yes')">Yes</span>
+                                                <span id="cover-button2" class="tag-button no-select"
+                                                    onclick="defaultCover('yes')">Yes</span>
                                             </div>
                                             <div id="spawn-defaults">
                                                 <!--
@@ -243,8 +281,8 @@
                                                         it later.
                                                     </small>
                                                     <div class="custom-control custom-checkbox-toggle">
-                                                        <input type="checkbox" class="custom-control-input" id="exampleToggle"
-                                                            checked>
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="exampleToggle" checked>
                                                         <label class="custom-control-label" for="exampleToggle"></label>
                                                     </div>
                                                 </div>
@@ -276,9 +314,9 @@
                                         <hr class="mt-5 mb-5">
 
 
-                                        <a href="#" class="btn btn-block btn-style">
+                                        <span class="btn btn-block btn-style" onclick="saveEntry()">
                                             Save journal entry
-                                        </a>
+                                        </span>
                                         <div class="col col-8 text-center col-centered">
                                             <a href="journal.html" class=" margin-top dashboard-text">
                                                 Cancel and return to journal
@@ -311,6 +349,7 @@
             <script src="js/dash/quill.min.js"></script>
             <script src="js/dash/dropzone.min.js"></script>
             <script src="js/dash/select2.min.js"></script>
+            <script src="js/creative.js"></script>
             <script src="js/dash/theme.min.js"></script>
             <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
 

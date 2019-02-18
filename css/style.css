@@ -13,6 +13,7 @@ navbar
     border-bottom: 2px solid #3ee986 !important;
 }
 
+
 .edit-icon
 {
     animation-duration: .2s !important;
@@ -701,6 +702,11 @@ navbar
     cursor: pointer;
 }
 
+.nav-journal
+{
+    transition: all .2s ease !important;
+}
+
 .submit-button
 {
     margin-top:20px;
@@ -1003,6 +1009,11 @@ navbar
 {
     font-size: 17px;
     display: inline-block;
+}
+
+.inline-block-norm
+{
+    display: inline-block !important;
 }
 
 .sign-up-bullet
@@ -1796,8 +1807,8 @@ and (max-width: 929px)
 .analyze-box-section-choices
 {
     position: absolute;
-    right:60px;
-    top:25px;
+    right:-5px !important;
+    top:13px;
 }
 
 .blue-card
