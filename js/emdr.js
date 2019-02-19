@@ -3922,7 +3922,7 @@ function analyzeSession() {
     optionsMain = {
         bezierCurve: false,
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         intersect: false,
         animation: {
             easing: 'easeInOutQuad',
@@ -4113,12 +4113,11 @@ function analyzeSession() {
     });
 
 
-    headerChart = new Chart(headerCtx,
-        {
-            type: 'line',
-            data: dataHeader,
-            options: optionsMain
-        });
+    headerChart = new Chart(headerCtx, {
+        type: 'line',
+        data: dataHeader,
+        options: optionsMain
+    });
 
     /*
     changeChart("line1");
