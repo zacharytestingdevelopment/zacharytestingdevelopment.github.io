@@ -980,6 +980,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .preview-pane
 {
+    height:100vh;
     background-color: #2c415a;  
 }
 
@@ -1462,6 +1463,7 @@ input:focus::-webkit-input-placeholder {
 
 .settings-panel
 {
+    height:100vh;
     -webkit-overflow-scrolling: touch !important;
     overflow-y:scroll;
     padding-left:20px;

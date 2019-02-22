@@ -4768,7 +4768,7 @@ function populateSettingsBox(child) {
         document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
         var selectedTherapy = "";
-        selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIN margin-top shadow\">";
+        selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIn margin-top shadow\">";
         selectedTherapy += "                    <div id = \"active-set-text-box\" class=\"therapy-setting-box-header-green\">" + activeSetText + "<\/div>";
         selectedTherapy += "                    <div class=\"therapy-setting-box-description-green\">Update your currently selected set<\/div>";
         selectedTherapy += "";
@@ -5057,8 +5057,10 @@ function saveSettings() {
     activeSet = value;
     var user = firebase.auth().currentUser;
 
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
+
     //var description, name;
+    //stringToModify.replace('\'', '');
 
     desc.once('value', function (snapshot) {
         activeSetText = snapshot.val().setName;
@@ -5067,7 +5069,7 @@ function saveSettings() {
     document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSet + "</span>";
     var setDescription = document.getElementById("set-input-description").value;
     if (value.length > 0) {
-        sessionSave = "/" + value;
+        sessionSave = "/" + returnValidNameID(value).replace('name', '');
         var database = firebase.database();
         var user = firebase.auth().currentUser;
 
@@ -5114,8 +5116,9 @@ function saveSettings() {
         }
 
         var str = value.replace(/\s+/g, '');
-        var id = "description" + str;
-        var nameId = "name" + str
+        var id = "description" + returnValidNameID(str).replace('name', '');
+
+        var nameId = returnValidNameID(str);
 
         const userReference = firebase.database().ref(`firebaseUser/${user.uid}`);
         var speedValue = document.getElementById("speedRange").value;
@@ -5185,6 +5188,14 @@ function saveSettings() {
         inputError += "<span class=\"set-input-error-text animated fadeIn\">Please enter a value<\/span>";
         document.getElementById("set-input-error").innerHTML = inputError;
     }
+}
+
+function returnValidNameID(input) {
+    var stringToModify = input;
+    stringToModify = stringToModify.replace('\'', '');
+    stringToModify = stringToModify.replace('\"', '');
+
+    return "name" + stringToModify;
 }
 
 

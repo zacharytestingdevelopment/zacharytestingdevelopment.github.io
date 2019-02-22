@@ -59,9 +59,11 @@
             class="d-sm-block animated fadeInDown d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top"
             id="mainNav">
             <div class="container">
-                <span class="dashboard animated fadeInDown">
-                    <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
-                </span>
+                <a href="dashboard.html" class="kill-link-style">
+                    <span class="dashboard animated fadeInDown">
+                        <ion-icon name="arrow-round-back" class="dash-arrow" style="color:inherit"></ion-icon>Dashboard
+                    </span>
+                </a>
                 <span id="preview-pane-button">
                     <a href="#preview-pane" class="js-scroll-trigger animated fadeInDown">
                         <span class="float-right highlight-color preview-nav">PREVIEW<ion-icon id="eye-icon" name="eye"
@@ -257,6 +259,418 @@
             </div>
         </div>
 
+        <div id="therapy-results" class="full-width mobile-scroll results-box-inactive">
+            <div class="main-content">
+
+                <!-- HEADER -->
+                <div class="header bg-dark pb-5" style="background:#12253f !important;">
+                    <div class="container-fluid">
+
+                        <!-- Body -->
+                        <div class="header-body">
+                            <div class="dashboard-return">
+
+                                <span class="no-select return-text" onclick="closeTherapyAnalyze()">
+                                    <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                                    Close EMDR analysis
+                                </span>
+
+                                <span class="float-right">
+
+                                    <span class="float-right entry-write extra-padding no-select"
+                                        onclick="viewSessionDetails()">View session details
+                                    </span>
+
+                                </span>
+                            </div>
+
+                            <div class="row align-items-end">
+
+                                <div class="col">
+
+                                    <!-- Pretitle -->
+                                    <h6 class="margin-top header-pretitle text-secondary">
+                                        Overview
+                                    </h6>
+
+                                    <!-- Title -->
+                                    <h1 class="header-title text-white">
+                                        Average mood
+                                    </h1>
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <!-- Nav -->
+                                    <ul class="nav nav-tabs header-tabs">
+                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                            data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                            data-prefix="$" data-suffix="k">
+                                            <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                                <h6 class="header-pretitle text-secondary">
+                                                    Display
+                                                </h6>
+                                                <h3 class="text-white mb-0">
+                                                    Mood
+                                                </h3>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                            data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                            data-prefix="" data-suffix="k">
+                                            <a href="#" class="nav-link text-center" data-toggle="tab">
+                                                <h6 class="header-pretitle text-secondary">
+                                                    Display
+                                                </h6>
+                                                <h3 class="text-white mb-0">
+                                                    Recall
+                                                </h3>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                            data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                            data-prefix="" data-suffix="%">
+                                            <a href="#" class="nav-link text-center" data-toggle="tab">
+                                                <h6 class="header-pretitle text-secondary">
+                                                    Display
+                                                </h6>
+                                                <h3 class="text-white mb-0">
+                                                    SUDS
+                                                </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+
+
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .header-body -->
+
+                        <!-- Footer -->
+                        <div class="header-footer">
+
+                            <!-- Chart -->
+                            <div class="chart">
+
+                                <div class="full"><canvas id="main-chart" class="full"></canvas></div>
+
+                                <!--<canvas id="headerChart" class="chart-style"></canvas>-->
+                                <!--
+                                    <canvas id="mains-chart" style="height:100%;width:100%;"
+                                        class="chart-style"></canvas>
+                                    -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div> <!-- / .header -->
+
+                <!-- CARDS -->
+                <div class="container-fluid mt--6">
+                    <div class="row">
+                        <div class="col-12 col-centered col-xl-11">
+
+                            <!-- Goals -->
+                            <div class="card shadow animated slideInUp"
+                                style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h4 class="card-header-title larger-card-header">
+                                                Your notes
+                                            </h4>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="float-right no-select goal-button"
+                                                onclick="restartSession()">Restart
+                                                session</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div id="spawnNotes" class="text-center"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div id="analysis-mood" class="col-12 col-md-6 col-xl">
+
+
+                            <div class="card shadow e1">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h6 class="card-title text-uppercase text-muted mb-2">
+                                                Your results
+                                            </h6>
+
+
+                                            <span class="h2 mb-0">
+                                                Mood
+                                            </span>
+
+
+                                            <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                                Average mood: <span id="average-mood" class="white">5</span>
+                                            </span>
+                                            <div class="analyze-box-section-choices">
+                                                <span id="lineChart5"
+                                                    class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                    onclick="changeChart('line5')">Line</span>
+                                                <span id="barChart5"
+                                                    class="analyze-box-section-choice right-round no-select"
+                                                    onclick="changeChart('bar5')">Bar</span>
+                                            </div>
+
+                                            <div>
+                                                <canvas id="myChart5" height="305" class="margin-top"></canvas>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="analysis-recall" class="col-12 col-md-6 col-xl">
+
+
+                            <div class="card shadow e1">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h6 class="card-title text-uppercase text-muted mb-2">
+                                                Your results
+                                            </h6>
+
+
+                                            <span class="h2 mb-0">
+                                                Recall
+                                            </span>
+
+
+                                            <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                                Average recall: <span id="average-recall" class="white">5</span>
+                                            </span>
+                                            <div class="analyze-box-section-choices">
+                                                <span id="lineChart4"
+                                                    class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                    onclick="changeChart('line4')">Line</span>
+                                                <span id="barChart4"
+                                                    class="analyze-box-section-choice right-round no-select"
+                                                    onclick="changeChart('bar4')">Bar</span>
+                                            </div>
+
+
+                                            <div>
+                                                <canvas id="myChart4" height="305" class="margin-top"></canvas>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div id="analysis-suds" class="col-12 col-md-6 col-xl">
+
+
+                            <div class="card shadow e1">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h6 class="card-title text-uppercase text-muted mb-2">
+                                                Your results
+                                            </h6>
+
+
+                                            <span class="h2 mb-0">
+                                                SUDS
+                                            </span>
+
+
+                                            <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                                Average SUDS: <span id="average-suds" class="white">5</span>
+                                            </span>
+                                            <div class="analyze-box-section-choices">
+                                                <span id="lineChart2"
+                                                    class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                    onclick="changeChart('line2')">Line</span>
+                                                <span id="barChart2"
+                                                    class="analyze-box-section-choice right-round no-select"
+                                                    onclick="changeChart('bar2')">Bar</span>
+                                            </div>
+
+                                            <div>
+                                                <canvas id="myChart2" height="305" class="margin-top"></canvas>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="analysis-vac" class="col-12 col-md-6 col-xl">
+
+
+                            <div class="card shadow e1">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h6 class="card-title text-uppercase text-muted mb-2">
+                                                Your results
+                                            </h6>
+
+
+                                            <span class="h2 mb-0">
+                                                VAC
+                                            </span>
+
+
+                                            <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                                Average VAC: <span id="average-vac" class="white">5</span>
+                                            </span>
+                                            <div class="analyze-box-section-choices">
+                                                <span id="lineChart3"
+                                                    class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                    onclick="changeChart('line3')">Line</span>
+                                                <span id="barChart3"
+                                                    class="analyze-box-section-choice right-round no-select"
+                                                    onclick="changeChart('bar3')">Bar</span>
+                                            </div>
+
+                                            <div>
+                                                <canvas id="myChart3" height="305" class="margin-top"></canvas>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-12 col-xl">
+
+                            <!-- Card -->
+                            <div class="card shadow e5">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+                                            <!-- Title -->
+                                            <h6 class="card-title text-uppercase text-muted mb-2">
+                                                You're finished!
+                                            </h6>
+
+                                            <!-- Heading -->
+                                            <span class="h2 mb-0">
+                                                What's next?
+                                            </span>
+
+                                            <div
+                                                class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
+                                                Congratulations on completing the therapy! You can view your
+                                                previous saved
+                                                therapy results on the <a href="therapy-analysis-emdr.html"
+                                                    class="link-style">EMDR analysis page</a>, change your EMDR
+                                                settings, or return to the main dashboard.
+                                            </div>
+                                            <div class="margin-top-setting">
+                                                <span class="no-select goal-button margin-top-tiny"
+                                                    onclick="closeTherapyAnalyze()">
+                                                    Change EMDR settings
+                                                </span>
+                                                <a href="dashboard.html" class="kill-link-style">
+                                                    <span class="no-select goal-button margin-top-tiny">Back
+                                                        to
+                                                        main dashboard</span>
+                                                </a>
+
+                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col col-8 col-centered text-center">
+                    <div class="dashboard-back" onclick="closeTherapyAnalyze()">Close EMDR analysis</div>
+                </div>
+            </div>
+        </div>
+
         <div class="row therapy-element-height">
 
             <div id="gradient2" class="col col-md-6 col-lg-5 session-selection animated fadeInDown green-background">
@@ -297,417 +711,7 @@
 
             </div>
 
-            <div id="therapy-results" class="full-width mobile-scroll results-box-inactive">
-                <div class="main-content">
 
-                    <!-- HEADER -->
-                    <div class="header bg-dark pb-5" style="background:#12253f !important;">
-                        <div class="container-fluid">
-
-                            <!-- Body -->
-                            <div class="header-body">
-                                <div class="dashboard-return">
-
-                                    <span class="no-select return-text" onclick="closeTherapyAnalyze()">
-                                        <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-                                        Close EMDR analysis
-                                    </span>
-
-                                    <span class="float-right">
-
-                                        <span class="float-right entry-write extra-padding no-select"
-                                            onclick="viewSessionDetails()">View session details
-                                        </span>
-
-                                    </span>
-                                </div>
-
-                                <div class="row align-items-end">
-
-                                    <div class="col">
-
-                                        <!-- Pretitle -->
-                                        <h6 class="margin-top header-pretitle text-secondary">
-                                            Overview
-                                        </h6>
-
-                                        <!-- Title -->
-                                        <h1 class="header-title text-white">
-                                            Average mood
-                                        </h1>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <!-- Nav -->
-                                        <ul class="nav nav-tabs header-tabs">
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                                data-prefix="$" data-suffix="k">
-                                                <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        Mood
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                                data-prefix="" data-suffix="k">
-                                                <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        Recall
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                                data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                                data-prefix="" data-suffix="%">
-                                                <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                    <h6 class="header-pretitle text-secondary">
-                                                        Display
-                                                    </h6>
-                                                    <h3 class="text-white mb-0">
-                                                        SUDS
-                                                    </h3>
-                                                </a>
-                                            </li>
-                                        </ul>
-
-
-
-
-                                    </div>
-                                </div> <!-- / .row -->
-                            </div> <!-- / .header-body -->
-
-                            <!-- Footer -->
-                            <div class="header-footer">
-
-                                <!-- Chart -->
-                                <div class="chart">
-
-                                    <div class="full"><canvas id="main-chart" class="full"></canvas></div>
-
-                                    <!--<canvas id="headerChart" class="chart-style"></canvas>-->
-                                    <!--
-                                    <canvas id="mains-chart" style="height:100%;width:100%;"
-                                        class="chart-style"></canvas>
-                                    -->
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div> <!-- / .header -->
-
-                    <!-- CARDS -->
-                    <div class="container-fluid mt--6">
-                        <div class="row">
-                            <div class="col-12 col-centered col-xl-11">
-
-                                <!-- Goals -->
-                                <div class="card shadow animated slideInUp"
-                                    style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
-                                    <div class="card-header">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h4 class="card-header-title larger-card-header">
-                                                    Your notes
-                                                </h4>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="float-right no-select goal-button"
-                                                    onclick="restartSession()">Restart
-                                                    session</span>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div id="spawnNotes" class="text-center"></div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div id="analysis-mood" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    Mood
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average mood: <span id="average-mood" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart5"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line5')">Line</span>
-                                                    <span id="barChart5"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar5')">Bar</span>
-                                                </div>
-
-                                                <div>
-                                                    <canvas id="myChart5" height="305" class="margin-top"></canvas>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="analysis-recall" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    Recall
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average recall: <span id="average-recall" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart4"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line4')">Line</span>
-                                                    <span id="barChart4"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar4')">Bar</span>
-                                                </div>
-
-
-                                                <div>
-                                                    <canvas id="myChart4" height="305" class="margin-top"></canvas>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div id="analysis-suds" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    SUDS
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average SUDS: <span id="average-suds" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart2"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line2')">Line</span>
-                                                    <span id="barChart2"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar2')">Bar</span>
-                                                </div>
-
-                                                <div>
-                                                    <canvas id="myChart2" height="305" class="margin-top"></canvas>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="analysis-vac" class="col-12 col-md-6 col-xl">
-
-
-                                <div class="card shadow e1">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    Your results
-                                                </h6>
-
-
-                                                <span class="h2 mb-0">
-                                                    VAC
-                                                </span>
-
-
-                                                <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                                    Average VAC: <span id="average-vac" class="white">5</span>
-                                                </span>
-                                                <div class="analyze-box-section-choices">
-                                                    <span id="lineChart3"
-                                                        class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
-                                                        onclick="changeChart('line3')">Line</span>
-                                                    <span id="barChart3"
-                                                        class="analyze-box-section-choice right-round no-select"
-                                                        onclick="changeChart('bar3')">Bar</span>
-                                                </div>
-
-                                                <div>
-                                                    <canvas id="myChart3" height="305" class="margin-top"></canvas>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-auto">
-
-
-                                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-12 col-xl">
-
-                                <!-- Card -->
-                                <div class="card shadow e5">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-
-                                                <!-- Title -->
-                                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                                    You're finished!
-                                                </h6>
-
-                                                <!-- Heading -->
-                                                <span class="h2 mb-0">
-                                                    What's next?
-                                                </span>
-
-                                                <div
-                                                    class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
-                                                    Congratulations on completing the therapy! You can view your
-                                                    previous saved
-                                                    therapy results on the <a href="therapy-analysis-emdr.html"
-                                                        class="link-style">EMDR analysis page</a>, change your EMDR
-                                                    settings, or return to the main dashboard.
-                                                </div>
-                                                <div class="margin-top-setting">
-                                                    <span class="no-select goal-button margin-top-tiny"
-                                                        onclick="closeTherapyAnalyze()">
-                                                        Change EMDR settings
-                                                    </span>
-                                                    <a href="dashboard.html" class="kill-link-style">
-                                                        <span class="no-select goal-button margin-top-tiny">Back
-                                                            to
-                                                            main dashboard</span>
-                                                    </a>
-
-                                                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="col col-8 col-centered text-center">
-                        <div class="dashboard-back" onclick="closeTherapyAnalyze()">Close EMDR analysis</div>
-                    </div>
-                </div>
-            </div>
 
 
             <div id="gradient3"
@@ -728,18 +732,7 @@
                     you can use them anytime in the future.
                 </div>
                 <div id="therapy-setting-box-current"></div>
-                <!--
-                <div class="therapy-setting-box-green margin-top shadow">
-                    <div class="therapy-setting-box-header-green">Zach Jordan</div>
-                    <div class="therapy-setting-box-description-green">Update your currently selected set</div>
 
-                    <div class="therapy-setting-box-buttons margin-top-setting">
-                        <span class="therapy-setting-box-button-green no-select" onclick="saveSettings()">Update set
-
-                            <ion-icon class="therapy-setting-box-icon margin-right" name="checkmark-circle-outline"></ion-icon>
-                        </span>
-                    </div>
-                </div>-->
                 <div class="therapy-setting-box margin-top shadow">
                     <div class="therapy-setting-box-header">Create a new set</div>
                     <div class="therapy-setting-box-description">Save your settings to use later</div>
@@ -777,13 +770,14 @@
 
             <div id="gradient" class="col col-12 col-md-6 col-lg-5 settings-panel green-background">
                 <div class="row dashboard-nav">
-                    <a href="therapy-analysis-emdr.html" class="kill-link-style">
+
+                    <a href="dashboard.html" class="kill-link-style">
                         <span
                             class="dashboard-button d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block no-select"
                             onmouseover="dashBoard('enter')" onmouseout="dashBoard('exit')">
-                            <ion-icon id="dashboard-icon-home" class="dashboard-icon white" name="home"></ion-icon>
-                            Return to
-                            dashboard
+                            <ion-icon id="dashboard-icon-home" class="dashboard-icon white" name="home">
+                            </ion-icon>
+                            Main dashboard
                         </span>
                     </a>
                 </div>
@@ -793,9 +787,11 @@
                     OCD,
                     PTSD,
                     and much
-                    more.</div>
-                <div class="therapy-settings-useage white margin-top-tiny pad-right no-select"
-                    onclick="loadInstructions()">Instructions</div>
+                    more. View <a href="therapy-analysis-emdr.html"
+                        class="link-style-blue highlight-color-blue">previous sessions here.</a>
+                </div>
+                <div class="therapy-settings-useage white margin-top pad-right no-select" onclick="loadInstructions()">
+                    Instructions</div>
                 <div class="therapy-settings-useage white margin-top-tiny no-select" onclick="loadSettings()">Load
                     settings</div>
 
