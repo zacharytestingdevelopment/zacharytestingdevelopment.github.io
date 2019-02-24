@@ -2364,7 +2364,7 @@ function viewSessionDetails() {
     }
 
     if (activeSetText != "none") {
-        document.getElementById("therapy-set").innerHTML = activeSetText;
+        document.getElementById("therapy-set").innerHTML = document.getElementById("active-set").innerText;
     }
     else {
         document.getElementById("therapy-set").innerHTML = "N/A";
@@ -4379,6 +4379,8 @@ function endSession() {
 
 
     sessionSettingsShown = true;
+
+    document.getElementById("spawn-show-controls").innerHTML = "";
 
     //document.getElementById("client-name-box").innerHTML = "";
 
