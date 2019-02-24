@@ -3941,6 +3941,7 @@ function analyzeSession() {
         }]
     };
 
+
     optionsMain = {
         bezierCurve: false,
         responsive: true,
@@ -4036,7 +4037,7 @@ function analyzeSession() {
     optionsVAC = {
         bezierCurve: false,
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         intersect: false,
         animation: {
             easing: 'easeInOutQuad',
@@ -4047,27 +4048,41 @@ function analyzeSession() {
                 gridLines: {
                     color: 'rgba(66,87,178, 0.1)',
                     lineWidth: 1,
+                    drawTicks: false,
+                    drawOnChartArea: false,
+                    defaultFontStyle: 'normal',
+                    defaultFontSize: 40,
+                    //drawBorder: false
                 },
                 ticks: {
-                    fontColor: '#4257b2',
-                    fontStyle: 'bold',
+                    fontColor: '#95aac9',
+                    defaultFontStyle: 'normal',
+                    fontSize: 13,
                     fontFamily: 'Montserrat',
-                    padding: 5
+                    padding: 20
 
                 }
             }],
             yAxes: [{
                 gridLines: {
-                    color: 'rgba(66,87,178, 0.1)',
-                    lineWidth: 1,
-
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: 'rgba(149,170,201, 0.21)',
+                    drawBorder: false,
+                    drawTicks: false,
+                    lineWidth: 0,
+                    zeroLineWidth: 0,
+                    zeroLineColor: 'rgba(149,170,201, 0.21)',
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
                 },
                 ticks: {
                     max: 7,
                     padding: 10,
                     beginAtZero: true,
-                    fontColor: '#4257b2',
-                    fontStyle: 'bold',
+                    fontColor: '#95aac9',
+                    fontSize: 13,
+                    defaultFontStyle: 'normal',
                     fontFamily: 'Montserrat',
                     userCallback: function (label, index, labels) {
                         // when the floored value is the same as the value we have a whole number
@@ -4076,6 +4091,7 @@ function analyzeSession() {
                         }
 
                     },
+                    maxBarThickness: 10
                 }
             }]
         },
@@ -4097,18 +4113,20 @@ function analyzeSession() {
             titleFontFamily: 'Montserrat',
             bodyFontFamily: 'Montserrat',
             bodyFontStyle: 'bold',
-            borderColor: 'rgba(66,87,178, 0.91)',
+            borderColor: '#000',
             borderWidth: 2,
-            bodyFontColor: '#4257b2',
+            bodyFontColor: '#000',
             backgroundColor: 'rgba(255,255,255, 0.91)',
-            titleFontColor: '#4257b2',
-            color: '#4257b2',
+            titleFontColor: '#000',
+            color: '#000',
             caretSize: 5,
             cornerRadius: 5,
             xPadding: 20,
             yPadding: 10
         }
     };
+
+
 
     chartInstance2 = new Chart(ctx2, {
         type: 'line',
