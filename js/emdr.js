@@ -4870,12 +4870,6 @@ function updatedEditSet() {
     var newName = document.getElementById("edit-set-name").value;
     var newDescription = document.getElementById("edit-set-description").value;
 
-    //console.log("Changed: " + newName);
-    //console.log("Active set: " + activeSet);
-    //console.log("Edited set: " + editedSet);
-
-    //returnValidNameID(activeSet).replace('name', '')
-
     if (newName.length < 1) {
         $("#edit-set-name").addClass("text-input-failure");
         var failure = "";
@@ -4949,8 +4943,6 @@ function editSet(id) {
 }
 
 function populateSettingsOptions(child) {
-
-    console.log("OPEN LOAD");
 
     document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
 
