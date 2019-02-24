@@ -56,6 +56,7 @@ var speedSlider = document.getElementById("speedRange");
 var speedOutput = document.getElementById("speedOutput");
 var selectedshape = "circle";
 var activeSetText = "none";
+var originalText = "none";
 var paused = "no";
 
 var selectedBackgroundAudio = "none";
@@ -4423,9 +4424,10 @@ function loadSet(set) {
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
     desc.once('value', function (snapshot) {
         activeSetText = snapshot.val().setName;
+        document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + snapshot.val().fullSetName + "</span>";
     });
 
-    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+    //document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
 
     desc.once('value', function (snapshot) {
@@ -4729,9 +4731,6 @@ function updateSet(updatedSet) {
         selectedClient = "yes";
     }
 
-
-
-
     swal("SUCCESS!", "Your set has been updated.", "success");
     closeSavePanel();
 }
@@ -4748,7 +4747,6 @@ function removeArrow(arrow, originText) {
 
 function populateSettingsBox(child) {
 
-
     settingsBox = true;
 
     document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
@@ -4761,15 +4759,20 @@ function populateSettingsBox(child) {
 
     if (activeSet != "none") {
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
-        desc.once('value', function (snapshot) {
+        desc.on('value', function (snapshot) {
+
             activeSetText = snapshot.val().setName;
+            //originalText = 
+
+            document.getElementById("active-set").value = snapshot.val().fullSetName;
         });
 
-        document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+        originalText = document.getElementById("active-set").innerText;
+        console.log("GET: " + originalText);
 
         var selectedTherapy = "";
         selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIn margin-top shadow\">";
-        selectedTherapy += "                    <div id = \"active-set-text-box\" class=\"therapy-setting-box-header-green\">" + activeSetText + "<\/div>";
+        selectedTherapy += "                    <div id = \"active-set-text-box\" class=\"therapy-setting-box-header-green\">" + originalText + "<\/div>";
         selectedTherapy += "                    <div class=\"therapy-setting-box-description-green\">Update your currently selected set<\/div>";
         selectedTherapy += "";
         selectedTherapy += "                    <div class=\"therapy-setting-box-buttons margin-top-setting\">";
@@ -4824,7 +4827,8 @@ function populateSettingsBox(child) {
                 var setDescription = snapshot.val().setDescriptionID;
                 var setName = snapshot.val().setNameID;
 
-                document.getElementById(setName).innerText = name;
+                var originalTextName = snapshot.val().fullSetName;
+                document.getElementById(setName).innerText = originalTextName;
                 document.getElementById(setDescription).innerText = description;
             });
         }
@@ -4853,12 +4857,17 @@ function updatedEditSet() {
     }
     else {
 
+        /*
+        var originalTextName = snapshot.val().fullSetName;
+        document.getElementById("edit-set-name").value = originalTextName;
+*/
         var database = firebase.database();
         var user = firebase.auth().currentUser;
 
         firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + editedSet).update({
             setName: newName,
-            setDescription: newDescription
+            setDescription: newDescription,
+            fullSetName: newName
         });
 
         if (editedSet == activeSet) {
@@ -4902,13 +4911,18 @@ function editSet(id) {
 
         description = snapshot.val().setDescription;
 
-        document.getElementById("edit-set-name").value = name;
+        var originalTextName = snapshot.val().fullSetName;
+        document.getElementById("edit-set-name").value = originalTextName;
+
+        // document.getElementById("edit-set-name").value = name;
         document.getElementById("edit-set-description").value = description;
 
     });
 }
 
 function populateSettingsOptions(child) {
+
+    console.log("OPEN LOAD");
 
     document.getElementById("gradient2").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
 
@@ -4954,8 +4968,9 @@ function populateSettingsOptions(child) {
                 var setName = snapshot.val().setNameID;
                 var setDescription = snapshot.val().setDescriptionID;
                 var setName = snapshot.val().setNameID;
+                var originalTextName = snapshot.val().fullSetName;
 
-                document.getElementById(setName).innerText = name;
+                document.getElementById(setName).innerText = originalTextName;
                 document.getElementById(setDescription).innerText = description;
             });
         }
@@ -5054,6 +5069,8 @@ function saveSettings() {
 
 
     var value = document.getElementById("set-input").value;
+    var fullValue = value;
+
     activeSet = value;
     var user = firebase.auth().currentUser;
 
@@ -5128,6 +5145,7 @@ function saveSettings() {
 
 
         firebase.database().ref('users/' + user.uid + "/emdr/savedSets" + sessionSave).set({
+            fullSetName: fullValue,
             setDescription: setDescription,
             setDescriptionID: id,
             emdrSpeed: speedValue,
@@ -5192,8 +5210,17 @@ function saveSettings() {
 
 function returnValidNameID(input) {
     var stringToModify = input;
-    stringToModify = stringToModify.replace('\'', '');
-    stringToModify = stringToModify.replace('\"', '');
+    stringToModify = stringToModify.replace(/'/g, "")
+    //str.replace(/foo/g, "bar")
+
+
+
+    //stringToModify = stringToModify.split('\'', '').replace('');
+
+    //stringToModify.replace('\'', '');
+    //str.split(search).join(replacement)
+    //stringToModify = stringToModify.replace('\'', '');
+    //stringToModify = stringToModify.replace('\"', '');
 
     return "name" + stringToModify;
 }

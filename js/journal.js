@@ -40,7 +40,7 @@ function defaultCover(decision) {
 
     if (decision == "yes") {
         if (!defaultCoverOptions) {
-            defaultCoverOptios = true;
+
             document.getElementById("cover-button1").className = "tag-button no-select";
             document.getElementById("cover-button2").className = "tag-button tag-button-active no-select";
 
@@ -66,10 +66,15 @@ function defaultCover(decision) {
 
 
             document.getElementById("spawn-defaults").innerHTML = coverPhotos;
+
+            defaultCoverOptions = true;
+
         }
     }
     else {
+
         if (defaultCoverOptions) {
+
             defaultCoverOptions = false;
             document.getElementById("cover-button2").className = "tag-button no-select";
             document.getElementById("cover-button1").className = "tag-button tag-button-active no-select";
