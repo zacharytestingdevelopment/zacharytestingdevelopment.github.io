@@ -4628,6 +4628,7 @@ function deleteSet(id, setName) {
 
 function updateSet(updatedSet) {
 
+    console.log(updatedSet);
     //Set updated set to current set
 
     activeSet = updatedSet;
@@ -4635,14 +4636,16 @@ function updateSet(updatedSet) {
     var database = firebase.database();
     var user = firebase.auth().currentUser;
 
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
-    //var description, name;
+    //console.log("SK: " + activeSet);
+
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
 
     desc.once('value', function (snapshot) {
         activeSetText = snapshot.val().setName;
+        document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + snapshot.val().fullSetName + "</span>";
     });
 
-    document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+    //document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
 
     if (selectedSessionCount == "custom") {
@@ -4778,20 +4781,16 @@ function populateSettingsBox(child) {
     var description = "";
     var id = "";
 
-    //returnValidNameID(activeSet).replace('name', ''))
-
     if (activeSet != "none") {
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
         desc.on('value', function (snapshot) {
 
             activeSetText = snapshot.val().setName;
-            //originalText = 
 
             document.getElementById("active-set").value = snapshot.val().fullSetName;
         });
 
         originalText = document.getElementById("active-set").innerText;
-        console.log("GET: " + originalText);
 
         var selectedTherapy = "";
         selectedTherapy += "<div class=\"therapy-setting-box-green animated fadeIn margin-top shadow\">";
@@ -4799,7 +4798,7 @@ function populateSettingsBox(child) {
         selectedTherapy += "                    <div class=\"therapy-setting-box-description-green\">Update your currently selected set<\/div>";
         selectedTherapy += "";
         selectedTherapy += "                    <div class=\"therapy-setting-box-buttons margin-top-setting\">";
-        selectedTherapy += "                        <span class=\"therapy-setting-box-button-green no-select\" onclick='updateSet(\"" + activeSet + "\");'\">Update";
+        selectedTherapy += "                        <span class=\"therapy-setting-box-button-green no-select\" onclick='updateSet(\"" + returnValidNameID(activeSet).replace('name', '') + "\");'\">Update";
         selectedTherapy += "";
         selectedTherapy += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
         selectedTherapy += "                        <\/span>";
@@ -4826,7 +4825,7 @@ function populateSettingsBox(child) {
             settingOption += "                    <\/div>";
             settingOption += "";
             settingOption += "                    <div class=\"therapy-setting-box-buttons margin-top-tiny\">";
-            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='updateSet(\"" + child[i] + "\");'\">";
+            settingOption += "                        <span class=\"therapy-setting-box-button set-load no-select margin-right\" onclick='updateSet(\"" + returnValidNameID(child[i]).replace('name', '') + "\");'\">";
             settingOption += "                            Update";
             settingOption += "                            <ion-icon class=\"therapy-setting-box-icon margin-right\" name=\"checkmark-circle-outline\"><\/ion-icon>";
             settingOption += "                        <\/span>";
@@ -4895,20 +4894,17 @@ function updatedEditSet() {
             fullSetName: newName
         });
 
-        console.log("Testing: " + returnValidNameID(activeSet).replace('name', '') + " against " + editedSet);
 
         if (editedSet == returnValidNameID(activeSet).replace('name', '')) {
-            console.log("SAME AS ACTIVE");
-            console.log("What: " + activeSet);
+
             var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
 
             desc.once('value', function (snapshot) {
                 activeSetText = snapshot.val().setName;
-                console.log("VALUE CHANGE: " + snapshot.val().fullSetName);
+
                 document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + snapshot.val().fullSetName + "</span>";
             });
 
-            //document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
 
             if (settingsBox) {
                 document.getElementById("active-set-text-box").innerHTML = document.getElementById("active-set").innerText;
