@@ -1850,6 +1850,10 @@ function helperHide() {
     setTimeout(function () { hideHideFade(); }, 300);
 }
 
+function eliminateShowSessionSettings() {
+    document.getElementById("spawn-show-controls").innerHTML = "";
+}
+
 function showSessionSettings() {
 
     sessionSettingsShown = true;
@@ -1859,6 +1863,15 @@ function showSessionSettings() {
 
     $("#top-bottom-line").removeClass("fadeIn");
     $("#top-bottom-line").addClass("fadeOut");
+
+    var settingsHidden = "";
+    settingsHidden += "<span class=\"animated fadeOut\"\">";
+    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "                <\/span>";
+
+    setTimeout(function () { eliminateShowSessionSettings(); }, 300);
+
+    document.getElementById("spawn-show-controls").innerHTML = settingsHidden;
 
     helperHide();
 }
@@ -1870,6 +1883,14 @@ function hideHideFade() {
 function sessionExpandShow() {
 
     window.scrollTo(0, 0);
+
+    var settingsHidden = "";
+    settingsHidden += "<span class=\"animated fadeIn\"\">";
+    settingsHidden += "                    <span class = \"emdr-hide-button-alternate\"> <ion-icon onclick=\"showSessionSettings()\" name=\"arrow-dropdown\" class=\"hide-arrow inherit\"><\/ion-icon></span>";
+    settingsHidden += "                <\/span>";
+
+    document.getElementById("spawn-show-controls").innerHTML = settingsHidden;
+
 
     if (pathing == "topbottom") {
         $("#top-bottom-line").removeClass("fadeOut");
@@ -4757,8 +4778,10 @@ function populateSettingsBox(child) {
     var description = "";
     var id = "";
 
+    //returnValidNameID(activeSet).replace('name', ''))
+
     if (activeSet != "none") {
-        var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
+        var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
         desc.on('value', function (snapshot) {
 
             activeSetText = snapshot.val().setName;
@@ -4848,6 +4871,12 @@ function updatedEditSet() {
     var newName = document.getElementById("edit-set-name").value;
     var newDescription = document.getElementById("edit-set-description").value;
 
+    //console.log("Changed: " + newName);
+    //console.log("Active set: " + activeSet);
+    //console.log("Edited set: " + editedSet);
+
+    //returnValidNameID(activeSet).replace('name', '')
+
     if (newName.length < 1) {
         $("#edit-set-name").addClass("text-input-failure");
         var failure = "";
@@ -4857,10 +4886,6 @@ function updatedEditSet() {
     }
     else {
 
-        /*
-        var originalTextName = snapshot.val().fullSetName;
-        document.getElementById("edit-set-name").value = originalTextName;
-*/
         var database = firebase.database();
         var user = firebase.auth().currentUser;
 
@@ -4870,16 +4895,23 @@ function updatedEditSet() {
             fullSetName: newName
         });
 
-        if (editedSet == activeSet) {
-            var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + activeSet);
+        console.log("Testing: " + returnValidNameID(activeSet).replace('name', '') + " against " + editedSet);
+
+        if (editedSet == returnValidNameID(activeSet).replace('name', '')) {
+            console.log("SAME AS ACTIVE");
+            console.log("What: " + activeSet);
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/savedSets/" + returnValidNameID(activeSet).replace('name', ''));
 
             desc.once('value', function (snapshot) {
                 activeSetText = snapshot.val().setName;
+                console.log("VALUE CHANGE: " + snapshot.val().fullSetName);
+                document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + snapshot.val().fullSetName + "</span>";
             });
 
-            document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+            //document.getElementById("active-set").innerHTML = "<span class = 'animated fadeIn'>" + activeSetText + "</span>";
+
             if (settingsBox) {
-                document.getElementById("active-set-text-box").innerHTML = activeSetText;
+                document.getElementById("active-set-text-box").innerHTML = document.getElementById("active-set").innerText;
             }
 
         }
@@ -5210,17 +5242,11 @@ function saveSettings() {
 
 function returnValidNameID(input) {
     var stringToModify = input;
-    stringToModify = stringToModify.replace(/'/g, "")
-    //str.replace(/foo/g, "bar")
-
-
-
-    //stringToModify = stringToModify.split('\'', '').replace('');
-
-    //stringToModify.replace('\'', '');
-    //str.split(search).join(replacement)
-    //stringToModify = stringToModify.replace('\'', '');
-    //stringToModify = stringToModify.replace('\"', '');
+    stringToModify = stringToModify.replace(/'/g, 'x');
+    stringToModify = stringToModify.replace(/\//g, 'x');
+    stringToModify = stringToModify.replace(/\$/g, 'x');
+    stringToModify = stringToModify.replace(/\#/g, 'x');
+    stringToModify = stringToModify.replace(/\./g, 'x');
 
     return "name" + stringToModify;
 }

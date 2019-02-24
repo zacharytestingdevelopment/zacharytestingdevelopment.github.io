@@ -1269,6 +1269,7 @@
         </div>
         <div id="top-bottom-line" class="top-bottom-line animated fadeOut"></div>
 
+        <span id="spawn-show-controls"></span>
         <div id="therapy-main-box" style="padding-left:10px !important;padding-top:10px !important;">
 
         </div>
@@ -1442,7 +1443,6 @@
     });
 
     $("#nextSession").on("hidden.bs.modal", function () {
-
     });
 
     //Update EMDR element path on resize 
@@ -1450,10 +1450,9 @@
         resizeEMDR();
     });
 
-
     //Check if element is scrolled to the preview
     var mobileScrolledDown = false;
-    $(window).scroll(function () {
+    $('body').scroll(function () {
         if ($(window).width() < 768) {
             var topofDiv = $("#preview-pane").offset().top; //gets offset of header
             var height = $("#preview-pane").outerHeight(); //gets height of header
@@ -1498,6 +1497,7 @@
             var topofDiv = $("#preview-pane").offset().top; //gets offset of header
             var height = $("#preview-pane").outerHeight(); //gets height of header
             if ($(window).scrollTop() > (topofDiv - 77)) {
+
                 if (!mobileScrolledDown) {
 
                     var start = "";
@@ -1512,6 +1512,7 @@
 
             }
             else {
+
                 if (mobileScrolledDown) {
 
                     var end = "";
