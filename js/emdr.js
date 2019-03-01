@@ -2357,10 +2357,10 @@ function viewSessionDetails() {
     document.getElementById("therapy-date").innerHTML = date;
 
     if (selectedClient == "yes" && document.getElementById("client-initial").value.length > 0) {
-        document.getElementById("therapy-client").innerHTML = document.getElementById("client-initial").value;
+        // document.getElementById("therapy-client").innerHTML = document.getElementById("client-initial").value;
     }
     else {
-        document.getElementById("therapy-client").innerHTML = "N/A";
+        //document.getElementById("therapy-client").innerHTML = "N/A";
     }
 
     if (activeSetText != "none") {
@@ -2845,6 +2845,13 @@ function saveTherapyResults(type) {
 
             clientName = document.getElementById("client-initial").value;
 
+            var completion;
+            if (completedSessions >= numberOfSessions) {
+                completion = true;
+            }
+            else {
+                completion = false;
+            }
 
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
@@ -2856,7 +2863,10 @@ function saveTherapyResults(type) {
                 setDescriptionProgress: descriptionProgress,
                 clientUsed: clientName,
                 sessionProgress: completedSessions,
-                totalSessions: numberOfSessions
+                totalSessions: numberOfSessions,
+                notesTaken: countNotes(),
+                dayOfSession: currentDay(),
+                completionStatus: completion
             });
         }
     }
@@ -2878,6 +2888,13 @@ function saveTherapyResults(type) {
 
             clientName = document.getElementById("client-initial").value;
 
+            var completion;
+            if (completedSessions >= numberOfSessions) {
+                completion = true;
+            }
+            else {
+                completion = false;
+            }
 
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
@@ -2889,7 +2906,10 @@ function saveTherapyResults(type) {
                 setDescriptionProgress: descriptionProgress,
                 clientUsed: clientName,
                 sessionProgress: completedSessions,
-                totalSessions: numberOfSessions
+                totalSessions: numberOfSessions,
+                notesTaken: countNotes(),
+                dayOfSession: currentDay(),
+                completionStatus: completion
             });
         }
 
@@ -2969,6 +2989,13 @@ function saveTherapyResults(type) {
 
             clientName = document.getElementById("client-initial").value;
 
+            var completion;
+            if (completedSessions >= numberOfSessions) {
+                completion = true;
+            }
+            else {
+                completion = false;
+            }
 
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
@@ -2980,7 +3007,10 @@ function saveTherapyResults(type) {
                 setDescriptionProgress: descriptionProgress,
                 clientUsed: clientName,
                 sessionProgress: completedSessions,
-                totalSessions: numberOfSessions
+                totalSessions: numberOfSessions,
+                notesTaken: countNotes(),
+                dayOfSession: currentDay(),
+                completionStatus: completion
             });
 
         }
@@ -2994,6 +3024,11 @@ function saveTherapyResults(type) {
     else if (type == "analyze") {
         analyzeSession();
     }
+}
+
+function currentDay() {
+    var d = new Date();
+    return d.getDay()
 }
 
 //Return the date formatted as a string
@@ -4955,8 +4990,6 @@ function editSet(id) {
 
         var originalTextName = snapshot.val().fullSetName;
         document.getElementById("edit-set-name").value = originalTextName;
-
-        // document.getElementById("edit-set-name").value = name;
         document.getElementById("edit-set-description").value = description;
 
     });
@@ -5106,7 +5139,6 @@ function saveSettingsBox() {
 }
 
 function saveSettings() {
-
 
     var value = document.getElementById("set-input").value;
     var fullValue = value;

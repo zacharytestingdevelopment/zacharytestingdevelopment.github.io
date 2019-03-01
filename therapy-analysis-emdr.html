@@ -39,9 +39,62 @@
 </head>
 
 <body>
-    <div id="loader" class="spinner" style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+    <div id="loader" class="spinner"
+        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
+    </div>
+
+    <div id="view-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element no-select">Your goal</div>
+
+                <div class="modal-body text-center">
+                    <span class="modal-body-larger">
+                        You want to complete <span class="modal-focus">4</span> sessions a <span
+                            class="modal-focus">year</span>
+                    </span>
+                </div>
+
+                <div class="modal-footer">
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sessionDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Therapy details</div>
+                <div id="therapy-date" class="therapy-over-box-subheader text-center">January 7th, 2019</div>
+
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Set used: <span id="therapy-set">Quick session</span>
+                        </li>
+                        <!--
+                    <li class="list-group-item">Client name: <span id="therapy-client">Zachary Jordan</span>
+                    </li>
+                -->
+                        <li class="list-group-item">Sessions completed: <span
+                                id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
+                        </li>
+                        <li class="list-group-item">Notes taken: <span id="therapy-notes-count">3</span></li>
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- MAIN CONTENT
@@ -94,7 +147,8 @@
 
                             <!-- Nav -->
                             <ul class="nav nav-tabs header-tabs">
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults" data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
                                     data-prefix="$" data-suffix="k">
                                     <a href="#" class="nav-link text-center active" data-toggle="tab">
                                         <h6 class="header-pretitle text-secondary">
@@ -105,7 +159,8 @@
                                         </h3>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults" data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
                                     data-prefix="" data-suffix="k">
                                     <a href="#" class="nav-link text-center" data-toggle="tab">
                                         <h6 class="header-pretitle text-secondary">
@@ -116,7 +171,8 @@
                                         </h3>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults" data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
                                     data-prefix="" data-suffix="%">
                                     <a href="#" class="nav-link text-center" data-toggle="tab">
                                         <h6 class="header-pretitle text-secondary">
@@ -133,13 +189,13 @@
 
 
                         </div>
-                    </div> <!-- / .row -->
-                </div> <!-- / .header-body -->
+                    </div>
+                </div>
 
-                <!-- Footer -->
+
                 <div class="header-footer">
 
-                    <!-- Chart -->
+
                     <div class="chart">
 
                         <canvas id="headerChart" class="chart-style"></canvas>
@@ -156,7 +212,8 @@
                 <div class="col-12 col-centered col-xl-11">
 
                     <!-- Goals -->
-                    <div class="card shadow animated slideInUp" style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                    <div class="card max-notes-height shadow animated slideInUp"
+                        style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
@@ -174,220 +231,49 @@
                                         <span class="float-right no-select goal-button">Start new session</span>
                                     </a>
                                 </div>
-                            </div> <!-- / .row -->
+                            </div>
                         </div>
-                        <div class="table-responsive mb-0" data-toggle="lists" data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
+                        <div class="table-responsive mb-0" data-toggle="lists"
+                            data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
                             <table class="table table-sm table-nowrap card-table">
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="goal-project">
+                                            <span class="text-muted">
                                                 Session date
-                                            </a>
+                                            </span>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="goal-status">
+                                            <span class="text-muted">
                                                 Completion
-                                            </a>
+                                            </span>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="goal-progress">
+                                            <span class="text-muted">
                                                 Notes taken
-                                            </a>
+                                            </span>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="goal-date">
+                                            <span class="text-muted">
                                                 Set used
-                                            </a>
+                                            </span>
                                         </th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="list">
-                                    <tr>
-                                        <td class="goal-project">
-                                            1/8/2019
-                                        </td>
-                                        <td class="goal-status">
-                                            <span class="text-warning">●</span> Started
-                                        </td>
-                                        <td class="goal-progress">
-                                            5
-                                        </td>
-                                        <td class="goal-date">
-                                            <time datetime="2018-10-24">Quick set</time>
-                                        </td>
 
-                                        <td class="text-right">
-                                            <span class="analyze-link no-select">Analyze session</span>
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                    data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        Action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Another action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Something else here
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="goal-project">
-                                            1/19/2019
-                                        </td>
-                                        <td class="goal-status">
-                                            <span class="text-warning">●</span> Started
-                                        </td>
-                                        <td class="goal-progress">
-                                            2
-                                        </td>
-                                        <td class="goal-date">
-                                            <time datetime="2018-10-24">Nighttime</time>
-                                        </td>
+                                <tbody id="results-body" class="list">
 
-                                        <td class="text-right">
-                                            <span class="analyze-link no-select">Analyze session</span>
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                    data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        Action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Another action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Something else here
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="goal-project">
-                                            7/10/2019
-                                        </td>
-                                        <td class="goal-status">
-                                            <span class="text-success">●</span> Completed
-                                        </td>
-                                        <td class="goal-progress">
-                                            6
-                                        </td>
-                                        <td class="goal-date">
-                                            <time datetime="2018-10-24">Short sessions</time>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <span class="analyze-link no-select">Analyze session</span>
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                    data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        Action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Another action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Something else here
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="goal-project">
-                                            3/4/2019
-                                        </td>
-                                        <td class="goal-status">
-                                            <span class="text-warning">●</span> Started
-                                        </td>
-                                        <td class="goal-progress">
-                                            5
-                                        </td>
-                                        <td class="goal-date">
-                                            <time datetime="2018-10-24">Slow</time>
-                                        </td>
-
-                                        <td class="text-right">
-
-                                            <span class="analyze-link no-select">Analyze session</span>
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                    data-boundary="window">
-                                                    <span class="fe fe-more-vertical"></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        Action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Another action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Something else here
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="goal-project">
-                                            7/4/2019
-                                        </td>
-                                        <td class="goal-status">
-                                            <span class="text-success">●</span> Completed
-                                        </td>
-                                        <td class="goal-progress">
-                                            4
-                                        </td>
-                                        <td class="goal-date">
-                                            <time datetime="2018-10-24">Special</time>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <span class="analyze-link no-select">Analyze session</span>
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                    data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        Action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Another action
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Something else here
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
+                            <div id="load-more-box"
+                                class="col col-12 top-split animated flipInX text-center col-centered">
+                                <span class="loading-text">Loading...</span>
+                            </div>
+
+
+
                         </div>
                     </div>
 
@@ -405,12 +291,12 @@
 
                                     <!-- Title -->
                                     <h6 class="card-title text-uppercase text-muted mb-2">
-                                        Sessions completed
+                                        Sessions saved
                                     </h6>
 
                                     <!-- Heading -->
-                                    <span class="h2 mb-0">
-                                        210
+                                    <span id="sessions-completed" class="h2 mb-0">
+                                        Loading...
                                     </span>
 
                                     <!-- Badge -->
@@ -442,7 +328,7 @@
                                     <!-- Title -->
                                     <h6 class="card-title text-uppercase text-muted mb-2">
                                         Progress towards goal
-                                        <span class="float-right goal-button">View goal</span>
+                                        <span onclick="viewGoal()" class="float-right goal-button">View goal</span>
                                     </h6>
 
                                     <div class="row align-items-center no-gutters">
@@ -573,25 +459,28 @@
 
                                     <div class="dashboard-goal margin-top-tiny">
                                         I want to complete
-                                        <input type="number" min="1" placeholder="5" class="text-center dashboard-goal-input" />
+                                        <input id="goal-number" onfocusout="checkGoalNumber()" type="number" min="1"
+                                            value="5" class="text-center dashboard-goal-input" />
                                         sessions every
 
-                                        <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
-                                            class="dashboard-goal-time dashboard-goal-input dropdown-toggle" href="#"
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
+                                        <a id="goal-time" class="dashboard-time-input dropdown-toggle" href="#"
+                                            role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <span class="eggshell" id="timeline">week</span>
                                         </a>
 
-                                        <div id="timelineDropdown" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <div id="timelineDropdown" class="dropdown-menu"
+                                            aria-labelledby="dropdownMenuLink">
                                             <span class="dropdown-item" onclick="changeGoalTimeline('day')">Day</span>
                                             <span class="dropdown-item" onclick="changeGoalTimeline('week')">Week</span>
-                                            <span class="dropdown-item" onclick="changeGoalTimeline('month')">Month</span>
+                                            <span class="dropdown-item"
+                                                onclick="changeGoalTimeline('month')">Month</span>
                                             <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
                                         </div>
 
                                         <div class="margin-top">
-                                            <span class="no-select goal-button large-goal-button">Save my
+                                            <span onclick="saveGoal()"
+                                                class="no-select goal-button large-goal-button">Save my
                                                 goal</span>
                                         </div>
 
@@ -643,6 +532,8 @@
     <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/creative.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
         // Initialize Firebase
         var config = {
@@ -653,6 +544,7 @@
             storageBucket: "mental-health-suite.appspot.com",
             messagingSenderId: "119327507370"
         };
+
         firebase.initializeApp(config);
 
         ScrollReveal({ distance: '-20px' });
@@ -663,6 +555,7 @@
         ScrollReveal().reveal('.e5');
 
     </script>
+    <script src="js/therapy-analysis-emdr.js"></script>
     <script src="js/sign-up.js"></script>
 
     <script>
@@ -670,7 +563,6 @@
             jQuery('#loader').fadeOut(330);
 
         });
-
     </script>
 
 

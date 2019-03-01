@@ -849,31 +849,6 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     color:#454545;
 }
 
-
-  .swal-button--confirm {
-      font-size: 18px;
-      padding-top:8px;
-      padding-bottom: 8px;
-      position: relative !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
-    background: #fff;
-    border:2.5px solid #3ee986;
-    -webkit-box-shadow: none !important;
-	box-shadow: none !important;
-    -webkit-appearance: inherit;
-    color:#3ee986;
-    border-radius: 20px;
-    transition: all .3s ease 0s;
-}
-
-.swal-button--confirm:hover
-{
-    background:#3ee986 !important;
-    
-    color:#fff;
-}
-
 .question-mark
 {
     position: relative;top:0px;left:1.5px;

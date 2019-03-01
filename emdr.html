@@ -146,8 +146,10 @@
                             <li class="list-group-item">
                                 Set used: <span id="therapy-set">Quick session</span>
                             </li>
+                            <!--
                             <li class="list-group-item">Client name: <span id="therapy-client">Zachary Jordan</span>
                             </li>
+                        -->
                             <li class="list-group-item">Sessions completed: <span
                                     id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
                             </li>
@@ -544,7 +546,6 @@
 
                                         </div>
                                         <div class="col-auto">
-
 
                                             <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
 
@@ -1209,15 +1210,18 @@
                                     placeholder="Initial VAC (1-7)" class="number-input-style" min="1" />
                             </div>
 
-                            <div class="setting-category margin-top-large">SET CLIENT NAME <span
+                            <!--
+                            <div class="hidden setting-category margin-top-large">SET CLIENT NAME <span
                                     class="information-circle" onclick="information('client')"><span
-                                        class="question-mark no-select">?</span></div>
+                                        class="question-mark no-select">?</span></div>-->
                             <div>
-                                <div id="clientNo" class="preset-item inline-block no-select preset-item-selected"
+                                <div id="clientNo"
+                                    class="hidden preset-item inline-block no-select preset-item-selected"
                                     onclick="client('no')">No</div>
-                                <div id="clientYes" class="preset-item inline-block no-select margin-left-right"
+                                <div id="clientYes" class="hidden preset-item inline-block no-select margin-left-right"
                                     onclick="client('yes')">Yes</div>
                             </div>
+
                             <div id="clientInput" class="hidden">
                                 <input id="client-initial" type="text" placeholder="Enter client name"
                                     class="number-input-style" />

@@ -28,7 +28,7 @@ new Sortable(customizeRight, {
 
 function changeGoalTimeline(timeline) {
     //also turn white
-    document.getElementById("timeline").innerHTML = timeline;
+    document.getElementById("goal-time").innerText = timeline;
 }
 
 function customizeDash() {
@@ -62,19 +62,5 @@ function closeDash(type) {
         $("body").removeClass("stop-scrolling");
         $('body').unbind('touchmove');
         customizeDashActive = false;
-    }
-}
-
-function timelineTextStyle(type) {
-    if (type == "in") {
-        console.log("in");
-        document.getElementById("timeline").className = "highlight-color-blue";
-
-    }
-    else if (type == "out") {
-        console.log("out");
-        document.getElementById("timeline").className = "white";
-        // document.getElementById('timeline').style.color = '#fff';
-
     }
 }
