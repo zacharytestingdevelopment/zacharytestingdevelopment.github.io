@@ -20,6 +20,7 @@ var sunday = 0;
 var endDaysCount = 0;
 var totalLoadCount = 0;
 var loadMoreCount;
+var daysCounter = 0;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -45,33 +46,60 @@ function prepareResults() {
             //You have results
 
             var loadMore = "";
-            loadMore += "<span onclick=\"loadMoreNotes()\" class=\"load-more no-select margin-top-large\">";
+            loadMore += "<div id = 'error-message-box'><span onclick=\"loadMoreNotes()\" class=\"load-more no-select margin-top-large\">";
             loadMore += "                                    Load more";
-            loadMore += "                                <\/span>";
+            loadMore += "                                <\/span></div>";
 
-            document.getElementById("load-more-box").innerHTML = "<span class = 'animated fadeIn'>" + loadMore + "</span>";
+            document.getElementById("load-more-box").innerHTML = loadMore;
 
             loadResults();
-            loadSessionsCompleted();
-            loadDaysUsed();
-            loadGoal();
+
         }
         else {
             //No results
+            console.log("No notes found");
+            var noNotes = "";
+            noNotes += "<span class=\"no-notes-text\">You have no sessions saved!<\/span>";
+            noNotes += "                                <div>";
+            noNotes += "                                    <a href=\"emdr.html\" class=\"kill-link-style\">";
+            noNotes += "                                        <div class=\"no-notes-button no-select\">";
+            noNotes += "                                            Get started";
+            noNotes += "                                        <\/div>";
+            noNotes += "                                    <\/a>";
+            noNotes += "                                <\/div>";
+
+            document.getElementById("load-more-box-put").innerHTML = "<div class = 'col col-12 top-split animated flipInX text-center col-centered'>" + noNotes + "</div>";
         }
+
+        loadSessionsCompleted();
+        loadDaysUsed();
+        loadGoal();
 
     });
 }
 
+function updateDaysCounter() {
+    console.log("DAYS: " + daysCounter);
+    daysCounter--;
+}
+
 function loadDaysUsed() {
     var user = firebase.auth().currentUser;
+    daysCounter = therapyResults.length - 1;
 
     for (i = therapyResults.length - 1; i >= 0; i--) {
 
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + therapyResults[i]);
         desc.on('value', function (snapshot) {
-            var tempStr = therapyResults[count];
-            updateCountDays(snapshot.val().dayOfSession, endDaysCount);
+
+            var tempStr = therapyResults[daysCounter];
+            updateDaysCounter();
+            console.log(tempStr);
+
+            //var 
+            console.log(snapshot.val().dayOfSession);
+            //var tempStr = therapyResults[count];
+            //updateCountDays(snapshot.val().dayOfSession, endDaysCount);
             //console.log("DAY: " + snapshot.val().dayOfSession);
         });
     }
@@ -290,6 +318,8 @@ function loadMoreNotes() {
     //You have no notes to load
     else {
         console.log("You have no notes at all to be loaded");
+        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-8 col-centered animated flipInX'> <span class = 'error-message'>No more sessions to load!</span></div>"
+
     }
 }
 
@@ -321,6 +351,7 @@ function updateCount() {
     count--;
 }
 
+/*
 function updateCountDays(day, dayCount) {
 
     if (day == 0) {
@@ -345,12 +376,48 @@ function updateCountDays(day, dayCount) {
         saturday++;
     }
 }
+*/
 
 function loadGoal() {
     var user = firebase.auth().currentUser;
-
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+
+    var goalBox = "";
+    goalBox += "<div class=\"dashboard-goal margin-top-tiny\">";
+    goalBox += "                                            I want to complete";
+    goalBox += "                                            <input id=\"goal-number\" onfocusout=\"checkGoalNumber()\" type=\"number\" min=\"1\"";
+    goalBox += "                                                value=\"5\" class=\"text-center dashboard-goal-input\" \/>";
+    goalBox += "                                            sessions this";
+    goalBox += "";
+    goalBox += "                                            <a id=\"goal-time\" class=\"dashboard-time-input dropdown-toggle\" href=\"#\"";
+    goalBox += "                                                role=\"button\" id=\"dropdownMenuLink\" data-toggle=\"dropdown\"";
+    goalBox += "                                                aria-haspopup=\"true\" aria-expanded=\"false\">";
+    goalBox += "                                                <span class=\"eggshell\" id=\"timeline\">week<\/span>";
+    goalBox += "                                            <\/a>";
+    goalBox += "";
+    goalBox += "                                            <div id=\"timelineDropdown\" class=\"dropdown-menu\"";
+    goalBox += "                                                aria-labelledby=\"dropdownMenuLink\">";
+    goalBox += "                                                <span class=\"dropdown-item\"";
+    goalBox += "                                                    onclick=\"changeGoalTimeline('day')\">Day<\/span>";
+    goalBox += "                                                <span class=\"dropdown-item\"";
+    goalBox += "                                                    onclick=\"changeGoalTimeline('week')\">Week<\/span>";
+    goalBox += "                                                <span class=\"dropdown-item\"";
+    goalBox += "                                                    onclick=\"changeGoalTimeline('month')\">Month<\/span>";
+    goalBox += "                                                <span class=\"dropdown-item\"";
+    goalBox += "                                                    onclick=\"changeGoalTimeline('year')\">Year<\/span>";
+    goalBox += "                                            <\/div>";
+    goalBox += "";
+    goalBox += "                                            <div class=\"margin-top\">";
+    goalBox += "                                                <span onclick=\"saveGoal()\"";
+    goalBox += "                                                    class=\"no-select goal-button large-goal-button\">Save my";
+    goalBox += "                                                    goal<\/span>";
+    goalBox += "                                            <\/div>";
+    goalBox += "";
+    goalBox += "                                        <\/div>";
+
+    document.getElementById("dashboard-goal-box").innerHTML = "<div class = 'animated fadeIn'>" + goalBox + "</div>";
     desc.on('value', function (snapshot) {
+
         document.getElementById("goal-number").value = snapshot.val().userGoalNumber;
         document.getElementById("goal-time").innerText = snapshot.val().userGoalTime;
     });
@@ -362,6 +429,8 @@ function viewGoal() {
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
     desc.on('value', function (snapshot) {
 
+        document.getElementById("modal-goal-number").innerHTML = "<span class = 'animated flipInX white'>" + snapshot.val().userGoalNumber + "</span>";
+        document.getElementById("modal-goal-time").innerHTML = "<span class = 'animated flipInX white'>" + snapshot.val().userGoalTime + "</span>";
         //console.log("goal number: " + snapshot.val().userGoalNumber);
         //document.getElementById("goal-number").value = snapshot.val().userGoalNumber;
         //document.getElementById("goal-time").innerText = snapshot.val().userGoalTime;

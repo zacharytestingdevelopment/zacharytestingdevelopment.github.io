@@ -11,6 +11,17 @@
     max-height: 65vh;
 }
 
+.error-message
+{
+    background:#e54c3c;
+    color:#fff;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 5px;
+}
+
 .modal-header-element
 {
     margin-top:15px;
@@ -22,9 +33,37 @@
     right:0;   
 }
 
+.no-notes-button
+{
+    margin-top: 10px;
+    border: 2px solid #4257b2;
+    color:#4257b2;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 5px;
+    padding-left: 11px;
+    padding-right: 11px;
+    padding-top: 3px;
+    padding-bottom:3px;
+    transition: all .3s ease;
+}
+
+.no-notes-button:hover
+{
+    cursor: pointer;
+    background:#4257b2;
+    color:#fff;
+}
+
 .modal-body-larger
 {
     font-size: 18px;
+}
+
+.no-notes-text
+{
+    color:#454545;
+    font-size: 27px;
 }
 
 .modal-focus
@@ -35,7 +74,8 @@
     padding-right: 7px;
     border-radius: 5px;
     background:#4257b2;
-    color:#fff;
+    color:#fff !important;
+    transition:  all 1.5s ease !important;
 }
 
 .therapy-modal
@@ -62,6 +102,11 @@
     cursor: pointer;
     background: #4257b2;
     color:#fff;
+}
+
+.smaller-padding
+{
+    padding-left: 1px !important;
 }
 
 .save-changes-button
@@ -995,6 +1040,22 @@ input[type="color"]::-webkit-color-swatch {
 
   .dropdown-toggle::after {
     display:none !important;
+}
+
+.smaller-dash-input
+{
+    display: inline-block !important;
+    margin-top:8px !important;
+    border-radius: 5px !important;
+    color:#fff !important;
+    background:#4257b2 !important;
+    border: 2px solid #4257b2 !important;
+    padding-top: 2px;
+    width:60px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    transition: all .3s ease !important;
 }
 
 .dashboard-time-input

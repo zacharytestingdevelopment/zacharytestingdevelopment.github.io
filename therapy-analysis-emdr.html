@@ -53,10 +53,14 @@
 
                 <div class="modal-body text-center">
                     <span class="modal-body-larger">
-                        You want to complete <span class="modal-focus">4</span> sessions a <span
-                            class="modal-focus">year</span>
+
+
+                        You want to complete <span id="modal-goal-number" class="modal-focus"></span> sessions a <span
+                            id="modal-goal-time" class="modal-focus"></span>
                     </span>
                 </div>
+
+
 
                 <div class="modal-footer">
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
@@ -66,36 +70,7 @@
         </div>
     </div>
 
-    <div id="sessionDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header-element">Therapy details</div>
-                <div id="therapy-date" class="therapy-over-box-subheader text-center">January 7th, 2019</div>
 
-                <div class="modal-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            Set used: <span id="therapy-set">Quick session</span>
-                        </li>
-                        <!--
-                    <li class="list-group-item">Client name: <span id="therapy-client">Zachary Jordan</span>
-                    </li>
-                -->
-                        <li class="list-group-item">Sessions completed: <span
-                                id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
-                        </li>
-                        <li class="list-group-item">Notes taken: <span id="therapy-notes-count">3</span></li>
-                    </ul>
-                </div>
-
-                <div class="modal-footer">
-                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- MAIN CONTENT
     ================================================== -->
@@ -267,10 +242,14 @@
 
                                 </tbody>
                             </table>
-                            <div id="load-more-box"
-                                class="col col-12 top-split animated flipInX text-center col-centered">
-                                <span class="loading-text">Loading...</span>
-                            </div>
+                            <span id="load-more-box-put">
+                                <div id="load-more-box"
+                                    class="col col-12 top-split animated flipInX text-center col-centered">
+
+                                    <span class="loading-text">Loading...</span>
+
+                                </div>
+                            </span>
 
 
 
@@ -457,33 +436,8 @@
                                         Set a goal
                                     </span>
 
-                                    <div class="dashboard-goal margin-top-tiny">
-                                        I want to complete
-                                        <input id="goal-number" onfocusout="checkGoalNumber()" type="number" min="1"
-                                            value="5" class="text-center dashboard-goal-input" />
-                                        sessions every
-
-                                        <a id="goal-time" class="dashboard-time-input dropdown-toggle" href="#"
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <span class="eggshell" id="timeline">week</span>
-                                        </a>
-
-                                        <div id="timelineDropdown" class="dropdown-menu"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <span class="dropdown-item" onclick="changeGoalTimeline('day')">Day</span>
-                                            <span class="dropdown-item" onclick="changeGoalTimeline('week')">Week</span>
-                                            <span class="dropdown-item"
-                                                onclick="changeGoalTimeline('month')">Month</span>
-                                            <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
-                                        </div>
-
-                                        <div class="margin-top">
-                                            <span onclick="saveGoal()"
-                                                class="no-select goal-button large-goal-button">Save my
-                                                goal</span>
-                                        </div>
-
+                                    <div id="dashboard-goal-box" class="dashboard-goal">
+                                        Loading...
                                     </div>
                                     <div class="col-auto">
 
