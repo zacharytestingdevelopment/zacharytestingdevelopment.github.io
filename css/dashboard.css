@@ -11,6 +11,17 @@
     max-height: 65vh;
 }
 
+.days-remaining-goal
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    border: 2px solid #3ee986;
+    color: #3ee986;
+}
+
 .error-message
 {
     background:#e54c3c;

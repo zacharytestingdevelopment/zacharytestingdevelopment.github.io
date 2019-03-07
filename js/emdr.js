@@ -5317,6 +5317,3 @@ function recalibrateEMDR() {
     }
 
 }
-
-
-

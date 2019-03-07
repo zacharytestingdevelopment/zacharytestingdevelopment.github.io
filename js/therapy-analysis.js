@@ -1,3 +1,4 @@
+/*
 var ctx = document.getElementById('dayChart').getContext('2d')
 var dayChart = new Chart(ctx,
     {
@@ -10,6 +11,7 @@ var dayChart = new Chart(ctx,
             }]
         }
     });
+    */
 
 var ctx = document.getElementById('timeChart').getContext('2d')
 var timeChart = new Chart(ctx,

@@ -1463,7 +1463,10 @@ html.sr .load-hidden {
     border-right: 2px solid #58d68d;
 }
 
-
+.animate-smooth
+{
+    transition: all .3s ease !important;
+}
 
 .sign-up
 {
@@ -1552,6 +1555,20 @@ html.sr .load-hidden {
   {
       animation-delay: .7s;
   }
+
+  .highlight-color-green-badge
+  {
+      color:#00d97e !important;
+  }
+.highlight-color-green-darker
+{
+    color:#00C874 !important;
+}
+
+.highlight-color-green-specific
+{
+    color:#40e986 !important;
+}
 
 .highlight-color
 {
