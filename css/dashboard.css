@@ -44,6 +44,11 @@
     right:0;   
 }
 
+.red-bar
+{
+    background:#e54c3c !important;
+}
+
 .no-notes-button
 {
     margin-top: 10px;

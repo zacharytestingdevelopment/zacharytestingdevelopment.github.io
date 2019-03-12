@@ -6,7 +6,7 @@ var btnSignUp = document.getElementById("btnSignUp");
 var comingFromClick = false;
 
 function goToDashboard() {
-    window.location = "dashboard.html";
+    setTimeout(function () { window.location = "dashboard.html"; }, 1500);
 }
 
 function signUp() {
@@ -123,6 +123,8 @@ function saveTheDate() {
         dayCreatedUser: dayCreated
     });
 
+    console.log("date saved");
+
     //window.location = "dashboard.html";
 }
 
@@ -137,11 +139,13 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
         }
         else {
-            saveTheDate();
+            $.when(saveTheDate()).done(function () {
+                goToDashboard();
+            });
         }
     }
     else {
-        console.log("Not logged in");
+        //console.log("Not logged in");
     }
 });
 

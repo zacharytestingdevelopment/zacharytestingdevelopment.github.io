@@ -2775,7 +2775,26 @@ function valueCheck(valueCheck) {
     }
 }
 
+/*
+function calculateAverageData(dataType) {
+    var total = 0;
+    var totalLength = 0;
+    if (dataType == "mood") {
+        for (var i = 0; i < moodProgress.length; i++) {
+            if (moodProgress[i] != "empty") {
+                total += parseFloat(moodProgress[i]);
+                totalLength++;
+                console.log(total);
+            }
+        }
+        return total / totalLength;
+    }
+}
+*/
+
 function saveTherapyResults(type) {
+
+
 
     if (type != "paused" && type != "ending" && type != "pausedClose") {
         //console.log("WOOOOOOOOOO");
@@ -2853,6 +2872,59 @@ function saveTherapyResults(type) {
                 completion = false;
             }
 
+            var sessionMoodAverage;
+            var seessionSudsAverage;
+            var sessionVacAverage;
+            var sessionRecallAverage;
+
+            if (selectedMood == "yes") {
+                if (!isNaN(calculateAverageScore(moodProgress))) {
+                    sessionMoodAverage = calculateAverageScore(moodProgress);
+                }
+                else {
+                    sessionMoodAverage = "empty";
+                }
+            }
+            else {
+                sessionMoodAverage = "empty";
+            }
+
+            if (selectedRecall == "yes") {
+                if (!isNaN(calculateAverageScore(recallProgress))) {
+                    sessionRecallAverage = calculateAverageScore(recallProgress);
+                }
+                else {
+                    sessionRecallAverage = "empty";
+                }
+            }
+            else {
+                sessionRecallAverage = "empty";
+            }
+
+            if (selectedSUDS == "yes") {
+                if (!isNaN(calculateAverageScore(sudsProgress))) {
+                    seessionSudsAverage = calculateAverageScore(sudsProgress);
+                }
+                else {
+                    seessionSudsAverage = "empty";
+                }
+            }
+            else {
+                seessionSudsAverage = "empty";
+            }
+
+            if (selectedVAC == "yes") {
+                if (!isNaN(calculateAverageScore(vacProgress))) {
+                    sessionVacAverage = calculateAverageScore(vacProgress);
+                }
+                else {
+                    sessionVacAverage = "empty";
+                }
+            }
+            else {
+                sessionVacAverage = "empty";
+            }
+
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
@@ -2866,7 +2938,11 @@ function saveTherapyResults(type) {
                 totalSessions: numberOfSessions,
                 notesTaken: countNotes(),
                 dayOfSession: currentDay(),
-                completionStatus: completion
+                completionStatus: completion,
+                averageMoodResult: sessionMoodAverage,
+                averageRecallResult: sessionRecallAverage,
+                averageSudsResult: seessionSudsAverage,
+                averageVacAverage: sessionVacAverage
             });
         }
     }
@@ -2896,6 +2972,59 @@ function saveTherapyResults(type) {
                 completion = false;
             }
 
+            var sessionMoodAverage;
+            var seessionSudsAverage;
+            var sessionVacAverage;
+            var sessionRecallAverage;
+
+            if (selectedMood == "yes") {
+                if (!isNaN(calculateAverageScore(moodProgress))) {
+                    sessionMoodAverage = calculateAverageScore(moodProgress);
+                }
+                else {
+                    sessionMoodAverage = "empty";
+                }
+            }
+            else {
+                sessionMoodAverage = "empty";
+            }
+
+            if (selectedRecall == "yes") {
+                if (!isNaN(calculateAverageScore(recallProgress))) {
+                    sessionRecallAverage = calculateAverageScore(recallProgress);
+                }
+                else {
+                    sessionRecallAverage = "empty";
+                }
+            }
+            else {
+                sessionRecallAverage = "empty";
+            }
+
+            if (selectedSUDS == "yes") {
+                if (!isNaN(calculateAverageScore(sudsProgress))) {
+                    seessionSudsAverage = calculateAverageScore(sudsProgress);
+                }
+                else {
+                    seessionSudsAverage = "empty";
+                }
+            }
+            else {
+                seessionSudsAverage = "empty";
+            }
+
+            if (selectedVAC == "yes") {
+                if (!isNaN(calculateAverageScore(vacProgress))) {
+                    sessionVacAverage = calculateAverageScore(vacProgress);
+                }
+                else {
+                    sessionVacAverage = "empty";
+                }
+            }
+            else {
+                sessionVacAverage = "empty";
+            }
+
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
@@ -2909,7 +3038,11 @@ function saveTherapyResults(type) {
                 totalSessions: numberOfSessions,
                 notesTaken: countNotes(),
                 dayOfSession: currentDay(),
-                completionStatus: completion
+                completionStatus: completion,
+                averageMoodResult: sessionMoodAverage,
+                averageRecallResult: sessionRecallAverage,
+                averageSudsResult: seessionSudsAverage,
+                averageVacAverage: sessionVacAverage
             });
         }
 
@@ -2997,6 +3130,59 @@ function saveTherapyResults(type) {
                 completion = false;
             }
 
+            var sessionMoodAverage;
+            var seessionSudsAverage;
+            var sessionVacAverage;
+            var sessionRecallAverage;
+
+            if (selectedMood == "yes") {
+                if (!isNaN(calculateAverageScore(moodProgress))) {
+                    sessionMoodAverage = calculateAverageScore(moodProgress);
+                }
+                else {
+                    sessionMoodAverage = "empty";
+                }
+            }
+            else {
+                sessionMoodAverage = "empty";
+            }
+
+            if (selectedRecall == "yes") {
+                if (!isNaN(calculateAverageScore(recallProgress))) {
+                    sessionRecallAverage = calculateAverageScore(recallProgress);
+                }
+                else {
+                    sessionRecallAverage = "empty";
+                }
+            }
+            else {
+                sessionRecallAverage = "empty";
+            }
+
+            if (selectedSUDS == "yes") {
+                if (!isNaN(calculateAverageScore(sudsProgress))) {
+                    seessionSudsAverage = calculateAverageScore(sudsProgress);
+                }
+                else {
+                    seessionSudsAverage = "empty";
+                }
+            }
+            else {
+                seessionSudsAverage = "empty";
+            }
+
+            if (selectedVAC == "yes") {
+                if (!isNaN(calculateAverageScore(vacProgress))) {
+                    sessionVacAverage = calculateAverageScore(vacProgress);
+                }
+                else {
+                    sessionVacAverage = "empty";
+                }
+            }
+            else {
+                sessionVacAverage = "empty";
+            }
+
             firebase.database().ref('users/' + user.uid + "/emdr" + "/therapyResults" + "/" + timeSet).set({
                 setUsed: setUsed,
                 setDate: date,
@@ -3010,7 +3196,11 @@ function saveTherapyResults(type) {
                 totalSessions: numberOfSessions,
                 notesTaken: countNotes(),
                 dayOfSession: currentDay(),
-                completionStatus: completion
+                completionStatus: completion,
+                averageMoodResult: sessionMoodAverage,
+                averageRecallResult: sessionRecallAverage,
+                averageSudsResult: seessionSudsAverage,
+                averageVacAverage: sessionVacAverage
             });
 
         }
