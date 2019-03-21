@@ -13,6 +13,7 @@
 
 .days-remaining-goal
 {
+    display: inline-block;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 8px;
@@ -20,6 +21,12 @@
     border-radius: 5px;
     border: 2px solid #3ee986;
     color: #3ee986;
+}
+
+.days-remaining-goal-incomplete
+{
+    border: 2px solid #e54c3c !important;
+    color: #e54c3c !important;
 }
 
 .error-message

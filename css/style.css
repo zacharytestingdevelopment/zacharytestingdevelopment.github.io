@@ -1556,6 +1556,11 @@ html.sr .load-hidden {
       animation-delay: .7s;
   }
 
+  .highlight-color-red-badge
+  {
+      color:#e9463e !important;
+  }
+
   .highlight-color-green-badge
   {
       color:#00d97e !important;
