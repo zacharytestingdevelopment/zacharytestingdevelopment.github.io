@@ -46,6 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 function getCurrentDate() {
     var d = new Date();
     var currentTime = ([d.getFullYear(), d.getMonth(), d.getDate()]);
+    console.log("CURRENT TIME: " + currentTime);
     return currentTime;
 }
 
@@ -84,7 +85,7 @@ function prepareResults() {
         }
         else {
             //No results
-            console.log("No notes found");
+
             var noNotes = "";
             noNotes += "<span class=\"no-notes-text\">You have no sessions saved!<\/span>";
             noNotes += "                                <div>";
@@ -123,6 +124,16 @@ function loadActivityChart() {
             var ctx = document.getElementById('activityChart').getContext('2d')
             var activityChart = new Chart(ctx,
                 {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
                     options: {
                         borderColor: '#4257b2'
                     },
@@ -153,7 +164,7 @@ function loadDaysUsed() {
 
     var user = firebase.auth().currentUser;
     //daysCounter = therapyResults.length - 1;
-    console.log(therapyResults.length);
+
     if (therapyResults.length > 0) {
         for (i = therapyResults.length - 1; i >= 0; i--) {
             //console.log(therapyResults[i]);
@@ -545,6 +556,9 @@ function amountToLoad() {
 
 function analyzeSet(set) {
     console.log("Analyze this set: " + set);
+    $("#therapy-results-tab").removeClass("fixed-hidden");
+    $("#therapy-results-tab").addClass("fixed-visible");
+    //document.getElementById("therapy-results-tab").className = "position:fixed;top:0vh;";
 }
 
 function averageSessionsPerDay() {
@@ -570,7 +584,7 @@ function averageSessionsPerDay() {
         console.log("TOTAL AVERAGE: " + averageNumber);
 
         if (!isNaN(averageNumber)) {
-            if (averageNumber <= 1) {
+            if (averageNumber == 1) {
                 sessionText = "session";
             }
             else {
@@ -615,7 +629,7 @@ function loadGoal() {
 
     var goalBox = "";
     goalBox += "<div class=\"dashboard-goal margin-top-tiny\">";
-    goalBox += "                                            I want to complete";
+    goalBox += "                                            I want to do";
     goalBox += "                                            <input id=\"goal-number\" onfocusout=\"checkGoalNumber()\" type=\"number\" min=\"1\"";
     goalBox += "                                                value=\"5\" class=\"text-center dashboard-goal-input\" \/>";
     goalBox += "                                            sessions every";
@@ -639,7 +653,7 @@ function loadGoal() {
     goalBox += "                                            <\/div>";
     goalBox += "";
     goalBox += "                                            <div class = \"margin-top-jump\" >";
-    goalBox += "                                                <span onclick=\"saveGoal()\"";
+    goalBox += "                                                <span onclick=\"checkGoal()\"";
     goalBox += "                                                    class=\"no-select margin-top-tiny goal-button large-goal-button\">Save my";
     goalBox += "                                                    goal<\/span>";
     goalBox += "                                                <span";
@@ -650,10 +664,39 @@ function loadGoal() {
     goalBox += "                                        <\/div>";
 
     document.getElementById("dashboard-goal-box").innerHTML = "<div class = 'animated fadeIn'>" + goalBox + "</div>";
-    //is-goal-active
+
+
+    /*
+     var currentDate = getCurrentDate();
+    var currentDateFormatted;
+    var endingDate;
+
+    if (goalTime == "day") {
+        endingDate = moment(currentDate).add(1, 'days');
+    }
+    else if (goalTime == "week") {
+        endingDate = moment(currentDate).add(1, 'weeks');
+    }
+    else if (goalTime == "month") {
+        endingDate = moment(currentDate).add(1, 'months');
+    }
+    else if (goalTime == "year") {
+        endingDate = moment(currentDate).add(1, 'years');
+    }
+
+    currentDateFormatted = moment(currentDate);
+
+    console.log("Current :" + currentDate);
+    console.log("Final: " + endingDate);
+
+    var diffDisplay = endingDate.diff(currentDateFormatted, 'days');
+    console.log("difference: " + diffDisplay);
+    */
+
     desc.on('value', function (snapshot) {
         if (snapshot.exists()) {
 
+            console.log("Goal exists");
 
             if (snapshot.val().goalActive == "yes") {
 
@@ -681,18 +724,25 @@ function loadGoal() {
             var currentYear = d.getFullYear();
             var currentMonth = d.getMonth();
             var currentDay = d.getDate();
-            var currentDate = [currentYear, currentMonth + 1, currentDay];
-            console.log(currentDate);
+            var endingDate;
+            var currentDate = [currentYear, currentMonth, currentDay];
 
-            var a = moment(currentDate);
-            // var a = moment([parseInt(snapshot.val().dateGoalStart.substring(6, 10)), parseInt(snapshot.val().dateGoalStart.substring(3, 5)), parseInt(snapshot.val().dateGoalStart.substring(0, 2))]);
-            var b = moment([parseInt(snapshot.val().dateGoalEnd.substring(6, 10)), parseInt(snapshot.val().dateGoalEnd.substring(3, 5)), parseInt(snapshot.val().dateGoalEnd.substring(0, 2))]);
+            if (timeInterval == "day") {
+                endingDate = moment(snapshot.val().dateGoalStart).add(1, 'days');
+            }
+            else if (timeInterval == "week") {
+                endingDate = moment(snapshot.val().dateGoalStart).add(1, 'weeks');
+            }
+            else if (timeInterval == "month") {
+                endingDate = moment(snapshot.val().dateGoalStart).add(1, 'months');
+            }
+            else if (timeInterval == "year") {
+                endingDate = moment(snapshot.val().dateGoalStart).add(1, 'years');
+            }
 
-            //b.diff(a)
-            var diffDisplay = b.diff(a, 'days');
-
-            console.log("diff: " + diffDisplay);
-
+            //endingDate.diff(currentDate)
+            var diffDisplay = endingDate.diff(currentDate, 'days');
+            console.log("Difference: " + diffDisplay);
             if (diffDisplay > 0) {
                 if (diffDisplay == 1) {
                     document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + diffDisplay + " day left</span>";
@@ -705,9 +755,11 @@ function loadGoal() {
 
                 //check goal active variable 
 
-
                 if (snapshot.val().goalActive == "yes") {
-                    var returnNumber = parseFloat(((therapyResults.length / snapshot.val().userGoalNumber) * 100).toFixed(2));
+
+                    console.log("djijsofSSSxd-");
+
+                    var returnNumber = parseFloat(((snapshot.val().goalSessionsProgress / snapshot.val().userGoalNumber) * 100).toFixed(2));
                     if (returnNumber >= 100) {
                         document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + returnNumber + ' percent of goal was completed' + "</span>";
                         var user = firebase.auth().currentUser;
@@ -735,10 +787,22 @@ function loadGoal() {
                         goalActive: 'no'
                     });
                 }
+                else {
+                    var returnNumber = parseFloat(((snapshot.val().goalSessionsProgress / snapshot.val().userGoalNumber) * 100).toFixed(2));
+                    //document.getElementById("days-remaining").innerHTML = "";
+
+                    if (returnNumber >= 100) {
+                        document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + returnNumber + ' percent of goal was completed' + "</span>";
+                    }
+                    else {
+                        document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal-incomplete days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + returnNumber + ' percent of goal was completed' + "</span>";
+                    }
+                }
             }
 
             //Pass the goal number and time interval to calculate goal progress
 
+            //updateGoalProgressTrigger();
             updateGoalProgress(snapshot.val().userGoalNumber);
         }
         else {
@@ -762,12 +826,66 @@ function loadGoal() {
     });
 }
 
-function updateGoalProgress(number) {
-    console.log("num: " + number);
+/*
+getEmail () {
+  var test = firebase.database().ref('/users/' + user).once('value')
+    .then(function (snapshot) {
+      var email = snapshot.val().email
+      return email
+    })
+  console.log(test)
+}
+*/
 
-    var returnNumber = parseFloat(((therapyResults.length / number) * 100).toFixed(2));
-    document.getElementById("goal-progress-percentage").innerHTML = "<span class = 'animated fadeIn'>" + returnNumber + "%</span>";
-    document.getElementById("progress-bar").style.width = (returnNumber + "%");
+function returnResultsLength() {
+    var user = firebase.auth().currentUser;
+
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+
+    desc.once('value').then(function (snapshot) {
+        // console.log(snapshot.val().goalSessionsProgress);
+        var progress = snapshot.val().goalSessionsProgress;
+        return progress
+    });
+
+
+    /*
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+
+    desc.on('value', function (snapshot) {
+        console.log("kdpoajfjds: " + snapshot.val().goalSessionsProgress);
+        return parseFloat(snapshot.val().goalSessionsProgress);
+    });
+    */
+}
+
+
+function updateGoalProgress(number) {
+
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+
+    desc.once('value').then(function (snapshot) {
+
+        var returnNumber = parseFloat(((snapshot.val().goalSessionsProgress / number) * 100).toFixed(2));
+        //console.log(returnNumber);
+        document.getElementById("goal-progress-percentage").innerHTML = "<span class = 'animated fadeIn'>" + returnNumber + "%</span>";
+        document.getElementById("progress-bar").style.width = (returnNumber + "%");
+
+        /*
+        console.log(snapshot.val().goalSessionsProgress);
+        var progress = snapshot.val().goalSessionsProgress;
+        return progress
+        */
+    });
+
+    /*
+        console.log("num: " + number);
+        console.log(returnResultsLength() + "/" + number);
+        var returnNumber = parseFloat(((returnResultsLength() / number) * 100).toFixed(2));
+        document.getElementById("goal-progress-percentage").innerHTML = "<span class = 'animated fadeIn'>" + returnNumber + "%</span>";
+        document.getElementById("progress-bar").style.width = (returnNumber + "%");
+        */
 }
 
 function viewGoal() {
@@ -788,7 +906,7 @@ function viewGoal() {
             }
 
             var modalGoals = "";
-            modalGoals += "You want to complete <span id=\"modal-goal-number\" class=\"modal-focus\"><\/span> " + sessionsText + " a";
+            modalGoals += "You want to do <span id=\"modal-goal-number\" class=\"modal-focus\"><\/span> " + sessionsText + " a";
             modalGoals += "                            <span id=\"modal-goal-time\" class=\"modal-focus\"><\/span>";
 
             document.getElementById("modal-goal-container").innerHTML = "<span class = 'animated fadeIn'>" + modalGoals + "</span>";
@@ -805,36 +923,132 @@ function viewGoal() {
     });
 }
 
+function goalAction(action) {
+    if (action == "update") {
+        saveGoal('update');
+    }
+    else if (action == "reset") {
+        saveGoal('reset')
+    }
+}
 
-function saveGoal() {
-    var goalNumber;
-    var goalTime;
-    var goalEndDate;
+function checkGoal() {
+
 
     var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    console.log(desc);
+    desc.once('value', function (snapshot) {
+        if (snapshot.exists()) {
+            if (snapshot.val().goalActive == "yes") {
+                $('#set-goal-modal').modal('toggle');
+            }
+            else {
+                console.log("exists, but not active");
+                saveGoal('reset');
+            }
+        }
+        else {
+            saveGoal('reset');
+        }
+    });
+}
 
-    goalNumber = document.getElementById("goal-number").value;
-    goalTime = document.getElementById("goal-time").innerText;
+function saveGoal(goalAction) {
+
+    $('#set-goal-modal').modal('hide');
+
+    swal("SUCCESS!", "Your goal has been saved.", "success");
+
+    var goalNumber = document.getElementById("goal-number").value;
+    var goalTime = document.getElementById("goal-time").innerText;
+
+    var user = firebase.auth().currentUser;
+    var goalStartDate;
+    var goalEndDate;
 
     var currentDate = getCurrentDate();
-    //var goalEndDate = [
+    var currentDateFormatted;
+    var endingDate;
 
     if (goalTime == "day") {
-        goalEndDate = moment(currentDate).add(1, 'days').format("DD MM YYYY");
+        endingDate = moment(currentDate).add(1, 'days');
     }
     else if (goalTime == "week") {
-        goalEndDate = moment(currentDate).add(7, 'days').format("DD MM YYYY");
+        endingDate = moment(currentDate).add(1, 'weeks');
     }
     else if (goalTime == "month") {
-        goalEndDate = moment(currentDate).add(1, 'months').format("DD MM YYYY");
+        endingDate = moment(currentDate).add(1, 'months');
     }
     else if (goalTime == "year") {
-        goalEndDate = moment(currentDate).add(1, 'years').format("DD MM YYYY");
+        endingDate = moment(currentDate).add(1, 'years');
     }
 
-    currentDate = moment(currentDate).format("DD MM YYYY");
+    currentDateFormatted = moment(currentDate);
 
-    console.log("current date: " + currentDate);
+    console.log("Current :" + currentDate);
+    console.log("Final: " + endingDate);
+
+
+    var diffDisplay = endingDate.diff(currentDate, 'days');
+    console.log("difference: " + diffDisplay);
+
+
+    //save the difference
+    //when loading the goal just get the current time object and save the difference.
+
+    /*
+    need to be able to detect if change was made with the timescale. If the goal was originally set for a month, and 10 days in
+    the user changes it to be a week, what happens? Does the goal duration automatically end?
+    
+    Maybe make it impossible to change the goal timeframe — if they change the goal timeframe from what it was, 
+    they recieve a popup saying that they can only change the timeframe if they are resetting the goal entirely. 
+    */
+
+    if (goalAction == "reset") {
+        //console.log("--------");
+        firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").set({
+            userGoalNumber: goalNumber,
+            userGoalTime: goalTime,
+            dateGoalStart: currentDate,
+            dateGoalDifference: diffDisplay,
+            //dateGoalEnd: goalEndDate,
+            goalActive: 'yes',
+            goalSessionsProgress: 0
+        });
+    }
+    else if (goalAction == "update") {
+        firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
+            userGoalNumber: goalNumber,
+            userGoalTime: goalTime,
+            //dateGoalStart: currentDate,
+            //dateGoalDifference: diffDisplay,
+            //dateGoalEnd: goalEndDate,
+            goalActive: 'yes'
+        });
+    }
+
+    var animateRed = "";
+    animateRed += " <div id=\"progress-bar\" class=\"animate-smooth progress-bar\"";
+    animateRed += "                                                    role=\"progressbar\" style=\"width: -30%\" aria-valuenow=\"85\"";
+    animateRed += "                                                    aria-valuemin=\"0\" aria-valuemax=\"100\"><\/div>";
+
+    document.getElementById("populate-progress-bar").innerHTML = animateRed;
+    loadGoal();
+
+
+    /*
+    currentDate = moment(currentDate).format("DD MM YYYY");
+    console.log("GOAL END DATE: " + goalEndDate);
+    goalEndDate[1] = goalEndDate[1] - 1;
+    console.log("GOAL END DATE UPDATED: " + goalEndDate);
+    goalEndDate = moment(goalEndDate).format("DD MM YYYY");
+    //goalEndDate = moment(goalEndDate).format("DD MM YYYY");
+
+    console.log("x: " + currentDate);
+    console.log("y: " + goalEndDate);
+
+    //console.log("current date: " + currentDate);
 
 
     //Make it so that the user is prompted if they want to reset their goal progress (only if they have existing goal)
@@ -856,7 +1070,8 @@ function saveGoal() {
         userGoalTime: goalTime,
         dateGoalStart: currentDate,
         dateGoalEnd: goalEndDate,
-        goalActive: 'yes'
+        goalActive: 'yes',
+        goalSessionsProgress: 0
     });
 
     var animateRed = "";
@@ -866,6 +1081,7 @@ function saveGoal() {
 
     document.getElementById("populate-progress-bar").innerHTML = animateRed;
     loadGoal();
+    */
 
 
     /*

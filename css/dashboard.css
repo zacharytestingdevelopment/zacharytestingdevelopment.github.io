@@ -11,6 +11,27 @@
     max-height: 65vh;
 }
 
+.dash-box-button
+{
+    color:#4257b2;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 4px;
+    padding-left: 10px;
+    font-size: 16px;
+    padding-right: 10px;
+    border: 3px solid #4257b2;
+    background:transparent;
+    transition: all .15s ease-in-out;
+}
+
+.dash-box-button:hover
+{
+    cursor: pointer;
+    color:#fff;
+    background:#4257b2;
+}
+
 .days-remaining-goal
 {
     display: inline-block;
@@ -790,6 +811,39 @@ input[type="color"]::-webkit-color-swatch {
     background: #4257b2;
     color:#fff;
 } 
+
+.mobile-scroll
+{
+    -webkit-overflow-scrolling: touch !important;
+    overflow-y:scroll;
+}
+
+.time-animate
+{
+    background:red !important;
+    transition: all .3s ease !important;
+}
+
+.transition-time
+{
+    transition: all .3s ease;
+}
+
+.fixed-hidden
+{
+    height:100vh;
+    opacity: 0 !important;
+    position: fixed !important;
+    top:100vh !important;
+}
+
+.fixed-visible
+{
+    height:100vh;
+    opacity: 1 !important;
+    position: fixed !important;
+    top:0vh !important;
+}
 
 .tag-button-active
 {

@@ -71,14 +71,21 @@ input[type="color"]::-webkit-color-swatch {
     overflow-y:scroll;
 }
 
+.fixed-hidden
+{
+    background: red !important;
+    position: fixed !important;
+    top:100vh !important;
+}
+
 .results-box-inactive
 {
-    position:fixed;
-    top:-100vh;
+    position:fixed !important;
+    top:-100vh !important;
     width:100vw;
     left:0;
     z-index:99 !important;
-    opacity: 0;
+    opacity: 0 !important;
     background:#f9fbfd;
     height:100vh;
     transition: all .35s ease;
@@ -86,8 +93,8 @@ input[type="color"]::-webkit-color-swatch {
 
 .results-box-active
 {
-    opacity: 1;
-    top:0vh;
+    opacity: 1 !important;
+    top:0vh !important;
 }
 
 .theme

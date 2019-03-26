@@ -2792,14 +2792,31 @@ function calculateAverageData(dataType) {
 }
 */
 
+function updateGoalProgress(goalInput) {
+    var user = firebase.auth().currentUser;
+    var inputUpdated = goalInput + 1;
+    firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
+        goalSessionsProgress: inputUpdated
+    });
+}
+
 function saveTherapyResults(type) {
 
+    var user = firebase.auth().currentUser;
+    var descTemp = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    descTemp.once('value', function (snapshot) {
+        if (snapshot.exists()) {
 
+            if (snapshot.val().goalActive == "yes") {
+                var goalSessionsProg = snapshot.val().goalSessionsProgress;
+                updateGoalProgress(goalSessionsProg);
+            }
+        }
+    });
 
     if (type != "paused" && type != "ending" && type != "pausedClose") {
         //console.log("WOOOOOOOOOO");
         if (document.getElementById("therapyCheck").checked) {
-
             if (selectedMood != "no") {
                 var moodSave = document.getElementById("mood-therapy-value").value;
                 if (moodSave.length > 0) {
