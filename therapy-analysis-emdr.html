@@ -58,7 +58,7 @@
 
 
                         <div id="modal-goal-container">
-                            You want to do <span id="modal-goal-number" class="modal-focus"></span> sessions a
+                            You want to do <span id="modal-goal-number" class="modal-focus"></span> sessions this
                             <span id="modal-goal-time" class="modal-focus"></span>
                         </div>
                     </span>
@@ -85,9 +85,35 @@
                 </div>
 
                 <div class="modal-footer">
-                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('update')">Update
+                    <div class="dash-box-button margin-right-larger no-select" onclick="checkTimeScale()">Update
                         goal</div>
                     <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Reset goal
+                    </div>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="same-scale-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element text-center no-select">You are changing the time scale of your goal.
+                </div>
+
+                <div class="modal-body text-center">
+                    This will reset your current goal progress. If you want to keep your progress, you must also keep
+                    the time scale that you are currently
+                    using.
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Reset
+                        goal</div>
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Keep
+                        current scale
                     </div>
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
@@ -422,7 +448,7 @@
 
 
                                         <h6 class="card-title text-uppercase text-muted mb-2">
-                                            Here's when you used the therapy
+                                            Here's how much you used the therapy
                                         </h6>
 
 
@@ -450,7 +476,7 @@
                 <div class="col-12 col-xl">
 
                     <!-- Card -->
-                    <div class="card shadow e5">
+                    <div class="card shadow animated fadeIn">
                         <div class="card-body">
                             <div class="row align-items-center">
 
@@ -499,15 +525,15 @@
                 </div> <!-- / .row -->
 
             </div> <!-- / .row -->
-
-
         </div>
 
+        <!--
         <div class="col col-8 col-centered text-center">
             <a href="dashboard.html" class="kill-link-style">
                 <div class="dashboard-back">Return to main dashboard</div>
             </a>
         </div>
+    -->
 
     </div> <!-- / .main-content -->
 

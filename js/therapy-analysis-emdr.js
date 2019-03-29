@@ -22,6 +22,13 @@ var totalLoadCount = 0;
 var loadMoreCount;
 var daysCounter = 0;
 
+var activityLabels = [];
+var activityData = [];
+var pastActivityDate = "";
+var pastActivityDateCount = 0;
+var activityDataCount = 0;
+
+var goalActiontype = "";
 
 //var a = moment([2007, 0, 29]);
 //var b = moment([2007, 0, 28]);
@@ -46,7 +53,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 function getCurrentDate() {
     var d = new Date();
     var currentTime = ([d.getFullYear(), d.getMonth(), d.getDate()]);
-    console.log("CURRENT TIME: " + currentTime);
+    //console.log("CURRENT TIME: " + currentTime);
     return currentTime;
 }
 
@@ -103,7 +110,7 @@ function prepareResults() {
         loadDaysUsed();
         loadGoal();
         if (therapyResults.length > 0) {
-            loadActivityChart();
+            triggerActivityData();
         }
         else {
             document.getElementById("therapies-are-saved").className = "hidden";
@@ -115,49 +122,310 @@ function updateDaysCounter() {
     daysCounter++;
 }
 
-function loadActivityChart() {
+function triggerActivityData() {
+    newRoot.once('value', function (snapshot) {
+        snapshot.forEach(function (_child) {
+            var childElement = _child.key;
+            populateActivityData(childElement);
+        });
+    });
+}
+
+function populateActivityData(child) {
+
+    //console.log(activityDataCount);
+    //console.log(therapyResults.length);
     var user = firebase.auth().currentUser;
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/");
-    desc.on('value', function (snapshot) {
-        if (snapshot.exists()) {
-            document.getElementById("your-activity-loading").innerHTML = "Your activity";
-            var ctx = document.getElementById('activityChart').getContext('2d')
-            var activityChart = new Chart(ctx,
-                {
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.yLabel;
-                            }
-                        }
-                    },
-                    options: {
-                        borderColor: '#4257b2'
-                    },
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', "May"],
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + child);
 
-                        datasets: [{
-                            borderColor: '#4257b2',
-                            pointBorderColor: '#4257b2',
-                            pointBackgroundColor: '#4257b2',
+    desc.once('value', function (snapshot) {
+        //console.log(snapshot.val().setDate);
 
-                            data: [40, 25, 15, 10, 50]
-                        }]
-                    }
-                });
+        if (activityDataCount <= therapyResults.length) {
+            activityDataCount++
+
+            if (pastActivityDate == "") {
+                pastActivityDate = snapshot.val().setDate;
+            }
+
+            if (pastActivityDate == snapshot.val().setDate) {
+                console.log("same");
+                pastActivityDateCount++;
+            }
+            else {
+                //console.log("1");
+                activityLabels.push(pastActivityDate);
+                activityData.push(pastActivityDateCount);
+
+                pastActivityDate = snapshot.val().setDate;
+                pastActivityDateCount = 0;
+                pastActivityDateCount++;
+
+            }
+
+            /*
+            if (pastActivityDate != snapshot.val().setDate) {
+
+                pastActivityDate = snapshot.val().setDate;
+                pastActivityDateCount++;
+                console.log(pastActivityDateCount);
+            }
+            else {
+                activityLabels.push(pastActivityDate);
+                activityData.push(pastActivityDateCount);
+                pastActivityDateCount = 0;
+                pastActivityDateCount++;
+
+            }
+            */
+
+            if (activityDataCount == therapyResults.length) {
+
+
+                if (activityLabels[activityLabels.length - 1] != snapshot.val().setDate) {
+                    activityLabels.push(snapshot.val().setDate);
+                    activityData.push(pastActivityDateCount);
+                }
+
+                //console.log(activityLabels.length);
+
+                console.log("We have finished\n----------------------------\nActivity labels: " + activityLabels + "\nActivity data: " + activityData);
+
+                if (activityLabels.length > 1) {
+                    loadActivityChart('multiple');
+                }
+                else {
+                    loadActivityChart('one');
+                }
+            }
+
+        }
+
+
+
+
+        /*
+        if (activityDataCount -= therapyResults.length) {
+            
+            console.log(snapshot.val().setDate);
+            if (pastActivityDate == "") {
+                pastActivityDate = snapshot.val().setDate;
+                pastActivityDateCount++;
+                activityLabels.push(pastActivityDate);
+                activityData.push(pastActivityDateCount);
+            }
+            else {
+                console.log("Past date: " + pastActivityDate);
+                console.log("Current date: " + snapshot.val().setDate);
+
+                if (pastActivityDate == snapshot.val().setDate) {
+                    pastActivityDateCount++;
+                    //console.log("past date count: " + pastActivityDateCount);
+                }
+                else {
+                    console.log("we are here with " + pastActivityDate);
+                    activityLabels.push(pastActivityDate);
+                    activityData.push(pastActivityDateCount);
+                    pastActivityDateCount = 0;
+                    pastActivityDate = snapshot.val().setDate;
+                }
+            }
         }
         else {
+            console.log("We have finished\n----------------------------\nActivity labels: " + activityLabels + "\nActivity data: " + activityData);
+        }
+        */
+    });
 
+
+    /*
+    desc.once('value', function (snapshot) {
+
+        /*
+        if (activityDataCount < therapyResults.length) {
+            if (pastActivityDate == "" && activityLabels.length == 0) {
+                console.log("Pushed");
+                pastActivityDate = snapshot.val().setDate;
+                pastActivityDateCount++;
+                activityLabels.push(pastActivityDate);
+                activityData.push(pastActivityDateCount);
+            }
+            else {
+                if (pastActivityDate == snapshot.val().setDate) {
+                    pastActivityDate = snapshot.val().setDate;
+                    pastActivityDate++;
+                }
+                else {
+                    activityLabels.push(pastActivityDate);
+                    activityData.push(pastActivityDateCount);
+                    //pastActivityDate++;
+                }
+            }
+        }
+        else {
+            //console.log(activityDataCount);
+            console.log("Finished");
+            console.log("Labels: " + activityLabels);
+            console.log("Data: " + activityData);
+
+            loadActivityChart('one');
         }
 
+        if (pastActivityDate == "" && (activityLabels.length == 0)) {
+            // console.log("ss");
+        }
     });
+    */
+
+    /*
+    console.log(activityLabels.length);
+    if (pastActivityDate == "" && activityLabels.length == 0) {
+        //First result loaded
+        //console.log("FIRST RESULT");
+        pastActivityDate = snapshot.val().setDate;
+        pastActivityDateCount++;
+        activityLabels.push(pastActivityDate);
+
+        console.log('One label');
+        activityData.push(pastActivityDateCount);
+        loadActivityChart('one');
+
+    }
+    else {
+        console.log("Multiple labels");
+        //Already have a result
+        var setDate = snapshot.val().setDate;
+
+        if (pastActivityDate == setDate) {
+            pastActivityDateCount++;
+            //console.log("Same date: " + pastActivityDateCount);
+        }
+        else {
+            activityData.push(pastActivityDateCount);
+            pastActivityDateCount = 1;
+            pastActivityDate = setDate;
+            activityLabels.push(pastActivityDate);
+        }
+
+        if (activityDataCount >= therapyResults.length) {
+            activityData.push(pastActivityDateCount);
+            loadActivityChart('multiple');
+        }
+    }
+});
+
+//console.log("Activity labels: " + activityLabels);
+//console.log("Activity data: " + activityData);
+*/
+
+}
+
+
+function loadActivityChart(activityNumber) {
+    console.log("chart loaded! ------------");
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/");
+
+    //triggerActivityData();
+
+    //This code runs before the activity data has populated. Fix this! 
+    console.log("activity data: " + activityData);
+
+    if (activityNumber == "one") {
+        desc.on('value', function (snapshot) {
+
+            console.log("Labels: " + activityLabels);
+            activityLabels.push(activityLabels[0]);
+            activityData.push(activityData[0]);
+
+            if (snapshot.exists()) {
+                document.getElementById("your-activity-loading").innerHTML = "Your activity";
+                var ctx = document.getElementById('activityChart').getContext('2d')
+                var activityChart = new Chart(ctx,
+                    {
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.yLabel;
+                                }
+                            }
+                        },
+                        options: {
+                            borderColor: '#4257b2'
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        type: 'line',
+                        data: {
+                            //labels: ['3', '', '', '', ''],
+                            labels: activityLabels,
+                            datasets: [{
+                                borderColor: '#4257b2',
+                                pointBorderColor: '#4257b2',
+                                pointBackgroundColor: '#4257b2',
+                                //data: [40, 25, 15, 10, 50]
+                                data: activityData
+                            }]
+                        }
+                    });
+            }
+            else {
+
+            }
+
+        });
+    }
+    else if (activityNumber == "multiple") {
+        desc.on('value', function (snapshot) {
+            if (snapshot.exists()) {
+                document.getElementById("your-activity-loading").innerHTML = "Your activity";
+                var ctx = document.getElementById('activityChart').getContext('2d')
+                var activityChart = new Chart(ctx,
+                    {
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.yLabel;
+                                }
+                            }
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    ticks: {
+                                        display: false
+                                    }
+                                }]
+                            },
+                            borderColor: '#4257b2'
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        type: 'line',
+                        data: {
+                            //labels: ['3', '', '', '', ''],
+                            labels: activityLabels,
+                            datasets: [{
+                                borderColor: '#4257b2',
+                                pointBorderColor: '#4257b2',
+                                pointBackgroundColor: '#4257b2',
+                                data: activityData
+                            }]
+                        }
+                    });
+            }
+            else {
+
+            }
+
+        });
+    }
 }
 
 function loadDaysUsed() {
@@ -246,7 +514,7 @@ function populateDaysChart(daysInput) {
     var daysLabel = [];
     var labelIndex = 0;
 
-    console.log("Original days input: " + daysInput);
+    //console.log("Original days input: " + daysInput);
 
     var maxIndex = indexOfMax(daysInput);
     var commonDayNumber = daysInput[maxIndex];
@@ -258,7 +526,7 @@ function populateDaysChart(daysInput) {
         document.getElementById("most-common-day-number").innerHTML = commonDayNumber + " sessions on ";
     }
 
-    console.log("brrt:" + maxIndex);
+    //console.log("brrt:" + maxIndex);
     if (maxIndex == 0) {
         document.getElementById("most-common-day").innerHTML = "Sundays";
         document.getElementById("most-active-day").innerHTML = "Sunday";
@@ -581,8 +849,6 @@ function averageSessionsPerDay() {
         totalDays = starting.diff(ending, 'days') + 1;
         averageNumber = parseFloat(((therapyResults.length / totalDays)).toFixed(2));
 
-        console.log("TOTAL AVERAGE: " + averageNumber);
-
         if (!isNaN(averageNumber)) {
             if (averageNumber == 1) {
                 sessionText = "session";
@@ -632,15 +898,15 @@ function loadGoal() {
     goalBox += "                                            I want to do";
     goalBox += "                                            <input id=\"goal-number\" onfocusout=\"checkGoalNumber()\" type=\"number\" min=\"1\"";
     goalBox += "                                                value=\"5\" class=\"text-center dashboard-goal-input\" \/>";
-    goalBox += "                                            sessions every";
+    goalBox += "                                            sessions this";
     goalBox += "";
-    goalBox += "                                            <a id=\"goal-time\" class=\"dashboard-time-input dropdown-toggle\" href=\"#\"";
+    goalBox += "                                            <a id=\"goal-time\" class=\"dashboard-time-input force-top dropdown-toggle\" href=\"#\"";
     goalBox += "                                                role=\"button\" id=\"dropdownMenuLink\" data-toggle=\"dropdown\"";
     goalBox += "                                                aria-haspopup=\"true\" aria-expanded=\"false\">";
     goalBox += "                                                <span class=\"eggshell\" id=\"timeline\">week<\/span>";
     goalBox += "                                            <\/a>";
     goalBox += "";
-    goalBox += "                                            <div id=\"timelineDropdown\" class=\"dropdown-menu\"";
+    goalBox += "                                            <div id=\"timelineDropdown\" class=\"force-top dropdown-menu\"";
     goalBox += "                                                aria-labelledby=\"dropdownMenuLink\">";
     goalBox += "                                                <span class=\"dropdown-item\"";
     goalBox += "                                                    onclick=\"changeGoalTimeline('day')\">Day<\/span>";
@@ -670,7 +936,7 @@ function loadGoal() {
      var currentDate = getCurrentDate();
     var currentDateFormatted;
     var endingDate;
-
+ 
     if (goalTime == "day") {
         endingDate = moment(currentDate).add(1, 'days');
     }
@@ -683,12 +949,12 @@ function loadGoal() {
     else if (goalTime == "year") {
         endingDate = moment(currentDate).add(1, 'years');
     }
-
+ 
     currentDateFormatted = moment(currentDate);
-
+ 
     console.log("Current :" + currentDate);
     console.log("Final: " + endingDate);
-
+ 
     var diffDisplay = endingDate.diff(currentDateFormatted, 'days');
     console.log("difference: " + diffDisplay);
     */
@@ -696,7 +962,7 @@ function loadGoal() {
     desc.on('value', function (snapshot) {
         if (snapshot.exists()) {
 
-            console.log("Goal exists");
+            //console.log("Goal exists");
 
             if (snapshot.val().goalActive == "yes") {
 
@@ -742,7 +1008,7 @@ function loadGoal() {
 
             //endingDate.diff(currentDate)
             var diffDisplay = endingDate.diff(currentDate, 'days');
-            console.log("Difference: " + diffDisplay);
+            //console.log("Difference: " + diffDisplay);
             if (diffDisplay > 0) {
                 if (diffDisplay == 1) {
                     document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + diffDisplay + " day left</span>";
@@ -851,7 +1117,7 @@ function returnResultsLength() {
 
     /*
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
-
+ 
     desc.on('value', function (snapshot) {
         console.log("kdpoajfjds: " + snapshot.val().goalSessionsProgress);
         return parseFloat(snapshot.val().goalSessionsProgress);
@@ -925,45 +1191,88 @@ function viewGoal() {
 
 function goalAction(action) {
     if (action == "update") {
+        goalActiontype = "update";
         saveGoal('update');
     }
     else if (action == "reset") {
+        console.log("THIS IS WHAT TRIGGERS SO WHAT THE FUCK MAN");
+        goalActiontype = "reset";
         saveGoal('reset')
     }
 }
 
 function checkGoal() {
 
-
     var user = firebase.auth().currentUser;
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
-    console.log(desc);
+    var goalTime = document.getElementById("goal-time").innerText;
+
+    //console.log(desc);
     desc.once('value', function (snapshot) {
         if (snapshot.exists()) {
             if (snapshot.val().goalActive == "yes") {
+                //console.log("The problem is that this triggers when it shouldn't.");
                 $('#set-goal-modal').modal('toggle');
             }
             else {
-                console.log("exists, but not active");
+                goalActiontype = "reset";
                 saveGoal('reset');
             }
         }
         else {
+            $('#same-scale-modal').modal('hide');
+            goalActiontype = "reset";
             saveGoal('reset');
+        }
+    });
+}
+
+function checkTimeScale() {
+
+    var goalTime = document.getElementById("goal-time").innerText;
+    var user = firebase.auth().currentUser;
+
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    console.log("goal action type: " + goalActiontype);
+    desc.on('value', function (snapshot) {
+        if (snapshot.exists()) {
+            if (snapshot.val().userGoalTime != goalTime && (goalActiontype != "reset")) {
+                console.log("The problem is that this triggers when it shouldn't.");
+                $('#set-goal-modal').modal('hide');
+                $('#same-scale-modal').modal('toggle');
+            }
+            else {
+                goalActiontype = "update";
+                saveGoal('update');
+            }
         }
     });
 }
 
 function saveGoal(goalAction) {
 
+    //console.log("RESETTTT");
+
+    var user = firebase.auth().currentUser;
+
     $('#set-goal-modal').modal('hide');
+    $('#same-scale-modal').modal('hide');
 
     swal("SUCCESS!", "Your goal has been saved.", "success");
 
     var goalNumber = document.getElementById("goal-number").value;
     var goalTime = document.getElementById("goal-time").innerText;
 
-    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    desc.on('value', function (snapshot) {
+        if (snapshot.exists()) {
+            if (snapshot.val().userGoalTime == goalTime) {
+                //console.log("equals");
+            }
+        }
+    });
+
+    // var user = firebase.auth().currentUser;
     var goalStartDate;
     var goalEndDate;
 
@@ -986,16 +1295,8 @@ function saveGoal(goalAction) {
 
     currentDateFormatted = moment(currentDate);
 
-    console.log("Current :" + currentDate);
-    console.log("Final: " + endingDate);
-
-
     var diffDisplay = endingDate.diff(currentDate, 'days');
-    console.log("difference: " + diffDisplay);
-
-
-    //save the difference
-    //when loading the goal just get the current time object and save the difference.
+    //console.log("difference: " + diffDisplay);
 
     /*
     need to be able to detect if change was made with the timescale. If the goal was originally set for a month, and 10 days in
@@ -1044,13 +1345,13 @@ function saveGoal(goalAction) {
     console.log("GOAL END DATE UPDATED: " + goalEndDate);
     goalEndDate = moment(goalEndDate).format("DD MM YYYY");
     //goalEndDate = moment(goalEndDate).format("DD MM YYYY");
-
+ 
     console.log("x: " + currentDate);
     console.log("y: " + goalEndDate);
-
+ 
     //console.log("current date: " + currentDate);
-
-
+ 
+ 
     //Make it so that the user is prompted if they want to reset their goal progress (only if they have existing goal)
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
     desc.on('value', function (snapshot) {
@@ -1064,7 +1365,7 @@ function saveGoal(goalAction) {
             swal("SUCCESS!", "Your goal has been saved.", "success");
         }
     });
-
+ 
     firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
         userGoalNumber: goalNumber,
         userGoalTime: goalTime,
@@ -1073,12 +1374,12 @@ function saveGoal(goalAction) {
         goalActive: 'yes',
         goalSessionsProgress: 0
     });
-
+ 
     var animateRed = "";
     animateRed += " <div id=\"progress-bar\" class=\"animate-smooth progress-bar\"";
     animateRed += "                                                    role=\"progressbar\" style=\"width: -30%\" aria-valuenow=\"85\"";
     animateRed += "                                                    aria-valuemin=\"0\" aria-valuemax=\"100\"><\/div>";
-
+ 
     document.getElementById("populate-progress-bar").innerHTML = animateRed;
     loadGoal();
     */
