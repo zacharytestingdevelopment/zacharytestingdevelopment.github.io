@@ -1369,6 +1369,11 @@ html.sr .load-hidden {
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
+.darker-text-style
+{
+    color:#12233f;
+}
+
 .shadow
 {
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);

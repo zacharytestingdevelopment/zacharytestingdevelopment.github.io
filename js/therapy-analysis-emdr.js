@@ -2,13 +2,18 @@
 var userID;
 var rootRef;
 var newRoot;
+var goalRoot;
 var therapyResults = [];
+var goalResults = [];
 var resultsLoaded = 0;
+var isGoalAnalytics = false;
+var goalResultsLoaded = 0;
 var resultsToLoad = 10;
 var getDate = "";
 var str = "";
 var pubStr;
 var count = 0;
+var goalCount = 0;
 
 var monday = 0;
 var tuesday = 0;
@@ -19,7 +24,9 @@ var saturday = 0;
 var sunday = 0;
 var endDaysCount = 0;
 var totalLoadCount = 0;
+var totalLoadCountGoal = 0;
 var loadMoreCount;
+var loadMoreCountGoals;
 var daysCounter = 0;
 
 var activityLabels = [];
@@ -27,8 +34,12 @@ var activityData = [];
 var pastActivityDate = "";
 var pastActivityDateCount = 0;
 var activityDataCount = 0;
+var originalGoalTime;
+var goalTime;
+var goalResultsInitLoadOnce = false;
 
 var goalActiontype = "";
+var goalResultsVisible = false;
 
 //var a = moment([2007, 0, 29]);
 //var b = moment([2007, 0, 28]);
@@ -41,7 +52,8 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         userID = firebase.auth().currentUser.uid;
         rootRef = firebase.database().ref('users');
-        newRoot = rootRef.child(userID + "/emdr").child('therapyResults')
+        newRoot = rootRef.child(userID + "/emdr").child('therapyResults');
+        goalRoot = rootRef.child(userID + "/emdr").child('goalResults');
 
         prepareResults();
 
@@ -69,6 +81,74 @@ function getTotalDays() {
     });
 }
 */
+
+function viewGoalResults() {
+
+    /*
+     setTimeout(function () {
+        // document.getElementById("goal-percentage-fill").style.width = "70%";;
+    }, 210);
+    */
+
+    if (!goalResultsVisible) {
+        $("#goal-analysis").removeClass("analysis-box-hidden");
+
+        $('html').css({
+            overflow: 'hidden',
+            height: '100%'
+        });
+
+        prepareGoalResults();
+        goalResultsVisible = true;
+    }
+    else {
+        $('html').css({
+            overflow: 'auto',
+            height: 'auto'
+        });
+        $("#goal-analysis").addClass("analysis-box-hidden");
+        goalResultsVisible = false;
+
+        setTimeout(function () {
+            $("#goal-analysis").animate({ scrollTop: 0 }, "fast");
+            $("#goal-summary-line").removeClass("goal-results-summary-header-line-active");
+            $("#goal-summary-line").addClass("goal-results-summary-header-line-inactive");
+        }, 300);
+    }
+}
+
+function prepareGoalResults() {
+    console.log("Goal results being prepared\n-----------------------");
+
+    setTimeout(function () {
+        $("#goal-summary-line").removeClass("goal-results-summary-header-line-inactive");
+        $("#goal-summary-line").addClass("goal-results-summary-header-line-active");
+    }, 210);
+
+    if (!goalResultsInitLoadOnce) {
+        goalRoot.once('value', function (snapshot) {
+            snapshot.forEach(function (_child) {
+                var childElement = _child.key;
+                goalResults.push(childElement);
+            });
+
+
+
+            if (goalResults.length >= 1) {
+                loadGoalResults();
+            }
+            else {
+                //No results
+                var loadMore = "";
+                loadMore += "<div id = 'error-message-box'><span onclick=\"loadMoreNotes()\" class=\"load-more no-select margin-top-large\">";
+                loadMore += "                                    Load more";
+                loadMore += "                                <\/span></div>";
+            }
+        });
+
+        goalResultsInitLoadOnce = true;
+    }
+}
 
 function prepareResults() {
     newRoot.once('value', function (snapshot) {
@@ -133,13 +213,10 @@ function triggerActivityData() {
 
 function populateActivityData(child) {
 
-    //console.log(activityDataCount);
-    //console.log(therapyResults.length);
     var user = firebase.auth().currentUser;
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + child);
 
     desc.once('value', function (snapshot) {
-        //console.log(snapshot.val().setDate);
 
         if (activityDataCount <= therapyResults.length) {
             activityDataCount++
@@ -149,11 +226,10 @@ function populateActivityData(child) {
             }
 
             if (pastActivityDate == snapshot.val().setDate) {
-                console.log("same");
                 pastActivityDateCount++;
             }
             else {
-                //console.log("1");
+
                 activityLabels.push(pastActivityDate);
                 activityData.push(pastActivityDateCount);
 
@@ -162,22 +238,6 @@ function populateActivityData(child) {
                 pastActivityDateCount++;
 
             }
-
-            /*
-            if (pastActivityDate != snapshot.val().setDate) {
-
-                pastActivityDate = snapshot.val().setDate;
-                pastActivityDateCount++;
-                console.log(pastActivityDateCount);
-            }
-            else {
-                activityLabels.push(pastActivityDate);
-                activityData.push(pastActivityDateCount);
-                pastActivityDateCount = 0;
-                pastActivityDateCount++;
-
-            }
-            */
 
             if (activityDataCount == therapyResults.length) {
 
@@ -187,9 +247,7 @@ function populateActivityData(child) {
                     activityData.push(pastActivityDateCount);
                 }
 
-                //console.log(activityLabels.length);
-
-                console.log("We have finished\n----------------------------\nActivity labels: " + activityLabels + "\nActivity data: " + activityData);
+                //console.log("We have finished\n----------------------------\nActivity labels: " + activityLabels + "\nActivity data: " + activityData);
 
                 if (activityLabels.length > 1) {
                     loadActivityChart('multiple');
@@ -200,124 +258,7 @@ function populateActivityData(child) {
             }
 
         }
-
-
-
-
-        /*
-        if (activityDataCount -= therapyResults.length) {
-            
-            console.log(snapshot.val().setDate);
-            if (pastActivityDate == "") {
-                pastActivityDate = snapshot.val().setDate;
-                pastActivityDateCount++;
-                activityLabels.push(pastActivityDate);
-                activityData.push(pastActivityDateCount);
-            }
-            else {
-                console.log("Past date: " + pastActivityDate);
-                console.log("Current date: " + snapshot.val().setDate);
-
-                if (pastActivityDate == snapshot.val().setDate) {
-                    pastActivityDateCount++;
-                    //console.log("past date count: " + pastActivityDateCount);
-                }
-                else {
-                    console.log("we are here with " + pastActivityDate);
-                    activityLabels.push(pastActivityDate);
-                    activityData.push(pastActivityDateCount);
-                    pastActivityDateCount = 0;
-                    pastActivityDate = snapshot.val().setDate;
-                }
-            }
-        }
-        else {
-            console.log("We have finished\n----------------------------\nActivity labels: " + activityLabels + "\nActivity data: " + activityData);
-        }
-        */
     });
-
-
-    /*
-    desc.once('value', function (snapshot) {
-
-        /*
-        if (activityDataCount < therapyResults.length) {
-            if (pastActivityDate == "" && activityLabels.length == 0) {
-                console.log("Pushed");
-                pastActivityDate = snapshot.val().setDate;
-                pastActivityDateCount++;
-                activityLabels.push(pastActivityDate);
-                activityData.push(pastActivityDateCount);
-            }
-            else {
-                if (pastActivityDate == snapshot.val().setDate) {
-                    pastActivityDate = snapshot.val().setDate;
-                    pastActivityDate++;
-                }
-                else {
-                    activityLabels.push(pastActivityDate);
-                    activityData.push(pastActivityDateCount);
-                    //pastActivityDate++;
-                }
-            }
-        }
-        else {
-            //console.log(activityDataCount);
-            console.log("Finished");
-            console.log("Labels: " + activityLabels);
-            console.log("Data: " + activityData);
-
-            loadActivityChart('one');
-        }
-
-        if (pastActivityDate == "" && (activityLabels.length == 0)) {
-            // console.log("ss");
-        }
-    });
-    */
-
-    /*
-    console.log(activityLabels.length);
-    if (pastActivityDate == "" && activityLabels.length == 0) {
-        //First result loaded
-        //console.log("FIRST RESULT");
-        pastActivityDate = snapshot.val().setDate;
-        pastActivityDateCount++;
-        activityLabels.push(pastActivityDate);
-
-        console.log('One label');
-        activityData.push(pastActivityDateCount);
-        loadActivityChart('one');
-
-    }
-    else {
-        console.log("Multiple labels");
-        //Already have a result
-        var setDate = snapshot.val().setDate;
-
-        if (pastActivityDate == setDate) {
-            pastActivityDateCount++;
-            //console.log("Same date: " + pastActivityDateCount);
-        }
-        else {
-            activityData.push(pastActivityDateCount);
-            pastActivityDateCount = 1;
-            pastActivityDate = setDate;
-            activityLabels.push(pastActivityDate);
-        }
-
-        if (activityDataCount >= therapyResults.length) {
-            activityData.push(pastActivityDateCount);
-            loadActivityChart('multiple');
-        }
-    }
-});
-
-//console.log("Activity labels: " + activityLabels);
-//console.log("Activity data: " + activityData);
-*/
-
 }
 
 
@@ -601,6 +542,126 @@ function populateDaysChart(daysInput) {
         });
 }
 
+function goalDetails(goal) {
+    console.log(goal);
+}
+
+function loadGoalResults() {
+    var user = firebase.auth().currentUser;
+    var totalLoadCountLocal = totalLoadCountGoal - 1;
+
+    goalCount = goalResults.length - 1;
+
+    /*
+    var totalLoadCountLocal = totalLoadCount - 1;
+    count = therapyResults.length - 1;
+    */
+    if (!isGoalAnalytics) {
+        document.getElementById("populate-goal-analytics").innerHTML = "";
+        for (i = goalResults.length - 1; i >= 0; i--) {
+            if (totalLoadCountGoal < goalResults.length) {
+                str = goalResults[i].replace(/\s+/g, '');
+                id = "box" + str;
+
+                if (goalResultsLoaded >= 10) {
+                    //console.log("BREAK AT ---- " + totalLoadCount);
+                    break;
+                }
+                //goalResult++;
+                goalResultsLoaded++;
+                totalLoadCountGoal++;
+
+                var goalResultsVar = "";
+                goalResultsVar += "<div id=" + str + " ";
+                goalResultsVar += "                    class=\"col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
+                goalResultsVar += "                    <div id=goalDate" + str + " class=\"goal-results-box-header no-select inherit\">Ended February 31rd, 2019";
+                goalResultsVar += "                    <\/div>";
+                goalResultsVar += "                    <span class=\"goal-results-divider\"><\/span>";
+                goalResultsVar += "                    <span class=\"block-mobile\">";
+                goalResultsVar += "                        <span id=goalPercentage" + str + " class=\"goal-percentage no-select inherit\">100%<\/span>";
+                goalResultsVar += "                        <span class=\"goal-percentage-bar\">";
+                goalResultsVar += "                            <div id=goalPercentageBar" + str + " class=\"goal-percentage-fill\">";
+                goalResultsVar += "";
+                goalResultsVar += "                            <\/div>";
+                goalResultsVar += "                        <\/span>";
+                goalResultsVar += "                    <\/span>";
+                goalResultsVar += "                <\/div>";
+
+                document.getElementById("populate-goal-analytics").innerHTML += goalResultsVar;
+            }
+            else {
+                break;
+            }
+
+            //console.log(goalResults[i]);
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/goalResults/" + goalResults[i]);
+            desc.on('value', function (snapshot) {
+
+                if (snapshot.exists()) {
+
+                    var tempStr = goalResults[goalCount];
+                    document.getElementById("goalDate" + tempStr).innerHTML = snapshot.val().setCompletedDate;
+                    document.getElementById("goalPercentage" + tempStr).innerHTML = snapshot.val().completedPercentage + "%";
+                    if (snapshot.val().setCompleted != "no") {
+                        document.getElementById(tempStr).className = "col col-11 margin-top-medium col-lg-11 col-xl-9 col-centered goal-results-box goal-results-box-green";
+                    }
+                    else {
+                        document.getElementById(tempStr).className = "col col-11 margin-top-medium col-lg-11 col-xl-9 col-centered goal-results-box goal-results-box-red";
+                    }
+
+                    setTimeout(function () {
+                        console.log(snapshot.val().completedPercentage);
+                        if (parseFloat(snapshot.val().completedPercentage) < 100) {
+                            document.getElementById("goalPercentageBar" + tempStr).style.width = (parseFloat(snapshot.val().completedPercentage) + "%");
+                        }
+                        else if (parseFloat(snapshot.val().completedPercentage) >= 100) {
+                            document.getElementById("goalPercentageBar" + tempStr).style.width = "100%";
+                        }
+
+
+                    }, 210);
+
+
+
+                    updateGoalCount();
+                    //console.log(tempStr);
+                }
+
+            });
+
+        }
+
+        $("#goal-summary-line").removeClass("goal-results-summary-header-line-inactive");
+        $("#goal-summary-line").addClass("goal-results-summary-header-line-active");
+
+    }
+
+    populateGoalSummary();
+    var ctx = document.getElementById('averageGoalCompleted').getContext('2d')
+    var averageGoalChart = new Chart(ctx,
+        {
+            type: 'doughnut',
+            options: {
+                tooltips: {
+                    mode: "dataset"
+                }
+            },
+            data: {
+                labels: ["Completed", "Not completed"],
+                datasets: [{
+                    backgroundColor: ["#E9463E", "#3ee986"],
+                    data: [40, 60]
+                }]
+            }
+        });
+    document.getElementById("load-more-container").innerHTML = "<span class = 'animated fadeIn'> <span onclick='loadMoreGoals()' class='load-more-button'>Load more</span></span>"
+    isGoalAnalytics = true;
+}
+
+function populateGoalSummary() {
+
+}
+
 function loadResults() {
     //console.log("INIT TOTAL: " + totalLoadCount);
     var user = firebase.auth().currentUser;
@@ -666,10 +727,6 @@ function loadResults() {
         else {
             break;
         }
-
-
-
-
         var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + therapyResults[i]);
         desc.on('value', function (snapshot) {
             var tempStr = therapyResults[count];
@@ -702,6 +759,89 @@ function loadResults() {
     }
 
     //console.log("Load count: " + totalLoadCount);
+}
+
+function loadMoreGoals() {
+    var user = firebase.auth().currentUser;
+    var startingIndex;
+    var destinationIndex;
+
+    startingIndex = amountToLoadGoals() - 1;
+    var destinationIndex = startingIndex - 9;
+    //console.log(startingIndex + "das");
+
+    console.log("Amount of goals to load: " + amountToLoadGoals());
+    console.log("Total goals loaded: " + totalLoadCountGoal);
+
+    if (amountToLoadGoals() > 0) {
+        for (i = startingIndex; i >= destinationIndex; i--) {
+            if (totalLoadCountGoal >= goalResults.length) {
+                //console.log("No more notes to load at: " + totalLoadCount);
+                break;
+            }
+            else {
+                str = goalResults[i].replace(/\s+/g, '');
+                id = "box" + str;
+                var goalResultsVar = "";
+                goalResultsVar += "<div id=" + str + " ";
+                goalResultsVar += "                    class=\"col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
+                goalResultsVar += "                    <div id=goalDate" + str + " class=\"goal-results-box-header no-select inherit\">Ended February 31rd, 2019";
+                goalResultsVar += "                    <\/div>";
+                goalResultsVar += "                    <span class=\"goal-results-divider\"><\/span>";
+                goalResultsVar += "                    <span class=\"block-mobile\">";
+                goalResultsVar += "                        <span id=goalPercentage" + str + " class=\"goal-percentage no-select inherit\">100%<\/span>";
+                goalResultsVar += "                        <span class=\"goal-percentage-bar\">";
+                goalResultsVar += "                            <div id=goalPercentageBar" + str + " class=\"goal-percentage-fill\">";
+                goalResultsVar += "";
+                goalResultsVar += "                            <\/div>";
+                goalResultsVar += "                        <\/span>";
+                goalResultsVar += "                    <\/span>";
+                goalResultsVar += "                <\/div>";
+
+                totalLoadCountGoal++;
+
+                document.getElementById("populate-goal-analytics").innerHTML += goalResultsVar;
+
+                var desc = firebase.database().ref('users/' + user.uid + "/emdr/goalResults/" + goalResults[i]);
+                desc.on('value', function (snapshot) {
+                    if (snapshot.exists()) {
+
+                        var tempStr = goalResults[goalCount];
+                        document.getElementById("goalDate" + tempStr).innerHTML = snapshot.val().setCompletedDate;
+                        document.getElementById("goalPercentage" + tempStr).innerHTML = snapshot.val().completedPercentage + "%";
+                        if (snapshot.val().setCompleted != "no") {
+                            document.getElementById(tempStr).className = "col col-11 margin-top-medium col-lg-11 col-xl-9 col-centered goal-results-box goal-results-box-green";
+                        }
+                        else {
+                            document.getElementById(tempStr).className = "col col-11 margin-top-medium col-lg-11 col-xl-9 col-centered goal-results-box goal-results-box-red";
+                        }
+
+                        setTimeout(function () {
+                            //console.log(snapshot.val().completedPercentage);
+                            if (parseFloat(snapshot.val().completedPercentage) < 100) {
+                                document.getElementById("goalPercentageBar" + tempStr).style.width = (parseFloat(snapshot.val().completedPercentage) + "%");
+                            }
+                            else if (parseFloat(snapshot.val().completedPercentage) >= 100) {
+                                document.getElementById("goalPercentageBar" + tempStr).style.width = "100%";
+                            }
+                            //document.getElementById("goalPercentageBar" + tempStr).innerHTML = "dasdas";
+                            //document.getElementById("goalPercentageBar" + tempStr).style.width = parseFloat(snapshot.val().completedPercentage);
+                        }, 210);
+
+                        updateGoalCount();
+                        //console.log(tempStr);
+                    }
+                });
+
+            }
+        }
+    }
+    else {
+        console.log("No more goals");
+        //document.getElementById("load-more-container").innerHTML = "<span class = 'animated flipInX'><span class='no-select text-center no-more-goals'>No more goals to load!</span></span>";
+        //<div class = 'col col-11 col-md-8 col-lg-8 top-split animated flipInX text-center col-centered'>" + noNotes + "</div>"
+        document.getElementById("load-more-container").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 animated flipInX text-center col-centered'>" + "<span class='no-select text-center no-more-goals'>No more goals to load!</span>" + "</span>";
+    }
 }
 
 function loadMoreNotes() {
@@ -822,6 +962,13 @@ function amountToLoad() {
     return therapyResults.length - totalLoadCount;
 }
 
+function amountToLoadGoals() {
+    console.log("Length: " + goalResults.length);
+    console.log("Count: " + totalLoadCountGoal);
+
+    return goalResults.length - totalLoadCountGoal;
+}
+
 function analyzeSet(set) {
     console.log("Analyze this set: " + set);
     $("#therapy-results-tab").removeClass("fixed-hidden");
@@ -884,8 +1031,67 @@ function updateLoadMoreCount() {
     loadMoreCount--;
 }
 
+function updateLoadMoreCountGoals() {
+    loadMoreCountGoals--;
+}
+
 function updateCount() {
     count--;
+}
+
+function updateGoalCount() {
+    goalCount--;
+}
+
+
+function returnFormattedDate(date) {
+    var stringDay;
+    var stringMonth;
+    var stringYear;
+
+    stringDay = date[2];
+
+    if (date[1] == 0) {
+        stringMonth = "January";
+    }
+    else if (date[1] == 1) {
+        stringMonth = "February";
+    }
+    else if (date[1] == 2) {
+        stringMonth = "March";
+    }
+    else if (date[1] == 3) {
+        stringMonth = "April";
+    }
+    else if (date[1] == 4) {
+        stringMonth = "May";
+    }
+    else if (date[1] == 5) {
+        stringMonth = "June";
+    }
+    else if (date[1] == 6) {
+        stringMonth = "July";
+    }
+    else if (date[1] == 7) {
+        stringMonth = "August";
+    }
+    else if (date[1] == 8) {
+        stringMonth = "September";
+    }
+    else if (date[1] == 9) {
+        stringMonth = "October";
+    }
+    else if (date[1] == 10) {
+        stringMonth = "November";
+    }
+    else if (date[1] == 11) {
+        stringMonth = "December";
+    }
+
+    stringYear = date[0];
+
+    //console.log("dAte: " + date);
+    return stringMonth + " " + stringDay + ", " + stringYear;
 }
 
 function loadGoal() {
@@ -922,7 +1128,7 @@ function loadGoal() {
     goalBox += "                                                <span onclick=\"checkGoal()\"";
     goalBox += "                                                    class=\"no-select margin-top-tiny goal-button large-goal-button\">Save my";
     goalBox += "                                                    goal<\/span>";
-    goalBox += "                                                <span";
+    goalBox += "                                                <span onclick=\"viewGoalResults()\"";
     goalBox += "                                                    class=\"margin-top-tiny no-select goal-button large-goal-button\">View past";
     goalBox += "                                                    results<\/span>";
     goalBox += "                                            <\/div>";
@@ -930,34 +1136,6 @@ function loadGoal() {
     goalBox += "                                        <\/div>";
 
     document.getElementById("dashboard-goal-box").innerHTML = "<div class = 'animated fadeIn'>" + goalBox + "</div>";
-
-
-    /*
-     var currentDate = getCurrentDate();
-    var currentDateFormatted;
-    var endingDate;
- 
-    if (goalTime == "day") {
-        endingDate = moment(currentDate).add(1, 'days');
-    }
-    else if (goalTime == "week") {
-        endingDate = moment(currentDate).add(1, 'weeks');
-    }
-    else if (goalTime == "month") {
-        endingDate = moment(currentDate).add(1, 'months');
-    }
-    else if (goalTime == "year") {
-        endingDate = moment(currentDate).add(1, 'years');
-    }
- 
-    currentDateFormatted = moment(currentDate);
- 
-    console.log("Current :" + currentDate);
-    console.log("Final: " + endingDate);
- 
-    var diffDisplay = endingDate.diff(currentDateFormatted, 'days');
-    console.log("difference: " + diffDisplay);
-    */
 
     desc.on('value', function (snapshot) {
         if (snapshot.exists()) {
@@ -985,6 +1163,7 @@ function loadGoal() {
 
             document.getElementById("goal-number").value = snapshot.val().userGoalNumber;
             document.getElementById("goal-time").innerText = timeInterval;
+            originalGoalTime = timeInterval;
 
             var d = new Date();
             var currentYear = d.getFullYear();
@@ -1023,7 +1202,7 @@ function loadGoal() {
 
                 if (snapshot.val().goalActive == "yes") {
 
-                    console.log("djijsofSSSxd-");
+                    //console.log("djijsofSSSxd-");
 
                     var returnNumber = parseFloat(((snapshot.val().goalSessionsProgress / snapshot.val().userGoalNumber) * 100).toFixed(2));
                     if (returnNumber >= 100) {
@@ -1032,10 +1211,13 @@ function loadGoal() {
                         var d = new Date();
                         var timeSet = d.getTime();
 
+
+
                         //Add starting and ending dates
                         firebase.database().ref('users/' + user.uid + "/emdr" + "/goalResults" + "/" + timeSet).set({
                             setCompleted: 'yes',
                             completedPercentage: returnNumber,
+                            setCompletedDate: returnFormattedDate(getCurrentDate())
                         });
                     }
                     else {
@@ -1043,10 +1225,14 @@ function loadGoal() {
                         var user = firebase.auth().currentUser;
                         var d = new Date();
                         var timeSet = d.getTime();
+                        console.log(returnFormattedDate(getCurrentDate()));
+
                         firebase.database().ref('users/' + user.uid + "/emdr" + "/goalResults" + "/" + timeSet).set({
                             setCompleted: 'no',
-                            completedPercentage: returnNumber
+                            completedPercentage: returnNumber,
+                            setCompletedDate: returnFormattedDate(getCurrentDate())
                         });
+
                     }
 
                     firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
@@ -1195,70 +1381,63 @@ function goalAction(action) {
         saveGoal('update');
     }
     else if (action == "reset") {
-        console.log("THIS IS WHAT TRIGGERS SO WHAT THE FUCK MAN");
         goalActiontype = "reset";
         saveGoal('reset')
+    }
+    else if (action == "revert") {
+        goalActiontype = "revert";
+        saveGoal('revert');
     }
 }
 
 function checkGoal() {
-
     var user = firebase.auth().currentUser;
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
-    var goalTime = document.getElementById("goal-time").innerText;
+    var desc = firebase.database().ref('users/' + user.uid + '/emdr/therapyAnalysis');
+    goalTime = document.getElementById("goal-time").innerText;
 
-    //console.log(desc);
     desc.once('value', function (snapshot) {
-        if (snapshot.exists()) {
-            if (snapshot.val().goalActive == "yes") {
-                //console.log("The problem is that this triggers when it shouldn't.");
-                $('#set-goal-modal').modal('toggle');
-            }
-            else {
-                goalActiontype = "reset";
-                saveGoal('reset');
-            }
+
+        if (snapshot.exists() && snapshot.val().goalActive == "yes") {
+            console.log("we have a goal");
+            $("#set-goal-modal").modal('toggle');
         }
         else {
-            $('#same-scale-modal').modal('hide');
-            goalActiontype = "reset";
             saveGoal('reset');
         }
     });
 }
 
 function checkTimeScale() {
+    console.log("Checking time scale");
 
-    var goalTime = document.getElementById("goal-time").innerText;
+    $("#set-goal-modal").modal('hide');
+
     var user = firebase.auth().currentUser;
 
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
-    console.log("goal action type: " + goalActiontype);
+    //console.log("goal action type: " + goalActiontype);
     desc.on('value', function (snapshot) {
-        if (snapshot.exists()) {
-            if (snapshot.val().userGoalTime != goalTime && (goalActiontype != "reset")) {
-                console.log("The problem is that this triggers when it shouldn't.");
-                $('#set-goal-modal').modal('hide');
-                $('#same-scale-modal').modal('toggle');
+        if (snapshot.exists() && snapshot.val().goalActive == "yes") {
+            if (goalTime != snapshot.val().userGoalTime) {
+                //console.log("WHY IS THIS TRIGGERING");
+                $("#same-scale-modal").modal('toggle');
             }
             else {
-                goalActiontype = "update";
                 saveGoal('update');
             }
+        }
+        else {
+            saveGoal('reset');
         }
     });
 }
 
 function saveGoal(goalAction) {
 
-    //console.log("RESETTTT");
-
     var user = firebase.auth().currentUser;
 
     $('#set-goal-modal').modal('hide');
     $('#same-scale-modal').modal('hide');
-
-    swal("SUCCESS!", "Your goal has been saved.", "success");
 
     var goalNumber = document.getElementById("goal-number").value;
     var goalTime = document.getElementById("goal-time").innerText;
@@ -1307,6 +1486,8 @@ function saveGoal(goalAction) {
     */
 
     if (goalAction == "reset") {
+        swal("SUCCESS!", "Your goal has been saved.", "success");
+
         //console.log("--------");
         firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").set({
             userGoalNumber: goalNumber,
@@ -1317,8 +1498,10 @@ function saveGoal(goalAction) {
             goalActive: 'yes',
             goalSessionsProgress: 0
         });
+        loadGoal();
     }
     else if (goalAction == "update") {
+        swal("SUCCESS!", "Your goal has been saved.", "success");
         firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
             userGoalNumber: goalNumber,
             userGoalTime: goalTime,
@@ -1327,6 +1510,11 @@ function saveGoal(goalAction) {
             //dateGoalEnd: goalEndDate,
             goalActive: 'yes'
         });
+        loadGoal();
+    }
+    else if (goalAction == "revert") {
+        $("#same-scale-modal").modal('hide');
+        document.getElementById("goal-time").innerText = originalGoalTime;
     }
 
     var animateRed = "";
@@ -1335,124 +1523,6 @@ function saveGoal(goalAction) {
     animateRed += "                                                    aria-valuemin=\"0\" aria-valuemax=\"100\"><\/div>";
 
     document.getElementById("populate-progress-bar").innerHTML = animateRed;
-    loadGoal();
-
-
-    /*
-    currentDate = moment(currentDate).format("DD MM YYYY");
-    console.log("GOAL END DATE: " + goalEndDate);
-    goalEndDate[1] = goalEndDate[1] - 1;
-    console.log("GOAL END DATE UPDATED: " + goalEndDate);
-    goalEndDate = moment(goalEndDate).format("DD MM YYYY");
-    //goalEndDate = moment(goalEndDate).format("DD MM YYYY");
- 
-    console.log("x: " + currentDate);
-    console.log("y: " + goalEndDate);
- 
-    //console.log("current date: " + currentDate);
- 
- 
-    //Make it so that the user is prompted if they want to reset their goal progress (only if they have existing goal)
-    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
-    desc.on('value', function (snapshot) {
-        //console.log("VALUE: " + snapshot.val().goalActive);
-        if (snapshot.exists()) {
-            console.log("VALUE EXISTS");
-            swal("SUCCESS!", "You already have a goal", "success");
-        }
-        else {
-            console.log("VALUE DOESN'T EXIST");
-            swal("SUCCESS!", "Your goal has been saved.", "success");
-        }
-    });
- 
-    firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").update({
-        userGoalNumber: goalNumber,
-        userGoalTime: goalTime,
-        dateGoalStart: currentDate,
-        dateGoalEnd: goalEndDate,
-        goalActive: 'yes',
-        goalSessionsProgress: 0
-    });
- 
-    var animateRed = "";
-    animateRed += " <div id=\"progress-bar\" class=\"animate-smooth progress-bar\"";
-    animateRed += "                                                    role=\"progressbar\" style=\"width: -30%\" aria-valuenow=\"85\"";
-    animateRed += "                                                    aria-valuemin=\"0\" aria-valuemax=\"100\"><\/div>";
- 
-    document.getElementById("populate-progress-bar").innerHTML = animateRed;
-    loadGoal();
-    */
-
-
-    /*
-    desc.on('value', function (snapshot) {
-        if (snapshot.exists()) {
-            if (snapshot.val().goalActive == "yes") {
-                alert("prompt user if they want to restart");
-            }
-            else {
-                swal("SUCCESS!", "Your goal has been saved.", "success");
-            }
-        }
-        else {
-            swal("SUCCESS!", "Your goal has been saved.", "success");
-        }
-    });
-    */
-    //swal("SUCCESS!", "Your goal has been saved.", "success");
-
-    /*
-        desc.on('value', function (snapshot) {
-            if (snapshot.exists()) {
-                var timeInterval = snapshot.val().userGoalTime;
-    
-                document.getElementById("goal-number").value = snapshot.val().userGoalNumber;
-                document.getElementById("goal-time").innerText = timeInterval;
-    
-                var daysToAdd;
-                if (timeInterval == "day") {
-                    var newDate = moment(snapshot.val().dateGoalSet).add(1, 'days').format("DD MM YYYY");
-                }
-                else if (timeInterval == "week") {
-                    var newDate = moment(snapshot.val().dateGoalSet).add(7, 'days').format("DD MM YYYY");
-                }
-                else if (timeInterval == "month") {
-                    var newDate = moment(snapshot.val().dateGoalSet).add(1, 'months').format("DD MM YYYY");
-                }
-                else if (timeInterval == "year") {
-                    var newDate = moment(snapshot.val().dateGoalSet).add(1, 'years').format("DD MM YYYY");
-                }
-    
-                var dateSavedArray = moment(snapshot.val().dateGoalSet).format("DD MM YYYY");;
-                console.log("original date: " + dateSavedArray);
-                console.log("new date: " + newDate);
-    
-    
-                //var newDateFormatted = moment([parseInt(newDate.substring(6, 10)), parseInt((newDate.substring(3, 5)) - 1), parseInt(newDate.substring(0, 2))]);
-    
-                //var newDateFormatted = moment([parseInt(newDate.substring(6, 10)), parseInt((newDate.substring(3, 5)) - 1), parseInt(newDate.substring(0, 2))]);
-                //var diffDisplay = (newDateFormatted.diff(moment(snapshot.val().dateGoalSet), 'days'));
-    
-                var diffDisplay = 
-    
-                //console.log("New date: " + diffDisplay);
-    
-                /*
-                if (diffDisplay == 1) {
-                    document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + diffDisplay + " day left</span>";
-                }
-                else {
-                    document.getElementById("days-remaining").innerHTML = "<span class = 'animated days-remaining-goal no-select fadeInDown highlight-color-green-specific'>" + diffDisplay + " days left</span>";
-                }
-                
-                //Pass the goal number and time interval to calculate goal progress
-                updateGoalProgress(snapshot.val().userGoalNumber);
-    
-    
-            }
-        });*/
-
 
 }
 

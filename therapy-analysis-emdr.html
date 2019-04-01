@@ -96,6 +96,82 @@
         </div>
     </div>
 
+    <div id="goal-analysis" class="analysis-box rubber-band analysis-box-hidden">
+        <div class="exit-button no-select" onclick="viewGoalResults()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close goal analysis
+        </div>
+        <div class="customize-dash-header">Goal analysis</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Here you can view past goal results!
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+
+        <div class="col col-12 col-centered">
+            <div class="margin-top-medium row">
+
+                <div class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered">
+                    <div class="row">
+                        <div class="col col-12 redx col-md-6 col-lg-6" style="padding-left: 0px;padding-right: 0px;">
+                            <div class="goal-results-summary">
+                                dasd
+                            </div>
+                        </div>
+                        <div class="col col-12 col-md-6 col-lg-6 bluex">
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-summary">
+
+                    <div class="row">
+                        <div class="col col-12 col-md-6 col-lg-6">
+                            <div class="goal-results-summary-header">Goal completion</div>
+                            <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
+                                <canvas id="averageGoalCompleted" class="margin-top">Loading...</canvas>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-md-6 col-lg-6">
+                            <div class="goal-results-summary-header">Summary</div>
+                            <div id="goal-summary-line"
+                                class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
+                            </div>
+                            <div id="goal-results-summary-box">
+                                <div class="goal-results-summary-item margin-top-setting">
+                                    You have finished 17 goals
+                                </div>
+                                <div class="goal-results-summary-item margin-top margin-top-setting">
+                                    You complete 72% of your goal on average
+                                </div>
+                                <div class="goal-results-summary-item margin-top margin-top-setting">
+                                    You are a hero
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+
+                </div>
+            -->
+            </div>
+            <div id="populate-goal-analytics" class="row margin-top-medium">
+                <div class="loading-green-box col col-11 col-md-7 col-lg-5 col-centered">
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+        <div id="load-more-container" class="col col-12 col-centered no-select text-center margin-top-large">
+
+        </div>
+
+    </div>
+
     <div id="same-scale-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -112,7 +188,7 @@
                 <div class="modal-footer">
                     <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Reset
                         goal</div>
-                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Keep
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('revert')">Keep
                         current scale
                     </div>
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
@@ -526,15 +602,6 @@
 
             </div> <!-- / .row -->
         </div>
-
-        <!--
-        <div class="col col-8 col-centered text-center">
-            <a href="dashboard.html" class="kill-link-style">
-                <div class="dashboard-back">Return to main dashboard</div>
-            </a>
-        </div>
-    -->
-
     </div> <!-- / .main-content -->
 
     <div id="therapy-results-tab" class="full-width mobile-scroll transition-time fixed-hidden">
