@@ -61,12 +61,19 @@
                             You want to do <span id="modal-goal-number" class="modal-focus"></span> sessions this
                             <span id="modal-goal-time" class="modal-focus"></span>
                         </div>
+
+                        <!--
+                        <div onclick="viewGoalResults()" class="no-select past-goal-analysis">Past goal analysis</div>
+                        -->
                     </span>
                 </div>
 
 
 
                 <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="viewGoalResults()">Analyze past
+                        goals
+                    </div>
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
                 </div>
@@ -96,6 +103,47 @@
         </div>
     </div>
 
+    <div id="goal-details-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Goal details</div>
+                <div class="therapy-over-box-subheader text-center">
+                    Let's see how things went :)
+                </div>
+
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <span class="goal-detail-title text-center">
+                            You wanted to complete <span id="session-count-goal" class="modal-focus">loading :)</span>
+                            sessions this <span id="session-count-timescale" class="modal-focus">loading :)</span>
+                        </span>
+                        <li class="list-group-item">
+                            Dates active: <span id="goal-date-beginning">Loading</span> - <span id="goal-date-ending">
+                            </span>
+                        </li>
+
+                        <li class="list-group-item">Goal completed: <span id="goal-completed-modal"
+                                class="capitalize no-select">Loading</span>
+                        </li>
+
+                        <li class="list-group-item">Goal progress:
+
+                            <span id="goal-number-completed"></span>/<span id="goal-number-goal"></span>
+                            (<span id="goal-percentage-completed">Loading</span>)
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="goal-analysis" class="analysis-box rubber-band analysis-box-hidden">
         <div class="exit-button no-select" onclick="viewGoalResults()">
             <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
@@ -115,49 +163,115 @@
         <div class="col col-12 col-centered">
             <div class="margin-top-medium row">
 
-                <div class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered">
-                    <div class="row">
-                        <div class="col col-12 redx col-md-6 col-lg-6" style="padding-left: 0px;padding-right: 0px;">
+                <div
+                    class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered d-none d-sm-none d-md-block">
+                    <div class="row goal-height-container">
+                        <div class="col col-12 text-left col-md-6 col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
                             <div class="goal-results-summary">
-                                dasd
+                                <div class="goal-results-summary-header">Summary</div>
+                                <div id="goal-summary-line"
+                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
+                                </div>
+                                <div id="goal-results-summary-box">
+                                    <div class="goal-results-summary-item margin-top-setting">
+                                        You have saved <span id="goal-num-count" class="dark-text"></span>
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You have completed <span id="goal-completed-percentage"
+                                            class="dark-text"></span> of goals set
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You complete <span id="goal-average-points" class="dark-text"></span> of your
+                                        goal on average
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col col-12 text-right col-md-6 col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <div class="goal-results-summary">
+                                <span class="text-left">
+                                    <div class="goal-results-summary-header">
+                                        <div class="goal-results-summary-header">Goal completion</div>
+                                        <div>
+                                            <span class="complete-box green-complete">Complete</span>
+                                            <span class="complete-box red-complete">Incomplete</span>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
+                                    <canvas id="averageGoalCompleted" class="margin-top">Loading...</canvas>
+                                </div>
                             </div>
                         </div>
-                        <div class="col col-12 col-md-6 col-lg-6 bluex">
+
+                    </div>
+                </div>
+
+                <div
+                    class="col col-11 col-centered margin-top text-center no-selet d-block d-md-none d-lg-none d-xl-none">
+                    <div class="row text-center">
+                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
+                            <div class="goal-results-summary center-block text-left">
+
+                                <div class="goal-results-summary-header">Summary</div>
+                                <div id="goal-summary-line-mobile"
+                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
+                                </div>
+                                <div id="goal-results-summary-box">
+                                    <div class="goal-results-summary-item margin-top-setting">
+                                        You have finished <span id="goal-num-count-mobile" class="dark-text">17
+                                            goals</span>
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You complete 72% of your goal on average
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You are a hero
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <!--
-                <div class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-summary">
 
-                    <div class="row">
-                        <div class="col col-12 col-md-6 col-lg-6">
-                            <div class="goal-results-summary-header">Goal completion</div>
-                            <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
-                                <canvas id="averageGoalCompleted" class="margin-top">Loading...</canvas>
-                            </div>
-                        </div>
-                        <div class="col col-12 col-md-6 col-lg-6">
-                            <div class="goal-results-summary-header">Summary</div>
-                            <div id="goal-summary-line"
-                                class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
-                            </div>
-                            <div id="goal-results-summary-box">
-                                <div class="goal-results-summary-item margin-top-setting">
-                                    You have finished 17 goals
+                <div
+                    class="col col-11 col-centered margin-top-large text-center no-selet d-block d-md-none d-lg-none d-xl-none">
+                    <div class="row text-center">
+                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
+                            <div class="goal-results-summary center-block text-left">
+                                <span class="text-left">
+                                    <div class="goal-results-summary-header">
+                                        <div class="goal-results-summary-header">Goal completion</div>
+                                        <div>
+                                            <span class="complete-box green-complete">Complete</span>
+                                            <span class="complete-box red-complete">Incomplete</span>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
+                                    <canvas id="averageGoalCompleted2" class="margin-top">Loading...</canvas>
                                 </div>
-                                <div class="goal-results-summary-item margin-top margin-top-setting">
-                                    You complete 72% of your goal on average
-                                </div>
-                                <div class="goal-results-summary-item margin-top margin-top-setting">
-                                    You are a hero
-                                </div>
+
                             </div>
+
                         </div>
                     </div>
-            
-
                 </div>
-            -->
+
+
             </div>
             <div id="populate-goal-analytics" class="row margin-top-medium">
                 <div class="loading-green-box col col-11 col-md-7 col-lg-5 col-centered">

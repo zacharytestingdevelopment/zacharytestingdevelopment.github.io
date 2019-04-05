@@ -20,10 +20,70 @@
     padding-right: 20px;
 }
 
+.complete-box
+{
+    margin-top: 3.5px;
+    border-radius: 5px;
+    padding-left:10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color:#12233f;
+    font-size: 14px;
+}
+
+.capitalize
+{
+    text-transform: capitalize !important;
+}
+
+.green-complete
+{
+    background:#3ee986;
+}
+
+.red-complete
+{
+    background:#e9463e;
+}
+
+.past-goal-analysis
+{
+    display: inline-block;
+    color:#4257b2;
+    transition: all .3s ease;
+    border-bottom: 2px solid transparent;
+    margin-top: 20px;
+}
+
+.center-block
+{
+    width:100% !important;
+    position: relative;
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.past-goal-analysis:hover
+{
+    border-bottom: 2px solid #4257b2;
+    cursor: pointer;
+}
+
+.goal-height-container
+{
+    height:360px;
+}
+
 .goal-results-summary
 {
+    display: inline-block;
     background-color:#fff;
     border-radius: 15px;
+    width:95%;
+    height:100%;
     padding: 30px;
     margin-bottom: -10px;
 }
@@ -135,6 +195,11 @@
     width:4px;
 }
 
+.dark-text
+{
+    color:#12233f !important;
+}
+
 .loading-green-box
 {
     margin-left: auto;
@@ -209,7 +274,6 @@
     position: fixed;
     top:0vh;
     opacity: 1;
-    height:100vh;
     width:100vw;
     background:#12243f;
     transition: all .5s ease;
@@ -359,6 +423,36 @@
     color:#4257b2;
 }
 
+.goal-completed-highlight-red
+{
+    margin-left: 3px;
+    margin-top: 3.5px;
+    border-radius: 5px;
+    padding-left:10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color:#fff;
+    background:#e8463d;
+    font-size: 15px;
+}
+
+.goal-completed-highlight-green
+{
+    margin-left: 3px;
+    margin-top: 3.5px;
+    border-radius: 5px;
+    padding-left:10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color:#fff;
+    background:#3ee986;
+    font-size: 15px;
+}
+
+
+
 .close-button:hover
 {
     cursor: pointer;
@@ -369,6 +463,12 @@
 .smaller-padding
 {
     padding-left: 1px !important;
+}
+
+.goal-detail-title
+{
+    margin-bottom: 30px;
+    font-size: 16.5px;
 }
 
 .save-changes-button
@@ -1485,6 +1585,39 @@ input[type="color"]::-webkit-color-swatch {
 .dashboard-goal-time:focus
 {
     color: #4257b2 !important;
+}
+
+@media only screen 
+and (max-width: 374px)
+{
+    .return-text
+    {
+        font-size: 10px !important;
+    }
+
+    .styled-select
+    {
+        font-size: 10px !important;
+        padding-left: 1px !important;
+        padding-right: 1px !important;
+    }
+
+}
+
+@media only screen 
+and (max-width: 429px)
+{
+        .return-text
+        {
+            font-size: 13.2px;
+        }
+
+        .styled-select
+        {
+            font-size: 12.5px;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
 }
 
 @media only screen 

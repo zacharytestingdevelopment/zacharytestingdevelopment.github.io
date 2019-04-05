@@ -40,6 +40,11 @@ var goalResultsInitLoadOnce = false;
 
 var goalActiontype = "";
 var goalResultsVisible = false;
+var totalCompletedGoals = 0;
+
+var goalCompletedResultsArray = [];
+var averageGoalPoints = 0;
+var goalPointCount = 0;
 
 //var a = moment([2007, 0, 29]);
 //var b = moment([2007, 0, 28]);
@@ -90,6 +95,8 @@ function viewGoalResults() {
     }, 210);
     */
 
+    $("#view-goal-modal").modal('hide');
+
     if (!goalResultsVisible) {
         $("#goal-analysis").removeClass("analysis-box-hidden");
 
@@ -113,6 +120,8 @@ function viewGoalResults() {
             $("#goal-analysis").animate({ scrollTop: 0 }, "fast");
             $("#goal-summary-line").removeClass("goal-results-summary-header-line-active");
             $("#goal-summary-line").addClass("goal-results-summary-header-line-inactive");
+            $("#goal-summary-line-mobile").removeClass("goal-results-summary-header-line-active");
+            $("#goal-summary-line-mobile").addClass("goal-results-summary-header-line-inactive");
         }, 300);
     }
 }
@@ -123,6 +132,8 @@ function prepareGoalResults() {
     setTimeout(function () {
         $("#goal-summary-line").removeClass("goal-results-summary-header-line-inactive");
         $("#goal-summary-line").addClass("goal-results-summary-header-line-active");
+        $("#goal-summary-line-mobile").removeClass("goal-results-summary-header-line-inactive");
+        $("#goal-summary-line-mobile").addClass("goal-results-summary-header-line-active");
     }, 210);
 
     if (!goalResultsInitLoadOnce) {
@@ -263,14 +274,8 @@ function populateActivityData(child) {
 
 
 function loadActivityChart(activityNumber) {
-    console.log("chart loaded! ------------");
     var user = firebase.auth().currentUser;
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/");
-
-    //triggerActivityData();
-
-    //This code runs before the activity data has populated. Fix this! 
-    console.log("activity data: " + activityData);
 
     if (activityNumber == "one") {
         desc.on('value', function (snapshot) {
@@ -544,20 +549,145 @@ function populateDaysChart(daysInput) {
 
 function goalDetails(goal) {
     console.log(goal);
+
+    $("#goal-details-modal").modal('toggle');
+
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/goalResults/" + goal);
+    desc.on('value', function (snapshot) {
+        document.getElementById("session-count-goal").innerHTML = snapshot.val().setGoalNumber;
+        document.getElementById("session-count-timescale").innerHTML = snapshot.val().setGoalTimescale
+        document.getElementById("goal-date-beginning").innerHTML = snapshot.val().setStartingDate;
+        document.getElementById("goal-date-ending").innerHTML = snapshot.val().setCompletedDate;
+
+        if (snapshot.val().setCompleted == "yes") {
+            //You completed this goal
+            $("#goal-completed-modal").removeClass("goal-completed-highlight-red");
+            $("#goal-completed-modal").addClass("goal-completed-highlight-green");
+        }
+        else {
+            //You did not complete this goal
+            $("#goal-completed-modal").removeClass("goal-completed-highlight-green");
+            $("#goal-completed-modal").addClass("goal-completed-highlight-red");
+        }
+
+        document.getElementById("goal-number-completed").innerHTML = snapshot.val().setCompletedNumber;
+        document.getElementById("goal-number-goal").innerHTML = snapshot.val().setGoalNumber;
+
+        document.getElementById("goal-completed-modal").innerHTML = snapshot.val().setCompleted;
+
+        document.getElementById("goal-percentage-completed").innerHTML = snapshot.val().completedPercentage + "%";
+        //console.log(snapshot.val().completedPercentage);
+    });
+
 }
 
 function loadGoalResults() {
     var user = firebase.auth().currentUser;
-    var totalLoadCountLocal = totalLoadCountGoal - 1;
+    //var totalLoadCountLocal = totalLoadCountGoal - 1;
 
     goalCount = goalResults.length - 1;
 
-    /*
-    var totalLoadCountLocal = totalLoadCount - 1;
-    count = therapyResults.length - 1;
-    */
     if (!isGoalAnalytics) {
+
+        if (goalResults.length > 1) {
+            document.getElementById("goal-num-count").innerHTML = goalResults.length + " goals";
+            document.getElementById("goal-num-count-mobile").innerHTML = goalResults.length + " goals";
+        }
+        else {
+            document.getElementById("goal-num-count").innerHTML = goalResults.length + " goal";
+            document.getElementById("goal-num-count-mobile").innerHTML = goalResults.length + " goal";
+        }
+
         document.getElementById("populate-goal-analytics").innerHTML = "";
+
+        var countingVar = 0;
+        var endCount = goalResults.length;
+
+        for (i = goalResults.length - 1; i >= 0; i--) {
+            var desc = firebase.database().ref('users/' + user.uid + "/emdr/goalResults/" + goalResults[i]);
+            desc.on('value', function (snapshot) {
+
+                if (snapshot.val().setCompleted == "yes") {
+                    totalCompletedGoals++;
+                }
+
+                goalPointCount += snapshot.val().completedPercentage;
+
+                countingVar++;
+
+                if (countingVar == endCount) {
+
+                    //console.log("Total points: " + goalPointCount);
+
+
+
+                    averageGoalPoints = goalPointCount / endCount;
+                    averageCompleted = totalCompletedGoals / endCount;
+
+                    if (averageGoalPoints % 1 == 0) {
+                        averageGoalPoints = parseFloat(Math.round(goalPointCount) / endCount).toFixed(0);
+                    }
+                    else {
+                        averageGoalPoints = parseFloat(Math.round(goalPointCount) / endCount).toFixed(2);
+                    }
+
+                    if (averageCompleted % 1 == 0) {
+                        averageCompleted = parseFloat(Math.round(totalCompletedGoals * 100) / endCount).toFixed(0);
+                    }
+                    else {
+                        averageCompleted = parseFloat(Math.round(totalCompletedGoals * 100) / endCount).toFixed(2);
+                    }
+
+                    goalCompletedResultsArray = [(100 - averageCompleted), averageCompleted];
+
+                    document.getElementById("goal-completed-percentage").innerHTML = averageCompleted + "%";
+                    document.getElementById("goal-average-points").innerHTML = averageGoalPoints + "%";
+
+
+                    var ctx = document.getElementById('averageGoalCompleted').getContext('2d')
+                    var averageGoalChart = new Chart(ctx,
+                        {
+                            type: 'doughnut',
+                            options: {
+                                tooltips: {
+                                    mode: "dataset"
+                                }
+                            },
+                            data: {
+                                labels: ["Completed", "Not completed"],
+                                datasets: [{
+                                    backgroundColor: ["#E9463E", "#3ee986"],
+                                    data: goalCompletedResultsArray
+                                }]
+                            }
+                        });
+
+                    var ctx2 = document.getElementById('averageGoalCompleted2').getContext('2d')
+                    var averageGoalChart2 = new Chart(ctx2,
+                        {
+                            type: 'doughnut',
+                            options: {
+                                tooltips: {
+                                    mode: "dataset"
+                                }
+                            },
+                            data: {
+                                labels: ["Completed", "Not completed"],
+                                datasets: [{
+                                    backgroundColor: ["#E9463E", "#3ee986"],
+                                    data: goalCompletedResultsArray
+                                }]
+                            }
+                        });
+                }
+
+
+
+            });
+        }
+
+
         for (i = goalResults.length - 1; i >= 0; i--) {
             if (totalLoadCountGoal < goalResults.length) {
                 str = goalResults[i].replace(/\s+/g, '');
@@ -610,7 +740,7 @@ function loadGoalResults() {
                     }
 
                     setTimeout(function () {
-                        console.log(snapshot.val().completedPercentage);
+                        //console.log(snapshot.val().completedPercentage);
                         if (parseFloat(snapshot.val().completedPercentage) < 100) {
                             document.getElementById("goalPercentageBar" + tempStr).style.width = (parseFloat(snapshot.val().completedPercentage) + "%");
                         }
@@ -633,33 +763,20 @@ function loadGoalResults() {
 
         $("#goal-summary-line").removeClass("goal-results-summary-header-line-inactive");
         $("#goal-summary-line").addClass("goal-results-summary-header-line-active");
+        $("#goal-summary-line-mobile").removeClass("goal-results-summary-header-line-inactive");
+        $("#goal-summary-line-mobile").addClass("goal-results-summary-header-line-active");
 
     }
 
     populateGoalSummary();
-    var ctx = document.getElementById('averageGoalCompleted').getContext('2d')
-    var averageGoalChart = new Chart(ctx,
-        {
-            type: 'doughnut',
-            options: {
-                tooltips: {
-                    mode: "dataset"
-                }
-            },
-            data: {
-                labels: ["Completed", "Not completed"],
-                datasets: [{
-                    backgroundColor: ["#E9463E", "#3ee986"],
-                    data: [40, 60]
-                }]
-            }
-        });
+
     document.getElementById("load-more-container").innerHTML = "<span class = 'animated fadeIn'> <span onclick='loadMoreGoals()' class='load-more-button'>Load more</span></span>"
     isGoalAnalytics = true;
 }
 
 function populateGoalSummary() {
-
+    //maybe make goal chart and summary two different blocks
+    //yea that sounds good homie
 }
 
 function loadResults() {
@@ -1049,6 +1166,7 @@ function returnFormattedDate(date) {
     var stringMonth;
     var stringYear;
 
+    //console.log("DATE: " + date);
     stringDay = date[2];
 
     if (date[1] == 0) {
@@ -1092,6 +1210,55 @@ function returnFormattedDate(date) {
 
     //console.log("dAte: " + date);
     return stringMonth + " " + stringDay + ", " + stringYear;
+}
+
+function setCompletedDate() {
+
+    //currently returns undefined because you can't return data from within firebase call 
+
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    var x;
+    desc.on('value', function (snapshot) {
+
+        var timeInterval = snapshot.val().userGoalTime;
+        var endingDateDisplay;
+
+        if (timeInterval == "day") {
+            endingDateDisplay = moment(snapshot.val().dateGoalStart).add(1, 'days').format();
+        }
+        else if (timeInterval == "week") {
+            endingDateDisplay = moment(snapshot.val().dateGoalStart).add(1, 'weeks').format();
+        }
+        else if (timeInterval == "month") {
+            endingDateDisplay = moment(snapshot.val().dateGoalStart).add(1, 'months').format();
+        }
+        else if (timeInterval == "year") {
+            endingDateDisplay = moment(snapshot.val().dateGoalStart).add(1, 'years').format();
+        }
+
+        //var endingDateDisplay = moment(snapshot.val().dateGoalStart).add(1, 'days').format();
+
+        console.log(endingDateDisplay);
+        var endingYear = parseInt(endingDateDisplay.substring(0, 4));
+        var endingMonth = parseInt(endingDateDisplay.substring(5, 7)) - 1;
+        var endingDay = parseInt(endingDateDisplay.substring(8, 10));
+
+        var returnArray = [endingYear, endingMonth, endingDay];
+        console.log("sss" + returnArray);
+        x = returnArray;
+        //console.log("Array to be returned: " + returnArray);
+        //console.log("Formatted array: " + returnFormattedDate(returnArray));
+
+        //var endingMonth = parseInt(endingDateDisplay.substring(5, 8));
+        //console.log(endingYear);
+        //console.log(endingMonth);
+        //console.log(endingDay);
+        // console.log(snapshot.val().dateGoalStart);
+        //endingDate = moment(snapshot.val().dateGoalStart).add(1, 'days');
+    });
+
+    return x;
 }
 
 function loadGoal() {
@@ -1140,6 +1307,8 @@ function loadGoal() {
     desc.on('value', function (snapshot) {
         if (snapshot.exists()) {
 
+            //setCompletedDate();
+
             //console.log("Goal exists");
 
             if (snapshot.val().goalActive == "yes") {
@@ -1185,6 +1354,7 @@ function loadGoal() {
                 endingDate = moment(snapshot.val().dateGoalStart).add(1, 'years');
             }
 
+
             //endingDate.diff(currentDate)
             var diffDisplay = endingDate.diff(currentDate, 'days');
             //console.log("Difference: " + diffDisplay);
@@ -1198,11 +1368,10 @@ function loadGoal() {
             }
             else {
 
+
                 //check goal active variable 
 
                 if (snapshot.val().goalActive == "yes") {
-
-                    //console.log("djijsofSSSxd-");
 
                     var returnNumber = parseFloat(((snapshot.val().goalSessionsProgress / snapshot.val().userGoalNumber) * 100).toFixed(2));
                     if (returnNumber >= 100) {
@@ -1211,13 +1380,17 @@ function loadGoal() {
                         var d = new Date();
                         var timeSet = d.getTime();
 
-
-
                         //Add starting and ending dates
                         firebase.database().ref('users/' + user.uid + "/emdr" + "/goalResults" + "/" + timeSet).set({
                             setCompleted: 'yes',
                             completedPercentage: returnNumber,
-                            setCompletedDate: returnFormattedDate(getCurrentDate())
+                            setStartingDate: returnFormattedDate(snapshot.val().dateGoalStart),
+                            setCompletedDate: returnFormattedDate(setCompletedDate()),
+                            setCompletedNumber: parseInt(snapshot.val().goalSessionsProgress),
+                            setGoalNumber: parseInt(snapshot.val().userGoalNumber),
+                            setGoalTimescale: snapshot.val().userGoalTime,
+                            goalNumberCompleted: snapshot.val().goalSessionsProgress
+                            //setGoalCompletedNumber: snapshot.val().setCompletedNumber
                         });
                     }
                     else {
@@ -1225,12 +1398,18 @@ function loadGoal() {
                         var user = firebase.auth().currentUser;
                         var d = new Date();
                         var timeSet = d.getTime();
-                        console.log(returnFormattedDate(getCurrentDate()));
+                        //setCompletedDate();
 
                         firebase.database().ref('users/' + user.uid + "/emdr" + "/goalResults" + "/" + timeSet).set({
                             setCompleted: 'no',
                             completedPercentage: returnNumber,
-                            setCompletedDate: returnFormattedDate(getCurrentDate())
+                            setStartingDate: returnFormattedDate(snapshot.val().dateGoalStart),
+                            setCompletedDate: returnFormattedDate(setCompletedDate()),
+                            setCompletedNumber: parseInt(snapshot.val().goalSessionsProgress),
+                            setGoalNumber: parseInt(snapshot.val().userGoalNumber),
+                            setGoalTimescale: snapshot.val().userGoalTime,
+                            goalNumberCompleted: snapshot.val().goalSessionsProgress
+                            //setGoalCompletedNumber: snapshot.val().setCompletedNumber
                         });
 
                     }
@@ -1398,7 +1577,6 @@ function checkGoal() {
     desc.once('value', function (snapshot) {
 
         if (snapshot.exists() && snapshot.val().goalActive == "yes") {
-            console.log("we have a goal");
             $("#set-goal-modal").modal('toggle');
         }
         else {
