@@ -1,4 +1,6 @@
 
+var activeGoal;
+var goalNumber, goalTime;
 var userID;
 var rootRef;
 var newRoot;
@@ -14,6 +16,8 @@ var str = "";
 var pubStr;
 var count = 0;
 var goalCount = 0;
+var headerCtx;
+var headerChart;
 
 var monday = 0;
 var tuesday = 0;
@@ -53,6 +57,222 @@ var goalPointCount = 0;
 //Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday 
 var days = [0, 0, 0, 0, 0, 0, 0];
 
+//Header chart testing
+
+dataHeader = {
+    labels: ['1', '2', '3', '4', '5'],
+    datasets: [{
+        label: 'Mood value',
+        //backgroundColor: '#3ee986',
+        hoverBackgroundColor: "#3ee986",
+        pointBackgroundColor: '#3ee986',
+        borderWidth: 2,
+        fill: true,
+        borderColor: '#3ee986',
+        data: [3, 5, 7, 6, 8],
+        showTooltips: true
+
+    }]
+};
+
+var optionsVAC = {
+    bezierCurve: false,
+    responsive: true,
+    maintainAspectRatio: false,
+    intersect: false,
+    animation: {
+        easing: 'easeInOutQuad',
+        duration: 965
+    },
+    scales: {
+        xAxes: [{
+            gridLines: {
+                color: 'rgba(66,87,178, 0.1)',
+                lineWidth: 1,
+                drawTicks: false,
+                drawOnChartArea: false,
+                defaultFontStyle: 'normal',
+                defaultFontSize: 40,
+                //drawBorder: false
+            },
+            ticks: {
+                fontColor: '#95aac9',
+                defaultFontStyle: 'normal',
+                fontSize: 13,
+                fontFamily: 'Montserrat',
+                padding: 20
+
+            }
+        }],
+        yAxes: [{
+            gridLines: {
+                borderDash: [2],
+                borderDashOffset: [2],
+                color: 'rgba(149,170,201, 0.21)',
+                drawBorder: false,
+                drawTicks: false,
+                lineWidth: 0,
+                zeroLineWidth: 0,
+                zeroLineColor: 'rgba(149,170,201, 0.21)',
+                zeroLineBorderDash: [2],
+                zeroLineBorderDashOffset: [2]
+            },
+            ticks: {
+                max: 7,
+                padding: 10,
+                beginAtZero: true,
+                fontColor: '#95aac9',
+                fontSize: 13,
+                defaultFontStyle: 'normal',
+                fontFamily: 'Montserrat',
+                userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                        return label;
+                    }
+
+                },
+                maxBarThickness: 10
+            }
+        }]
+    },
+    elements: {
+        line: {
+            tension: 0
+        }
+    },
+    legend: {
+        display: false
+    },
+    point: {
+        backgroundColor: 'white'
+    },
+    tooltips: {
+        opacity: '0.4',
+        position: 'average',
+        // intersect: false,
+        titleFontFamily: 'Montserrat',
+        bodyFontFamily: 'Montserrat',
+        bodyFontStyle: 'bold',
+        borderColor: '#000',
+        borderWidth: 2,
+        bodyFontColor: '#000',
+        backgroundColor: 'rgba(255,255,255, 0.91)',
+        titleFontColor: '#000',
+        color: '#000',
+        caretSize: 5,
+        cornerRadius: 5,
+        xPadding: 20,
+        yPadding: 10
+    }
+};
+
+var optionsMain = {
+    showTooltips: true,
+    bezierCurve: false,
+    responsive: true,
+    maintainAspectRatio: false,
+    intersect: false,
+    animation: {
+        easing: 'easeInOutQuad',
+        duration: 965
+    },
+    scales: {
+        xAxes: [{
+            gridLines: {
+                color: 'rgba(66,87,178, 0.1)',
+                lineWidth: .2,
+                drawTicks: false,
+                drawOnChartArea: false,
+                defaultFontStyle: 'normal',
+                defaultFontSize: 40,
+                //drawBorder: false
+            },
+            ticks: {
+                fontColor: '#95aac9',
+                defaultFontStyle: 'normal',
+                fontSize: 13,
+                fontFamily: 'Montserrat',
+                padding: 20
+
+            }
+        }],
+        yAxes: [{
+            gridLines: {
+                borderDash: [2],
+                borderDashOffset: [2],
+                color: 'rgba(149,170,201, 0.21)',
+                drawBorder: false,
+                drawTicks: false,
+                lineWidth: 1,
+                zeroLineWidth: 0,
+                zeroLineColor: 'rgba(149,170,201, 0.21)',
+                zeroLineBorderDash: [2],
+                zeroLineBorderDashOffset: [2]
+            },
+            ticks: {
+                max: 10,
+                padding: 10,
+                beginAtZero: true,
+                fontColor: '#95aac9',
+                fontSize: 13,
+                defaultFontStyle: 'normal',
+                fontFamily: 'Montserrat',
+                userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                        return label;
+                    }
+
+                },
+                maxBarThickness: 10
+            }
+        }]
+    },
+    elements: {
+        point: { radius: 3 },
+
+        line: {
+            tension: 0
+        }
+    },
+    legend: {
+        display: false
+    },
+    point: {
+        backgroundColor: 'white'
+    },
+    tooltips: {
+        intersect: false,
+        opacity: '0.4',
+        position: 'average',
+        // intersect: false,
+        titleFontFamily: 'Montserrat',
+        bodyFontFamily: 'Montserrat',
+        bodyFontStyle: 'bold',
+        borderColor: '#000',
+        borderWidth: 2,
+        bodyFontColor: '#000',
+        backgroundColor: 'rgba(255,255,255, 0.91)',
+        titleFontColor: '#000',
+        color: '#000',
+        caretSize: 5,
+        cornerRadius: 5,
+        xPadding: 20,
+        yPadding: 10,
+    }
+};
+
+headerCtx = document.getElementById('main-chart').getContext('2d');
+
+
+headerChart = new Chart(headerCtx, {
+    type: 'line',
+    data: dataHeader,
+    options: optionsMain
+
+});
+
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         userID = firebase.auth().currentUser.uid;
@@ -66,6 +286,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         console.log("No user is signed in");
     }
 });
+
+
 
 function getCurrentDate() {
     var d = new Date();
@@ -88,6 +310,7 @@ function getTotalDays() {
 */
 
 function viewGoalResults() {
+
 
     /*
      setTimeout(function () {
@@ -271,7 +494,6 @@ function populateActivityData(child) {
         }
     });
 }
-
 
 function loadActivityChart(activityNumber) {
     var user = firebase.auth().currentUser;
@@ -547,8 +769,31 @@ function populateDaysChart(daysInput) {
         });
 }
 
+function tryGoalAgain() {
+    $("#goal-details-modal").modal('hide');
+    var user = firebase.auth().currentUser;
+
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
+    //console.log("goal action type: " + goalActiontype);
+    desc.on('value', function (snapshot) {
+        if (snapshot.exists()) {
+            if (snapshot.val().goalActive == "yes") {
+                $("#reset-goal-modal").modal('toggle');
+            }
+            else {
+                goalAction('reset');
+            }
+        }
+        else {
+            goalAction('reset');
+        }
+    });
+}
+
 function goalDetails(goal) {
     console.log(goal);
+
+    activeGoal = goal;
 
     $("#goal-details-modal").modal('toggle');
 
@@ -702,8 +947,8 @@ function loadGoalResults() {
                 totalLoadCountGoal++;
 
                 var goalResultsVar = "";
-                goalResultsVar += "<div id=" + str + " ";
-                goalResultsVar += "                    class=\"col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
+                goalResultsVar += "<span class = 'col col-12 col-centered fixDis'><div id=" + str + " ";
+                goalResultsVar += "                    class=\"col col-11 margin-top animated fadeIn no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
                 goalResultsVar += "                    <div id=goalDate" + str + " class=\"goal-results-box-header no-select inherit\">Ended February 31rd, 2019";
                 goalResultsVar += "                    <\/div>";
                 goalResultsVar += "                    <span class=\"goal-results-divider\"><\/span>";
@@ -715,7 +960,7 @@ function loadGoalResults() {
                 goalResultsVar += "                            <\/div>";
                 goalResultsVar += "                        <\/span>";
                 goalResultsVar += "                    <\/span>";
-                goalResultsVar += "                <\/div>";
+                goalResultsVar += "                <\/div></span>";
 
                 document.getElementById("populate-goal-analytics").innerHTML += goalResultsVar;
             }
@@ -780,6 +1025,7 @@ function populateGoalSummary() {
 }
 
 function loadResults() {
+
     //console.log("INIT TOTAL: " + totalLoadCount);
     var user = firebase.auth().currentUser;
     var totalLoadCountLocal = totalLoadCount - 1;
@@ -900,7 +1146,7 @@ function loadMoreGoals() {
                 str = goalResults[i].replace(/\s+/g, '');
                 id = "box" + str;
                 var goalResultsVar = "";
-                goalResultsVar += "<div id=" + str + " ";
+                goalResultsVar += "<span class = 'animated col col-12 col-centered fadeIn fixDis'> <div id=" + str + " ";
                 goalResultsVar += "                    class=\"col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
                 goalResultsVar += "                    <div id=goalDate" + str + " class=\"goal-results-box-header no-select inherit\">Ended February 31rd, 2019";
                 goalResultsVar += "                    <\/div>";
@@ -913,7 +1159,7 @@ function loadMoreGoals() {
                 goalResultsVar += "                            <\/div>";
                 goalResultsVar += "                        <\/span>";
                 goalResultsVar += "                    <\/span>";
-                goalResultsVar += "                <\/div>";
+                goalResultsVar += "                <\/div></span>";
 
                 totalLoadCountGoal++;
 
@@ -1088,9 +1334,22 @@ function amountToLoadGoals() {
 
 function analyzeSet(set) {
     console.log("Analyze this set: " + set);
-    $("#therapy-results-tab").removeClass("fixed-hidden");
-    $("#therapy-results-tab").addClass("fixed-visible");
-    //document.getElementById("therapy-results-tab").className = "position:fixed;top:0vh;";
+    //$("#therapy-results-tab").removeClass("fixed-hidden");
+    //$("#therapy-results-tab").addClass("fixed-visible");
+
+    $("#session-analytics-box").removeClass("analysis-box-hidden");
+    $('html').css({
+        overflow: 'hidden',
+        height: '100%'
+    });
+}
+
+function closeAnalyzeSet() {
+    $("#session-analytics-box").addClass("analysis-box-hidden");
+    $('html').css({
+        overflow: 'auto',
+        height: 'auto'
+    });
 }
 
 function averageSessionsPerDay() {
@@ -1520,7 +1779,9 @@ function updateGoalProgress(number) {
 }
 
 function viewGoal() {
+
     $('#view-goal-modal').modal('toggle');
+
     var user = firebase.auth().currentUser;
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
     desc.on('value', function (snapshot) {
@@ -1566,6 +1827,10 @@ function goalAction(action) {
     else if (action == "revert") {
         goalActiontype = "revert";
         saveGoal('revert');
+    }
+    else if (action == "overwrite") {
+        goalActiontype = "overwrite";
+        saveGoal("overwrite");
     }
 }
 
@@ -1617,9 +1882,18 @@ function saveGoal(goalAction) {
     $('#set-goal-modal').modal('hide');
     $('#same-scale-modal').modal('hide');
 
-    var goalNumber = document.getElementById("goal-number").value;
-    var goalTime = document.getElementById("goal-time").innerText;
-
+    if (goalAction != "overwrite") {
+        goalNumber = document.getElementById("goal-number").value;
+        goalTime = document.getElementById("goal-time").innerText;
+    }
+    else {
+        var desc = firebase.database().ref('users/' + user.uid + "/emdr/goalResults/" + activeGoal);
+        desc.once('value', function (snapshot) {
+            goalNumber = snapshot.val().setGoalNumber;
+            goalTime = snapshot.val().setGoalTimescale;
+        });
+    }
+    /*
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");
     desc.on('value', function (snapshot) {
         if (snapshot.exists()) {
@@ -1628,8 +1902,10 @@ function saveGoal(goalAction) {
             }
         }
     });
+    */
 
     // var user = firebase.auth().currentUser;
+
     var goalStartDate;
     var goalEndDate;
 
@@ -1653,15 +1929,6 @@ function saveGoal(goalAction) {
     currentDateFormatted = moment(currentDate);
 
     var diffDisplay = endingDate.diff(currentDate, 'days');
-    //console.log("difference: " + diffDisplay);
-
-    /*
-    need to be able to detect if change was made with the timescale. If the goal was originally set for a month, and 10 days in
-    the user changes it to be a week, what happens? Does the goal duration automatically end?
-    
-    Maybe make it impossible to change the goal timeframe — if they change the goal timeframe from what it was, 
-    they recieve a popup saying that they can only change the timeframe if they are resetting the goal entirely. 
-    */
 
     if (goalAction == "reset") {
         swal("SUCCESS!", "Your goal has been saved.", "success");
@@ -1693,6 +1960,20 @@ function saveGoal(goalAction) {
     else if (goalAction == "revert") {
         $("#same-scale-modal").modal('hide');
         document.getElementById("goal-time").innerText = originalGoalTime;
+    }
+    else if (goalAction == "overwrite") {
+        $("#reset-goal-modal").modal('hide');
+        swal("SUCCESS!", "Your goal has been saved.", "success");
+        firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis").set({
+            userGoalNumber: goalNumber,
+            userGoalTime: goalTime,
+            dateGoalStart: currentDate,
+            dateGoalDifference: diffDisplay,
+            //dateGoalEnd: goalEndDate,
+            goalActive: 'yes',
+            goalSessionsProgress: 0
+        });
+        loadGoal()
     }
 
     var animateRed = "";

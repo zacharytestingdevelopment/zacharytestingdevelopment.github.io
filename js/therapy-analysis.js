@@ -13,24 +13,26 @@ var dayChart = new Chart(ctx,
     });
     */
 
+/*
 var ctx = document.getElementById('timeChart').getContext('2d')
 var timeChart = new Chart(ctx,
-    {
-        options: {
-            borderColor: '#4257b2'
-        },
-        responsive: true,
-        maintainAspectRatio: true,
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', "May"],
+{
+    options: {
+        borderColor: '#4257b2'
+    },
+    responsive: true,
+    maintainAspectRatio: true,
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', "May"],
 
-            datasets: [{
-                borderColor: '#4257b2',
-                pointBorderColor: '#4257b2',
-                pointBackgroundColor: '#4257b2',
+        datasets: [{
+            borderColor: '#4257b2',
+            pointBorderColor: '#4257b2',
+            pointBackgroundColor: '#4257b2',
 
-                data: [40, 25, 15, 10, 50]
-            }]
-        }
-    });
+            data: [40, 25, 15, 10, 50]
+        }]
+    }
+});
+*/

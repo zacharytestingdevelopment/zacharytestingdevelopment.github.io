@@ -40,7 +40,7 @@
     <title>Therapy analysis</title>
 </head>
 
-<body>
+<body id="my-body">
     <div id="loader" class="spinner"
         style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
         <div class="double-bounce1"></div>
@@ -137,12 +137,273 @@
                 </div>
 
                 <div class="modal-footer">
+                    <span class="close-button no-select" onclick="tryGoalAgain()">Try
+                        it again</span>
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <!--
+    <div id="session-analysis-modal" class="sessions-analytics-modal analysis-box-hidden">
+        <div class="main-content">
+            <div class="header bg-dark pb-5" style="background:#12253f !important;">
+                <div class="container-fluid">
+                    <div class="header-body">
+                        <div class="dashboard-return">
+
+                            <span class="no-select return-text" onclick="closeAnalyzeSet()">
+                                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                                Close EMDR analysis
+                            </span>
+
+                            <span class="float-right">
+
+                                <span class="float-right entry-write extra-padding no-select"
+                                    onclick="viewSessionDetails()">View session details
+                                </span>
+
+                            </span>
+                        </div>
+
+                        <div class="row align-items-end">
+
+                            <div class="col">
+
+
+                                <h6 class="margin-top header-pretitle text-secondary">
+                                    Overview
+                                </h6>
+
+
+                                <h1 class="header-title text-white">
+                                    Average mood
+                                </h1>
+
+                            </div>
+                            <div class="col-auto">
+
+
+                                <ul class="nav nav-tabs header-tabs">
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                        data-prefix="$" data-suffix="k">
+                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Mood
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                        data-prefix="" data-suffix="k">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Recall
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                        data-prefix="" data-suffix="%">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                SUDS
+                                            </h3>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="header-footer">
+
+
+                        <div class="chart">
+
+                            <div class="full"><canvas id="main-chart" class="full"></canvas></div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
+    <!--analysis-box analysis-box-hidden rubber-band pad-analysis-->
+    <!--full-width mobile-scroll results-box-inactive-->
+    <!--
+    <div id="session-analytics-box" class="analysis-box-second analysis-box-second-hidden rubber-band pad-analysis">
+
+        <div class="main-content">
+            <div class="header bg-dark pb-5" style="background:#12253f !important;">
+                <div class="container-fluid">
+
+
+                    <div class="header-body">
+                        <div class="dashboard-return">
+
+                            <span class="no-select return-text" onclick="closeAnalyzeSet()">
+                                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                                Close EMDR analysis
+                            </span>
+
+                            <span class="float-right">
+
+                                <span class="float-right entry-write extra-padding no-select"
+                                    onclick="viewSessionDetails()">View session details
+                                </span>
+
+                            </span>
+                        </div>
+
+                        <div class="row align-items-end">
+
+                            <div class="col">
+
+
+                                <h6 class="margin-top header-pretitle text-secondary">
+                                    Overview
+                                </h6>
+
+
+                                <h1 class="header-title text-white">
+                                    Average mood
+                                </h1>
+
+                            </div>
+                            <div class="col-auto">
+
+
+                                <ul class="nav nav-tabs header-tabs">
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                        data-prefix="$" data-suffix="k">
+                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Mood
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                        data-prefix="" data-suffix="k">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Recall
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                        data-prefix="" data-suffix="%">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                SUDS
+                                            </h3>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="header-footer">
+
+
+                        <div class="chart">
+
+                            <div class="full"><canvas id="main-chart" class="full"></canvas></div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row analysis-box-white">
+                <div class="container-fluid mt--6">
+                    <div class="row">
+                        <div class="col-12 col-centered col-xl-11">
+
+
+                            <div class="card shadow animated slideInUp"
+                                style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+
+
+                                            <h4 class="card-header-title larger-card-header">
+                                                Your notes
+                                            </h4>
+
+                                        </div>
+                                        <div class="col-auto">
+
+
+                                            <span class="float-right no-select goal-button"
+                                                onclick="restartSession()">Restart
+                                                session</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div id="spawnNotes" class="text-center"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
 
     <div id="goal-analysis" class="analysis-box rubber-band analysis-box-hidden">
         <div class="exit-button no-select" onclick="viewGoalResults()">
@@ -305,6 +566,30 @@
                     <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('revert')">Keep
                         current scale
                     </div>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element text-center no-select">This will overwrite your existing goal.
+                </div>
+
+                <div class="modal-body text-center">
+                    Trying this goal again will reset your current goal progress. If you want to keep that progress, you
+                    can cancel this action.
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('overwrite')">
+                        Overwrite
+                        goal</div>
+
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
                 </div>
@@ -1131,12 +1416,13 @@
 
     </div>
 
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="js/dash/jquery.min.js"></script>
     <script src="js/dash/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="js/dash/charts.js"></script>
-    <script src="js/dash/Chart.extension.min.js"></script>
+
+
     <script src="js/dash/highlight.pack.min.js"></script>
     <script src="js/dash/flatpickr.min.js"></script>
     <script src="js/dash/jquery.mask.min.js"></script>
@@ -1148,9 +1434,44 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <script src="js/therapy-analysis.js"></script>
     <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="js/dashboard.js"></script>
+    
     <script src="js/creative.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/dash/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/anime.min.js"></script>
+    <script src="js/morphext.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!--<script src="js/animationHome.js"></script>-->
+    <!-- <script src="js/therapy.js"></script>-->
+    <script src="js/gradient.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script src="js/spectrum.js"></script>
+    <script src="js/therapy-analysis.js"></script>
+    <script src="js/dash/highlight.pack.min.js"></script>
+    <script src="js/dash/flatpickr.min.js"></script>
+    <script src="js/dash/list.min.js"></script>
+
+    <script src="js/dash/quill.min.js"></script>
+    <script src="js/dash/dropzone.min.js"></script>
+    <script src="js/dash/select2.min.js"></script>
+    <script src="js/dash/theme.min.js"></script>
+
 
     <script>
         // Initialize Firebase
