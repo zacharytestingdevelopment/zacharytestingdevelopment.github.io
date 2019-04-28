@@ -7,6 +7,12 @@
     font-weight: bolder !important;
 }
 
+body
+{
+    overflow:auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
 navbar
 {
     text-transform: none !important;
