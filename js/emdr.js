@@ -2416,7 +2416,7 @@ function loadThemeSelection() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show less<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadThemeSelection()\">Show less<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("theme-load-text").innerHTML = loadMoreText;
@@ -2427,7 +2427,7 @@ function loadThemeSelection() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadThemeSelection()\">Show more<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadThemeSelection()\">Show more<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("theme-load-text").innerHTML = loadMoreText;
@@ -2443,7 +2443,7 @@ function loadBackgroundSounds() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadBackgroundSounds()\">Show less<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
@@ -2455,7 +2455,7 @@ function loadBackgroundSounds() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadBackgroundSounds()\">Show more<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("background-sound-load-text").innerHTML = loadMoreText;
@@ -2471,7 +2471,7 @@ function loadSwitchDirection() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadSwitchDirection()\">Show less<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
@@ -2483,7 +2483,7 @@ function loadSwitchDirection() {
 
         var loadMoreText = "";
         loadMoreText += "<span class=\"animated fadeIn\">";
-        loadMoreText += "                                        <span class=\"load-more no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
+        loadMoreText += "                                        <span class=\"load-more-text no-select\" onclick=\"loadSwitchDirection()\">Show more<\/span>";
         loadMoreText += "                                    <\/span>";
 
         document.getElementById("switch-direction-load-text").innerHTML = loadMoreText;
@@ -3733,7 +3733,6 @@ function convertToIntAll(array) {
 
     console.log("ARRAY COMING IN: " + array);
     var arrayLength = array.length;
-    //var lastNum = array[0];
 
     for (var i = 0; i < arrayLength; i++) {
         if (array[i] == "empty") {
@@ -3742,21 +3741,6 @@ function convertToIntAll(array) {
     }
     console.log("ARRAY COMING OUT: " + array);
     return array;
-
-
-    /*
-    for (var i = 0; i < arrayLength; i++) {
-        if (array[i] == "empty") {
-            array[i] = lastNum;
-        }
-        else {
-            lastNum = array[i];
-        }
-        *
-    }
-    */
-
-
 }
 
 function convertToInt(array) {

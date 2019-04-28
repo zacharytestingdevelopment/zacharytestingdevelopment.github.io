@@ -1,118 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 
-    <!-- Libs CSS -->
-    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
-    <link rel="stylesheet" href="css/dash/quill.core.css" />
-    <link rel="stylesheet" href="css/dash/select2.min.css" />
-    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
-    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
-    <link rel="stylesheet" href="css/dash/vs2015.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/dashboard.css" />
-    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
-    <link href="css/therapy.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Therapy analysis | EMDR</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <link
+        href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/creative.css" rel="stylesheet">
+    <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
+  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
+  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
+
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
-    <style>
-        body {
-            display: none;
-        }
+    <!-- Custom styles for this template -->
 
-        .chart-style {
-            display: inline-block !important;
-            margin-bottom: 500px !important;
-        }
-    </style>
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/therapy.css" rel="stylesheet" />
+    <link href="css/spectrum.css" rel="stylesheet" />
+    <link href="css/journal.css" rel="stylesheet" />
 
-
-    <title>Journal entry</title>
 </head>
 
-<body onload="please()">
-    <div id="loader" class="spinner"
-        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+<body id="page-top">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
 
-    <!-- MAIN CONTENT
-    ================================================== -->
-    <div class="main-content">
 
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand nav-journal fixed-top" id="mainNav">
+        <div class="container">
 
+            <div class="dashboard-return">
+                <a href="dashboard.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                    <span class="no-select no-select return-text" style="display:inline-block;">
+                        <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal" name="arrow-round-back">
+                        </ion-icon>
+                        <span class="return-dash-text" style="position:relative;top:0px;"> Return to main
+                            dashboard</span>
+                    </span>
+                </a>
 
-
-        <!-- HEADER -->
-        <div id="journal-header" class="header bg-dark journal-header journal-header-2 pb-5"
-            style="padding-bottom: 18vh !important">
-            <!-- <div class="cover-darken"></div>-->
-            <div class="container-fluid">
-
-                <!-- Body -->
-                <!-- Navigation -->
-                <nav class="navbar navbar-expand-lg journal-top nav-journal fixed-top" id="mainNav"
-                    style="border-bottom: 0px solid #fff !important;">
-                    <div class="container">
-
-                        <div class="dashboard-return">
-                            <a href="journal.html" class="kill-link-style" style="position:relative;top:-1.5px;">
-                                <span class="no-select no-select return-text" style="display:inline-block;">
-                                    <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal"
-                                        name="arrow-round-back"></ion-icon>
-                                    <span class="return-dash-text" style="position:relative;top:0px;"> Return to journal
-                                    </span>
-                                </span>
-                            </a>
-
-
-                        </div>
-
-                        <a href="dashboard.html" class="kill-link-style"><span
-                                class="float-right entry-write no-select">main dashboard
-                            </span></a>
-                    </div>
-                </nav>
-                <div class="dashboard-return">
-
-
-                    <!--
-                    <a href="journal.html" class="kill-link-style">
-                        <span class="no-select return-text">
-                            <ion-icon class="dashboard-arrow cover-arrow" name="arrow-round-back"></ion-icon>
-                            <span class="return-dash-text"> Your full journal</span>
-                        </span>
-                    </a>
-                -->
-                </div>
-
-                <!-- Footer -->
-                <div class="header-footer">
-
-                    <div id="journal-header-image" class="header-date-text animated fadeIn" style="padding-top: 18vh;">
-                        WRITE
-                        JOURNAL
-                        ENTRY</div>
-
-                </div>
 
             </div>
-        </div> <!-- / .header -->
 
+            <a href="journal-entry.html" class="kill-link-style"><span class="float-right entry-write no-select">Write
+                    an entry</span></a>
+        </div>
+    </nav>
 
-        <!-- CARDS -->
-        <div class="container-fluid mt--6">
+    <div class="col col-12">
+        <div id="journal-header-picture" class="row header-picture-journal bg-dark  journal-header-1"></div>
+    </div>
+
+    <div class="container-fluid mt--6">
+        <div class="col col-12 col-centered">
             <div class="row">
                 <div class="col-12 col-centered col-xl-11">
 
@@ -222,13 +192,13 @@
                                                 </div>
 
                                                 <!--
-                                                <div class="dz-preview dz-preview-single">
-                                                    <div class="dz-preview-cover">
-                                                        <img class="dz-preview-img" src="..." alt="..."
-                                                            data-dz-thumbnail>
-                                                    </div>
+                                            <div class="dz-preview dz-preview-single">
+                                                <div class="dz-preview-cover">
+                                                    <img class="dz-preview-img" src="..." alt="..."
+                                                        data-dz-thumbnail>
                                                 </div>
-                                            -->
+                                            </div>
+                                        -->
 
                                             </div>
 
@@ -241,25 +211,25 @@
                                             </div>
                                             <div id="spawn-defaults">
                                                 <!--
-                                                <div class="text-center-small">
-                                                    <span onclick="changeDefault('first')" id="default1" class="default-box landing2 margin-top-setting"></span>
-                                                    <span id="default2" onclick="changeDefault('second')" class="default-box landing1 margin-top-setting"></span>
-                                                    <span id="default3" onclick="changeDefault('third')" class="default-box landing2 margin-top-setting"></span>
+                                            <div class="text-center-small">
+                                                <span onclick="changeDefault('first')" id="default1" class="default-box landing2 margin-top-setting"></span>
+                                                <span id="default2" onclick="changeDefault('second')" class="default-box landing1 margin-top-setting"></span>
+                                                <span id="default3" onclick="changeDefault('third')" class="default-box landing2 margin-top-setting"></span>
 
-                                                    <div>
-                                                        <span id="custom-default" class="setting-category margin-top-setting">Custom
-                                                            banner
-                                                            color —
-                                                        </span>
+                                                <div>
+                                                    <span id="custom-default" class="setting-category margin-top-setting">Custom
+                                                        banner
+                                                        color —
+                                                    </span>
 
-                                                        <input class="color-pick" id="background-color" type="color"
-                                                            name="color" value="#ffffff" onchange="customCoverColor()" />
-                                                        <span id="custom-color" class="custom-color-active">Custom
-                                                            color
-                                                            active</span>
-                                                    </div>
+                                                    <input class="color-pick" id="background-color" type="color"
+                                                        name="color" value="#ffffff" onchange="customCoverColor()" />
+                                                    <span id="custom-color" class="custom-color-active">Custom
+                                                        color
+                                                        active</span>
                                                 </div>
-                                            -->
+                                            </div>
+                                        -->
                                             </div>
 
 
@@ -335,66 +305,88 @@
 
                 </div> <!-- / .row -->
 
-            </div> <!-- / .main-content -->
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/dash/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--<script src="js/animationHome.js"></script>-->
+<!-- <script src="js/therapy.js"></script>-->
+<script src="js/gradient.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="js/therapy-analysis.js"></script>
+<script src="js/dash/highlight.pack.min.js"></script>
+<script src="js/dash/flatpickr.min.js"></script>
+<script src="js/dash/list.min.js"></script>
+
+<script src="js/dash/quill.min.js"></script>
+<script src="js/dash/dropzone.min.js"></script>
+<script src="js/dash/select2.min.js"></script>
 
 
-            <script src="js/dash/jquery.min.js"></script>
-            <script src="js/dash/bootstrap.bundle.min.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+</script>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-            <script src="js/dash/charts.js"></script>
-            <script src="js/dash/Chart.extension.min.js"></script>
-            <script src="js/dash/highlight.pack.min.js"></script>
-            <script src="js/dash/flatpickr.min.js"></script>
-            <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-            <script src="js/dash/jquery.mask.min.js"></script>
-            <script src="js/dash/list.min.js"></script>
-            <script src="js/dash/quill.min.js"></script>
-            <script src="js/dash/dropzone.min.js"></script>
-            <script src="js/dash/select2.min.js"></script>
-            <script src="js/creative.js"></script>
-            <script src="js/dash/theme.min.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/sign-up.js"></script>
 
-            <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-            <script src="js/dashboard.js"></script>
-            <script src="js/spectrum.js"></script>
-            <script src="js/journal.js"></script>
+<style>
+    .awesome {
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
 
-            <script>
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
-                    authDomain: "mental-health-suite.firebaseapp.com",
-                    databaseURL: "https://mental-health-suite.firebaseio.com",
-                    projectId: "mental-health-suite",
-                    storageBucket: "mental-health-suite.appspot.com",
-                    messagingSenderId: "119327507370"
-                };
-                firebase.initializeApp(config);
+    }
 
-                ScrollReveal({ distance: '-20px' });
-                ScrollReveal().reveal('.e1');
-                ScrollReveal().reveal('.e2');
-                ScrollReveal().reveal('.e3');
-                ScrollReveal().reveal('.e4');
-                ScrollReveal().reveal('.e5');
+    body.modal-open {
+        overflow-y: scroll !important;
+        margin: 0 !important;
+    }
 
-            </script>
-            <script src="js/sign-up.js"></script>
+    .modal {
+        overflow: auto !important;
+    }
+</style>
+<script>
 
-            <script>
-                jQuery(document).ready(function () {
-                    jQuery('#loader').fadeOut(330);
+    jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(220);
 
-                });
+    });
 
-            </script>
+</script>
 
 
-
-
-
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
 </body>
 
 </html>

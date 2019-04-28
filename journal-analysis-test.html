@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Journal analysis</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <link
+        href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
+  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
+  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
+
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/therapy.css" rel="stylesheet" />
+    <link href="css/spectrum.css" rel="stylesheet" />
+
+
+</head>
+
+<body id="page-top">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand nav-journal fixed-top" id="mainNav">
+        <div class="container">
+
+            <div class="dashboard-return">
+                <a href="dashboard.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                    <span class="no-select no-select return-text" style="display:inline-block;">
+                        <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal" name="arrow-round-back">
+                        </ion-icon>
+                        <span class="return-dash-text" style="position:relative;top:0px;"> Return to main
+                            dashboard</span>
+                    </span>
+                </a>
+
+
+            </div>
+
+            <a href="journal-entry.html" class="kill-link-style"><span class="float-right entry-write no-select">Write
+                    an entry</span></a>
+        </div>
+    </nav>
+
+    <div class="journal-header-img journal-header-1 landing2">
+        YOUR JOURNAL
+    </div>
+
+    <div class="main-content">
+        <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col col-12 col-md-12 col-xl">
+                    <div class="card shadow animated fadeInUp testing-card">
+                        <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                            <div class="row align-items-center padding-bottom">
+                                <div class="col">
+
+
+                                    <h4 class="card-header-title">
+                                        Your sessions
+                                    </h4>
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <a href="emdr.html">
+                                        <span class="float-right no-select goal-button">Start new session</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row full-stretch">
+                                <div class="table-responsive mb-0"
+                                    style="padding-left:0px;width:100% !important;margin-left:0px;margin-right:0px;padding-right:0px;"
+                                    data-toggle="lists"
+                                    data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
+                                    <table class="table table-sm table-nowrap card-table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <span class="text-muted">
+                                                        Session date
+                                                    </span>
+                                                </th>
+                                                <th>
+                                                    <span class="text-muted">
+                                                        Completion
+                                                    </span>
+                                                </th>
+                                                <th>
+                                                    <span class="text-muted">
+                                                        Notes taken
+                                                    </span>
+                                                </th>
+                                                <th>
+                                                    <span class="text-muted">
+                                                        Set used
+                                                    </span>
+                                                </th>
+
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="results-body" class="list" style="overflow-y:scroll !important;">
+
+                                        </tbody>
+                                    </table>
+                                    <span id="load-more-box-put">
+                                        <div style="overflow-y:scroll !important;" id="load-more-box"
+                                            class="col col-12 top-split animated flipInX text-center col-centered">
+
+                                            <span class="loading-text">Loading...</span>
+
+                                        </div>
+                                    </span>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6 col-xl">
+
+
+                    <div class="card shadow e1">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Sessions saved
+                                    </h6>
+
+
+                                    <span id="sessions-completed" class="h2 mb-0">
+                                        Loading...
+                                    </span>
+
+
+                                    <span id="sessions-daily">
+
+                                    </span>
+
+                                </div>
+                                <div class="col-auto">
+
+
+                                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-6 col-xl">
+
+
+                    <div class="card shadow e2">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Progress towards goal
+                                        <span onclick="viewGoal()"
+                                            class="float-right goal-button goal-button-shrink no-select">View
+                                            goal</span>
+                                    </h6>
+
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col-auto">
+
+
+                                            <span class="h2 mr-2 mb-0">
+                                                <span id="goal-progress-percentage"
+                                                    class='animated fadeIn'>Loading...</span>
+                                            </span>
+
+                                        </div>
+                                        <div class="col">
+
+
+                                            <div id="populate-progress-bar" class="progress progress-sm">
+                                                <div id="progress-bar" class="animate-smooth progress-bar"
+                                                    role="progressbar" style="width: -30%" aria-valuenow="85"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-auto">
+
+
+                                    <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <span id="therapies-are-saved">
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl">
+
+
+                        <div class="card shadow e3">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Most active day of the week
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            <span id="most-active-day"> Loading...</span>
+                                        </span>
+
+
+                                        <span class="badge badge-soft-success mt--1">
+                                            <span id="most-common-day-number"
+                                                class="highlight-color-green-badge"></span>
+                                            <span id="most-common-day" class="highlight-color-green-badge">:)</span>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+                                <div class="text-left relative" style="width:200px;padding-top:0px;height:200px;">
+                                    <canvas id="dayChart" class="margin-top float-left"
+                                        style="text-align:left;float:left;width:100%;height:100%;">Loading...</canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl">
+
+
+                        <div class="card shadow e4">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Here's how much you used the therapy
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            <span id='your-activity-loading'>Loading...</span>
+                                        </span>
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="text-left relative" style="width:100%;padding-top:0px;height:200px;">
+                                    <canvas id="activityChart" class="margin-top"
+                                        style="text-align:left;float:left;width:100%;height:100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </span>
+
+        </div>
+    </div>
+
+</body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/dash/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--<script src="js/animationHome.js"></script>-->
+<!-- <script src="js/therapy.js"></script>-->
+<script src="js/gradient.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="js/therapy-analysis.js"></script>
+<script src="js/dash/highlight.pack.min.js"></script>
+<script src="js/dash/flatpickr.min.js"></script>
+<script src="js/dash/list.min.js"></script>
+
+<script src="js/dash/quill.min.js"></script>
+<script src="js/dash/dropzone.min.js"></script>
+
+<script src="js/dash/select2.min.js"></script>
+
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script src="js/moment.min.js"></script>
+<!--<script src="js/therapy-analysis-emdr.js"></script>-->
+<script src="js/sign-up.js"></script>
+
+<style>
+    .awesome {
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+
+    }
+
+    body.modal-open {
+        overflow-y: scroll !important;
+        margin: 0 !important;
+    }
+
+    .modal {
+        overflow: auto !important;
+    }
+</style>
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(220);
+
+    });
+    document.addEventListener('scroll', function (event) {
+        console.log("scroll");
+    });
+    $(window).scroll(function () {
+        console.log("scroll");
+        var scroll = $(window).scrollTop();
+        if (scroll < 0) {
+            alert("ss");
+            //$('.fixed-top').css('background', 'transparent');
+        } else {
+            $('.fixed-top').css('background', 'rgba(0, 0, 0, 0.4)');
+        }
+    });
+
+</script>
+
+
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
+</body>
+
+</html>

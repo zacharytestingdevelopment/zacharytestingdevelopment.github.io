@@ -67,6 +67,10 @@
                         <li class="list-group-item">
                             Set used: <span id="therapy-set">Quick session</span>
                         </li>
+                        <!--
+                            <li class="list-group-item">Client name: <span id="therapy-client">Zachary Jordan</span>
+                            </li>
+                        -->
                         <li class="list-group-item">Sessions completed: <span
                                 id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
                         </li>
@@ -303,11 +307,9 @@
                                     <div class="col-auto">
 
 
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="float-right no-select goal-button"
-                                                onclick="restartSession()">Do another
-                                                session</span>
-                                        </a>
+                                        <span class="float-right no-select goal-button"
+                                            onclick="restartSession()">Restart
+                                            session</span>
 
                                     </div>
                                 </div>
@@ -346,9 +348,11 @@
                                         </span>
                                         <div class="analyze-box-section-choices">
                                             <span id="lineChart5"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                onclick="changeChart('line5')">Line</span>
                                             <span id="barChart5"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                                class="analyze-box-section-choice right-round no-select"
+                                                onclick="changeChart('bar5')">Bar</span>
                                         </div>
 
                                         <div>
@@ -392,9 +396,11 @@
                                         </span>
                                         <div class="analyze-box-section-choices">
                                             <span id="lineChart4"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                onclick="changeChart('line4')">Line</span>
                                             <span id="barChart4"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                                class="analyze-box-section-choice right-round no-select"
+                                                onclick="changeChart('bar4')">Bar</span>
                                         </div>
 
 
@@ -444,9 +450,11 @@
                                         </span>
                                         <div class="analyze-box-section-choices">
                                             <span id="lineChart2"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                onclick="changeChart('line2')">Line</span>
                                             <span id="barChart2"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                                class="analyze-box-section-choice right-round no-select"
+                                                onclick="changeChart('bar2')">Bar</span>
                                         </div>
 
                                         <div>
@@ -489,9 +497,11 @@
                                         </span>
                                         <div class="analyze-box-section-choices">
                                             <span id="lineChart3"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select"
+                                                onclick="changeChart('line3')">Line</span>
                                             <span id="barChart3"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                                class="analyze-box-section-choice right-round no-select"
+                                                onclick="changeChart('bar3')">Bar</span>
                                         </div>
 
                                         <div>
@@ -539,13 +549,8 @@
                                         <div
                                             class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
                                             You completed this therapy and the results have been saved. You can do
-                                            another session, or close this panel to continue your analysis.
-                                            Alternatively, you <a href="dashboard.html" class="link-style"> can
-                                                click here</a> to go to the main dashboard to select another therapy or
-                                            activity
-                                            to try.
-
-
+                                            another session, or return to the
+                                            dashboard to pick another therapy or activity to try.
                                         </div>
                                         <div class="margin-top-setting">
                                             <a href="emdr.html" class="kill-link-style inherit">
@@ -553,11 +558,11 @@
                                                     Do another session
                                                 </span>
                                             </a>
-
-                                            <span onclick="closeAnalyzeSet()"
-                                                class="no-select goal-button margin-top-tiny">Close this panel
-                                            </span>
-
+                                            <a href="dashboard.html" class="kill-link-style">
+                                                <span class="no-select goal-button margin-top-tiny">Back
+                                                    to
+                                                    main dashboard</span>
+                                            </a>
 
                                             <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
 
@@ -688,18 +693,17 @@
             </div>
         </div> <!-- / .header -->
         <div class="container-fluid mt--6">
-
-
-
-
             <div class="row">
-                <div class="col col-12 col-md-12 col-xl">
-                    <div class="card shadow animated fadeInUp testing-card">
-                        <div class="card-header hide-bottom-border" style="display: inline-block !important;">
-                            <div class="row align-items-center padding-bottom">
+                <div class="col-12 col-centered col-xl-11">
+
+                    <!-- Goals -->
+                    <div class="card max-notes-height shadow animated slideInUp"
+                        style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                        <div class="card-header">
+                            <div class="row align-items-center">
                                 <div class="col">
 
-
+                                    <!-- Title -->
                                     <h4 class="card-header-title">
                                         Your sessions
                                     </h4>
@@ -707,67 +711,64 @@
                                 </div>
                                 <div class="col-auto">
 
+                                    <!-- Button -->
                                     <a href="emdr.html">
                                         <span class="float-right no-select goal-button">Start new session</span>
                                     </a>
                                 </div>
                             </div>
-                            <div class="row full-stretch">
-                                <div class="table-responsive mb-0"
-                                    style="padding-left:0px;width:100% !important;margin-left:0px;margin-right:0px;padding-right:0px;"
-                                    data-toggle="lists"
-                                    data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
-                                    <table class="table table-sm table-nowrap card-table">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <span class="text-muted">
-                                                        Session date
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span class="text-muted">
-                                                        Completion
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span class="text-muted">
-                                                        Notes taken
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span class="text-muted">
-                                                        Set used
-                                                    </span>
-                                                </th>
+                        </div>
+                        <div class="table-responsive mb-0" data-toggle="lists"
+                            data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
+                            <table class="table table-sm table-nowrap card-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="text-muted">
+                                                Session date
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="text-muted">
+                                                Completion
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="text-muted">
+                                                Notes taken
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="text-muted">
+                                                Set used
+                                            </span>
+                                        </th>
 
-                                                <th></th>
-                                            </tr>
-                                        </thead>
+                                        <th></th>
+                                    </tr>
+                                </thead>
 
-                                        <tbody id="results-body" class="list" style="overflow-y:scroll !important;">
+                                <tbody id="results-body" class="list">
 
-                                        </tbody>
-                                    </table>
-                                    <span id="load-more-box-put">
-                                        <div style="overflow-y:scroll !important;" id="load-more-box"
-                                            class="col col-12 top-split animated flipInX text-center col-centered">
+                                </tbody>
+                            </table>
+                            <span id="load-more-box-put">
+                                <div id="load-more-box"
+                                    class="col col-12 top-split animated flipInX text-center col-centered">
 
-                                            <span class="loading-text">Loading...</span>
-
-                                        </div>
-                                    </span>
-
-
+                                    <span class="loading-text">Loading...</span>
 
                                 </div>
-                            </div>
+                            </span>
+
+
+
                         </div>
-
                     </div>
-                </div>
-            </div>
 
+                </div>
+
+            </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-xl">
 
@@ -816,8 +817,7 @@
 
                                     <h6 class="card-title text-uppercase text-muted mb-2">
                                         Progress towards goal
-                                        <span onclick="viewGoal()"
-                                            class="float-right goal-button goal-button-shrink no-select">View
+                                        <span onclick="viewGoal()" class="float-right goal-button no-select">View
                                             goal</span>
                                     </h6>
 
@@ -1006,7 +1006,7 @@
         </div>
 
         <div class="col col-12 col-centered">
-            <div id="goal-summary-section" class="margin-top-medium row">
+            <div class="margin-top-medium row">
 
                 <div
                     class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered d-none d-sm-none d-md-block">
@@ -1073,18 +1073,14 @@
                                 </div>
                                 <div id="goal-results-summary-box">
                                     <div class="goal-results-summary-item margin-top-setting">
-                                        You have saved <span id="goal-num-count-mobile" class="dark-text">?
+                                        You have finished <span id="goal-num-count-mobile" class="dark-text">17
                                             goals</span>
                                     </div>
                                     <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You have completed <span id="goal-completed-percentage-mobile"
-                                            class="dark-text">?</span> of goals set
-
+                                        You complete 72% of your goal on average
                                     </div>
                                     <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You complete <span id="goal-average-points-mobile" class="dark-text">?</span> of
-                                        your
-                                        goal on average
+                                        You are a hero
                                     </div>
                                 </div>
 
@@ -1126,18 +1122,9 @@
 
             </div>
             <div id="populate-goal-analytics" class="row margin-top-medium">
-
-                <div
-                    class="loading-green-box loading-green-box-larger margin-top-large no-select col col-11 col-md-7 col-lg-6 col-centered">
-                    No goal results found
+                <div class="loading-green-box col col-11 col-md-7 col-lg-5 col-centered">
+                    Loading...
                 </div>
-
-                <div class="col col-12 text-center margin-top-medium green-text col-centered">
-                    You can set a goal on the main analytics page. Just <span onclick="viewGoalResults()"
-                        class="green-link-style">close this
-                        panel</span>!
-                </div>
-
             </div>
         </div>
 

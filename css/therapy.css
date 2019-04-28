@@ -817,14 +817,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     top:3px;
     color:#4257b2;
     font-size:15px;
-    border-bottom: 2px solid transparent;
     transition: border-bottom .3s ease;
 }
 
 .load-more:hover
 {
     cursor: pointer;
-    border-bottom: 2px solid #4257b2;
 }
 
 .therapy-over-box-input
@@ -1080,6 +1078,22 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     cursor: pointer;
     background: #4257b2;
     color:#fff;
+}
+
+.load-more-text
+{
+    position: relative;
+    top:5px;
+    transition: all .3s ease;
+    font-size: 15.5px;
+    color:#4257b2;
+    border-bottom: 2.5px solid transparent;
+}
+
+.load-more-text:hover
+{
+    cursor: pointer;
+    border-bottom: 2.5px solid #4257b2;
 }
 
 .save-changes-button

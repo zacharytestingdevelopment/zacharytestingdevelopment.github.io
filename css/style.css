@@ -1432,6 +1432,11 @@ html.sr .load-hidden {
     border-bottom: 2.5px solid #3ee986;
 }
 
+.padding-bottom
+{
+    padding-bottom: 17px !important;
+}
+
 .padding-top-medium
 {
     padding-top: 20px;
@@ -2366,6 +2371,16 @@ and (max-device-width : 368px)
 }
 }
 */
+
+@media only screen 
+and (min-width: 1500px)
+{
+    .resize-top-analyze
+    {
+        height:600px;
+    }
+
+}
 
 @media only screen  
 and (min-width : 994px)

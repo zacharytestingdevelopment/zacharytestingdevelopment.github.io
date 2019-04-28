@@ -1,5 +1,14 @@
 
+var moodChartActive = false;
+var recallChartActive = false;
+var sudsChartActive = false;
+var vacChartActive = false;
+
 var activeGoal;
+var ctx2, ctx3, ctx4, ctx5;
+var dataMood, dataSUDS, dataVAC, dataRecall, optionsMain, optionsMood, optionsSUDS, optionsVAC, optionsRecall;
+var currentlyAnalyzingSession;
+var longestDataInstance = [];
 var goalNumber, goalTime;
 var userID;
 var rootRef;
@@ -50,6 +59,12 @@ var goalCompletedResultsArray = [];
 var averageGoalPoints = 0;
 var goalPointCount = 0;
 
+var moodResultsArray = [];
+var recallResultsArray = [];
+var sudsResultsArray = [];
+var vacResultsArray = [];
+
+
 //var a = moment([2007, 0, 29]);
 //var b = moment([2007, 0, 28]);
 ///a.diff(b, 'days') // 1
@@ -67,9 +82,25 @@ dataHeader = {
         hoverBackgroundColor: "#3ee986",
         pointBackgroundColor: '#3ee986',
         borderWidth: 2,
-        fill: true,
+        fill: false,
         borderColor: '#3ee986',
         data: [3, 5, 7, 6, 8],
+        showTooltips: true
+
+    }]
+};
+
+dataMainChart = {
+    labels: ['1', '2', '3', '4', '5'],
+    datasets: [{
+        label: 'Mood value',
+        //backgroundColor: '#3ee986',
+        hoverBackgroundColor: "#3ee986",
+        pointBackgroundColor: '#3ee986',
+        borderWidth: 2,
+        fill: false,
+        borderColor: '#3ee986',
+        data: [9, 5, 7, 6, 1],
         showTooltips: true
 
     }]
@@ -168,11 +199,13 @@ var optionsVAC = {
 };
 
 var optionsMain = {
+
     showTooltips: true,
     bezierCurve: false,
     responsive: true,
     maintainAspectRatio: false,
     intersect: false,
+
     animation: {
         easing: 'easeInOutQuad',
         duration: 965
@@ -197,6 +230,7 @@ var optionsMain = {
 
             }
         }],
+
         yAxes: [{
             gridLines: {
                 borderDash: [2],
@@ -231,10 +265,9 @@ var optionsMain = {
     },
     elements: {
         point: { radius: 3 },
+        line: { tension: 0 }
 
-        line: {
-            tension: 0
-        }
+
     },
     legend: {
         display: false
@@ -263,6 +296,105 @@ var optionsMain = {
     }
 };
 
+var optionsMainHeader = {
+
+    showTooltips: true,
+    bezierCurve: true,
+    responsive: true,
+    maintainAspectRatio: false,
+    intersect: false,
+
+    animation: {
+        easing: 'easeInOutQuad',
+        duration: 965
+    },
+    scales: {
+        xAxes: [{
+            gridLines: {
+                color: 'rgba(66,87,178, 0.1)',
+                lineWidth: .2,
+                drawTicks: false,
+                drawOnChartArea: false,
+                defaultFontStyle: 'normal',
+                defaultFontSize: 40,
+                //drawBorder: false
+            },
+            ticks: {
+                fontColor: '#95aac9',
+                defaultFontStyle: 'normal',
+                fontSize: 13,
+                fontFamily: 'Montserrat',
+                padding: 20
+
+            }
+        }],
+
+        yAxes: [{
+            gridLines: {
+                borderDash: [2],
+                borderDashOffset: [2],
+                color: 'rgba(149,170,201, 0.21)',
+                drawBorder: false,
+                drawTicks: false,
+                lineWidth: 1,
+                zeroLineWidth: 0,
+                zeroLineColor: 'rgba(149,170,201, 0.21)',
+                zeroLineBorderDash: [2],
+                zeroLineBorderDashOffset: [2]
+            },
+            ticks: {
+                max: 10,
+                padding: 10,
+                beginAtZero: true,
+                fontColor: '#95aac9',
+                fontSize: 13,
+                defaultFontStyle: 'normal',
+                fontFamily: 'Montserrat',
+                userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                        return label;
+                    }
+
+                },
+                maxBarThickness: 10
+            }
+        }]
+    },
+    elements: {
+        point: { radius: 2 },
+
+
+    },
+    legend: {
+        display: false
+    },
+    point: {
+        backgroundColor: 'white'
+    },
+    tooltips: {
+        intersect: false,
+        opacity: '0.4',
+        position: 'average',
+        // intersect: false,
+        titleFontFamily: 'Montserrat',
+        bodyFontFamily: 'Montserrat',
+        bodyFontStyle: 'bold',
+        borderColor: '#000',
+        borderWidth: 2,
+        bodyFontColor: '#000',
+        backgroundColor: 'rgba(255,255,255, 0.91)',
+        titleFontColor: '#000',
+        color: '#000',
+        caretSize: 5,
+        cornerRadius: 5,
+        xPadding: 20,
+        yPadding: 10,
+    }
+};
+
+
+
 headerCtx = document.getElementById('main-chart').getContext('2d');
 
 
@@ -272,6 +404,28 @@ headerChart = new Chart(headerCtx, {
     options: optionsMain
 
 });
+
+
+var mainChart = document.getElementById("headerChart").getContext('2d');
+
+myMainChart = new Chart(mainChart, {
+    type: 'line',
+    data: dataMainChart,
+    options: optionsMainHeader
+});
+
+
+/*
+headerCtx = document.getElementById('main-chart').getContext('2d');
+
+
+headerChart = new Chart(headerCtx, {
+    type: 'line',
+    data: dataHeader,
+    options: optionsMain
+
+});
+*/
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -287,7 +441,10 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
-
+/*
+function changeChart(chart) {
+}
+*/
 
 function getCurrentDate() {
     var d = new Date();
@@ -311,31 +468,32 @@ function getTotalDays() {
 
 function viewGoalResults() {
 
-
-    /*
-     setTimeout(function () {
-        // document.getElementById("goal-percentage-fill").style.width = "70%";;
-    }, 210);
-    */
-
     $("#view-goal-modal").modal('hide');
 
     if (!goalResultsVisible) {
         $("#goal-analysis").removeClass("analysis-box-hidden");
 
-        $('html').css({
+
+        /*
+        $('body').css({
             overflow: 'hidden',
             height: '100%'
         });
+        */
 
         prepareGoalResults();
         goalResultsVisible = true;
     }
     else {
-        $('html').css({
+
+        /*
+        $('body').css({
             overflow: 'auto',
             height: 'auto'
         });
+        */
+
+
         $("#goal-analysis").addClass("analysis-box-hidden");
         goalResultsVisible = false;
 
@@ -351,6 +509,7 @@ function viewGoalResults() {
 
 function prepareGoalResults() {
     console.log("Goal results being prepared\n-----------------------");
+
 
     setTimeout(function () {
         $("#goal-summary-line").removeClass("goal-results-summary-header-line-inactive");
@@ -369,19 +528,31 @@ function prepareGoalResults() {
 
 
             if (goalResults.length >= 1) {
+                $("#goal-summary-section").removeClass("hidden-opacity");
                 loadGoalResults();
             }
             else {
                 //No results
-                var loadMore = "";
-                loadMore += "<div id = 'error-message-box'><span onclick=\"loadMoreNotes()\" class=\"load-more no-select margin-top-large\">";
-                loadMore += "                                    Load more";
-                loadMore += "                                <\/span></div>";
+                var noGoal = "";
+                noGoal += "<div class = 'col col-12 col-centered'><div class = 'animated flipInX text-centered col-centered row'><div";
+                noGoal += "                    class=\"loading-green-box loading-green-box-larger no-select col col-11 col-md-7 col-lg-6 col-centered\">";
+                noGoal += "                    No goal results found";
+                noGoal += "                <\/div>";
+                noGoal += "";
+                noGoal += "                <div class=\"col col-12 text-center margin-top-medium green-text col-centered\">";
+                noGoal += "                    You can set a goal on the main analytics page. <span onclick='viewGoalResults()' class = 'no-select green-link-style'>Just close this panel!</span>";
+                noGoal += "                <\/div></div></div>";
+
+                document.getElementById("populate-goal-analytics").innerHTML = noGoal;
+
+                $("#goal-summary-section").addClass("hidden-opacity");
             }
         });
 
         goalResultsInitLoadOnce = true;
     }
+
+
 }
 
 function prepareResults() {
@@ -522,7 +693,105 @@ function loadActivityChart(activityNumber) {
                             }
                         },
                         options: {
-                            borderColor: '#4257b2'
+                            showTooltips: true,
+                            bezierCurve: false,
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            intersect: false,
+                            animation: {
+                                easing: 'easeInOutQuad',
+                                duration: 965
+                            },
+                            scales: {
+                                xAxes: [{
+                                    //offset: true,
+                                    gridLines: {
+                                        color: 'rgba(66,87,178, 0.1)',
+                                        lineWidth: .2,
+                                        drawTicks: false,
+                                        drawOnChartArea: false,
+                                        defaultFontStyle: 'normal',
+                                        defaultFontSize: 40,
+                                        //drawBorder: false
+                                    },
+                                    ticks: {
+
+                                        display: false,
+                                        fontColor: '#95aac9',
+                                        defaultFontStyle: 'normal',
+                                        fontSize: 13,
+                                        fontFamily: 'Montserrat',
+                                        padding: 20
+
+                                    }
+                                }],
+
+                                yAxes: [{
+
+                                    gridLines: {
+                                        borderDash: [2],
+                                        borderDashOffset: [2],
+                                        color: 'rgba(149,170,201, 0.21)',
+                                        drawBorder: false,
+                                        drawTicks: false,
+                                        lineWidth: 1,
+                                        zeroLineWidth: 0,
+                                        zeroLineColor: 'rgba(149,170,201, 0.21)',
+                                        zeroLineBorderDash: [2],
+                                        zeroLineBorderDashOffset: [2]
+                                    },
+                                    ticks: {
+
+                                        //max: 10,
+                                        padding: 10,
+                                        beginAtZero: true,
+                                        fontColor: '#95aac9',
+                                        fontSize: 13,
+                                        defaultFontStyle: 'normal',
+                                        fontFamily: 'Montserrat',
+                                        userCallback: function (label, index, labels) {
+                                            // when the floored value is the same as the value we have a whole number
+                                            if (Math.floor(label) === label) {
+                                                return label;
+                                            }
+
+                                        },
+                                        maxBarThickness: 10
+                                    }
+                                }]
+                            },
+                            elements: {
+                                point: { radius: 3 },
+
+                                line: {
+                                    tension: 0
+                                }
+                            },
+                            legend: {
+                                display: false
+                            },
+                            point: {
+                                backgroundColor: 'white'
+                            },
+                            tooltips: {
+                                intersect: false,
+                                opacity: '0.4',
+                                position: 'average',
+                                // intersect: false,
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                bodyFontStyle: 'bold',
+                                borderColor: '#000',
+                                borderWidth: 2,
+                                bodyFontColor: '#000',
+                                backgroundColor: 'rgba(255,255,255, 0.91)',
+                                titleFontColor: '#000',
+                                color: '#000',
+                                caretSize: 5,
+                                cornerRadius: 5,
+                                xPadding: 20,
+                                yPadding: 10,
+                            }
                         },
                         responsive: true,
                         maintainAspectRatio: true,
@@ -550,7 +819,7 @@ function loadActivityChart(activityNumber) {
         desc.on('value', function (snapshot) {
             if (snapshot.exists()) {
                 document.getElementById("your-activity-loading").innerHTML = "Your activity";
-                var ctx = document.getElementById('activityChart').getContext('2d')
+                var ctx = document.getElementById('activityChart').getContext('2d');
                 var activityChart = new Chart(ctx,
                     {
                         legend: {
@@ -563,23 +832,111 @@ function loadActivityChart(activityNumber) {
                                 }
                             }
                         },
+
                         options: {
+                            showTooltips: true,
+                            bezierCurve: false,
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            intersect: false,
+                            animation: {
+                                easing: 'easeInOutQuad',
+                                duration: 965
+                            },
                             scales: {
                                 xAxes: [{
+                                    offset: true,
+                                    gridLines: {
+                                        color: 'rgba(66,87,178, 0.1)',
+                                        lineWidth: .2,
+                                        drawTicks: false,
+                                        drawOnChartArea: false,
+                                        defaultFontStyle: 'normal',
+                                        defaultFontSize: 40,
+                                        //drawBorder: false
+                                    },
                                     ticks: {
-                                        display: false
+                                        display: false,
+                                        fontColor: '#95aac9',
+                                        defaultFontStyle: 'normal',
+                                        fontSize: 13,
+                                        fontFamily: 'Montserrat',
+                                        padding: 40
+
+                                    }
+                                }],
+
+                                yAxes: [{
+                                    gridLines: {
+                                        borderDash: [2],
+                                        borderDashOffset: [2],
+                                        color: 'rgba(149,170,201, 0.21)',
+                                        drawBorder: false,
+                                        drawTicks: false,
+                                        lineWidth: 1,
+                                        zeroLineWidth: 0,
+                                        zeroLineColor: 'rgba(149,170,201, 0.21)',
+                                        zeroLineBorderDash: [2],
+                                        zeroLineBorderDashOffset: [2]
+                                    },
+                                    ticks: {
+
+                                        //max: 10,
+                                        padding: 10,
+                                        beginAtZero: true,
+                                        fontColor: '#95aac9',
+                                        fontSize: 13,
+                                        defaultFontStyle: 'normal',
+                                        fontFamily: 'Montserrat',
+                                        userCallback: function (label, index, labels) {
+                                            // when the floored value is the same as the value we have a whole number
+                                            if (Math.floor(label) === label) {
+                                                return label;
+                                            }
+
+                                        },
+                                        maxBarThickness: 10
                                     }
                                 }]
                             },
-                            borderColor: '#4257b2'
+                            elements: {
+                                point: { radius: 3 },
+
+                                line: {
+                                    tension: 0
+                                }
+                            },
+                            legend: {
+                                display: false
+                            },
+                            point: {
+                                backgroundColor: 'white'
+                            },
+                            tooltips: {
+                                intersect: false,
+                                opacity: '0.4',
+                                position: 'average',
+                                // intersect: false,
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                bodyFontStyle: 'bold',
+                                borderColor: '#000',
+                                borderWidth: 2,
+                                bodyFontColor: '#000',
+                                backgroundColor: 'rgba(255,255,255, 0.91)',
+                                titleFontColor: '#000',
+                                color: '#000',
+                                caretSize: 5,
+                                cornerRadius: 5,
+                                xPadding: 20,
+                                yPadding: 10,
+                            }
                         },
-                        responsive: true,
-                        maintainAspectRatio: true,
                         type: 'line',
                         data: {
-                            //labels: ['3', '', '', '', ''],
                             labels: activityLabels,
                             datasets: [{
+                                fill: false,
                                 borderColor: '#4257b2',
                                 pointBorderColor: '#4257b2',
                                 pointBackgroundColor: '#4257b2',
@@ -755,14 +1112,23 @@ function populateDaysChart(daysInput) {
 
     daysInput = removeElementsWithValue(daysInput, 0);
 
-    var ctx = document.getElementById('dayChart').getContext('2d')
+    var ctx = document.getElementById('dayChart').getContext('2d');
     var dayChart = new Chart(ctx,
         {
             type: 'doughnut',
+            options: {
+                legend: {
+                    display: false
+                }, cutoutPercentage: 72
+
+            },
+
             data: {
                 labels: daysLabel,
+
+                borderWidth: 3,
                 datasets: [{
-                    backgroundColor: ["#3ee986", "#E9463E", "#3EE4E9", "#E93EB3", "#A83EE9", "#E9E63E"],
+                    backgroundColor: ["#3ee986", "#E9463E", "#3EE4E9", "#E93EB3", "#A83EE9", "#E9E63E", "#EEB94F"],
                     data: daysInput
                 }]
             }
@@ -828,6 +1194,7 @@ function goalDetails(goal) {
 }
 
 function loadGoalResults() {
+
     var user = firebase.auth().currentUser;
     //var totalLoadCountLocal = totalLoadCountGoal - 1;
 
@@ -887,8 +1254,10 @@ function loadGoalResults() {
                     goalCompletedResultsArray = [(100 - averageCompleted), averageCompleted];
 
                     document.getElementById("goal-completed-percentage").innerHTML = averageCompleted + "%";
-                    document.getElementById("goal-average-points").innerHTML = averageGoalPoints + "%";
+                    document.getElementById("goal-completed-percentage-mobile").innerHTML = averageCompleted + "%";
 
+                    document.getElementById("goal-average-points").innerHTML = averageGoalPoints + "%";
+                    document.getElementById("goal-average-points-mobile").innerHTML = averageGoalPoints + "%";
 
                     var ctx = document.getElementById('averageGoalCompleted').getContext('2d')
                     var averageGoalChart = new Chart(ctx,
@@ -896,8 +1265,14 @@ function loadGoalResults() {
                             type: 'doughnut',
                             options: {
                                 tooltips: {
-                                    mode: "dataset"
-                                }
+                                    mode: "dataset",
+                                    label: false
+                                },
+                                legend: {
+                                    display: false
+                                },
+                                cutoutPercentage: 72
+
                             },
                             data: {
                                 labels: ["Completed", "Not completed"],
@@ -914,8 +1289,14 @@ function loadGoalResults() {
                             type: 'doughnut',
                             options: {
                                 tooltips: {
-                                    mode: "dataset"
-                                }
+                                    mode: "dataset",
+                                    label: false
+                                },
+                                legend: {
+                                    display: false
+                                },
+                                cutoutPercentage: 72
+
                             },
                             data: {
                                 labels: ["Completed", "Not completed"],
@@ -946,14 +1327,15 @@ function loadGoalResults() {
                 goalResultsLoaded++;
                 totalLoadCountGoal++;
 
+
                 var goalResultsVar = "";
                 goalResultsVar += "<span class = 'col col-12 col-centered fixDis'><div id=" + str + " ";
                 goalResultsVar += "                    class=\"col col-11 margin-top animated fadeIn no-select col-lg-11 col-xl-9 col-centered goal-results-box\" onclick='goalDetails(\"" + str + "\");'\">";
                 goalResultsVar += "                    <div id=goalDate" + str + " class=\"goal-results-box-header no-select inherit\">Ended February 31rd, 2019";
                 goalResultsVar += "                    <\/div>";
-                goalResultsVar += "                    <span class=\"goal-results-divider\"><\/span>";
+                goalResultsVar += "                   ";
                 goalResultsVar += "                    <span class=\"block-mobile\">";
-                goalResultsVar += "                        <span id=goalPercentage" + str + " class=\"goal-percentage no-select inherit\">100%<\/span>";
+                goalResultsVar += "                        <span> <span class=\"goal-results-divider\"><\/span><span id=goalPercentage" + str + " class=\"goal-percentage no-select inherit\">100%<\/span></span>";
                 goalResultsVar += "                        <span class=\"goal-percentage-bar\">";
                 goalResultsVar += "                            <div id=goalPercentageBar" + str + " class=\"goal-percentage-fill\">";
                 goalResultsVar += "";
@@ -1041,7 +1423,7 @@ function loadResults() {
             id = "box" + str;
 
             var resultsVar = "";
-            resultsVar += "<tr id=" + id + " class = 'animated fadeIn entry' onclick='analyzeSet(\"" + str + "\");'\">";
+            resultsVar += "<tr id=" + id + " class = 'animated fadeIn entry no-select' onclick='analyzeSet(\"" + str + "\");'\">";
             resultsVar += "                                        <td id=date" + str + " class=\"goal-project\">";
             resultsVar += "                                            1\/2\/2019";
             resultsVar += "                                        <\/td>";
@@ -1332,24 +1714,844 @@ function amountToLoadGoals() {
     return goalResults.length - totalLoadCountGoal;
 }
 
-function analyzeSet(set) {
-    console.log("Analyze this set: " + set);
-    //$("#therapy-results-tab").removeClass("fixed-hidden");
-    //$("#therapy-results-tab").addClass("fixed-visible");
+function spawnNotes(setAnalyzed) {
 
-    $("#session-analytics-box").removeClass("analysis-box-hidden");
-    $('html').css({
-        overflow: 'hidden',
-        height: '100%'
+    var notesCount = 0;
+    //var user = firebase.auth().currentUser;
+    var root = rootRef.child(userID + "/emdr" + "/therapyResults/" + setAnalyzed).child('setDescriptionProgress');
+
+    var notesResults = [];
+
+
+    root.once('value', function (snapshot) {
+        snapshot.forEach(function (_child) {
+
+            var childElement = _child.key;
+            notesResults.push(childElement);
+            //console.log(notesResults);
+        });
+
+
+        //Notes were found
+        document.getElementById("spawnNotes").innerHTML = "";
+
+        var desc = firebase.database().ref('users/' + userID + "/emdr/therapyResults/" + setAnalyzed);
+
+        desc.on('value', function (snapshot) {
+
+            if (snapshot.val().notesTaken > 0) {
+                var notesArray = snapshot.val().setDescriptionProgress;
+                for (var i = 0; i < notesResults.length; i++) {
+                    //console.log(notesArray[i]);
+
+                    if (notesArray[i] != "empty") {
+                        var notesBox = "";
+                        notesBox += "<div class=\"col col-11 col-md-11 text-left col-lg-10 col-centered inline-block-norm expand-analyze-section-mobile\">";
+                        notesBox += "                            <a class=\"kill-link-style toggle-element no-select\" data-toggle=\"collapse\" href=\"#analyze" + i + "\"";
+                        notesBox += "                                role=\"button\" aria-expanded=\"false\" aria-controls=\"analyze1\">";
+                        notesBox += "                                <div class=\"margin-top section-card-header-analyze\">Session " + parseInt(i + 1);
+                        notesBox += "                                    <ion-icon id=\"analyzeArrow" + i + "\" class=\"collapse-arrow highlight-color-blue arrow-down\"";
+                        notesBox += "                                        name=\"arrow-dropup\"><\/ion-icon>";
+                        notesBox += "                                <\/div>";
+                        notesBox += "                            <\/a>";
+                        notesBox += "                            <div id=\"analyze" + i + "\" class=\"collapse multi-collapse\">";
+                        notesBox += "                                <div class=\"section-card blue-card animated fadeIn\">";
+                        notesBox += "                                    <div class=\"white padding-analyze\">" + notesArray[i];
+                        notesBox += "                                    <\/div>";
+                        notesBox += "                                <\/div>";
+                        notesBox += "                            <\/div>";
+                        notesBox += "                        <\/div>";
+                        document.getElementById("spawnNotes").innerHTML += notesBox;
+                    }
+                }
+            }
+            else {
+
+                //Notes were not found
+
+                document.getElementById("spawnNotes").innerHTML = "<div class = 'col col-11 col-md-9 col-lg-8 col-centered no-notes'>You didn't take any notes during this therapy session.</div>";
+
+            }
+        });
+
+
+
     });
 }
 
+function analyzeSession(setAnalyzed) {
+
+    moodResultsArray = [];
+    recallResultsArray = [];
+    sudsResultsArray = [];
+    vacResultsArray = [];
+
+    document.getElementById("analysis-mood").className = "hide-analysis";
+    document.getElementById("analysis-recall").className = "hide-analysis";
+    document.getElementById("analysis-suds").className = "hide-analysis";
+    document.getElementById("analysis-vac").className = "hide-analysis";
+
+    var desc = firebase.database().ref('users/' + userID + "/emdr/therapyResults/" + setAnalyzed);
+
+    desc.on('value', function (snapshot) {
+
+        var moodResultsData = [];
+        var recallResultsData = [];
+        var sudsResultsData = [];
+        var vacResultsData = [];
+
+        var averageMoodResult = "empty";
+        var averageRecallResult = "empty";
+        var averageSudsResult = "empty";
+        var averageVacResult = "empty";
+
+        if (snapshot.val().averageMoodResult != "empty") {
+            averageMoodResult = snapshot.val().averageMoodResult;
+            moodResultsData = snapshot.val().setMoodResults;
+            calculateSessionCount(snapshot.val().setMoodResults, "mood");
+            convertToInt(moodResultsArray);
+
+            moodChartActive = true;
+        }
+
+        if (snapshot.val().averageRecallResult != "empty") {
+            averageRecallResult = snapshot.val().averageRecallResult;
+            recallResultsData = snapshot.val().setRecallProgress;
+            calculateSessionCount(snapshot.val().setRecallProgress, "recall");
+            convertToInt(recallResultsArray);
+
+            recallChartActive = true;
+        }
+
+        if (snapshot.val().averageSudsResult != "empty") {
+            averageSudsResult = snapshot.val().averageSudsResult;
+            sudsResultsData = snapshot.val().setSudsProgress;
+            calculateSessionCount(snapshot.val().setSudsProgress, "suds");
+            convertToInt(sudsResultsArray);
+
+            sudsChartActive = true;
+        }
+
+        if (snapshot.val().averageVacAverage != "empty") {
+            averageVacResult = snapshot.val().averageVacAverage;
+            vacResultsData = snapshot.val().setVacProgress;
+            calculateSessionCount(snapshot.val().setVacProgress, "vac");
+            convertToInt(vacResultsArray);
+
+            vacChartActive = true;
+        }
+
+        longestData(convertToInt(moodResultsArray), convertToInt(recallResultsArray), convertToInt(sudsResultsArray), convertToInt(vacResultsArray));
+
+        if ((averageMoodResult != "empty" && moodResultsData.length > 0) && (averageRecallResult != "empty" && recallResultsData.length > 0)) {
+
+            console.log("Recall data: " + recallResultsData);
+            document.getElementById("analysis-mood").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+            document.getElementById("analysis-recall").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+
+            document.getElementById("average-mood").innerHTML = calculateAverageScore(moodResultsData);
+            document.getElementById("average-recall").innerHTML = calculateAverageScore(recallResultsData);
+        }
+        else if ((averageMoodResult == "empty") && (recallResultsData.length > 0)) {
+            document.getElementById("analysis-mood").className = "col col-12 margin-top-large hide-analysis";
+            document.getElementById("analysis-recall").className = "col col-12 margin-top-large visible";
+
+            document.getElementById("average-recall").innerHTML = calculateAverageScore(recallResultsData);
+        }
+        else if ((averageMoodResult != "empty" && moodResultsData.length > 0) && (averageRecallResult == "empty" && recallResultsData.length <= 0)) {
+
+            document.getElementById("analysis-mood").className = "col col-12 margin-top-large visible";
+            document.getElementById("analysis-recall").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+
+            document.getElementById("average-mood").innerHTML = calculateAverageScore(moodResultsData);
+
+        } else if (averageMoodResult == "empty" && (averageRecallResult != "empty" && recallResultsData.length > 0)) {
+            document.getElementById("analysis-mood").className = "col col-12 margin-top-large hide-analysis";
+            document.getElementById("analysis-recall").className = "col col-12 margin-top-large visible";
+
+            document.getElementById("average-recall").innerHTML = calculateAverageScore(recallResultsData);
+        }
+
+
+        if ((averageSudsResult != "empty" && sudsResultsData.length > 0) && (averageVacResult != "empty" && vacResultsData.length > 0)) {
+            document.getElementById("analysis-suds").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+            document.getElementById("analysis-vac").className = "col col-12 col-md-6 col-lg-6 margin-top-large visible";
+
+            document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsResultsData);
+            document.getElementById("average-vac").innerHTML = calculateAverageScore(vacResultsData);
+        }
+        else if ((averageSudsResult != "empty" && sudsResultsData.length > 0) && (averageVacResult == "empty")) {
+            document.getElementById("analysis-suds").className = "col col-12 margin-top-large visible";
+            document.getElementById("analysis-vac").className = "col col-12 col-md-6 col-lg-6 margin-top-large hide-analysis";
+
+            document.getElementById("average-suds").innerHTML = calculateAverageScore(sudsResultsData);
+        }
+        else if (averageSudsResult == "empty" && (averageVacResult != "empty" && vacResultsData.length > 0)) {
+            document.getElementById("analysis-suds").className = "col col-12 margin-top-large hide-analysis";
+            document.getElementById("analysis-vac").className = "col col-12 col-lg-12 margin-top-large visible";
+
+            document.getElementById("average-vac").innerHTML = calculateAverageScore(vacResultsData);
+        }
+
+        ctx2 = document.getElementById('myChart2').getContext('2d'),
+            gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+
+        ctx3 = document.getElementById('myChart3').getContext('2d'),
+            gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+
+        ctx4 = document.getElementById('myChart4').getContext('2d'),
+            gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+
+        ctx5 = document.getElementById('myChart5').getContext('2d'),
+            gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+
+        gradient.addColorStop(0, 'rgba(66,87,178, 0.92)');
+        gradient.addColorStop(0.5, 'rgba(66,87,178, 0.64)');
+        gradient.addColorStop(1, 'rgba(66,87,178, 0.35)');
+
+        dataMood = {
+            labels: moodResultsArray,
+            datasets: [{
+                label: 'Mood value',
+                backgroundColor: gradient,
+                hoverBackgroundColor: "#4257b2",
+                pointBackgroundColor: '#4257b2',
+                borderWidth: 3,
+                borderColor: '#4257b2',
+                data: convertToInt(moodResultsData)
+            }]
+        };
+
+
+        dataSUDS = {
+            labels: sudsResultsArray,
+            datasets: [{
+                label: 'SUDS value',
+                backgroundColor: gradient,
+                hoverBackgroundColor: "#4257b2",
+                pointBackgroundColor: '#4257b2',
+                borderWidth: 3,
+                borderColor: '#4257b2',
+                data: convertToInt(sudsResultsData)
+            }]
+        };
+
+        dataVAC = {
+            labels: vacResultsArray,
+            datasets: [{
+                label: 'VAC value',
+                backgroundColor: gradient,
+                hoverBackgroundColor: "#4257b2",
+                pointBackgroundColor: '#4257b2',
+                borderWidth: 3,
+                borderColor: '#4257b2',
+                data: convertToInt(vacResultsData)
+            }]
+        };
+
+        dataRecall = {
+            labels: recallResultsArray,
+            datasets: [{
+                label: 'Recall value',
+                backgroundColor: gradient,
+                hoverBackgroundColor: "#4257b2",
+                pointBackgroundColor: '#4257b2',
+                borderWidth: 3,
+                borderColor: '#4257b2',
+                data: convertToInt(recallResultsData)
+            }]
+        };
+
+
+        optionsMain = {
+            bezierCurve: false,
+            responsive: true,
+            maintainAspectRatio: false,
+            intersect: false,
+            animation: {
+                easing: 'easeInOutQuad',
+                duration: 965
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        color: 'rgba(66,87,178, 0.1)',
+                        lineWidth: 1,
+                        drawTicks: false,
+                        drawOnChartArea: false,
+                        defaultFontStyle: 'normal',
+                        defaultFontSize: 40,
+                        //drawBorder: false
+                    },
+                    ticks: {
+                        fontColor: '#95aac9',
+                        defaultFontStyle: 'normal',
+                        fontSize: 13,
+                        fontFamily: 'Montserrat',
+                        padding: 20
+
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        borderDash: [2],
+                        borderDashOffset: [2],
+                        color: 'rgba(149,170,201, 0.21)',
+                        drawBorder: false,
+                        drawTicks: false,
+                        lineWidth: 0,
+                        zeroLineWidth: 0,
+                        zeroLineColor: 'rgba(149,170,201, 0.21)',
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        max: 10,
+                        padding: 10,
+                        beginAtZero: true,
+                        fontColor: '#95aac9',
+                        fontSize: 13,
+                        defaultFontStyle: 'normal',
+                        fontFamily: 'Montserrat',
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                        maxBarThickness: 10
+                    }
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            legend: {
+                display: false
+            },
+            point: {
+                backgroundColor: 'white'
+            },
+            tooltips: {
+                opacity: '0.4',
+                position: 'average',
+                // intersect: false,
+                titleFontFamily: 'Montserrat',
+                bodyFontFamily: 'Montserrat',
+                bodyFontStyle: 'bold',
+                borderColor: '#000',
+                borderWidth: 2,
+                bodyFontColor: '#000',
+                backgroundColor: 'rgba(255,255,255, 0.91)',
+                titleFontColor: '#000',
+                color: '#000',
+                caretSize: 5,
+                cornerRadius: 5,
+                xPadding: 20,
+                yPadding: 10
+            }
+        };
+
+        optionsMainHeader = {
+            bezierCurve: true,
+            responsive: true,
+            maintainAspectRatio: false,
+            intersect: false,
+            animation: {
+                easing: 'easeInOutQuad',
+                duration: 965
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        color: 'rgba(66,87,178, 0.1)',
+                        lineWidth: 1,
+                        drawTicks: false,
+                        drawOnChartArea: false,
+                        defaultFontStyle: 'normal',
+                        defaultFontSize: 40,
+                        //drawBorder: false
+                    },
+                    ticks: {
+                        fontColor: '#95aac9',
+                        defaultFontStyle: 'normal',
+                        fontSize: 13,
+                        fontFamily: 'Montserrat',
+                        padding: 20
+
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        borderDash: [2],
+                        borderDashOffset: [2],
+                        color: 'rgba(149,170,201, 0.21)',
+                        drawBorder: false,
+                        drawTicks: false,
+                        lineWidth: 0,
+                        zeroLineWidth: 0,
+                        zeroLineColor: 'rgba(149,170,201, 0.21)',
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        max: 10,
+                        padding: 10,
+                        beginAtZero: true,
+                        fontColor: '#95aac9',
+                        fontSize: 13,
+                        defaultFontStyle: 'normal',
+                        fontFamily: 'Montserrat',
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                        maxBarThickness: 10
+                    }
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            legend: {
+                display: false
+            },
+            point: {
+                backgroundColor: 'white'
+            },
+            tooltips: {
+                opacity: '0.4',
+                position: 'average',
+                // intersect: false,
+                titleFontFamily: 'Montserrat',
+                bodyFontFamily: 'Montserrat',
+                bodyFontStyle: 'bold',
+                borderColor: '#000',
+                borderWidth: 2,
+                bodyFontColor: '#000',
+                backgroundColor: 'rgba(255,255,255, 0.91)',
+                titleFontColor: '#000',
+                color: '#000',
+                caretSize: 5,
+                cornerRadius: 5,
+                xPadding: 20,
+                yPadding: 10
+            }
+        };
+
+        optionsVAC = {
+            bezierCurve: false,
+            responsive: true,
+            maintainAspectRatio: false,
+            intersect: false,
+            animation: {
+                easing: 'easeInOutQuad',
+                duration: 965
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        color: 'rgba(66,87,178, 0.1)',
+                        lineWidth: 1,
+                        drawTicks: false,
+                        drawOnChartArea: false,
+                        defaultFontStyle: 'normal',
+                        defaultFontSize: 40,
+                        //drawBorder: false
+                    },
+                    ticks: {
+                        fontColor: '#95aac9',
+                        defaultFontStyle: 'normal',
+                        fontSize: 13,
+                        fontFamily: 'Montserrat',
+                        padding: 20
+
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        borderDash: [2],
+                        borderDashOffset: [2],
+                        color: 'rgba(149,170,201, 0.21)',
+                        drawBorder: false,
+                        drawTicks: false,
+                        lineWidth: 0,
+                        zeroLineWidth: 0,
+                        zeroLineColor: 'rgba(149,170,201, 0.21)',
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        max: 7,
+                        padding: 10,
+                        beginAtZero: true,
+                        fontColor: '#95aac9',
+                        fontSize: 13,
+                        defaultFontStyle: 'normal',
+                        fontFamily: 'Montserrat',
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                        maxBarThickness: 10
+                    }
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            legend: {
+                display: false
+            },
+            point: {
+                backgroundColor: 'white'
+            },
+            tooltips: {
+                opacity: '0.4',
+                position: 'average',
+                // intersect: false,
+                titleFontFamily: 'Montserrat',
+                bodyFontFamily: 'Montserrat',
+                bodyFontStyle: 'bold',
+                borderColor: '#000',
+                borderWidth: 2,
+                bodyFontColor: '#000',
+                backgroundColor: 'rgba(255,255,255, 0.91)',
+                titleFontColor: '#000',
+                color: '#000',
+                caretSize: 5,
+                cornerRadius: 5,
+                xPadding: 20,
+                yPadding: 10
+            }
+        };
+
+        if (averageSudsResult != "empty") {
+            chartInstance2 = new Chart(ctx2, {
+                type: 'line',
+                data: dataSUDS,
+                options: optionsMain
+            });
+        }
+
+        if (averageVacResult != "empty") {
+            chartInstance3 = new Chart(ctx3, {
+                type: 'line',
+                data: dataVAC,
+                options: optionsMain
+            });
+        }
+
+        if (averageRecallResult != "empty") {
+            chartInstance4 = new Chart(ctx4, {
+                type: 'line',
+                data: dataRecall,
+                options: optionsMain
+            });
+        }
+
+        if (averageMoodResult != "empty") {
+            chartInstance5 = new Chart(ctx5, {
+                type: 'line',
+                data: dataMood,
+                options: optionsMain
+            });
+        }
+
+        $('#barChart2').on('click', function () {
+
+            $("#lineChart2").removeClass("analyze-box-section-choice-selected");
+            $("#barChart2").addClass("analyze-box-section-choice-selected");
+
+            chartInstance2.destroy();
+            chartInstance2 = new Chart(ctx2, {
+                type: 'bar',
+                data: dataSUDS,
+                options: optionsMain
+            });
+        });
+
+        $('#lineChart2').on('click', function () {
+
+            $("#lineChart2").addClass("analyze-box-section-choice-selected");
+            $("#barChart2").removeClass("analyze-box-section-choice-selected");
+
+            chartInstance2.destroy();
+            chartInstance2 = new Chart(ctx2, {
+                type: 'line',
+                data: dataSUDS,
+                options: optionsMain
+            });
+        });
+
+        $('#barChart3').on('click', function () {
+
+            $("#lineChart3").removeClass("analyze-box-section-choice-selected");
+            $("#barChart3").addClass("analyze-box-section-choice-selected");
+
+            chartInstance3.destroy();
+            chartInstance3 = new Chart(ctx3, {
+                type: 'bar',
+                data: dataVAC,
+                options: optionsMain
+            });
+        });
+
+        $('#lineChart3').on('click', function () {
+
+            $("#lineChart3").addClass("analyze-box-section-choice-selected");
+            $("#barChart3").removeClass("analyze-box-section-choice-selected");
+
+            chartInstance3.destroy();
+            chartInstance3 = new Chart(ctx3, {
+                type: 'line',
+                data: dataVAC,
+                options: optionsMain
+            });
+        });
+
+        $('#barChart4').on('click', function () {
+
+            $("#barChart4").addClass("analyze-box-section-choice-selected");
+            $("#lineChart4").removeClass("analyze-box-section-choice-selected");
+
+            chartInstance4.destroy();
+            chartInstance4 = new Chart(ctx4, {
+                type: 'bar',
+                data: dataRecall,
+                options: optionsMain
+            });
+        });
+
+        $('#lineChart4').on('click', function () {
+
+            $("#barChart4").removeClass("analyze-box-section-choice-selected");
+            $("#lineChart4").addClass("analyze-box-section-choice-selected");
+
+            chartInstance4.destroy();
+            chartInstance4 = new Chart(ctx4, {
+                type: 'line',
+                data: dataRecall,
+                options: optionsMain
+            });
+        });
+
+        $('#barChart5').on('click', function () {
+
+            $("#barChart5").addClass("analyze-box-section-choice-selected");
+            $("#lineChart5").removeClass("analyze-box-section-choice-selected");
+
+            chartInstance5.destroy();
+            chartInstance5 = new Chart(ctx5, {
+                type: 'bar',
+                data: dataMood,
+                options: optionsMain
+            });
+        });
+
+        $('#lineChart5').on('click', function () {
+
+            $("#barChart5").removeClass("analyze-box-section-choice-selected");
+            $("#lineChart5").addClass("analyze-box-section-choice-selected");
+
+            chartInstance5.destroy();
+            chartInstance5 = new Chart(ctx5, {
+                type: 'line',
+                data: dataMood,
+                options: optionsMain
+            });
+        });
+
+    });
+
+}
+
+function calculateAverageScore(scoreToAverage) {
+    console.log(scoreToAverage);
+
+    var arrayLength = scoreToAverage.length;
+    var average = 0;
+    var numOfValues = scoreToAverage.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+        if (scoreToAverage[i] == "empty") {
+            numOfValues--;
+        }
+        else {
+            average += parseFloat(scoreToAverage[i]);
+        }
+    }
+
+    return parseFloat((average / numOfValues).toFixed(2));
+}
+
+function longestData(array1, array2, array3, array4) {
+
+    var max = Math.max(array1.length, array2.length, array3.length, array4.length);
+
+    for (i = 0; i < max; i++) {
+        if (i == 0) {
+            longestDataInstance.push("Initial");
+        }
+        else {
+            longestDataInstance.push(i);
+        }
+    }
+
+    console.log("Longest data: " + longestDataInstance);
+}
+
+function convertToInt(array) {
+
+    var arrayLength = array.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+        if (array[i] == "empty") {
+            array.splice(i, 1);
+        }
+    }
+
+    return array;
+}
+
+function calculateSessionCount(array, type) {
+
+    if (type == "mood") {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    moodResultsArray.push("Initial");
+                }
+                else {
+                    moodResultsArray.push(i.toString());
+                }
+            }
+        }
+        console.log("Mood: " + moodResultsArray);
+    }
+    else if (type == "recall") {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    recallResultsArray.push("Initial");
+                }
+                else {
+                    recallResultsArray.push(i.toString());
+                }
+            }
+        }
+        console.log("Recall: " + recallResultsArray);
+
+    }
+    else if (type == "suds") {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    sudsResultsArray.push("Initial");
+                }
+                else {
+                    sudsResultsArray.push(i.toString());
+                }
+            }
+        }
+        console.log("Suds: " + sudsResultsArray);
+
+    }
+    else if (type == "vac") {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] != "empty") {
+                if (i == 0) {
+                    vacResultsArray.push("Initial");
+                }
+                else {
+                    vacResultsArray.push(i.toString());
+                }
+            }
+        }
+        console.log("Vac: " + vacResultsArray);
+    }
+}
+
+
+function analyzeSet(set) {
+    currentlyAnalyzingSession = set;
+    console.log("Analyze this set: " + set);
+    spawnNotes(set);
+    analyzeSession(set);
+    $("#therapy-results").addClass("results-box-active");
+
+
+    //$("#therapy-results-tab").removeClass("fixed-hidden");
+    //$("#therapy-results-tab").addClass("fixed-visible");
+    // $("#session-analytics-box").removeClass("analysis-box-hidden");
+    //$("#therapy-results").animate({ scrollTop: 0 }, "fast");
+    /*
+    $('body').css({
+        overflow: 'hidden',
+        height: '100%'
+    });
+    */
+
+}
+
 function closeAnalyzeSet() {
-    $("#session-analytics-box").addClass("analysis-box-hidden");
-    $('html').css({
+
+    if (sudsChartActive) {
+        chartInstance2.destroy();
+    }
+
+    if (vacChartActive) {
+        chartInstance3.destroy();
+    }
+
+    if (recallChartActive) {
+        chartInstance4.destroy();
+    }
+
+    if (moodChartActive) {
+        chartInstance5.destroy();
+    }
+
+    $("#lineChart2").addClass("analyze-box-section-choice-selected");
+    $("#barChart2").removeClass("analyze-box-section-choice-selected");
+
+    $("#lineChart3").addClass("analyze-box-section-choice-selected");
+    $("#barChart3").removeClass("analyze-box-section-choice-selected");
+
+    $("#lineChart4").addClass("analyze-box-section-choice-selected");
+    $("#barChart4").removeClass("analyze-box-section-choice-selected");
+
+    $("#lineChart5").addClass("analyze-box-section-choice-selected");
+    $("#barChart5").removeClass("analyze-box-section-choice-selected");
+
+    longestDataInstance = [];
+
+    $("#therapy-results").removeClass("results-box-active");
+    $("#therapy-results").animate({ scrollTop: 0 }, "fast");
+
+    moodChartActive = false;
+    recallChartActive = false;
+    sudsChartActive = false;
+    vacChartActive = false;
+    /*
+    $('body').css({
         overflow: 'auto',
         height: 'auto'
     });
+    */
 }
 
 function averageSessionsPerDay() {
@@ -1778,6 +2980,23 @@ function updateGoalProgress(number) {
         */
 }
 
+function viewSessionDetails() {
+    console.log(currentlyAnalyzingSession);
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + currentlyAnalyzingSession);
+    desc.on('value', function (snapshot) {
+
+        document.getElementById("therapy-set").innerHTML = snapshot.val().setUsed;
+        document.getElementById("therapy-date").innerHTML = snapshot.val().setDate;
+        document.getElementById("therapy-sessions-completed").innerHTML = snapshot.val().sessionProgress;
+        document.getElementById("therapy-sessions-total").innerHTML = snapshot.val().totalSessions;
+        document.getElementById("therapy-notes-count").innerHTML = snapshot.val().notesTaken;
+
+        $("#sessionDetails").modal('toggle');
+    });
+}
+
+
 function viewGoal() {
 
     $('#view-goal-modal').modal('toggle');
@@ -1842,6 +3061,8 @@ function checkGoal() {
     desc.once('value', function (snapshot) {
 
         if (snapshot.exists() && snapshot.val().goalActive == "yes") {
+
+
             $("#set-goal-modal").modal('toggle');
         }
         else {
