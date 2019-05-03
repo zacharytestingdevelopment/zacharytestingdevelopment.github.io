@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/quill.core.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+
+    <style>
+        body {
+            display: none;
+        }
+
+        .chart-style {
+            display: inline-block !important;
+            margin-bottom: 500px !important;
+        }
+    </style>
+
+
+    <title>Journal</title>
+</head>
+
+<body>
+    <div id="loader" class="spinner"
+        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand nav-journal fixed-top" id="mainNav">
+        <div class="container">
+
+            <div class="dashboard-return">
+                <a href="dashboard.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                    <span class="no-select no-select return-text" style="display:inline-block;">
+                        <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal" name="arrow-round-back">
+                        </ion-icon>
+                        <span class="return-dash-text" style="position:relative;top:0px;"> Return to main
+                            dashboard</span>
+                    </span>
+                </a>
+
+
+            </div>
+
+            <a href="journal-entry.html" class="kill-link-style"><span class="float-right entry-write no-select">Write
+                    an entry</span></a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+
+        <!-- HEADER -->
+        <div id="journal-header" class="header bg-dark journal-header journal-header-1 pb-5"
+            style="padding-bottom: 22vh !important">
+            <div class="container-fluid">
+
+                <!-- Footer -->
+                <div class="header-footer">
+
+                    <div id="journal-header-image" class="header-date-text animated fadeIn" style="padding-top: 22vh;">
+                        YOUR
+                        JOURNAL</div>
+
+                </div>
+
+            </div>
+        </div> <!-- / .header -->
+
+        <!-- CARDS -->
+        <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col-12 col-centered col-xl-11">
+
+                    <!-- Goals -->
+                    <div class="card shadow animated slideInUp"
+                        style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h4 class="card-header-title">
+                                        Your journal entries
+                                    </h4>
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <!-- Button -->
+                                    <a href="journal-entry.html">
+                                        <span class="float-right no-select goal-button">Write new entry</span>
+                                    </a>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                        <div class="table-responsive mb-0" data-toggle="lists"
+                            data-lists-values='["goal-project", "goal-status", "goal-progress", "goal-date"]'>
+                            <table class="table table-sm table-nowrap card-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="#" class="text-muted sort" data-sort="goal-project">
+                                                Entry date
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-muted sort" data-sort="goal-progress">
+                                                Entry title
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-muted sort" data-sort="goal-status">
+                                                Tagged as important
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-muted sort" data-sort="goal-date">
+                                                Tags added
+                                            </a>
+                                        </th>
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    <tr>
+                                        <td class="goal-project">
+                                            1/8/2019
+                                        </td>
+
+                                        <td class="goal-progress">
+                                            Doing better today
+                                        </td>
+                                        <td class="goal-status">
+                                            <span class="text-warning">●</span> No
+                                        </td>
+                                        <td class="goal-date">
+                                            <time datetime="2018-10-24">3</time>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <span class="analyze-link no-select">View entry</span>
+                                            <div class="dropdown">
+                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                    data-boundary="window">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="goal-project">
+                                            1/19/2019
+                                        </td>
+
+                                        <td class="goal-progress">
+                                            Trip to the forest
+                                        </td>
+                                        <td class="goal-status">
+                                            <span class="text-warning">●</span> No
+                                        </td>
+                                        <td class="goal-date">
+                                            <time datetime="2018-10-24">0</time>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <span class="analyze-link no-select">View entry</span>
+                                            <div class="dropdown">
+                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                    data-boundary="window">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="goal-project">
+                                            7/10/2019
+                                        </td>
+
+                                        <td class="goal-progress">
+                                            A poem draft
+                                        </td>
+                                        <td class="goal-status">
+                                            <span class="text-success">●</span> Yes
+                                        </td>
+                                        <td class="goal-date">
+                                            <time datetime="2018-10-24">2</time>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <span class="analyze-link no-select">View entry</span>
+                                            <div class="dropdown">
+                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                    data-boundary="window">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="goal-project">
+                                            3/4/2019
+                                        </td>
+
+                                        <td class="goal-progress">
+                                            Struggling today
+                                        </td>
+                                        <td class="goal-status">
+                                            <span class="text-warning">●</span> No
+                                        </td>
+                                        <td class="goal-date">
+                                            <time datetime="2018-10-24">5</time>
+                                        </td>
+
+                                        <td class="text-right">
+
+                                            <span class="analyze-link no-select">View entry</span>
+                                            <div class="dropdown">
+                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                    data-boundary="window">
+                                                    <span class="fe fe-more-vertical"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="goal-project">
+                                            7/4/2019
+                                        </td>
+
+                                        <td class="goal-progress">
+                                            Random thoughts
+                                        </td>
+                                        <td class="goal-status">
+                                            <span class="text-success">●</span> Yes
+                                        </td>
+                                        <td class="goal-date">
+                                            <time datetime="2018-10-24">3</time>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <span class="analyze-link no-select">View entry</span>
+                                            <div class="dropdown">
+                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                    data-boundary="window">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> <!-- / .row -->
+            <div class="row">
+                <div class="col-12 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Find my entries
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        Sort by tag
+                                    </span>
+
+                                    <div id="tag-box"
+                                        class="col-md-8 col-12 col-lg-6 eliminate-left-pad tag-box margin-top">
+                                        <span class="tag-button no-select">Poetry</span>
+                                        <span class="tag-button no-select">Venting</span>
+                                        <span class="tag-button no-select">Creative writing</span>
+                                        <span class="tag-button no-select">Poetry</span>
+
+                                        <span class="tag-button no-select">Work</span>
+                                        <span class="tag-button no-select">Life stuff</span>
+                                        <span class="tag-button no-select">Kids</span>
+                                        <span class="tag-button no-select">Vacations</span>
+
+                                    </div>
+
+
+                                    <div class="col-auto">
+
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div> <!-- / .row -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- / .row -->
+
+
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e1">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Entries recorded
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        114
+                                    </span>
+
+                                    <!-- Badge -->
+                                    <span class="badge badge-soft-success mt--1">
+                                        Average of 2 notes a day
+                                    </span>
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <!-- Icon -->
+                                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                </div>
+                            </div> <!-- / .row -->
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-6 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e2">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Progress towards goal
+                                        <span class="float-right no-select goal-button">View goal</span>
+                                    </h6>
+
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col-auto">
+
+                                            <!-- Heading -->
+                                            <span class="h2 mr-2 mb-0">
+                                                84.5%
+                                            </span>
+
+                                        </div>
+                                        <div class="col">
+
+                                            <!-- Progress -->
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar" style="width: 85%"
+                                                    aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- / .row -->
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <!-- Icon -->
+                                    <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+
+                                </div>
+                            </div> <!-- / .row -->
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div> <!-- / .row -->
+
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e3">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Most active day of the week
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        Monday
+                                    </span>
+
+                                    <!-- Badge -->
+                                    <span class="badge badge-soft-success mt--1">
+                                        34 sessions on Mondays
+                                    </span>
+
+                                </div>
+
+                            </div> <!-- / .row -->
+                            <div class="text-left relative" style="width:200px;padding-top:0px;height:200px;">
+                                <canvas id="dayChart" class="margin-top"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e4">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Here's how much you've journaled over time
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        Your activity
+                                    </span>
+
+                                    <!-- Badge 
+                                    <span class="badge badge-soft-success mt--1">
+                                        34 sessions on Mondays
+                                    </span>
+                                -->
+
+                                </div>
+
+                            </div> <!-- / .row -->
+                            <div class="text-left relative" style="width:100%;padding-top:0px;height:200px;">
+                                <canvas id="timeChart" class="margin-top" style="width:100%;height:100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div> <!-- / .row -->
+
+
+            <div class="row">
+                <div class="col-12 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        Tracking progress
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        Set a goal
+                                    </span>
+
+                                    <div class="dashboard-goal margin-top-tiny">
+                                        I want to complete
+                                        <input type="number" min="1" placeholder="5"
+                                            class="text-center dashboard-goal-input" />
+                                        sessions every
+
+                                        <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
+                                            class="dashboard-goal-time dashboard-goal-input dropdown-toggle" href="#"
+                                            role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <span class="eggshell" id="timeline">week</span>
+                                        </a>
+
+                                        <div id="timelineDropdown" class="dropdown-menu"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <span class="dropdown-item" onclick="changeGoalTimeline('day')">Day</span>
+                                            <span class="dropdown-item" onclick="changeGoalTimeline('week')">Week</span>
+                                            <span class="dropdown-item"
+                                                onclick="changeGoalTimeline('month')">Month</span>
+                                            <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
+                                        </div>
+
+                                        <div class="margin-top">
+                                            <span class="no-select goal-button large-goal-button">Save my
+                                                goal</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <!-- Icon -->
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div> <!-- / .row -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- / .row -->
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <!-- Title -->
+                                <h6 class="card-title text-uppercase text-muted mb-2">
+                                    CUSTOMIZE BANNER
+                                </h6>
+
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    Pick a cover photo
+                                </span>
+                                <div class="margin-top-tiny">
+                                    <small class="form-text text-muted">
+                                        This picture will display at the top of your journal.
+                                    </small>
+                                </div>
+                                <div class="dropzone dropzone-single mb-3" data-toggle="dropzone"
+                                    data-dropzone-url="http://">
+
+                                    <div class="fallback">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="projectCoverUploads">
+                                            <label class="custom-file-label" for="projectCoverUploads">Choose
+                                                file</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="dz-preview dz-preview-single">
+                                        <div class="dz-preview-cover">
+                                            <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <span class="margin-top">Use one of our default cover photos</span>
+                                <div>
+                                    <span id="cover-button1" class="tag-button tag-button-active no-select"
+                                        onclick="defaultCover('no')">No</span>
+                                    <span id="cover-button2" class="tag-button no-select"
+                                        onclick="defaultCover('yes')">Yes</span>
+                                </div>
+                                <div id="spawn-defaults">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-8 col-centered text-center">
+                <a class="kill-link-style" href="dashboard.html">
+                    <div class="dashboard-back no-select">Return to main dashboard</div>
+                </a>
+            </div>
+
+        </div> <!-- / .main-content -->
+
+
+        <script src="js/dash/jquery.min.js"></script>
+        <script src="js/dash/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+        <script src="js/dash/charts.js"></script>
+        <script src="js/dash/Chart.extension.min.js"></script>
+        <script src="js/dash/highlight.pack.min.js"></script>
+        <script src="js/dash/flatpickr.min.js"></script>
+        <script src="js/dash/jquery.mask.min.js"></script>
+        <script src="js/dash/list.min.js"></script>
+        <script src="js/dash/quill.min.js"></script>
+        <script src="js/dash/dropzone.min.js"></script>
+        <script src="js/dash/select2.min.js"></script>
+        <script src="js/dash/theme.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+        <script src="js/therapy-analysis.js"></script>
+        <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+        <script src="js/dashboard.js"></script>
+        <script src="js/spectrum.js"></script>
+        <script src="js/journal.js"></script>
+        <!-- Custom scripts for this template -->
+        <script src="js/creative.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+                authDomain: "mental-health-suite.firebaseapp.com",
+                databaseURL: "https://mental-health-suite.firebaseio.com",
+                projectId: "mental-health-suite",
+                storageBucket: "mental-health-suite.appspot.com",
+                messagingSenderId: "119327507370"
+            };
+            firebase.initializeApp(config);
+
+            ScrollReveal({ distance: '-20px' });
+            ScrollReveal().reveal('.e1');
+            ScrollReveal().reveal('.e2');
+            ScrollReveal().reveal('.e3');
+            ScrollReveal().reveal('.e4');
+            ScrollReveal().reveal('.e5');
+
+        </script>
+        <script src="js/sign-up.js"></script>
+
+        <script>
+            jQuery(document).ready(function () {
+                jQuery('#loader').fadeOut(330);
+
+            });
+
+        </script>
+
+
+
+</body>
+
+</html>

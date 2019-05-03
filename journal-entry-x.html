@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/quill.core.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="css/therapy.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+
+    <style>
+        body {
+            display: none;
+        }
+
+        .chart-style {
+            display: inline-block !important;
+            margin-bottom: 500px !important;
+        }
+    </style>
+
+
+    <title>Journal entry</title>
+</head>
+
+<body onload="please()">
+    <div id="loader" class="spinner"
+        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="main-content">
+
+
+
+
+        <!-- HEADER -->
+        <div id="journal-header" class="header bg-dark journal-header journal-header-2 pb-5"
+            style="padding-bottom: 18vh !important">
+            <!-- <div class="cover-darken"></div>-->
+            <div class="container-fluid">
+
+                <!-- Body -->
+                <!-- Navigation -->
+                <nav class="navbar navbar-expand-lg journal-top nav-journal fixed-top" id="mainNav"
+                    style="border-bottom: 0px solid #fff !important;">
+                    <div class="container">
+
+                        <div class="dashboard-return">
+                            <a href="journal.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                                <span class="no-select no-select return-text" style="display:inline-block;">
+                                    <ion-icon class="dashboard-arrow cover-arrow cover-arrow-journal"
+                                        name="arrow-round-back"></ion-icon>
+                                    <span class="return-dash-text" style="position:relative;top:0px;"> Return to journal
+                                    </span>
+                                </span>
+                            </a>
+
+
+                        </div>
+
+                        <a href="dashboard.html" class="kill-link-style"><span
+                                class="float-right entry-write no-select">main dashboard
+                            </span></a>
+                    </div>
+                </nav>
+                <div class="dashboard-return">
+
+
+                    <!--
+                    <a href="journal.html" class="kill-link-style">
+                        <span class="no-select return-text">
+                            <ion-icon class="dashboard-arrow cover-arrow" name="arrow-round-back"></ion-icon>
+                            <span class="return-dash-text"> Your full journal</span>
+                        </span>
+                    </a>
+                -->
+                </div>
+
+                <!-- Footer -->
+                <div class="header-footer">
+
+                    <div id="journal-header-image" class="header-date-text animated fadeIn" style="padding-top: 18vh;">
+                        WRITE
+                        JOURNAL
+                        ENTRY</div>
+
+                </div>
+
+            </div>
+        </div> <!-- / .header -->
+
+
+        <!-- CARDS -->
+        <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col-12 col-centered col-xl-11">
+
+                    <!-- Goals -->
+                    <div class="card shadow animated slideInUp"
+                        style="opacity:1 !important;padding-bottom: 15px;padding-top:5px;">
+                        <div class="card-header">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-md-11 col-lg-11 col-xl-10">
+
+
+                                    <div class="header mt-md-5">
+
+                                        <div class="header-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+
+
+                                                    <h6 class="header-pretitle">
+                                                        How are you doing today?
+                                                    </h6>
+
+
+                                                    <h1 class="header-title">
+                                                        Start here
+                                                    </h1>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form class="mb-4">
+
+
+                                        <div class="form-group">
+                                            <label>
+                                                Entry title
+                                            </label>
+                                            <input id="entryTitle" type="text"
+                                                class="text-input-style-small form-control" placeholder="Enter a title">
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="mb-1">
+                                                Write your entry
+                                            </label>
+                                            <small class="form-text text-muted">
+                                                A blank page can be anything you want it to be. </small>
+                                            <div id="data" class="text-entry-blue larger-entry" data-toggle="quill">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label>
+                                                Entry tags
+                                            </label>
+                                            <select class="form-control text-entry-blue" data-toggle="select" multiple>
+                                                <option class="highlight-blue-hover">Mood</option>
+                                                <option class="highlight-blue-hover">Venting</option>
+                                                <option class="highlight-blue-hover">Poetry</option>
+                                                <option class="highlight-blue-hover">Story</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-12">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        Entry date
+                                                        <small class="form-text text-muted">
+                                                            If writing about a day other than today, you can enter that
+                                                            here.
+                                                        </small>
+                                                    </label>
+                                                    <input id="entryDate" type="text"
+                                                        class="form-control text-entry-blue"
+                                                        style="position: relative;top:-10px;" data-toggle="flatpickr">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="mb-1">
+                                                Project cover
+                                            </label>
+                                            <small class="form-text text-muted">
+                                                This picture will display at the top of your journal entry.
+                                            </small>
+                                            <div class="dropzone dropzone-single mb-3" data-toggle="dropzone"
+                                                data-dropzone-url="http://">
+
+                                                <div class="fallback">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input"
+                                                            id="projectCoverUploads">
+                                                        <label class="custom-file-label"
+                                                            for="projectCoverUploads">Choose
+                                                            file</label>
+                                                    </div>
+                                                </div>
+
+                                                <!--
+                                                <div class="dz-preview dz-preview-single">
+                                                    <div class="dz-preview-cover">
+                                                        <img class="dz-preview-img" src="..." alt="..."
+                                                            data-dz-thumbnail>
+                                                    </div>
+                                                </div>
+                                            -->
+
+                                            </div>
+
+                                            <span class="margin-top">Use one of our default cover photos</span>
+                                            <div>
+                                                <span id="cover-button1" class="tag-button tag-button-active no-select"
+                                                    onclick="defaultCover('no')">No</span>
+                                                <span id="cover-button2" class="tag-button no-select"
+                                                    onclick="defaultCover('yes')">Yes</span>
+                                            </div>
+                                            <div id="spawn-defaults">
+                                                <!--
+                                                <div class="text-center-small">
+                                                    <span onclick="changeDefault('first')" id="default1" class="default-box landing2 margin-top-setting"></span>
+                                                    <span id="default2" onclick="changeDefault('second')" class="default-box landing1 margin-top-setting"></span>
+                                                    <span id="default3" onclick="changeDefault('third')" class="default-box landing2 margin-top-setting"></span>
+
+                                                    <div>
+                                                        <span id="custom-default" class="setting-category margin-top-setting">Custom
+                                                            banner
+                                                            color —
+                                                        </span>
+
+                                                        <input class="color-pick" id="background-color" type="color"
+                                                            name="color" value="#ffffff" onchange="customCoverColor()" />
+                                                        <span id="custom-color" class="custom-color-active">Custom
+                                                            color
+                                                            active</span>
+                                                    </div>
+                                                </div>
+                                            -->
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <hr class="mt-5 mb-5">
+
+
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+
+
+                                                <div class="form-group">
+                                                    <label class="mb-1">
+                                                        Tag entry as important
+                                                    </label>
+                                                    <small class="form-text text-muted">
+                                                        You can tag this entry as important so that you can easily find
+                                                        it later.
+                                                    </small>
+                                                    <div class="custom-control custom-checkbox-toggle">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="exampleToggle" checked>
+                                                        <label class="custom-control-label" for="exampleToggle"></label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-12 col-md-6">
+
+
+                                                <div class="card bg-light border">
+                                                    <div class="card-body">
+
+                                                        <h4 class="mb-2">
+                                                            <i class="fe fe-alert-triangle"></i> How to view this entry
+                                                        </h4>
+
+                                                        <p class="small text-muted mb-0">
+                                                            Once you finalize this entry, you can access it from your
+                                                            journal on the
+                                                            dashboard.
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <hr class="mt-5 mb-5">
+
+
+                                        <span class="btn btn-block btn-style" onclick="saveEntry()">
+                                            Save journal entry
+                                        </span>
+                                        <div class="col col-8 text-center col-centered">
+                                            <a href="journal.html" class=" margin-top dashboard-text">
+                                                Cancel and return to journal
+                                            </a>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- / .row -->
+
+            </div> <!-- / .main-content -->
+
+
+            <script src="js/dash/jquery.min.js"></script>
+            <script src="js/dash/bootstrap.bundle.min.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+            <script src="js/dash/charts.js"></script>
+            <script src="js/dash/Chart.extension.min.js"></script>
+            <script src="js/dash/highlight.pack.min.js"></script>
+            <script src="js/dash/flatpickr.min.js"></script>
+            <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+            <script src="js/dash/jquery.mask.min.js"></script>
+            <script src="js/dash/list.min.js"></script>
+            <script src="js/dash/quill.min.js"></script>
+            <script src="js/dash/dropzone.min.js"></script>
+            <script src="js/dash/select2.min.js"></script>
+            <script src="js/creative.js"></script>
+            <script src="js/dash/theme.min.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+
+            <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+            <script src="js/dashboard.js"></script>
+            <script src="js/spectrum.js"></script>
+            <script src="js/journal.js"></script>
+
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+                    authDomain: "mental-health-suite.firebaseapp.com",
+                    databaseURL: "https://mental-health-suite.firebaseio.com",
+                    projectId: "mental-health-suite",
+                    storageBucket: "mental-health-suite.appspot.com",
+                    messagingSenderId: "119327507370"
+                };
+                firebase.initializeApp(config);
+
+                ScrollReveal({ distance: '-20px' });
+                ScrollReveal().reveal('.e1');
+                ScrollReveal().reveal('.e2');
+                ScrollReveal().reveal('.e3');
+                ScrollReveal().reveal('.e4');
+                ScrollReveal().reveal('.e5');
+
+            </script>
+            <script src="js/sign-up.js"></script>
+
+            <script>
+                jQuery(document).ready(function () {
+                    jQuery('#loader').fadeOut(330);
+
+                });
+
+            </script>
+
+
+
+
+
+</body>
+
+</html>
