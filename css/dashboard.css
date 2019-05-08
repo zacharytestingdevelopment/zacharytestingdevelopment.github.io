@@ -241,6 +241,11 @@ background: linear-gradient(to right, #fc67fa, #f4c4f3); /* W3C, IE 10+/ Edge, F
 
 }
 
+.loading-cover
+{
+    background: #12243f;
+}
+
 #mainNav
 {
     transition: all .2s ease !important;
@@ -1945,7 +1950,7 @@ body.modal-open {
     cursor: pointer;
 }
 
-.dropdown-item
+.dropdown-item:focus, .dropdown-item:hover
 {
     transition: color .3s ease;
 }
@@ -2229,12 +2234,29 @@ body.modal-open {
     color: #4257b2 !important;
 }
 
+/*
+@media only screen 
+and (max-width:)
+
+*/
 @media only screen 
 and (max-width:767px)
 {
     .cover-option-box 
     {
-        height: 220px;
+        height: 292px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+}
+
+@media only screen 
+and (min-width:1295px)
+{
+    .cover-option-box 
+    {
+        height: 302px;
         margin-left: auto;
         margin-right: auto;
         position: relative;

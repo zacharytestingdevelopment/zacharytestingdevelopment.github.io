@@ -434,12 +434,23 @@ firebase.auth().onAuthStateChanged(function (user) {
         newRoot = rootRef.child(userID + "/emdr").child('therapyResults');
         goalRoot = rootRef.child(userID + "/emdr").child('goalResults');
 
+
+
         prepareResults();
+        highlightCover();
+        var desc = firebase.database().ref('users/' + userID + "/userData/" + 'userPrefs/journaling');
+        desc.once('value', function (snapshot) {
+            jQuery('#loader').fadeOut(330);
+        });
 
     } else {
         console.log("No user is signed in");
     }
 });
+
+function highlightCover() {
+
+}
 
 /*
 function changeChart(chart) {
@@ -1597,11 +1608,6 @@ function loadMoreNotes() {
     startingIndex = amountToLoad() - 1;
     var destinationIndex = startingIndex - 9;
 
-    /*
-    console.log("Notes remaining to load: " + amountToLoad());
-    console.log("Starting index: " + startingIndex);
-    console.log("Destination index: " + destinationIndex);
-    */
     //You have notes to load
     if (amountToLoad() > 0) {
         for (i = startingIndex; i >= destinationIndex; i--) {

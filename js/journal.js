@@ -103,15 +103,6 @@ function viewGradientOptions() {
     $("#gradient-selection").removeClass("analysis-box-hidden");
     $("#mainNav").addClass("opacity-hide");
     checkUsingGradient();
-
-    /*
-    setTimeout(function () {
-        $('html, body').css({
-            overflow: 'hidden',
-            height: '100%'
-        });
-    }, 400);
-    */
 }
 
 
@@ -203,14 +194,18 @@ function updateCurrentNote(updateType) {
 
     var importantToggled = document.getElementById("importantToggle").checked;
 
-    firebase.database().ref('users/' + user.uid + "/journaling" + "/" + currentEntryID).update({
+    //get snippet of their note.
+
+    firebase.database().ref('users/' + user.uid + "/journaling" + "/entries/" + currentEntryID).update({
 
         entryData: data,
         entryTitle: returnTitle(),
         entryDate: entryDateVal,
         coverType: coverOptionSelected,
         importantToggled: importantToggled,
-        entryTags: getTagValues()
+        entryTags: getTagValues(),
+        numTags: getTagsLength(),
+        dayEntered: getCurrentDay()
     });
 
     if (updateType == "currentNote") {
@@ -256,15 +251,16 @@ function deleteAllTags() {
 }
 
 function getTagValues() {
-    //Error: new entry being created when updating 
-    //Tags not always updating when updating entry 
     var tagArray = $('#myTags').tagEditor('getTags')[0].tags
     if (tagArray.length <= 0) {
         tagArray = "empty";
     }
-
     return tagArray;
+}
 
+function getTagsLength() {
+    var tagArray = $('#myTags').tagEditor('getTags')[0].tags;
+    return tagArray.length;
 }
 
 function checkSaveEntry() {
@@ -315,6 +311,12 @@ function checkSaveEntry() {
         }
     }
 }
+
+function getCurrentDay() {
+    var d = new Date();
+    return d.getDay();
+}
+
 function saveEntry() {
 
     var user = firebase.auth().currentUser;
@@ -328,13 +330,15 @@ function saveEntry() {
 
     var importantToggled = document.getElementById("importantToggle").checked;
 
-    firebase.database().ref('users/' + user.uid + "/journaling" + "/" + timeSet).set({
+    firebase.database().ref('users/' + user.uid + "/journaling" + "/entries/" + timeSet).set({
         entryData: data,
         entryTitle: returnTitle(),
         entryDate: entryDateVal,
         coverType: coverOptionSelected,
         importantToggled: importantToggled,
-        entryTags: getTagValues()
+        entryTags: getTagValues(),
+        numTags: getTagsLength(),
+        dayEntered: getCurrentDay()
     });
 
     if (!entrySavedOnPage) {
@@ -476,14 +480,14 @@ function setCover(decision) {
         badge += "                                            <span class=\"highlight-color-red-badge\">Not currently using gradient cover<\/span>";
         badge += "                                        <\/span>";
         document.getElementById("cover-active-box").innerHTML = badge;
-    }
 
-    isUsingGradient = false;
-    $("#" + gradientBoxID).removeClass("grad-element-box-selected");
+        isUsingGradient = false;
+        $("#" + gradientBoxID).removeClass("grad-element-box-selected");
+    }
 
     if (decision == "coverOption1") {
 
-        coverOptionSelected = "coverOption1";
+        coverOptionSelected = "journal-header-1";
 
         $("#coverOption1").addClass("cover-option-box-selected");
         $("#coverOption2").removeClass("cover-option-box-selected");
@@ -495,7 +499,7 @@ function setCover(decision) {
 
     }
     else if (decision == "coverOption2") {
-        coverOptionSelected = "coverOption2";
+        coverOptionSelected = "journal-header-3";
 
         $("#coverOption1").removeClass("cover-option-box-selected");
         $("#coverOption2").addClass("cover-option-box-selected");
@@ -507,7 +511,7 @@ function setCover(decision) {
     }
     else if (decision == "coverOption3") {
 
-        coverOptionSelected = "coverOption3";
+        coverOptionSelected = "journal-header-2";
 
         $("#coverOption1").removeClass("cover-option-box-selected");
         $("#coverOption2").removeClass("cover-option-box-selected");
@@ -517,6 +521,7 @@ function setCover(decision) {
         $("#journal-header").removeClass("journal-header-1");
         $("#journal-header").removeClass("journal-header-3");
     }
+
 }
 
 function customCoverColor() {

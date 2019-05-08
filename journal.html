@@ -37,6 +37,490 @@
         <div class="double-bounce2"></div>
     </div>
 
+    <div id="set-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element text-center no-select">You already have an active goal!</div>
+
+                <div class="modal-body text-center">
+                    You can update the goal without losing your progress, or overwrite it to set a new goal entirely.
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="checkTimeScale()">Update
+                        goal</div>
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Reset goal
+                    </div>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="view-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element no-select">Your goal</div>
+
+                <div class="modal-body text-center">
+                    <span class="modal-body-larger">
+
+
+                        <div id="modal-goal-container">
+                            You want to do <span id="modal-goal-number" class="modal-focus"></span> sessions this
+                            <span id="modal-goal-time" class="modal-focus"></span>
+                        </div>
+
+                        <!--
+                    <div onclick="viewGoalResults()" class="no-select past-goal-analysis">Past goal analysis</div>
+                    -->
+                    </span>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="viewGoalResults()">Analyze past
+                        goals
+                    </div>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="same-scale-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element text-center no-select">You are changing the time scale of your goal.
+                </div>
+
+                <div class="modal-body text-center">
+                    This will reset your current goal progress. If you want to keep your progress, you must also keep
+                    the time scale that you are currently
+                    using.
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('reset')">Reset
+                        goal</div>
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('revert')">Keep
+                        current scale
+                    </div>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="goal-analysis" class="analysis-box rubber-band analysis-box-hidden">
+        <div class="exit-button no-select" onclick="viewGoalResults()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close goal analysis
+        </div>
+        <div class="customize-dash-header">Goal analysis</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Here you can view past goal results!
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+
+        <div class="col col-12 col-centered">
+            <div id="goal-summary-section" class="margin-top-medium row">
+
+                <div
+                    class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered d-none d-sm-none d-md-block">
+                    <div class="row goal-height-container">
+                        <div class="col col-12 text-left col-md-6 col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
+                            <div class="goal-results-summary">
+                                <div class="goal-results-summary-header">Summary</div>
+                                <div id="goal-summary-line"
+                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
+                                </div>
+                                <div id="goal-results-summary-box">
+                                    <div class="goal-results-summary-item margin-top-setting">
+                                        You have saved <span id="goal-num-count" class="dark-text"></span>
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You have completed <span id="goal-completed-percentage"
+                                            class="dark-text"></span> of goals set
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You complete <span id="goal-average-points" class="dark-text"></span> of your
+                                        goal on average
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col col-12 text-right col-md-6 col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+                            <div class="goal-results-summary">
+                                <span class="text-left">
+                                    <div class="goal-results-summary-header">
+                                        <div class="goal-results-summary-header">Goal completion</div>
+                                        <div>
+                                            <span class="complete-box green-complete">Complete</span>
+                                            <span class="complete-box red-complete">Incomplete</span>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
+                                    <canvas id="averageGoalCompleted" class="margin-top"
+                                        style="text-align:left;float:left;width:100%;height:100%;">Loading...</canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div
+                    class="col col-11 col-centered margin-top text-center no-selet d-block d-md-none d-lg-none d-xl-none">
+                    <div class="row text-center">
+                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
+                            <div class="goal-results-summary center-block text-left">
+
+                                <div class="goal-results-summary-header">Summary</div>
+                                <div id="goal-summary-line-mobile"
+                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
+                                </div>
+                                <div id="goal-results-summary-box">
+                                    <div class="goal-results-summary-item margin-top-setting">
+                                        You have saved <span id="goal-num-count-mobile" class="dark-text">?
+                                            goals</span>
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You have completed <span id="goal-completed-percentage-mobile"
+                                            class="dark-text">?</span> of goals set
+
+                                    </div>
+                                    <div class="goal-results-summary-item margin-top margin-top-setting">
+                                        You complete <span id="goal-average-points-mobile" class="dark-text">?</span> of
+                                        your
+                                        goal on average
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="col col-11 col-centered margin-top-large text-center no-selet d-block d-md-none d-lg-none d-xl-none">
+                    <div class="row text-center">
+                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
+                            style="padding-left: 0px;padding-right: 0px;">
+
+                            <div class="goal-results-summary center-block text-left">
+                                <span class="text-left">
+                                    <div class="goal-results-summary-header">
+                                        <div class="goal-results-summary-header">Goal completion</div>
+                                        <div>
+                                            <span class="complete-box green-complete">Complete</span>
+                                            <span class="complete-box red-complete">Incomplete</span>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
+                                    <canvas id="averageGoalCompleted2"
+                                        style="text-align:left;float:left;width:100%;height:100%;"
+                                        class="margin-top">Loading...</canvas>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="populate-goal-analytics" class="row margin-top-medium">
+
+                <div
+                    class="loading-green-box loading-green-box-larger margin-top-large no-select col col-11 col-md-7 col-lg-6 col-centered">
+                    No goal results found
+                </div>
+
+                <div class="col col-12 text-center margin-top-medium green-text col-centered">
+                    You can set a goal on the main analytics page. Just <span onclick="viewGoalResults()"
+                        class="green-link-style">close this
+                        panel</span>!
+                </div>
+
+            </div>
+        </div>
+
+        <div id="load-more-container" class="col col-12 col-centered no-select text-center margin-top-large">
+
+        </div>
+
+    </div>
+
+    <div id="gradient-selection" class="gradient-box rubber-band analysis-box-hidden">
+        <div class="exit-button black-text no-select" onclick="closeGradientSelection()">
+            <ion-icon class="dashboard-arrow black-text" name="close-circle"></ion-icon>
+            Close gradient selection
+        </div>
+        <div class="customize-dash-header black-text">Gradient selection</div>
+        <div class="col col-centered col-11 black-text text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Here you can pick a gradient to use as a cover!
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+
+        <div class="col col-11 col-centered">
+
+            <div id="is-using-gradient-box" class="row text-center margin-top-medium">
+
+            </div>
+            <div class="row ">
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-1" class="grad-element-box shadow cover-grad-1"
+                        onclick="selectGradientCover('cover-grad-1')">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-24" class="grad-element-box shadow cover-grad-24"
+                        onclick="selectGradientCover('cover-grad-24')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-27" class="grad-element-box shadow cover-grad-27"
+                        onclick="selectGradientCover('cover-grad-27')">
+                    </div>
+                </div>
+
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-4" class="grad-element-box shadow cover-grad-4"
+                        onclick="selectGradientCover('cover-grad-4')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-5" class="grad-element-box shadow cover-grad-5"
+                        onclick="selectGradientCover('cover-grad-5')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-6" class="grad-element-box shadow cover-grad-6"
+                        onclick="selectGradientCover('cover-grad-6')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-7" class="grad-element-box shadow cover-grad-7"
+                        onclick="selectGradientCover('cover-grad-7')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-8" class="grad-element-box shadow cover-grad-8"
+                        onclick="selectGradientCover('cover-grad-8')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-9" class="grad-element-box shadow cover-grad-9"
+                        onclick="selectGradientCover('cover-grad-9')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-10" class="grad-element-box shadow cover-grad-10"
+                        onclick="selectGradientCover('cover-grad-10')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-11" class="grad-element-box shadow cover-grad-11"
+                        onclick="selectGradientCover('cover-grad-11')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-12" class="grad-element-box shadow cover-grad-12"
+                        onclick="selectGradientCover('cover-grad-12')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-13" class="grad-element-box shadow cover-grad-13"
+                        onclick="selectGradientCover('cover-grad-13')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-14" class="grad-element-box shadow cover-grad-14"
+                        onclick="selectGradientCover('cover-grad-14')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-15" class="grad-element-box shadow cover-grad-15"
+                        onclick="selectGradientCover('cover-grad-15')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-16" class="grad-element-box shadow cover-grad-16"
+                        onclick="selectGradientCover('cover-grad-16')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-17" class="grad-element-box shadow cover-grad-17"
+                        onclick="selectGradientCover('cover-grad-17')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-18" class="grad-element-box shadow cover-grad-18"
+                        onclick="selectGradientCover('cover-grad-18')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-19" class="grad-element-box shadow cover-grad-19"
+                        onclick="selectGradientCover('cover-grad-19')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-20" class="grad-element-box shadow cover-grad-20"
+                        onclick="selectGradientCover('cover-grad-20')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-21" class="grad-element-box shadow cover-grad-21"
+                        onclick="selectGradientCover('cover-grad-21')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-22" class="grad-element-box shadow cover-grad-22"
+                        onclick="selectGradientCover('cover-grad-22')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-23" class="grad-element-box shadow cover-grad-23"
+                        onclick="selectGradientCover('cover-grad-23')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-3" class="grad-element-box shadow cover-grad-3"
+                        onclick="selectGradientCover('cover-grad-3')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
+                    <div id="cover-grad-30" class="grad-element-box shadow cover-grad-30"
+                        onclick="selectGradientCover('cover-grad-30')">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-25" class="grad-element-box shadow cover-grad-25"
+                        onclick="selectGradientCover('cover-grad-25')">
+                    </div>
+
+                </div>
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+
+                    <div id="cover-grad-26" class="grad-element-box shadow cover-grad-26"
+                        onclick="selectGradientCover('cover-grad-26')">
+                    </div>
+
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-2" class="grad-element-box shadow cover-grad-2"
+                        onclick="selectGradientCover('cover-grad-2')">
+                    </div>
+                </div>
+
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-28" class="grad-element-box shadow cover-grad-28"
+                        onclick="selectGradientCover('cover-grad-28')">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-29" class="grad-element-box shadow cover-grad-29"
+                        onclick="selectGradientCover('cover-grad-29')">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-33" class="grad-element-box shadow cover-grad-33"
+                        onclick="selectGradientCover('cover-grad-33')">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-31" class="grad-element-box shadow cover-grad-31"
+                        onclick="selectGradientCover('cover-grad-31')">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
+                    <div id="cover-grad-32" class="grad-element-box shadow cover-grad-32"
+                        onclick="selectGradientCover('cover-grad-32')">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
 
     <nav class="navbar navbar-expand nav-journal fixed-top" id="mainNav">
         <div class="container">
@@ -59,9 +543,11 @@
         </div>
     </nav>
 
-    <div class="journal-header-img journal-header-1 landing2">
-        YOUR JOURNAL
-    </div>
+    <span class="animated fadeIn" id="journal-header-box">
+        <div id="journal-header" class="journal-header-img loading-cover">
+            YOUR JOURNAL
+        </div>
+    </span>
 
     <div class="main-content">
         <div class="container-fluid mt--6">
@@ -95,22 +581,22 @@
                                             <tr>
                                                 <th>
                                                     <span class="text-muted">
-                                                        Session date
+                                                        Entry title
                                                     </span>
                                                 </th>
                                                 <th>
                                                     <span class="text-muted">
-                                                        Completion
+                                                        Priority
                                                     </span>
                                                 </th>
                                                 <th>
                                                     <span class="text-muted">
-                                                        Notes taken
+                                                        Tags used
                                                     </span>
                                                 </th>
                                                 <th>
                                                     <span class="text-muted">
-                                                        Set used
+                                                        Entry date
                                                     </span>
                                                 </th>
 
@@ -309,6 +795,77 @@
                 <div class="col-12 col-xl">
 
                     <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <!-- Title -->
+                                <h6 class="card-title text-uppercase text-muted mb-2">
+                                    CUSTOMIZE BANNER
+                                </h6>
+
+                                <!-- Heading -->
+                                <span class="h2 mb-0">
+                                    Pick a cover photo
+                                </span>
+                                <div class="margin-top-tiny">
+                                    <small class="form-text text-muted">
+                                        This picture will display at the top of your journal.
+                                    </small>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
+                                        <div id="coverOption3" class="cover-option-box landing3"
+                                            onclick="setCover('coverOption3')">
+
+                                        </div>
+                                    </div>
+                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
+                                        <div id="coverOption1" class="cover-option-box landing1"
+                                            onclick="setCover('coverOption1')">
+
+                                        </div>
+                                    </div>
+                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
+                                        <div id="coverOption2" class="cover-option-box landing2"
+                                            onclick="setCover('coverOption2')">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-12 margin-top-medium">
+                                        Or, you can select a gradient cover
+                                        <div>
+                                            <!--
+                                                    <div class="gradient-active-tag">Not using gradient cover</div>
+                                                    -->
+                                            <div id="cover-active-box" style="margin-top: 0px !important;">
+                                                <div class="badge badge-soft-danger mt--1">
+                                                    <span class="highlight-color-red-badge">Not currently
+                                                        using
+                                                        gradient cover</span>
+                                                </div>
+                                            </div>
+                                            <div class="grad-button no-select" onclick="viewGradientOptions()">Browse
+                                                gradient options
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-xl">
+
+                    <!-- Card -->
                     <div class="card shadow animated fadeIn">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -359,77 +916,7 @@
 
             </div> <!-- / .row -->
 
-            <div class="row">
-                <div class="col-12 col-xl">
 
-                    <!-- Card -->
-                    <div class="card shadow e5">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    CUSTOMIZE BANNER
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Pick a cover photo
-                                </span>
-                                <div class="margin-top-tiny">
-                                    <small class="form-text text-muted">
-                                        This picture will display at the top of your journal.
-                                    </small>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                        <div id="coverOption3"
-                                            class="cover-option-box landing3 cover-option-box-selected"
-                                            onclick="setCover('coverOption3')">
-
-                                        </div>
-                                    </div>
-                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                        <div id="coverOption1" class="cover-option-box landing1"
-                                            onclick="setCover('coverOption1')">
-
-                                        </div>
-                                    </div>
-                                    <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                        <div id="coverOption2" class="cover-option-box landing2"
-                                            onclick="setCover('coverOption2')">
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col col-12 margin-top-medium">
-                                        Or, you can select a gradient cover
-                                        <div>
-                                            <!--
-                                                <div class="gradient-active-tag">Not using gradient cover</div>
-                                                -->
-                                            <div id="cover-active-box" style="margin-top: 0px !important;">
-                                                <div class="badge badge-soft-danger mt--1">
-                                                    <span class="highlight-color-red-badge">Not currently
-                                                        using
-                                                        gradient cover</span>
-                                                </div>
-                                            </div>
-                                            <div class="grad-button no-select" onclick="viewGradientOptions()">Browse
-                                                gradient options
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -448,7 +935,7 @@
 <script src="js/dash/highlight.pack.min.js"></script>
 <script src="js/dash/flatpickr.min.js"></script>
 <script src="js/dash/jquery.mask.min.js"></script>
-
+<script src="js/moment.min.js"></script>
 <script src="js/dash/list.min.js"></script>
 <script src="js/dash/dropzone.min.js"></script>
 <script src="js/dash/select2.min.js"></script>
@@ -490,10 +977,11 @@
 <script src="js/sign-up.js"></script>
 
 <script>
+    /*
     jQuery(document).ready(function () {
         jQuery('#loader').fadeOut(330);
 
-    });
+    });*/
 
     $('#myTags').tagEditor({
 
@@ -504,10 +992,12 @@
 <script src="js/sign-up.js"></script>
 
 <script>
+    /*
     jQuery(document).ready(function () {
         jQuery('#loader').fadeOut(330);
 
     });
+    */
 
 </script>
 </body>
