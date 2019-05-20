@@ -37,6 +37,36 @@
         <div class="double-bounce2"></div>
     </div>
 
+    <div id="entryDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Entry details</div>
+                <div id="entry-date-modal" class="therapy-over-box-subheader text-center"></div>
+
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Entry title: <span id="entry-name-modal">Quick session</span>
+                        </li>
+                        <li class="list-group-item">Tagged important: <span id="entry-important-modal"
+                                class="capitalize no-select"></span>
+                        </li>
+                        <li class="list-group-item">Day created: <span id="entry-day-modal"></span>
+                        </li>
+                        <li class="list-group-item">Number of tags: <span id="entry-tags-modal">3</span></li>
+
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="set-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -274,6 +304,66 @@
 
         </div>
 
+    </div>
+
+    <div id="entry-result" class="gradient-box rubber-band analysis-box-hidden">
+        <div class="exit-button no-select force-top" style="position: absolute;" onclick="closeAnalyzeEntry()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close this entry
+        </div>
+        <span class="float-right">
+
+            <span class="float-right entry-write position-entry-details force-top extra-padding no-select"
+                onclick="viewEntryDetails()">View entry
+                details
+            </span>
+
+        </span>
+
+        <div id="entry-header" class="journal-header-img bluex loading-cover">
+            <span id="entry-date" class="white entry-date-text"></span>
+        </div>
+
+        <div class="main-content">
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col col-12 col-md-12 col-xl">
+
+                        <div class="card shadow animated fadeInUp kill-max-height modified-testing-card testing-card">
+
+                            <div class="position-creation-circles force-top">
+                                <ion-icon class="creation-circle" name="create" onclick="noteAction('edit')"></ion-icon>
+                                <ion-icon class="creation-circle creation-circle-trash" name="trash"
+                                    onclick="noteAction('trash')"></ion-icon>
+                            </div>
+                            <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                                <div class="col col-11 col-centered margin-top-medium text-center">
+                                    <span id="entry-title" class="title-style">January 6th, 2017</span>
+                                </div>
+                            </div>
+
+                            <div id="entry-body" class="col col-11 col-centered entry-body">
+                                Already getting income support from gov.
+                            </div>
+
+                            <div class="col col-8 col-centered split-line"></div>
+
+                            <div class="col col-11 col-md-9 col-lg-8 col-centered text-center">
+                                <div class="tag-box no-select">My tag</div>
+                                <div class="tag-box no-select">My tag</div>
+                                <div class="tag-box no-select">My tag</div>
+                                <div class="tag-box no-select">My tag</div>
+                                <div class="tag-box no-select">My tag</div>
+                                <div class="tag-box no-select">My tag</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
 
     <div id="gradient-selection" class="gradient-box rubber-band analysis-box-hidden">
@@ -847,7 +937,8 @@
                                                         gradient cover</span>
                                                 </div>
                                             </div>
-                                            <div class="grad-button no-select" onclick="viewGradientOptions()">Browse
+                                            <div class="grad-button no-select" onclick="viewGradientOptions()">
+                                                Browse
                                                 gradient options
                                             </div>
                                         </div>

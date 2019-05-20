@@ -19,6 +19,7 @@ var str = "";
 var loadMoreCount;
 var isUsingGradient = false;
 var goalResultsVisible = false;
+var currentlyAnalyzingEntry;
 
 var journalResults = [];
 
@@ -325,7 +326,7 @@ function viewGoalResults() {
 
     if (!goalResultsVisible) {
         $("#goal-analysis").removeClass("analysis-box-hidden");
-        setTimeout(function () { navAction('hide') }, 295);
+        setTimeout(function () { navAction('hide') }, 315);
         goalResultsVisible = true;
     }
     else {
@@ -512,7 +513,7 @@ function viewGradientOptions() {
     $("#gradient-selection").animate({ scrollTop: 0 }, "fast");
     $("#gradient-selection").removeClass("analysis-box-hidden");
 
-    setTimeout(function () { navAction('hide') }, 295);
+    setTimeout(function () { navAction('hide') }, 315);
     checkUsingGradient();
 }
 
@@ -529,240 +530,145 @@ function updateLoadMoreCount() {
     loadMoreCount--;
 }
 
-function loadMoreNotes() {
-    //FINISH THIS FUNCTION 
+function noteAction(action) {
+    if (action == "edit") {
 
-    var startingIndex;
+    }
+    else if (action == "trash") {
 
-    startingIndex = amountToLoad() - 1;
-    var destinationIndex = startingIndex - 9;
+    }
+}
 
-    if (amountToLoad() > 0) {
-        for (i = startingIndex; i >= destinationIndex; i--) {
-            if (totalLoadCount >= journalResults.length) {
-                //console.log("No more notes to load at: " + totalLoadCount);
-                break;
-            }
-            else {
+function returnDayUsed(dayInput) {
+    var dayReturned = "n/a";
 
-                //console.log("Note loaded");
-                //console.log("Index accessed: " + i);
-                str = journalResults[i].replace(/\s+/g, '');
-                //console.log("TEMPSTR: " + str);
+    if (dayInput == 0) {
+        dayReturned = "Monday";
+    }
+    else if (dayInput == 1) {
+        dayReturned = "Tuesday";
+    }
+    else if (dayInput == 2) {
+        dayReturned = "Wednesday";
+    }
+    else if (dayInput == 3) {
+        dayReturned = "Thursday";
+    }
+    else if (dayInput == 4) {
+        dayReturned = "Friday";
+    }
+    else if (dayInput == 5) {
+        dayReturned = "Saturday";
+    }
+    else if (dayInput == 6) {
+        dayReturned = "Sunday";
+    }
 
-                id = "box" + str;
-                var resultsVar = "";
-                resultsVar += "<tr id=" + id + " class = 'animated fadeIn entry' onclick='analyzeSet(\"" + str + "\");'\">";
-                resultsVar += "                                        <td id=datex" + str + " class=\"goal-project\">";
-                resultsVar += "                                            1\/2\/2019";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td id=completionStatusx" + str + " class=\"goal-status\">";
-                resultsVar += "                                            <span class=\"text-warning\">●<\/span> Started";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td id=notesx" + str + " class=\"goal-progress\">";
-                resultsVar += "                                            5";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td class=\"goal-date\">";
-                resultsVar += "                                            <time id=setUsedx" + str + " datetime=\"2018-10-24\">Quick set<\/time>";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "";
-                resultsVar += "                                        <td class=\"text-right\">";
-                resultsVar += "                                            <span class=\"analyze-link no-select\">Analyze session<\/span>";
-                resultsVar += "                                            <div class=\"dropdown\">";
-                resultsVar += "                                                <a href=\"#!\" class=\"dropdown-ellipses dropdown-toggle\" role=\"button\"";
-                resultsVar += "                                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"";
-                resultsVar += "                                                    data-boundary=\"window\">";
-                resultsVar += "                                                    <i class=\"fe fe-more-vertical\"><\/i>";
-                resultsVar += "                                                <\/a>";
-                resultsVar += "                                                <div class=\"dropdown-menu dropdown-menu-right\">";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Action";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Another action";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Something else here";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                <\/div>";
-                resultsVar += "                                            <\/div>";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                    <\/tr>";
+    return dayReturned;
+}
 
+function viewEntryDetails() {
+    console.log("Your entry: " + currentlyAnalyzingEntry);
 
-                totalLoadCount++;
+    var desc = firebase.database().ref('users/' + userID + "/journaling/entries/" + currentlyAnalyzingEntry);
+    desc.once('value', function (snapshot) {
+        document.getElementById("entry-date-modal").innerHTML = snapshot.val().entryDate;
+        document.getElementById("entry-name-modal").innerHTML = snapshot.val().entryTitle;
+        document.getElementById("entry-day-modal").innerHTML = returnDayUsed(snapshot.val().dayEntered);
+        document.getElementById("entry-tags-modal").innerHTML = snapshot.val().numTags;
 
-                document.getElementById("results-body").innerHTML += resultsVar;
+        if (!(snapshot.val().importantToggled)) {
+            //If not toggled important
+            document.getElementById("entry-important-modal").innerHTML = "No";
 
-                console.log(str);
-                var desc = firebase.database().ref('users/' + userID + "/journaling/entries/" + str);
-                //console.log("THERAPYSTR: " + therapyResults[i]);
-
-                desc.on('value', function (snapshot) {
-                    a = snapshot.val()
-                    if (a) {
-                        var tempStr = journalResults[i];
-                        console.log(tempStr);
-                        //console.log("TEMPSTR: " + tempStr);
-
-                        updateLoadMoreCount();
-
-                        document.getElementById("datex" + tempStr).innerHTML = '';
-                        //document.getElementById("datex" + tempStr).innerHTML = snapshot.val().setDate;
-                        document.getElementById("notesx" + tempStr).innerHTML = '3';
-                        document.getElementById("setUsedx" + tempStr).innerHTML = '4';
-                        //console.log(snapshot.val().setUsed);
-
-                        if (snapshot.val().completionStatus == true) {
-                            var complete = "";
-                            complete += "<td class=\"goal-status\">";
-                            complete += "                                            <span class=\"text-success\">●<\/span> Completed";
-                            complete += "                                        <\/td>";
-
-                            document.getElementById("completionStatusx" + tempStr).innerHTML = complete;
-
-                        }
-                        else {
-                            var incomplete = "";
-                            incomplete += "<td class=\"goal-status\">";
-                            incomplete += "                                            <span class=\"text-warning\">●<\/span> Incomplete";
-                            incomplete += "                                        <\/td>";
-
-                            document.getElementById("completionStatusx" + tempStr).innerHTML = incomplete;
-                        }
-                    }
-                });
-            }
+            $("#entry-important-modal").addClass("goal-completed-highlight-red");
+            $("#entry-important-modal").removeClass("goal-completed-highlight-green");
         }
-    }
-    //You have no notes to load
-    else {
-        console.log("You have no notes at all to be loaded");
-        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 col-centered animated flipInX'> <span class = 'error-message no-select'>No more sessions to load!</span></div>"
+        else {
+            //If toggled important
+            document.getElementById("entry-important-modal").innerHTML = "Yes";
 
-    }
+            $("#entry-important-modal").removeClass("goal-completed-highlight-red");
+            $("#entry-important-modal").addClass("goal-completed-highlight-green");
+        }
+    });
 
     /*
-    if (amountToLoad() > 0) {
-        for (i = startingIndex; i >= destinationIndex; i--) {
-            //console.log(i);
-            if (totalLoadCount >= journalResults.length) {
-                break;
-            }
-            else {
-                str = journalResults[i].replace(/\s+/g, '');
-                console.log(str);
-            }
-        }
-    }*/
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyResults/" + currentlyAnalyzingSession);
+    desc.on('value', function (snapshot) {
 
-    //You have notes to load
-    /*
-    if (amountToLoad() > 0) {
-        for (i = startingIndex; i >= destinationIndex; i--) {
-            if (totalLoadCount >= journalResults.length) {
-                //console.log("No more notes to load at: " + totalLoadCount);
-                break;
-            }
-            else {
-                //console.log("Note loaded");
-                //console.log("Index accessed: " + i);
-                str = journalResults[i].replace(/\s+/g, '');
-                //console.log("TEMPSTR: " + str);
- 
-                id = "box" + str;
-                var resultsVar = "";
-                resultsVar += "<tr id=" + id + " class = 'animated fadeIn entry' onclick='analyzeEntry(\"" + str + "\");'\">";
-                resultsVar += "                                        <td id=titlex" + str + " class=\"goal-project\">";
-                resultsVar += "                                            1\/2\/2019";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td id=importantx" + str + " class=\"goal-status\">";
-                resultsVar += "                                            <span class=\"text-warning\">●<\/span> Started";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td id=tagsx" + str + " class=\"goal-progress\">";
-                resultsVar += "                                            5";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                        <td class=\"goal-date\">";
-                resultsVar += "                                            <time id=datex" + str + " datetime=\"2018-10-24\">Quick set<\/time>";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "";
-                resultsVar += "                                        <td class=\"text-right\">";
-                resultsVar += "                                            <span class=\"analyze-link no-select\">Analyze session<\/span>";
-                resultsVar += "                                            <div class=\"dropdown\">";
-                resultsVar += "                                                <a href=\"#!\" class=\"dropdown-ellipses dropdown-toggle\" role=\"button\"";
-                resultsVar += "                                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"";
-                resultsVar += "                                                    data-boundary=\"window\">";
-                resultsVar += "                                                    <i class=\"fe fe-more-vertical\"><\/i>";
-                resultsVar += "                                                <\/a>";
-                resultsVar += "                                                <div class=\"dropdown-menu dropdown-menu-right\">";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Action";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Another action";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
-                resultsVar += "                                                        Something else here";
-                resultsVar += "                                                    <\/a>";
-                resultsVar += "                                                <\/div>";
-                resultsVar += "                                            <\/div>";
-                resultsVar += "                                        <\/td>";
-                resultsVar += "                                    <\/tr>";
- 
- 
-                totalLoadCount++;
- 
-                document.getElementById("results-body").innerHTML += resultsVar;
- 
-                var desc = firebase.database().ref('users/' + userID + "/journaling/" + str);
-                //console.log("THERAPYSTR: " + therapyResults[i]);
- 
-                desc.on('value', function (snapshot) {
-                    var tempStr = journalResults[i];
-                    //console.log("TEMPSTR: " + tempStr);
- 
-                    updateLoadMoreCount();
- 
-                    console.log("titlex" + tempStr);
- 
-                    document.getElementById("titlex" + tempStr).innerHTML = snapshot.val().entryTitle;
-                    document.getElementById("importantx" + tempStr).innerHTML = snapshot.val().importantToggled;
-                    document.getElementById("tagsx" + tempStr).innerHTML = snapshot.val().numTags;
-                    //console.log(snapshot.val().setUsed);
- 
-                    if (snapshot.val().importantToggled == true) {
-                        var complete = "";
-                        complete += "<td class=\"goal-status\">";
-                        complete += "                                            <span class=\"text-success\">●<\/span> Important";
-                        complete += "                                        <\/td>";
- 
-                        document.getElementById("importantx" + tempStr).innerHTML = complete;
- 
-                    }
-                    else {
-                        var incomplete = "";
-                        incomplete += "<td class=\"goal-status\">";
-                        incomplete += "                                            <span class=\"text-warning\">●<\/span> Not marked important";
-                        incomplete += "                                        <\/td>";
- 
-                        document.getElementById("importantx" + tempStr).innerHTML = incomplete;
-                    }
-                });
-            }
-        }
-    }
-    //You have no notes to load
-    else {
-        console.log("You have no notes at all to be loaded");
-        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 col-centered animated flipInX'> <span class = 'error-message no-select'>No more sessions to load!</span></div>"
- 
-    }
+        document.getElementById("therapy-set").innerHTML = snapshot.val().setUsed;
+        document.getElementById("therapy-date").innerHTML = snapshot.val().setDate;
+        document.getElementById("therapy-sessions-completed").innerHTML = snapshot.val().sessionProgress;
+        document.getElementById("therapy-sessions-total").innerHTML = snapshot.val().totalSessions;
+        document.getElementById("therapy-notes-count").innerHTML = snapshot.val().notesTaken;
+
+        $("#sessionDetails").modal('toggle');
+    });
     */
 
+    $("#entryDetails").modal('toggle');
 }
 
 function analyzeEntry(entry) {
-    console.log(entry);
+    navAction('hide');
+
+    currentlyAnalyzingEntry = entry;
+
+
+    var desc = firebase.database().ref('users/' + userID + '/journaling/entries/' + entry);
+
+    desc.once('value', function (snapshot) {
+
+        var coverTypeLocal = snapshot.val().coverType;
+        if (coverTypeLocal == "coverOption3") {
+            document.getElementById("entry-header").className = "journal-header-img journal-header-2";
+        }
+        else {
+            document.getElementById("entry-header").className = "journal-header-img " + coverTypeLocal;
+        }
+
+        document.getElementById("entry-title").innerHTML = snapshot.val().entryTitle;
+        document.getElementById("entry-date").innerHTML = snapshot.val().entryDate;
+
+        var entryBody = snapshot.val().entryData;
+
+        document.getElementById("entry-body").innerHTML = entryBody;
+
+        //document.getElementById("entry-body").innerHTML = entryBody;
+
+        /*
+        if (coverTypeLocal != "coverOption3" && coverTypeLocal != "journal-header-2" && coverTypeLocal != "journal-header-3") {
+            //Gradient cover
+            document.getElementById("entry-header").className = "journal-header-img " + coverTypeLocal;
+        }
+        else {
+            //Picture cover
+            console.log(coverTypeLocal);
+            if (coverTypeLocal == "coverOption3") {
+                document.getElementById("entry-header").className = "journal-header-img journal-header-2";
+            }
+            else if (coverTypeLocal == "coverOption2") {
+                console.log("entered");
+                document.getElementById("entry-header").className = "journal-header-img journal-header-3";
+            }
+            else if (coverTypeLocal == "coverOption1") {
+                document.getElementById("entry-header").className = "journal-header-img journal-header-1";
+            }
+        }
+        */
+    });
+
+    $("#entry-result").removeClass("analysis-box-hidden");
+    $("#entry-result").addClass("analysis-box-visible");
+}
+
+function closeAnalyzeEntry() {
+    navAction('view');
+    $("#entry-result").animate({ scrollTop: 0 }, "fast");
+    $("#entry-result").removeClass("analysis-box-visible");
+    $("#entry-result").addClass("analysis-box-hidden");
 }
 
 function checkUsingGradient() {
@@ -1112,7 +1018,7 @@ function loadResults() {
             if (snapshot.val().importantToggled == true) {
                 var complete = "";
                 complete += "<td class=\"goal-status\">";
-                complete += "                                            <span class=\"text-success\">●<\/span>Important";
+                complete += "                                            <span class=\"text-success\">●<\/span> Important";
                 complete += "                                        <\/td>";
 
                 document.getElementById("important" + tempStr).innerHTML = complete;
@@ -1128,6 +1034,113 @@ function loadResults() {
             }
 
         });
+    }
+}
+
+function loadMoreNotes() {
+
+    var startingIndex;
+    var destinationIndex;
+
+    startingIndex = amountToLoad() - 1;
+    destinationIndex = startingIndex - 9;
+    //console.log("INIT STR: " + str);
+    var desc;
+
+    if (amountToLoad() > 0) {
+        for (var i = startingIndex; i >= destinationIndex; i--) {
+            if (totalLoadCount >= journalResults.length) {
+                break;
+            }
+            else {
+                str = journalResults[i].replace(/\s+/g, '');
+                desc = desc = firebase.database().ref('users/' + userID + "/journaling/entries/" + str);
+                desc.on('value', function (snapshot) {
+
+                    var addStr = snapshot.val().idRef;
+
+                    var id = "box" + addStr;
+
+                    //var ref = snapshot.val();
+                    //console.log(ref);
+
+                    //console.log("id: " + id);
+                    var resultsVar = "";
+                    resultsVar += "<tr id=" + id + " class = 'animated fadeIn entry' onclick='analyzeEntry(\"" + addStr + "\");'\">";
+                    resultsVar += "                                        <td id=titlex" + addStr + " class=\"goal-project\">";
+                    resultsVar += "                                            1\/2\/2019";
+                    resultsVar += "                                        <\/td>";
+                    resultsVar += "                                        <td id=importantx" + addStr + " class=\"goal-status\">";
+                    resultsVar += "                                            <span class=\"text-warning\">●<\/span> Started";
+                    resultsVar += "                                        <\/td>";
+                    resultsVar += "                                        <td id=tagsx" + addStr + " class=\"goal-progress\">";
+                    resultsVar += "                                            5";
+                    resultsVar += "                                        <\/td>";
+                    resultsVar += "                                        <td class=\"goal-date\">";
+                    resultsVar += "                                            <time id=datex" + addStr + " datetime=\"2018-10-24\">Quick set<\/time>";
+                    resultsVar += "                                        <\/td>";
+                    resultsVar += "";
+                    resultsVar += "                                        <td class=\"text-right\">";
+                    resultsVar += "                                            <span class=\"analyze-link no-select\">Analyze entry<\/span>";
+                    resultsVar += "                                            <div class=\"dropdown\">";
+                    resultsVar += "                                                <a href=\"#!\" class=\"dropdown-ellipses dropdown-toggle\" role=\"button\"";
+                    resultsVar += "                                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"";
+                    resultsVar += "                                                    data-boundary=\"window\">";
+                    resultsVar += "                                                    <i class=\"fe fe-more-vertical\"><\/i>";
+                    resultsVar += "                                                <\/a>";
+                    resultsVar += "                                                <div class=\"dropdown-menu dropdown-menu-right\">";
+                    resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
+                    resultsVar += "                                                        Action";
+                    resultsVar += "                                                    <\/a>";
+                    resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
+                    resultsVar += "                                                        Another action";
+                    resultsVar += "                                                    <\/a>";
+                    resultsVar += "                                                    <a href=\"#!\" class=\"dropdown-item\">";
+                    resultsVar += "                                                        Something else here";
+                    resultsVar += "                                                    <\/a>";
+                    resultsVar += "                                                <\/div>";
+                    resultsVar += "                                            <\/div>";
+                    resultsVar += "                                        <\/td>";
+                    resultsVar += "                                    <\/tr>";
+
+                    document.getElementById("results-body").innerHTML += resultsVar;
+
+                    var truncatedTitle = snapshot.val().entryTitle;
+
+                    if (truncatedTitle.length > 40) {
+                        truncatedTitle = snapshot.val().entryTitle.substring(0, 40) + "..."
+                    }
+
+                    document.getElementById("titlex" + addStr).innerHTML = truncatedTitle;
+                    document.getElementById("tagsx" + addStr).innerHTML = snapshot.val().numTags;
+                    document.getElementById("datex" + addStr).innerHTML = snapshot.val().entryDate;
+
+                    if (snapshot.val().importantToggled == true) {
+                        var complete = "";
+                        complete += "<td class=\"goal-status\">";
+                        complete += "                                            <span class=\"text-success\">●<\/span> Important";
+                        complete += "                                        <\/td>";
+
+                        document.getElementById("importantx" + addStr).innerHTML = complete;
+
+                    }
+                    else {
+                        var incomplete = "";
+                        incomplete += "<td class=\"goal-status\">";
+                        incomplete += "                                            <span class=\"text-warning\">●<\/span> Normal priority";
+                        incomplete += "                                        <\/td>";
+
+                        document.getElementById("importantx" + addStr).innerHTML = incomplete;
+                    }
+
+                });
+                totalLoadCount++;
+            }
+        }
+    }
+    else {
+
+        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 col-centered animated flipInX'> <span class = 'error-message no-select'>No more entries to load!</span></div>";
     }
 }
 

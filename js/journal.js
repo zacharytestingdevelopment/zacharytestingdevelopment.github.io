@@ -189,7 +189,7 @@ function updateCurrentNote(updateType) {
 
     var user = firebase.auth().currentUser;
     var d = new Date();
-    var data = quill.getContents();
+    var data = quill.root.innerHTML;
     var entryDateVal = getEntryDate();
 
     var importantToggled = document.getElementById("importantToggle").checked;
@@ -324,7 +324,7 @@ function saveEntry() {
     var d = new Date();
     var timeSet = d.getTime();
 
-    var data = quill.getContents();
+    var data = quill.root.innerHTML;
 
     var entryDateVal = getEntryDate();
 
@@ -338,7 +338,8 @@ function saveEntry() {
         importantToggled: importantToggled,
         entryTags: getTagValues(),
         numTags: getTagsLength(),
-        dayEntered: getCurrentDay()
+        dayEntered: getCurrentDay(),
+        idRef: timeSet
     });
 
     if (!entrySavedOnPage) {
@@ -383,7 +384,7 @@ function saveEntry() {
         $("#note-already-taken-modal").modal('toggle');
     }
 
-    console.log("Saving: " + currentEntryID);
+    //console.log("Saving: " + currentEntryID);
 
 
     /*

@@ -1703,8 +1703,7 @@ function loadMoreNotes() {
     }
     //You have no notes to load
     else {
-        console.log("You have no notes at all to be loaded");
-        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 col-centered animated flipInX'> <span class = 'error-message no-select'>No more sessions to load!</span></div>"
+        document.getElementById("error-message-box").innerHTML = "<div class = 'col col-11 col-md-8 col-lg-8 col-centered animated flipInX'> <span class = 'error-message no-select'>No more sessions to load!</span></div>";
 
     }
 }
