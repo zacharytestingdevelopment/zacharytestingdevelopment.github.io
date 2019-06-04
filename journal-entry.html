@@ -36,10 +36,28 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="loadJournalHeader()">
     <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
+    </div>
+
+    <div id="prompts-panel" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="closePrompts()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close prompt browser
+        </div>
+        <div class="customize-dash-header">Pick a prompt!</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Some inspiration to help get your thoughts flowing
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+
     </div>
 
     <div id="gradient-selection" class="gradient-box rubber-band analysis-box-hidden">
@@ -364,7 +382,13 @@
     </nav>
 
     <div id="journal-header" class="journal-header-img-entry journal-header-2">
-        <span id="journal-header-title" class="white">WRITE ENTRY</span>
+        <!-- <span id="journal-header-title" class="white">WRITE ENTRY</span>-->
+        <div id="journal-entry-header-title" style="display:table-cell;vertical-align:middle;">
+            <span class="prompt-announcement">YOUR PROMPT</span>
+            <div class="prompt-announcement-divider margin-top col-centered"></div>
+            <div class="margin-top-tiny no-select prompt-body col col-11 col-centered">If you could be an animal, what
+                kind would you be?</div>
+        </div>
     </div>
 
     <div class="main-content">
@@ -377,6 +401,12 @@
                     <div class="card shadow animated slideInUp"
                         style="opacity:1 !important;padding-bottom: 15px;padding-top:5px;">
                         <div class="card-header">
+
+
+                            <div class="prompt-button force-top no-select" onclick="openPrompts()">
+                                <ion-icon name="bulb" class="bulb-button inherit"></ion-icon> Use a
+                                prompt
+                            </div>
                             <div class="row justify-content-center">
                                 <div class="col-12 col-md-11 col-lg-11 col-xl-10">
 
@@ -389,12 +419,12 @@
 
 
                                                     <h6 class="header-pretitle">
-                                                        How are you doing today?
+                                                        Start here
                                                     </h6>
 
 
-                                                    <h1 class="header-title">
-                                                        Start here
+                                                    <h1 id="header-title" class="header-title">
+                                                        Write your entry
                                                     </h1>
 
                                                 </div>
@@ -409,8 +439,9 @@
                                             <label>
                                                 Entry title
                                             </label>
-                                            <input id="entryTitle" type="text"
-                                                class="text-input-style-small form-control" placeholder="Enter a title">
+                                            <input onkeyup="titleUpdate()" onchange="titleUpdate()" id="entryTitle"
+                                                type="text" class="text-input-style-small form-control"
+                                                placeholder="Enter a title">
                                         </div>
 
 

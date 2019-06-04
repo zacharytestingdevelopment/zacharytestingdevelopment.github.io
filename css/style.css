@@ -1101,6 +1101,128 @@ navbar
     font-size:38px;
 }
 
+.margin-bottom-medium
+{
+    margin-bottom: 10px;
+}
+
+.elimate-left-pad 
+{
+    padding-left: 0px;
+}
+
+.creative-button
+{
+    border:2px solid #e44c3c;
+    color:#e44c3c;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.creative-button:hover
+{
+    cursor: pointer;
+    background:#e44c3c;
+    color:#fff;
+}
+
+.all-button
+{
+    border: 2px solid #454545;
+    color:#454545;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.all-button:hover
+{
+    cursor: pointer;
+    background:#454545;
+    color:#fff;
+}
+
+.reflective-button
+{
+    border: 2px solid #9a59b6;
+    color:#9a59b6;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.reflective-button:hover
+{
+    background:#9a59b6;
+    color:#fff;
+}
+
+.emotions-button
+{
+    border: 2px solid #1abb9c;
+    color:#1abb9c;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.emotions-button:hover
+{
+    cursor: pointer;
+    background:#1abb9c;
+    color:#fff;
+}
+
+.abstract-button
+{
+    border: 2px solid #f29c13;
+    color:#f29c13;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.abstract-button:hover
+{
+    cursor: pointer;
+    background:#f29c13;
+    color:#fff;
+}
+
+.scroll
+{overflow: scroll;}
+
+.nonfiction-button
+{
+    border: 2px solid #0043d1;
+    color:#0043d1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s ease;
+}
+
+.nonfiction-button:hover
+{
+    cursor: pointer;
+    background:#0043d1;
+    color:#fff;
+}
+
+
+
 .green-footer
 {
     border-bottom: 1.5px solid #3ee986 !important;
@@ -2066,6 +2188,11 @@ body.modal-open {
 .margin-top-tiny
 {
     margin-top:7px;
+}
+
+.margin-top-prompt
+{
+    margin-top:10px;
 }
 
 .margin-top-jump

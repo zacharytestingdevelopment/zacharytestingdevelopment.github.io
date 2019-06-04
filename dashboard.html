@@ -1,153 +1,662 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 
-    <!-- Libs CSS -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Therapy analysis | EMDR</title>
+
+    <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
-    <link rel="stylesheet" href="css/dash/quill.core.css" />
-    <link rel="stylesheet" href="css/dash/select2.min.css" />
-    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
-    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
-    <link rel="stylesheet" href="css/dash/vs2015.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/dashboard.css" />
-    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <link
+        href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
-    <link href="css/therapy.css" rel="stylesheet" />
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/creative.css" rel="stylesheet">
+    <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
+  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
+  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
+
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
-    <style>
-        body {
-            display: none;
-        }
+    <!-- Custom styles for this template -->
 
-        .chart-style {
-            display: inline-block !important;
-            margin-bottom: 500px !important;
-        }
-    </style>
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/therapy.css" rel="stylesheet" />
+    <link href="css/spectrum.css" rel="stylesheet" />
 
-
-    <title>Dashboard</title>
 </head>
 
-<body>
-    <div id="loader" class="spinner"
-        style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
+<body id="page-top">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
 
-    <div id="full-body-wrap" class="full-body-wrap">
-        <div class="exit-button no-select" onclick="closeDash('general')">
-            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-            Back to dashboard
-        </div>
-        <div class="customize-dash-header">Customize dashboard</div>
-        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
-            Click and drag the elements to change the order that they appear on your dashboard! You can also activate
-            and disable elements by dragging them
-            between lists.
-        </div>
 
-        <div class="margin-top-large col col-12 col-centered">
-            <div class="row slight-border">
 
-            </div>
-        </div>
+    <div id="sessionDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Therapy details</div>
+                <div id="therapy-date" class="therapy-over-box-subheader text-center">January 7th, 2019</div>
 
-        <div class="col col-11 margin-top-large col-xl-9 col-centered">
-            <div class="row">
-                <div class="col">
-                    <div class="customize-list-header">Visible elements</div>
-                    <div id="customize-left" class="list-group">
-                        <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
-                        <span class="list-group-item index" style="color:#3ee986;">To-do</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Journaling</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Activities</span>
-                    </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Set used: <span id="therapy-set">Quick session</span>
+                        </li>
+                        <li class="list-group-item">Sessions completed: <span
+                                id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
+                        </li>
+                        <li class="list-group-item">Notes taken: <span id="therapy-notes-count">3</span></li>
+                    </ul>
                 </div>
 
-                <div class="col">
-                    <div class="customize-list-header">Hidden elements</div>
-                    <div id="customize-right" class="list-group">
-                        <span class="list-group-item index" style="color:#3ee986;">Journal entries list</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Daily quotes</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Journal quick entry</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
-                        <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
-                    </div>
-                </div>
-
-                <div class="col col-12 text-center margin-top-large">
-                    <div class="save-button col-centered no-select" onclick="closeDash('save')">Save and exit</div>
-                    <span class="col-12 margin-top">
-                        <span class="no-position-change margin-top exit-button-underline exit-button no-select"
-                            onclick="closeDash('default')">
-                            Restore
-                            to default
-                        </span>
+                <div class="modal-footer">
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="modalCall" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+    <div id="nextSession" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <div class="modal-header-element">Customize dashboard</div>
-                <div class="therapy-over-box-subheader-tiny text-center">Drag the elements to change the order in
-                    which
-                    they appear.</div>
-
+            <div class="modal-content therapy-modal">
+                <div class="therapy-over-box-header">The session is over</div>
+                <div class="therapy-over-box-subheader text-center">Let's record your progress (optional)</div>
                 <div class="modal-body">
+                    <div id="your-mood-box-session">
+
+                    </div>
+
+                    <div id="your-recall-box-session">
+
+                    </div>
+
+                    <div id="your-suds-box-session">
+
+                    </div>
+
+                    <div id="your-vac-box-session">
+
+                    </div>
+
+
+
+                    <textarea id="next-set-description" maxlength="300" id="session-input-description"
+                        placeholder="How are you feeling?" class="text-input textarea margin-top"></textarea>
+
+
 
                 </div>
+                <div class="position-therapy-check">
+                    <label class="form-check-label no-select" for="sessionCheck">
+                        Save therapy results on exit
+                    </label>
+                    <input class="form-check-input position-check" type="checkbox" value="" id="sessionCheck" checked>
+                </div>
+
                 <div class="modal-footer">
-                    <span class="close-button no-select" data-dismiss="modal">Close</span>
-                    <span class="save-changes-button no-select" onclick="updatedEditSet()">SAVE CHANGES</span>
+                    <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('ending')">End
+                        Therapy</span>
+                    <span class="save-changes-button no-select" onclick="nextSession()">NEXT SESSION</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MAIN CONTENT
-    ================================================== -->
+    <div id="therapyOver" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content therapy-modal">
+                <div class="therapy-over-box-header">The therapy is over</div>
+                <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)</div>
+                <div class="modal-body">
+                    <div id="your-mood-box-therapy">
+
+                    </div>
+
+                    <div id="your-recall-box-therapy">
+
+                    </div>
+
+                    <div id="your-suds-box-therapy">
+
+                    </div>
+
+                    <div id="your-vac-box-therapy">
+
+                    </div>
+
+
+
+                    <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
+                        class="text-input textarea margin-top"></textarea>
+                </div>
+                <div class="position-therapy-check">
+                    <label class="form-check-label no-select" for="therapyCheck">
+                        Save therapy results
+                    </label>
+                    <input class="form-check-input position-check" type="checkbox" value="" id="therapyCheck" checked>
+                </div>
+                <div class="modal-footer">
+                    <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('end')">End
+                        Therapy</span>
+                    <span class="save-changes-button no-select" onclick="saveTherapyResults('analyze')">ANALYZE
+                        SESSION</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="therapy-results" class="full-width mobile-scroll results-box results-box-inactive">
+        <div class="main-content">
+
+            <!-- HEADER -->
+            <div class="header bg-dark pb-5" style="background:#12253f !important;">
+                <div class="container-fluid">
+
+                    <!-- Body -->
+                    <div class="header-body">
+                        <div class="dashboard-return">
+
+                            <span class="no-select return-text" onclick="closeAnalyzeSet()">
+                                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                                Close EMDR analysis
+                            </span>
+
+                            <span class="float-right">
+
+                                <span class="float-right entry-write extra-padding no-select"
+                                    onclick="viewSessionDetails()">View session details
+                                </span>
+
+                            </span>
+                        </div>
+
+                        <div class="row align-items-end">
+
+                            <div class="col">
+
+                                <!-- Pretitle -->
+                                <h6 class="margin-top header-pretitle text-secondary">
+                                    Overview
+                                </h6>
+
+                                <!-- Title -->
+                                <h1 class="header-title text-white">
+                                    Average mood
+                                </h1>
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Nav -->
+                                <ul class="nav nav-tabs header-tabs">
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                        data-prefix="$" data-suffix="k">
+                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Mood
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                        data-prefix="" data-suffix="k">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                Recall
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                        data-prefix="" data-suffix="%">
+                                        <a href="#" class="nav-link text-center" data-toggle="tab">
+                                            <h6 class="header-pretitle text-secondary">
+                                                Display
+                                            </h6>
+                                            <h3 class="text-white mb-0">
+                                                SUDS
+                                            </h3>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div> <!-- / .header-body -->
+
+                    <!-- Footer -->
+                    <div class="header-footer">
+
+                        <!-- Chart -->
+                        <div class="chart">
+
+                            <div class="full"><canvas id="main-chart" class="full"></canvas></div>
+
+                            <!--<canvas id="headerChart" class="chart-style"></canvas>-->
+                            <!--
+                                    <canvas id="mains-chart" style="height:100%;width:100%;"
+                                        class="chart-style"></canvas>
+                                    -->
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> <!-- / .header -->
+
+            <!-- CARDS -->
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col-12 col-centered col-xl-11">
+
+                        <!-- Goals -->
+                        <div class="card shadow animated slideInUp"
+                            style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h4 class="card-header-title larger-card-header">
+                                            Your notes
+                                        </h4>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                        <a href="emdr.html" class="kill-link-style">
+                                            <span class="float-right no-select goal-button"
+                                                onclick="restartSession()">Do another
+                                                session</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="spawnNotes" class="text-center"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div id="analysis-mood" class="col-12 col-md-6 col-xl">
+
+
+                        <div class="card shadow e1">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Your results
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            Mood
+                                        </span>
+
+
+                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                            Average mood: <span id="average-mood" class="white">5</span>
+                                        </span>
+                                        <div class="analyze-box-section-choices">
+                                            <span id="lineChart5"
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                            <span id="barChart5"
+                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                        </div>
+
+                                        <div>
+                                            <canvas id="myChart5" height="305" class="margin-top"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="analysis-recall" class="col-12 col-md-6 col-xl">
+
+
+                        <div class="card shadow e1">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Your results
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            Recall
+                                        </span>
+
+
+                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                            Average recall: <span id="average-recall" class="white">5</span>
+                                        </span>
+                                        <div class="analyze-box-section-choices">
+                                            <span id="lineChart4"
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                            <span id="barChart4"
+                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                        </div>
+
+
+                                        <div>
+                                            <canvas id="myChart4" height="305" class="margin-top"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div id="analysis-suds" class="col-12 col-md-6 col-xl">
+
+
+                        <div class="card force-card-height shadow e1">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Your results
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            SUDS
+                                        </span>
+
+
+                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                            Average SUDS: <span id="average-suds" class="white">5</span>
+                                        </span>
+                                        <div class="analyze-box-section-choices">
+                                            <span id="lineChart2"
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                            <span id="barChart2"
+                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                        </div>
+
+                                        <div>
+                                            <canvas id="myChart2" height="305" class="margin-top"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="analysis-vac" class="col-12 col-md-6 col-xl">
+
+
+                        <div class="card force-card-height shadow e1">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            Your results
+                                        </h6>
+
+
+                                        <span class="h2 mb-0">
+                                            VAC
+                                        </span>
+
+
+                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
+                                            Average VAC: <span id="average-vac" class="white">5</span>
+                                        </span>
+                                        <div class="analyze-box-section-choices">
+                                            <span id="lineChart3"
+                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
+                                            <span id="barChart3"
+                                                class="analyze-box-section-choice right-round no-select">Bar</span>
+                                        </div>
+
+                                        <div>
+                                            <canvas id="myChart3" height="305" class="margin-top"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-12 col-xl">
+
+                        <!-- Card -->
+                        <div class="card shadow e5">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Title -->
+                                        <h6 class="card-title text-uppercase text-muted mb-2">
+                                            You finished this session!
+                                        </h6>
+
+                                        <!-- Heading -->
+                                        <span class="h2 mb-0">
+                                            What now?
+                                        </span>
+
+                                        <div
+                                            class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
+                                            You completed this therapy and the results have been saved. You can do
+                                            another session, or close this panel to continue your analysis.
+                                            Alternatively, you <a href="dashboard.html" class="link-style"> can
+                                                click here</a> to go to the main dashboard to select another therapy or
+                                            activity
+                                            to try.
+
+
+                                        </div>
+                                        <div class="margin-top-setting">
+                                            <a href="emdr.html" class="kill-link-style inherit">
+                                                <span class="no-select goal-button margin-top-tiny">
+                                                    Do another session
+                                                </span>
+                                            </a>
+
+                                            <span onclick="closeAnalyzeSet()"
+                                                class="no-select goal-button margin-top-tiny">Close this panel
+                                            </span>
+
+
+                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
     <div class="main-content">
 
 
+        <div id="full-body-wrap" class="full-body-wrap">
+            <div class="exit-button no-select" onclick="closeDash('general')">
+                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                Back to dashboard
+            </div>
+            <div class="customize-dash-header">Customize dashboard</div>
+            <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+                Click and drag the elements to change the order that they appear on your dashboard! You can also
+                activate
+                and disable elements by dragging them
+                between lists.
+            </div>
+
+            <div class="margin-top-large col col-12 col-centered">
+                <div class="row slight-border">
+
+                </div>
+            </div>
+
+            <div class="col col-11 margin-top-large col-xl-9 col-centered">
+                <div class="row">
+                    <div class="col">
+                        <div class="customize-list-header">Visible elements</div>
+                        <div id="customize-left" class="list-group">
+                            <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
+                            <span class="list-group-item index" style="color:#3ee986;">To-do</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Journaling</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Activities</span>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="customize-list-header">Hidden elements</div>
+                        <div id="customize-right" class="list-group">
+                            <span class="list-group-item index" style="color:#3ee986;">Journal entries list</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Daily quotes</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Journal quick entry</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
+                            <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
+                        </div>
+                    </div>
+
+                    <div class="col col-12 text-center margin-top-large">
+                        <div class="save-button col-centered no-select" onclick="closeDash('save')">Save and exit</div>
+                        <span class="col-12 margin-top">
+                            <span class="no-position-change margin-top exit-button-underline exit-button no-select"
+                                onclick="closeDash('default')">
+                                Restore
+                                to default
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- HEADER -->
-        <div class="header bg-dark pb-5" style="background:#12253f !important;">
+        <div class="header bg-dark pb-5 resize-top-analyze" style="background:#12253f !important;">
             <div class="container-fluid">
 
                 <!-- Body -->
                 <div class="header-body">
                     <div class="dashboard-return">
-                        <!--
-                        <a href="dashboard.html" class="kill-link-style">
-                            <span class="no-select return-text">
-                                <ion-icon class="dashboard-arrow" name="arrow-round-back"></ion-icon>
-                                Return to main dashboard
-                            </span>
-                        </a>
-                    -->
+
+                        <span class="no-select return-text" onclick="customizeDash()">
+                            <ion-icon class="dashboard-arrow" name="cog"></ion-icon>
+                            Customize dashboard
+                        </span>
+
                         <span class="float-right">
 
                             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -165,469 +674,444 @@
                         </span>
                     </div>
 
-                    <!-- IMPORTANT: ADD THIS IN IF THE USER HAS DATA THAT CAN BE DISPLAYED -->
                     <div class="row align-items-end">
 
                         <div class="col">
 
-
+                            <!-- Pretitle -->
                             <h6 class="margin-top header-pretitle text-secondary">
                                 Overview
                             </h6>
 
-
+                            <!-- Title -->
                             <h1 class="header-title text-white">
-                                Track your life
+                                Average mood
                             </h1>
 
                         </div>
-                        <!--
-                        <span class="float-right">
+                        <div class="col-auto">
 
-                            <div class="green-button green-button-dash no-select">
-                                View other stats
-                        </span>
-                    -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="header-footer">
-                <div class="chart">
-                    <canvas id="headerChart" class="chart-style"></canvas>
-                </div>
-            </div>
-
-            <!--
-                    IMPORTANT: ADD THIS WHEN THE USER HAS DATA TO DISPLAY
-                <div class="add-data text-center">
-                    Add some data to start tracking your progress!
-                    <br />
-                    <div class="get-started no-select">Get started</div>
-                </div>
-            -->
-
-        </div>
-    </div>
-
-    <!-- CARDS -->
-    <div class="container-fluid mt--6">
-        <div class="row">
-            <div class="col-12 col-centered col-xl-12">
-                <!-- Goals -->
-                <div class="card shadow animated slideInUp"
-                    style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h4 class="card-header-title larger-header">
-                                    Jump to a tool
-                                </h4>
-
-                            </div>
-                            <div class="col">
-                                <span class="float-right no-select goal-button" onclick="customizeDash()">Customize
-                                    dashboard</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">Life recording</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Start session</span>
-                                        </a>
-                                        <a href="therapy-analysis-emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Analyze session</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">Guided breathing</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Start session</span>
-                                        </a>
-                                        <span class="jump-box-button no-select">Analyze sessions</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">EMDR</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Start session</span>
-                                        </a>
-                                        <a href="therapy-analysis-emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Analyze session</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">Journaling</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="journal.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Read journal</span>
-                                        </a>
-                                        <a href="journal-entry.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Write entry</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">Activities</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Start session</span>
-                                        </a>
-                                        <span class="jump-box-button no-select">Analyze sessions</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col col-lg-4 col-md-6 col-12 margin-top">
-                                <div class="jump-box shadow">
-                                    <span class="jump-box-header">To-do list</span>
-                                    <div class="jump-box-body margin-top-small">Working towards a calmer, more
-                                        introspective
-                                        headspace (placeholder).</div>
-                                    <div class="margin-top-jump">
-                                        <a href="journal.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Read journal</span>
-                                        </a>
-                                        <a href="journal-entry.html" class="kill-link-style">
-                                            <span class="jump-box-button no-select">Write entry</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div> <!-- / .row -->
-        <div class="row">
-            <div class="col-12 col-md-6 col-xl">
-
-                <!-- Card -->
-                <div class="card shadow e1">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    What are you thinking about?
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Write in journal
-                                </span>
-
-                                <!-- Badge -->
-                                <span class="badge badge-soft-success mt--1">
-                                    Average of 31 entries a day
-                                </span>
-
-                                <div class="margin-top">
-                                    <span class="goal-button">View journal</span>
-                                    <span class="goal-button">Write entry</span>
-                                </div>
-                                <div class="margin-top-medium line"></div>
-                                <div class="margin-top-tiny ">
-                                    Your recent entries
-
-                                </div>
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Icon -->
-                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                            </div>
-                        </div> <!-- / .row -->
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-12 col-md-6 col-xl">
-
-                <!-- Card -->
-                <div class="card shadow e1">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    What are you thinking about?
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Write in journal
-                                </span>
-
-                                <!-- Badge -->
-                                <span class="badge badge-soft-success mt--1">
-                                    Average of 31 entries a day
-                                </span>
-
-                                <div class="margin-top">
-                                    <span class="goal-button">View journal</span>
-                                    <span class="goal-button">Write entry</span>
-                                </div>
-                                <div class="margin-top-medium line"></div>
-                                <div class="margin-top-tiny ">
-                                    Your recent entries
-
-                                </div>
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Icon -->
-                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                            </div>
-                        </div> <!-- / .row -->
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div> <!-- / .row -->
-
-        <div class="row">
-            <div class="col-12 col-lg-6 col-xl">
-
-                <!-- Card -->
-                <div class="card shadow e3">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    Most active day of the week
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Monday
-                                </span>
-
-                                <!-- Badge -->
-                                <span class="badge badge-soft-success mt--1">
-                                    34 sessions on Mondays
-                                </span>
-
-                            </div>
-
-                        </div> <!-- / .row -->
-                        <div class="text-left relative" style="width:200px;padding-top:0px;height:200px;">
-                            <canvas id="dayChart" class="margin-top"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 col-lg-6 col-xl">
-
-                <!-- Card -->
-                <div class="card shadow e4">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    Here's when you used the therapy
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Your activity
-                                </span>
-
-                                <!-- Badge 
-                                    <span class="badge badge-soft-success mt--1">
-                                        34 sessions on Mondays
-                                    </span>
-                                -->
-
-                            </div>
-
-                        </div> <!-- / .row -->
-                        <div class="text-left relative" style="width:100%;padding-top:0px;height:200px;">
-                            <canvas id="timeChart" class="margin-top" style="width:100%;height:100%;"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div> <!-- / .row -->
-
-        <div class="row">
-            <div class="col-12 col-xl">
-
-                <!-- Card -->
-                <div class="card shadow e5">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-
-                                <!-- Title -->
-                                <h6 class="card-title text-uppercase text-muted mb-2">
-                                    Tracking progress
-                                </h6>
-
-                                <!-- Heading -->
-                                <span class="h2 mb-0">
-                                    Set a goal
-                                </span>
-
-                                <div class="dashboard-goal margin-top-tiny">
-                                    I want to complete
-                                    <input type="number" min="1" placeholder="5"
-                                        class="text-center dashboard-goal-input" />
-                                    sessions every
-
-                                    <a onclick="timelineTextStyle('in')" onfocusout="timelineTextStyle('out')"
-                                        class="dashboard-goal-time dashboard-goal-input dropdown-toggle" href="#"
-                                        role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <span class="eggshell" id="timeline">week</span>
+                            <!-- Nav -->
+                            <ul class="nav nav-tabs header-tabs">
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
+                                    data-prefix="$" data-suffix="k">
+                                    <a href="#" class="nav-link text-center active" data-toggle="tab">
+                                        <h6 class="header-pretitle text-secondary">
+                                            Average
+                                        </h6>
+                                        <h3 class="text-white mb-0">
+                                            Mood
+                                        </h3>
                                     </a>
+                                </li>
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
+                                    data-prefix="" data-suffix="k">
+                                    <a href="#" class="nav-link text-center" data-toggle="tab">
+                                        <h6 class="header-pretitle text-secondary">
+                                            Average
+                                        </h6>
+                                        <h3 class="text-white mb-0">
+                                            Recall
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
+                                    data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
+                                    data-prefix="" data-suffix="%">
+                                    <a href="#" class="nav-link text-center" data-toggle="tab">
+                                        <h6 class="header-pretitle text-secondary">
+                                            Average
+                                        </h6>
+                                        <h3 class="text-white mb-0">
+                                            SUDS
+                                        </h3>
+                                    </a>
+                                </li>
+                            </ul>
 
-                                    <div id="timelineDropdown" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <span class="dropdown-item" onclick="changeGoalTimeline('day')">Day</span>
-                                        <span class="dropdown-item" onclick="changeGoalTimeline('week')">Week</span>
-                                        <span class="dropdown-item" onclick="changeGoalTimeline('month')">Month</span>
-                                        <span class="dropdown-item" onclick="changeGoalTimeline('year')">Year</span>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="header-footer">
+
+
+                    <div class="chart">
+
+                        <canvas id="headerChart" class="chart-style"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> <!-- / .header -->
+        <div class="container-fluid mt--6">
+
+            <div class="row">
+                <div class="col col-12 col-md-12 col-xl">
+                    <div class="card shadow animated fadeInUp modify-testing-card testing-card-large">
+                        <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                            <div class="row align-items-center padding-bottom">
+                                <div class="col text-center">
+
+
+                                    <h6 class="card-title text-center text-uppercase text-muted mb-2">
+                                        GET STARTED
+                                    </h6>
+
+
+                                    <!-- Heading -->
+                                    <div class="col-centered card-header-title-large text-center">
+                                        YOUR TOOLKIT
                                     </div>
 
-                                    <div class="margin-top">
-                                        <span class="no-select goal-button large-goal-button">Save my
-                                            goal</span>
+                                    <div class="margin-top-tiny text-center">
+                                        <small class="form-text text-muted">
+                                            Powerful, easy to use tools for self-improvement
+                                        </small>
                                     </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col col-12 col-md-12 col-centered">
+
+                                <div class="row full-stretch">
+
+                                    <div class="col col-12 col-md-6 margin-top text-center">
+
+                                        <a href="journal.html" class="kill-link-style no-select">
+                                            <div class="tool-card">
+                                                <div class="tool-box col-centered journal-tool"
+                                                    style="padding-left:0px;padding-right: 0px">
+
+                                                </div>
+                                                <div class="col-centered tool-box-bottom">
+                                                    <div class="tool-box-header">
+                                                        Journaling
+                                                        <div
+                                                            class="tool-description col-11 margin-top-tiny col-centered white">
+                                                            Easy
+                                                            journaling
+                                                            with some prompts to
+                                                            get you started.</div>
+
+                                                        <div class="col col-12 col-md-11 margin-top col-centered">
+
+                                                            <a href="journal.html" class="kill-link-style no-select">
+                                                                <span class="tool-button margin-top no-select">Read
+                                                                    journal</span>
+                                                            </a>
+                                                            <a href="journal-entry.html"
+                                                                class="kill-link-style no-select">
+                                                                <span class="tool-button margin-top no-select">Write
+                                                                    entry</span>
+                                                            </a> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a> </div>
+                                    <div class="col col-12 col-md-6 margin-top text-center">
+
+                                        <a href="therapy-analysis-emdr.html" class="kill-link-style no-select">
+                                            <div class="tool-card">
+                                                <div class="tool-box col-centered emdr-tool"
+                                                    style="padding-left:0px;padding-right: 0px">
+
+                                                </div>
+                                                <div class="col-centered tool-box-bottom">
+                                                    <div class="tool-box-header">
+                                                        EMDR
+                                                        <div
+                                                            class="tool-description col-11 margin-top-tiny col-centered white">
+                                                            EMDR tool for trauma patients.</div>
+
+                                                        <div class="col col-11 margin-top col-centered">
+                                                            <a href="therapy-analysis-emdr.html"
+                                                                class="kill-link-style no-select">
+                                                                <span class="tool-button margin-top no-select">EMDR
+                                                                    analytics</span>
+                                                            </a>
+                                                            <a href="emdr.html" class="kill-link-style no-select">
+                                                                <span class="tool-button margin-top no-select">Start
+                                                                    session</span>
+                                                            </a> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-12 col-md-6 col-xl">
+                    <div class="card shadow e1 widget-card scroll">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        JOURNAL
+                                    </h6>
+
+
+                                    <span id="sessions-completed" class="h2 mb-0">
+                                        Recent entries
+                                    </span>
+
+                                    <div class="prompt-line-divider"></div>
+
+                                    <span id="journal-populate">
+                                        <div class="journal-container margin-top-tiny">
+                                            <div class="journal-entry-date">JANUARY 9TH, 1998</div>
+                                            <div class="journal-entry-title">My trip to visit the fam</div>
+                                            <div class="journal-divider"></div>
+
+                                            <div class="journal-entry-body">This is an example of an entry. It would
+                                                contain information about what I am doing, and you can easily...</div>
+
+                                            <div class="journal-entry-button margin-top-tiny no-select">View entry</div>
+                                        </div>
+
+                                        <div class="journal-container margin-top-tiny">
+                                            <div class="journal-entry-date">JANUARY 9TH, 1998</div>
+                                            <div class="journal-entry-title">My trip to visit the fam</div>
+                                            <div class="journal-divider"></div>
+
+                                            <div class="journal-entry-body">This is an example of an entry. It would
+                                                contain information about what I am doing, and you can easily...</div>
+
+                                            <div class="journal-entry-button margin-top-tiny no-select">View entry</div>
+                                        </div>
+
+                                        <div class="journal-container margin-top-tiny">
+                                            <div class="journal-entry-date">JANUARY 9TH, 1998</div>
+                                            <div class="journal-entry-title">My trip to visit the fam</div>
+                                            <div class="journal-divider"></div>
+
+                                            <div class="journal-entry-body">This is an example of an entry. It would
+                                                contain information about what I am doing, and you can easily...</div>
+
+                                            <div class="journal-entry-button margin-top-tiny no-select">View entry</div>
+                                        </div>
+                                    </span>
 
                                 </div>
                                 <div class="col-auto">
 
-                                    <!-- Icon -->
+
                                     <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
 
                                 </div>
-                            </div> <!-- / .row -->
+                            </div>
 
                         </div>
                     </div>
-
                 </div>
 
-            </div> <!-- / .row -->
-
-        </div> <!-- / .row -->
-
-
-    </div>
-
-    <div class="col col-8 col-centered text-center">
-        <a href="dashboard.html" class="kill-link-style">
-            <div class="dashboard-back">Return to main dashboard</div>
-        </a>
-    </div>
-    </div> <!-- / .main-content -->
+                <div class="col col-12 col-md-6 col-xl">
+                    <div class="card shadow e1 widget-card scroll">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
 
 
-    <script src="js/dash/jquery.min.js"></script>
-    <script src="js/dash/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="js/dash/charts.js"></script>
-    <script src="js/dash/Chart.extension.min.js"></script>
-    <script src="js/dash/highlight.pack.min.js"></script>
-    <script src="js/dash/flatpickr.min.js"></script>
-    <script src="js/dash/jquery.mask.min.js"></script>
-    <script src="js/dash/list.min.js"></script>
-    <script src="js/dash/quill.min.js"></script>
-    <script src="js/dash/dropzone.min.js"></script>
-    <script src="js/dash/select2.min.js"></script>
-    <script src="js/dash/theme.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-    <script src="js/therapy-analysis.js"></script>
-    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="js/Sortable.min.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/creative.js"></script>
-
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
-            authDomain: "mental-health-suite.firebaseapp.com",
-            databaseURL: "https://mental-health-suite.firebaseio.com",
-            projectId: "mental-health-suite",
-            storageBucket: "mental-health-suite.appspot.com",
-            messagingSenderId: "119327507370"
-        };
-        firebase.initializeApp(config);
-
-        ScrollReveal({ distance: '-20px' });
-        ScrollReveal().reveal('.e1');
-        ScrollReveal().reveal('.e2');
-        ScrollReveal().reveal('.e3');
-        ScrollReveal().reveal('.e4');
-        ScrollReveal().reveal('.e5');
-
-    </script>
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        QUICK INSPIRATION
+                                    </h6>
 
 
-    <script>
-        jQuery(document).ready(function () {
-            jQuery('#loader').fadeOut(330);
+                                    <span class="h2 mb-0">
+                                        Prompts
+                                    </span>
 
-        });
+                                    <div class="prompt-line-divider"></div>
+                                    <span id="prompts-container">
 
-    </script>
+                                        <div class="col col-12 col-centered">
+                                            <div class="row margin-bottom-medium">
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt elimate-left-pad">
+                                                    <span class="prompt-category-button no-select all-button">All
+                                                        prompts</span>
+                                                </div>
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt elimate-left-pad">
+                                                    <span
+                                                        class="prompt-category-button no-select all-button">Creative</span>
+                                                </div>
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt eliminate-left-pad">
+                                                    <span class="prompt-category-button all-button no-select">
+                                                        Reflective</span>
+                                                </div>
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt eliminate-left-pad">
+                                                    <span class="prompt-category-button all-button no-select">
+                                                        Emotions</span>
+                                                </div>
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt eliminate-left-pad">
+                                                    <span
+                                                        class="prompt-category-button all-button no-select">Abstract</span>
+                                                </div>
+                                                <div
+                                                    class="col col-12 col-md-6 col-lg-4 margin-top-prompt eliminate-left-pad">
+                                                    <span
+                                                        class="prompt-category-button all-button no-select">Nonfiction</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="margin-top"></div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            color are
+                                            you?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            kind of
+                                            animal
+                                            would you want to be?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            are
+                                            you afraid of?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">Another
+                                            question here?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            color are
+                                            you?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            kind of
+                                            animal
+                                            would you want to be?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">What
+                                            are
+                                            you afraid of?
+                                        </div>
+
+                                        <div class="prompt-box margin-top-tiny prompt-box-button no-select">Another
+                                            question here?
+                                        </div>
+                                    </span>
+
+                                </div>
+                                <div class="col-auto">
+
+
+                                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
+
+</body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/dash/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--<script src="js/animationHome.js"></script>-->
+<!-- <script src="js/therapy.js"></script>-->
+<script src="js/gradient.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="js/therapy-analysis.js"></script>
+<script src="js/dash/highlight.pack.min.js"></script>
+<script src="js/dash/flatpickr.min.js"></script>
+<script src="js/dash/list.min.js"></script>
+
+<script src="js/dash/quill.min.js"></script>
+<script src="js/dash/dropzone.min.js"></script>
+<script src="js/dash/select2.min.js"></script>
+
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script src="js/moment.min.js"></script>
+<script src="js/therapy-analysis-emdr.js"></script>
+<script src="js/sign-up.js"></script>
+
+<style>
+    .awesome {
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+
+    }
+
+    body.modal-open {
+        overflow-y: scroll !important;
+        margin: 0 !important;
+    }
+
+    .modal {
+        overflow: auto !important;
+    }
+</style>
+<script>
+
+</script>
+
+
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
 </body>
 
 </html>

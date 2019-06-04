@@ -91,7 +91,7 @@ dataHeader = {
 };
 
 dataMainChart = {
-    labels: ['1', '2', '3', '4', '5'],
+    labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [{
         label: 'Mood value',
         //backgroundColor: '#3ee986',
@@ -100,7 +100,7 @@ dataMainChart = {
         borderWidth: 2,
         fill: false,
         borderColor: '#3ee986',
-        data: [9, 5, 7, 6, 1],
+        data: [2, 5, 3, 6, 8, 10],
         showTooltips: true
 
     }]
@@ -2679,8 +2679,6 @@ function returnFormattedDate(date) {
 }
 
 function setCompletedDate() {
-
-    //currently returns undefined because you can't return data from within firebase call 
 
     var user = firebase.auth().currentUser;
     var desc = firebase.database().ref('users/' + user.uid + "/emdr/therapyAnalysis");

@@ -1,3 +1,4 @@
+var headerType;
 
 var defaultCoverOptions = false;
 var d = new Date();
@@ -190,11 +191,22 @@ function updateCurrentNote(updateType) {
     var user = firebase.auth().currentUser;
     var d = new Date();
     var data = quill.root.innerHTML;
+    var dataObject = quill.getContents();
+
     var entryDateVal = getEntryDate();
 
     var importantToggled = document.getElementById("importantToggle").checked;
 
     //get snippet of their note.
+
+    var promptUsed;
+
+    if (headerType == "normal") {
+        promptUsed = "WRITE ENTRY";
+    }
+    else {
+        promptUsed = document.getElementById("prompt-entry-data").innerText;
+    }
 
     firebase.database().ref('users/' + user.uid + "/journaling" + "/entries/" + currentEntryID).update({
 
@@ -205,7 +217,9 @@ function updateCurrentNote(updateType) {
         importantToggled: importantToggled,
         entryTags: getTagValues(),
         numTags: getTagsLength(),
-        dayEntered: getCurrentDay()
+        dayEntered: getCurrentDay(),
+        entryDataObject: dataObject,
+        promptUsed: promptUsed
     });
 
     if (updateType == "currentNote") {
@@ -312,9 +326,74 @@ function checkSaveEntry() {
     }
 }
 
+function titleUpdate() {
+    var currentVal = document.getElementById("entryTitle").value;
+    if (currentVal.length > 0) {
+        document.getElementById("header-title").innerText = currentVal;
+    }
+    else {
+        document.getElementById("header-title").innerText = "Write your entry";
+    }
+}
+
+function loadJournalHeader() {
+
+    if (sessionStorage.getItem("currentPrompt") == "none") {
+
+        var normalHeader = "";
+        normalHeader += "<div class=\"col col-11 col-md-10 col-lg-9 col-centered write-entry-text text-center white\"";
+        normalHeader += "                style=\"text-align:center;\">";
+        normalHeader += "                WRITE ENTRY";
+        normalHeader += "            <\/div>";
+
+        document.getElementById("journal-entry-header-title").innerHTML = "<div class = 'animated fadeIn'>" + normalHeader + "</div>";
+        headerType = "normal";
+    }
+    else {
+
+        var promptHeader = "";
+        promptHeader += " <span class=\"prompt-announcement no-select\">YOUR PROMPT<\/span>";
+        promptHeader += "            <div class=\"prompt-announcement-divider margin-top col-centered\"><\/div>";
+        promptHeader += "            <div id = 'prompt-entry-data' class=\"margin-top-tiny no-select prompt-body col col-11 col-centered\">" + sessionStorage.getItem("currentPrompt");
+        promptHeader += "           <\/div>";
+
+        document.getElementById("journal-entry-header-title").innerHTML = "<div class = 'animated fadeIn'>" + promptHeader + "</div>";
+        headerType = "prompt";
+    }
+}
+
+function navAction(action) {
+    if (action == "view") {
+        $("#mainNav").removeClass("opacity-hide");
+    }
+    else if (action == "hide") {
+        $("#mainNav").addClass("opacity-hide");
+    }
+}
+
+function openPrompts() {
+    navAction('hide');
+    $("#prompts-panel").removeClass("analysis-box-hidden");
+    $("#prompts-panel").addClass("analysis-box-visible");
+}
+
+function closePrompts() {
+    navAction('view');
+    $("#prompts-panel").removeClass("analysis-box-visible");
+    $("#prompts-panel").addClass("analysis-box-hidden");
+}
+
 function getCurrentDay() {
     var d = new Date();
     return d.getDay();
+}
+
+function updateGoalProgress(goalInput) {
+    var user = firebase.auth().currentUser;
+    var inputUpdated = goalInput + 1;
+    firebase.database().ref('users/' + user.uid + "/journaling/journalAnalysis").update({
+        goalSessionsProgress: inputUpdated
+    });
 }
 
 function saveEntry() {
@@ -325,13 +404,35 @@ function saveEntry() {
     var timeSet = d.getTime();
 
     var data = quill.root.innerHTML;
+    var dataObject = quill.getContents();
 
     var entryDateVal = getEntryDate();
 
     var importantToggled = document.getElementById("importantToggle").checked;
 
+    var promptUsed;
+
+    if (headerType == "normal") {
+        promptUsed = "WRITE ENTRY";
+    }
+    else {
+        promptUsed = document.getElementById("prompt-entry-data").innerText;
+    }
+
+    var descTemp = firebase.database().ref('users/' + user.uid + "/journaling/journalAnalysis");
+    descTemp.once('value', function (snapshot) {
+        if (snapshot.exists()) {
+            if (snapshot.val().goalActive == "yes") {
+                var goalSessionsProg = snapshot.val().goalSessionsProgress;
+                updateGoalProgress(goalSessionsProg);
+            }
+        }
+    });
+
+
     firebase.database().ref('users/' + user.uid + "/journaling" + "/entries/" + timeSet).set({
         entryData: data,
+        entryDataObject: dataObject,
         entryTitle: returnTitle(),
         entryDate: entryDateVal,
         coverType: coverOptionSelected,
@@ -339,7 +440,8 @@ function saveEntry() {
         entryTags: getTagValues(),
         numTags: getTagsLength(),
         dayEntered: getCurrentDay(),
-        idRef: timeSet
+        idRef: timeSet,
+        promptUsed: promptUsed
     });
 
     if (!entrySavedOnPage) {

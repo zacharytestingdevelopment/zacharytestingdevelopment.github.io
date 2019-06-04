@@ -37,6 +37,144 @@
         <div class="double-bounce2"></div>
     </div>
 
+    <div id="prompts-panel" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="closePrompts()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close prompt browser
+        </div>
+        <div class="customize-dash-header">Pick a prompt!</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Some inspiration to help get your thoughts flowing
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered category-width">
+            <div class="row slight-border">
+            </div>
+
+            <div class="row margin-top-large text-center">
+                <span class="category-toggle-text text-center"> Click on categories to toggle
+                    them on and off
+                </span>
+            </div>
+            <div class="row">
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-creative" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('creative')" onmouseleave="deselectHover()">Creative
+                    </div>
+                </div>
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-reflective" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('reflective')" onmouseleave="deselectHover()"> Reflective
+                    </div>
+                </div>
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-emotions" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('emotion')" onmouseleave="deselectHover()"> Emotions
+                    </div>
+                </div>
+
+
+
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-abstract" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('abstract')" onmouseleave="deselectHover()">Abstract</div>
+                </div>
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-nonfiction" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('nonfiction')" onmouseleave="deselectHover()"> Nonfiction
+                    </div>
+                </div>
+                <div class="col col col-6 col-md-4 text-center col-centered margin-top-medium">
+                    <div id="category-allprompts" class="category-button prompt-button-green no-select"
+                        onclick="togglePromptCategory('allprompts')" onmouseleave="deselectHover()"> View all
+                    </div>
+                </div>
+
+
+                <div class="col col-2 col-centered margin-top-large green-divider"></div>
+            </div>
+
+
+
+
+        </div>
+        <div id="populate-prompt-box" style="width:95vw;" class="col-centered">
+
+            <span id="populate-prompt-box-none">
+
+            </span>
+
+            <span id="populate-prompt-box-creative">
+            </span>
+
+            <span id="populate-prompt-box-reflective">
+            </span>
+
+            <span id="populate-prompt-box-emotions">
+            </span>
+
+            <span id="populate-prompt-box-abstract">
+            </span>
+
+            <span id="populate-prompt-box-nonfiction">
+            </span>
+
+
+        </div>
+
+    </div>
+
+    <div id="goal-details-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Goal details</div>
+                <div class="therapy-over-box-subheader text-center">
+                    Let's see how things went &#x1F600;
+                </div>
+
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <span class="goal-detail-title text-center">
+                            You wanted to complete <span id="session-count-goal" class="modal-focus">loading :)</span>
+                            sessions this <span id="session-count-timescale" class="modal-focus">loading :)</span>
+                        </span>
+                        <li class="list-group-item">
+                            Dates active: <span id="goal-date-beginning">Loading</span> - <span id="goal-date-ending">
+                            </span>
+                        </li>
+
+                        <li class="list-group-item">Goal completed: <span id="goal-completed-modal"
+                                class="capitalize no-select">Loading</span>
+                        </li>
+
+                        <li class="list-group-item">Goal progress:
+
+                            <span id="goal-number-completed"></span>/<span id="goal-number-goal"></span>
+                            (<span id="goal-percentage-completed">Loading</span>)
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <span class="close-button no-select" onclick="tryGoalAgain()">Try
+                        it again</span>
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="margin-top-large">
+        <div class="col col-11 col-centered">
+
+        </div>
+    </div>
+
+    </div>
+
     <div id="entryDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -60,6 +198,34 @@
                 </div>
 
                 <div class="modal-footer">
+                    <!--
+                    <div class="dash-box-button margin-right-larger no-select" onclick="openSharePage()">Submit these thoughts
+                    </div>
+                -->
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-goal-modal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element text-center no-select">This will overwrite your existing goal.
+                </div>
+
+                <div class="modal-body text-center">
+                    Trying this goal again will reset your current goal progress. If you want to keep that progress, you
+                    can cancel this action.
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dash-box-button margin-right-larger no-select" onclick="goalAction('overwrite')">
+                        Overwrite
+                        goal</div>
+
                     <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
                     </span>
                 </div>
@@ -165,139 +331,19 @@
         </div>
 
         <div class="col col-12 col-centered">
+
+            <div id="no-goal-found" class="row">
+
+            </div>
+
             <div id="goal-summary-section" class="margin-top-medium row">
 
-                <div
-                    class="col col-11 margin-top no-select col-lg-11 col-xl-9 col-centered d-none d-sm-none d-md-block">
-                    <div class="row goal-height-container">
-                        <div class="col col-12 text-left col-md-6 col-lg-6"
-                            style="padding-left: 0px;padding-right: 0px;">
-
-                            <div class="goal-results-summary">
-                                <div class="goal-results-summary-header">Summary</div>
-                                <div id="goal-summary-line"
-                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
-                                </div>
-                                <div id="goal-results-summary-box">
-                                    <div class="goal-results-summary-item margin-top-setting">
-                                        You have saved <span id="goal-num-count" class="dark-text"></span>
-                                    </div>
-                                    <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You have completed <span id="goal-completed-percentage"
-                                            class="dark-text"></span> of goals set
-                                    </div>
-                                    <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You complete <span id="goal-average-points" class="dark-text"></span> of your
-                                        goal on average
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col col-12 text-right col-md-6 col-lg-6"
-                            style="padding-left: 0px;padding-right: 0px;">
-                            <div class="goal-results-summary">
-                                <span class="text-left">
-                                    <div class="goal-results-summary-header">
-                                        <div class="goal-results-summary-header">Goal completion</div>
-                                        <div>
-                                            <span class="complete-box green-complete">Complete</span>
-                                            <span class="complete-box red-complete">Incomplete</span>
-                                        </div>
-                                    </div>
-                                </span>
-
-                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
-                                    <canvas id="averageGoalCompleted" class="margin-top"
-                                        style="text-align:left;float:left;width:100%;height:100%;">Loading...</canvas>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div
-                    class="col col-11 col-centered margin-top text-center no-selet d-block d-md-none d-lg-none d-xl-none">
-                    <div class="row text-center">
-                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
-                            style="padding-left: 0px;padding-right: 0px;">
-
-                            <div class="goal-results-summary center-block text-left">
-
-                                <div class="goal-results-summary-header">Summary</div>
-                                <div id="goal-summary-line-mobile"
-                                    class="goal-results-summary-header-line goal-results-summary-header-line-inactive">
-                                </div>
-                                <div id="goal-results-summary-box">
-                                    <div class="goal-results-summary-item margin-top-setting">
-                                        You have saved <span id="goal-num-count-mobile" class="dark-text">?
-                                            goals</span>
-                                    </div>
-                                    <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You have completed <span id="goal-completed-percentage-mobile"
-                                            class="dark-text">?</span> of goals set
-
-                                    </div>
-                                    <div class="goal-results-summary-item margin-top margin-top-setting">
-                                        You complete <span id="goal-average-points-mobile" class="dark-text">?</span> of
-                                        your
-                                        goal on average
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="col col-11 col-centered margin-top-large text-center no-selet d-block d-md-none d-lg-none d-xl-none">
-                    <div class="row text-center">
-                        <div class="col col-12 col-centered col-md-6 text-center col-lg-6"
-                            style="padding-left: 0px;padding-right: 0px;">
-
-                            <div class="goal-results-summary center-block text-left">
-                                <span class="text-left">
-                                    <div class="goal-results-summary-header">
-                                        <div class="goal-results-summary-header">Goal completion</div>
-                                        <div>
-                                            <span class="complete-box green-complete">Complete</span>
-                                            <span class="complete-box red-complete">Incomplete</span>
-                                        </div>
-                                    </div>
-                                </span>
-
-                                <div class="text-left relative" style="width:218px;padding-top:0px;height:218px;">
-                                    <canvas id="averageGoalCompleted2"
-                                        style="text-align:left;float:left;width:100%;height:100%;"
-                                        class="margin-top">Loading...</canvas>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
+
             <div id="populate-goal-analytics" class="row margin-top-medium">
 
-                <div
-                    class="loading-green-box loading-green-box-larger margin-top-large no-select col col-11 col-md-7 col-lg-6 col-centered">
-                    No goal results found
-                </div>
-
-                <div class="col col-12 text-center margin-top-medium green-text col-centered">
-                    You can set a goal on the main analytics page. Just <span onclick="viewGoalResults()"
-                        class="green-link-style">close this
-                        panel</span>!
-                </div>
-
             </div>
+
         </div>
 
         <div id="load-more-container" class="col col-12 col-centered no-select text-center margin-top-large">
@@ -320,9 +366,32 @@
 
         </span>
 
+        <div id="entry-header" class="journal-header-img-entry journal-header-2" style=" display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+    
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+    
+        align-items: center;position:relative;top:-30px;">
+
+            <div id="journal-entry-header-title"
+                style="display:table-cell;vertical-align:middle;line-height:40px !important;margin-left:auto;margin-right:auto;left:0;right:0;position:relative;top:-30px;width:90vw !important;"
+                class="row col-centered text-center">
+                <span class="prompt-announcement">YOUR PROMPT</span>
+                <div class="prompt-announcement-divider margin-top col-centered"></div>
+                <div class="margin-top-tiny no-select prompt-body col col-11 col-centered">If you could be an animal,
+                    what
+                    kind would you be?</div>
+            </div>
+        </div>
+
+        <!--
         <div id="entry-header" class="journal-header-img bluex loading-cover">
             <span id="entry-date" class="white entry-date-text"></span>
         </div>
+    -->
 
         <div class="main-content">
             <div class="container-fluid mt--6">
@@ -338,23 +407,21 @@
                             </div>
                             <div class="card-header hide-bottom-border" style="display: inline-block !important;">
                                 <div class="col col-11 col-centered margin-top-medium text-center">
-                                    <span id="entry-title" class="title-style">January 6th, 2017</span>
+                                    <span id="entry-title" class="title-style">Loading...</span>
                                 </div>
+                                <div class="col col-8 col-centered split-line"></div>
                             </div>
 
                             <div id="entry-body" class="col col-11 col-centered entry-body">
-                                Already getting income support from gov.
+                                Loading...
                             </div>
 
                             <div class="col col-8 col-centered split-line"></div>
 
-                            <div class="col col-11 col-md-9 col-lg-8 col-centered text-center">
-                                <div class="tag-box no-select">My tag</div>
-                                <div class="tag-box no-select">My tag</div>
-                                <div class="tag-box no-select">My tag</div>
-                                <div class="tag-box no-select">My tag</div>
-                                <div class="tag-box no-select">My tag</div>
-                                <div class="tag-box no-select">My tag</div>
+                            <div class="col col-11 col-md-9 col-lg-8 col-centered text-center no-select">
+                                <span id="insert-tags">
+
+                                </span>
                             </div>
 
                         </div>
@@ -628,12 +695,12 @@
 
             </div>
 
-            <a href="journal-entry.html" class="kill-link-style"><span class="float-right entry-write no-select">Write
-                    an entry</span></a>
+            <span onclick="writeEntry()" class="float-right entry-write no-select">Write
+                an entry</span>
         </div>
     </nav>
 
-    <span class="animated fadeIn" id="journal-header-box">
+    <span class="animated fadeIn" id="journal-header-box" style="position: relative;top:-31px;">
         <div id="journal-header" class="journal-header-img loading-cover">
             YOUR JOURNAL
         </div>
@@ -656,9 +723,10 @@
                                 </div>
                                 <div class="col-auto">
 
-                                    <a href="journal-entry.html">
-                                        <span class="float-right no-select goal-button">Write new entry</span>
-                                    </a>
+
+                                    <span onclick="writeEntry()" class="float-right no-select goal-button">Write new
+                                        entry</span>
+
                                 </div>
                             </div>
                             <div class="row full-stretch">
@@ -713,6 +781,113 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-xl">
+
+                    <!-- Card -->
+                    <div class="card shadow e5">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <!-- Title -->
+                                <h6 class="card-title text-center text-uppercase text-muted mb-2">
+                                    QUICK INSPIRATION
+                                </h6>
+
+                                <!-- Heading -->
+                                <div class="col-centered text-center prompt-header">
+                                    Try a prompt
+                                </div>
+
+                                <div class="margin-top-tiny text-center">
+                                    <small class="form-text text-muted">
+                                        Useful prompts for getting thoughts flowing, organized by category.
+                                    </small>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('creative')">Creative</div>
+                                    </div>
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('reflective')">Reflective</div>
+                                    </div>
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('emotions')">Emotions</div>
+                                    </div>
+
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('abstract')">Abstract</div>
+                                    </div>
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('nonfiction')">Nonfiction</div>
+                                    </div>
+                                    <div class="col col-6 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select shrink-text-on-small"
+                                            onclick="openPrompts('allprompts')">All prompts</div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-5 mb-5 journal-divider-style" />
+
+                                <div class="row text-center negative-margin">
+                                    <!--
+                                        <h6 class="card-title text-center text-uppercase text-muted mb-2">
+                                            QUICK INSPIRATION
+                                        </h6>
+                                    -->
+                                    <div class="col col-11 col-lg-9 col-centered text-center">
+                                        <h6 class="card-title text-center text-uppercase text-muted mb-2 margin-top">
+                                            RANDOM PROMPT
+                                        </h6>
+                                        <span id="prompt-container"></span>
+                                    </div>
+                                    <div class="col col-11 col-centered margin-top">
+
+                                        <span class="new-prompt no-select" onclick="startWritingWithPrompt()">Start
+                                            writing</span>
+                                        <div>
+                                            <div onclick="refreshPrompt()" class="new-prompt-text no-select">Give me
+                                                a
+                                                different
+                                                prompt</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!--
+                                <div class="row">
+                                    <div class="col col-12 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select">Creative</div>
+                                    </div>
+                                    <div class="col col-12 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select">Reflective</div>
+                                    </div>
+                                    <div class="col col-12 col-md-4 text-center margin-top-medium">
+                                        <div class="category-button text-center no-select">Emotions</div>
+                                    </div>
+
+
+
+                                </div>
+                            -->
+
+
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
