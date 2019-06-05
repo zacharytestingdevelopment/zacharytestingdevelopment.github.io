@@ -1,6 +1,8 @@
 
 var customizeLeft = document.getElementById('customize-left'), customizeRight = document.getElementById('customize-right');
 var customizeDashActive = false;
+var isUsingGradient = false;
+var coverOptionSelected = "";
 
 new Sortable(customizeLeft, {
     ghostClass: "ghost",
@@ -24,7 +26,126 @@ new Sortable(customizeRight, {
     }
 });
 
+function moveArrowOut(arrowType) {
+    if (arrowType == "instructions") {
+        $("#instructions-arrow").addClass("larger-arrow-moved");
+    }
+    else if (arrowType == "professionals") {
+        $("#professionals-arrow").addClass("larger-arrow-moved");
+    }
+}
 
+function moveArrowBack(arrowType) {
+    if (arrowType == "instructions") {
+        $("#instructions-arrow").removeClass("larger-arrow-moved");
+    }
+    else if (arrowType == "professionals") {
+        $("#professionals-arrow").removeClass("larger-arrow-moved");
+    }
+}
+
+function selectGradientCover(gradientInput) {
+
+    coverOptionSelected = gradientInput;
+
+    if (!isUsingGradient) {
+        isUsingGradient = true;
+        checkUsingGradient();
+    }
+
+    gradientBoxID = gradientInput;
+
+    $(".cover-option-box").removeClass("cover-option-box-selected");
+    $(".grad-element-box").removeClass("grad-element-box-selected");
+    $("#" + gradientBoxID).addClass("grad-element-box-selected");
+
+    var badge = "";
+    badge += "<span class = 'animated fadeIn'><span class=\"badge badge-soft-success mt--1\">";
+    badge += "                                            <span class=\"highlight-color-green-badge\">Currently using gradient cover<\/span>";
+    badge += "                                        <\/span></span>";
+    document.getElementById("cover-active-box").innerHTML = badge;
+
+    document.getElementById("journal-header").className = "journal-header-img-entry " + gradientInput;
+
+}
+
+function viewGradientOptions() {
+    $("#gradient-selection").animate({ scrollTop: 0 }, "fast");
+    $("#gradient-selection").removeClass("analysis-box-hidden");
+
+    checkUsingGradient();
+}
+
+function closeGradientSelection() {
+    $("#gradient-selection").addClass("analysis-box-hidden");
+}
+
+function checkUsingGradient() {
+    if (isUsingGradient) {
+        var isGrad = "";
+        isGrad += "<div class=\"is-using-gradient-box animated flipInX gradient-active\">You are using a gradient cover<\/div>";
+
+    }
+    else {
+        var isGrad = "";
+        isGrad += "<div class=\"is-using-gradient-box animated flipInX gradient-inactive\">You are not using a gradient cover<\/div>";
+
+    }
+
+    document.getElementById("is-using-gradient-box").innerHTML = isGrad;
+}
+
+function setCover(decision) {
+
+    if (isUsingGradient) {
+        var badge = "";
+        badge += "<span class=\"badge badge-soft-danger animated flipInX mt--1\">";
+        badge += "                                            <span class=\"highlight-color-red-badge\">Not currently using gradient cover<\/span>";
+        badge += "                                        <\/span>";
+        document.getElementById("cover-active-box").innerHTML = badge;
+
+        isUsingGradient = false;
+        $("#" + gradientBoxID).removeClass("grad-element-box-selected");
+    }
+
+    if (decision == "coverOption1") {
+
+        coverOptionSelected = "journal-header-1";
+
+        $("#coverOption1").addClass("cover-option-box-selected");
+        $("#coverOption2").removeClass("cover-option-box-selected");
+        $("#coverOption3").removeClass("cover-option-box-selected");
+
+        $("#journal-header").removeClass("journal-header-2");
+        $("#journal-header").removeClass("journal-header-3");
+        $("#journal-header").addClass("journal-header-1");
+
+    }
+    else if (decision == "coverOption2") {
+        coverOptionSelected = "journal-header-3";
+
+        $("#coverOption1").removeClass("cover-option-box-selected");
+        $("#coverOption2").addClass("cover-option-box-selected");
+        $("#coverOption3").removeClass("cover-option-box-selected");
+
+        $("#journal-header").removeClass("journal-header-2");
+        $("#journal-header").removeClass("journal-header-1");
+        $("#journal-header").addClass("journal-header-3");
+    }
+    else if (decision == "coverOption3") {
+
+        coverOptionSelected = "journal-header-2";
+
+        $("#coverOption1").removeClass("cover-option-box-selected");
+        $("#coverOption2").removeClass("cover-option-box-selected");
+        $("#coverOption3").addClass("cover-option-box-selected");
+
+        $("#journal-header").addClass("journal-header-2");
+        $("#journal-header").removeClass("journal-header-1");
+        $("#journal-header").removeClass("journal-header-3");
+    }
+
+}
 
 function changeGoalTimeline(timeline) {
     //also turn white
