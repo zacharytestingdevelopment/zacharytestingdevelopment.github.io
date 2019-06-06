@@ -9,41 +9,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Therapy analysis | EMDR</title>
+    <title>Your dashboard</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-        rel='stylesheet' type='text/css'>
-    <link
-        href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
-        rel='stylesheet' type='text/css'>
 
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo.ico">
-    <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
-  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
-  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
-
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
-    <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-
-    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
-    <link href="css/creative.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/dashboard.css" />
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/morphext.css" rel="stylesheet" />
-    <link href="css/therapy.css" rel="stylesheet" />
-    <link href="css/spectrum.css" rel="stylesheet" />
 
 </head>
 
@@ -52,952 +37,35 @@
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
+    <div class="header-component" style="background:#12233f;">
+        <div class="dashboard-return">
+            <span class="no-select return-text" onclick="customizeDash()">
+                <ion-icon class="dashboard-arrow" name="contact" style="font-size:18.4px;position:relative;top:3.7px;">
+                </ion-icon>
+                Your account
+            </span>
 
-    <div id="gradient-selection" class="gradient-box rubber-band analysis-box-hidden">
-        <div class="exit-button black-text no-select" onclick="closeGradientSelection()">
-            <ion-icon class="dashboard-arrow black-text" name="close-circle"></ion-icon>
-            Close gradient selection
+            <span class="no-select return-text float-right" onclick="customizeDash()">
+                <ion-icon class="dashboard-arrow" name="walk" style="font-size:18.4px;position:relative;top:3.7px;">
+                </ion-icon>
+                Sign out
+            </span>
         </div>
-        <div class="customize-dash-header black-text">Gradient selection</div>
-        <div class="col col-centered col-11 black-text text-center white col-lg-8 margin-top-tiny customize-dash-body">
-            Here you can pick a gradient to use as a cover!
-        </div>
+    </div>
+    <div class="dark-header-top text-center">
 
-        <div class="margin-top-large col col-12 col-centered">
-            <div class="row slight-border">
-
-            </div>
-        </div>
-
-        <div class="col col-11 col-centered">
-
-            <div id="is-using-gradient-box" class="row text-center margin-top-medium">
-
-            </div>
-            <div class="row ">
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-1" class="grad-element-box shadow cover-grad-1"
-                        onclick="selectGradientCover('cover-grad-1')">
-                    </div>
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-24" class="grad-element-box shadow cover-grad-24"
-                        onclick="selectGradientCover('cover-grad-24')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-27" class="grad-element-box shadow cover-grad-27"
-                        onclick="selectGradientCover('cover-grad-27')">
-                    </div>
-                </div>
-
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-4" class="grad-element-box shadow cover-grad-4"
-                        onclick="selectGradientCover('cover-grad-4')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-5" class="grad-element-box shadow cover-grad-5"
-                        onclick="selectGradientCover('cover-grad-5')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-6" class="grad-element-box shadow cover-grad-6"
-                        onclick="selectGradientCover('cover-grad-6')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-7" class="grad-element-box shadow cover-grad-7"
-                        onclick="selectGradientCover('cover-grad-7')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-8" class="grad-element-box shadow cover-grad-8"
-                        onclick="selectGradientCover('cover-grad-8')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-9" class="grad-element-box shadow cover-grad-9"
-                        onclick="selectGradientCover('cover-grad-9')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-10" class="grad-element-box shadow cover-grad-10"
-                        onclick="selectGradientCover('cover-grad-10')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-11" class="grad-element-box shadow cover-grad-11"
-                        onclick="selectGradientCover('cover-grad-11')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-12" class="grad-element-box shadow cover-grad-12"
-                        onclick="selectGradientCover('cover-grad-12')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-13" class="grad-element-box shadow cover-grad-13"
-                        onclick="selectGradientCover('cover-grad-13')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-14" class="grad-element-box shadow cover-grad-14"
-                        onclick="selectGradientCover('cover-grad-14')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-15" class="grad-element-box shadow cover-grad-15"
-                        onclick="selectGradientCover('cover-grad-15')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-16" class="grad-element-box shadow cover-grad-16"
-                        onclick="selectGradientCover('cover-grad-16')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-17" class="grad-element-box shadow cover-grad-17"
-                        onclick="selectGradientCover('cover-grad-17')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-18" class="grad-element-box shadow cover-grad-18"
-                        onclick="selectGradientCover('cover-grad-18')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-19" class="grad-element-box shadow cover-grad-19"
-                        onclick="selectGradientCover('cover-grad-19')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-20" class="grad-element-box shadow cover-grad-20"
-                        onclick="selectGradientCover('cover-grad-20')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-21" class="grad-element-box shadow cover-grad-21"
-                        onclick="selectGradientCover('cover-grad-21')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-22" class="grad-element-box shadow cover-grad-22"
-                        onclick="selectGradientCover('cover-grad-22')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-23" class="grad-element-box shadow cover-grad-23"
-                        onclick="selectGradientCover('cover-grad-23')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-3" class="grad-element-box shadow cover-grad-3"
-                        onclick="selectGradientCover('cover-grad-3')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 text-center margin-top-large">
-                    <div id="cover-grad-30" class="grad-element-box shadow cover-grad-30"
-                        onclick="selectGradientCover('cover-grad-30')">
-                    </div>
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-25" class="grad-element-box shadow cover-grad-25"
-                        onclick="selectGradientCover('cover-grad-25')">
-                    </div>
-
-                </div>
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-
-                    <div id="cover-grad-26" class="grad-element-box shadow cover-grad-26"
-                        onclick="selectGradientCover('cover-grad-26')">
-                    </div>
-
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-2" class="grad-element-box shadow cover-grad-2"
-                        onclick="selectGradientCover('cover-grad-2')">
-                    </div>
-                </div>
-
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-28" class="grad-element-box shadow cover-grad-28"
-                        onclick="selectGradientCover('cover-grad-28')">
-                    </div>
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-29" class="grad-element-box shadow cover-grad-29"
-                        onclick="selectGradientCover('cover-grad-29')">
-                    </div>
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-33" class="grad-element-box shadow cover-grad-33"
-                        onclick="selectGradientCover('cover-grad-33')">
-                    </div>
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-31" class="grad-element-box shadow cover-grad-31"
-                        onclick="selectGradientCover('cover-grad-31')">
-                    </div>
-                </div>
-
-                <div class="col col-12 col-md-6 col-lg-4 margin-top-large text-center">
-                    <div id="cover-grad-32" class="grad-element-box shadow cover-grad-32"
-                        onclick="selectGradientCover('cover-grad-32')">
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-
+        <span class="col-centered" style="position: relative;top:-30px;">
+            <span class="welcome-dash-sub white col-centered text-center">WELCOME TO</span>
+            <div class="welcome-dash-header white">EASY EMDR</div>
+            <a href="emdr.html" class="kill-link-style">
+                <div class="start-session-button no-select force-top margin-top-tiny">Begin session</div>
+            </a>
+        </span>
     </div>
 
 
-
-    <div id="sessionDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header-element">Therapy details</div>
-                <div id="therapy-date" class="therapy-over-box-subheader text-center">January 7th, 2019</div>
-
-                <div class="modal-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            Set used: <span id="therapy-set">Quick session</span>
-                        </li>
-                        <li class="list-group-item">Sessions completed: <span
-                                id="therapy-sessions-completed">2</span>/<span id="therapy-sessions-total">3</span>
-                        </li>
-                        <li class="list-group-item">Notes taken: <span id="therapy-notes-count">3</span></li>
-                    </ul>
-                </div>
-
-                <div class="modal-footer">
-                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="nextSession" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content therapy-modal">
-                <div class="therapy-over-box-header">The session is over</div>
-                <div class="therapy-over-box-subheader text-center">Let's record your progress (optional)</div>
-                <div class="modal-body">
-                    <div id="your-mood-box-session">
-
-                    </div>
-
-                    <div id="your-recall-box-session">
-
-                    </div>
-
-                    <div id="your-suds-box-session">
-
-                    </div>
-
-                    <div id="your-vac-box-session">
-
-                    </div>
-
-
-
-                    <textarea id="next-set-description" maxlength="300" id="session-input-description"
-                        placeholder="How are you feeling?" class="text-input textarea margin-top"></textarea>
-
-
-
-                </div>
-                <div class="position-therapy-check">
-                    <label class="form-check-label no-select" for="sessionCheck">
-                        Save therapy results on exit
-                    </label>
-                    <input class="form-check-input position-check" type="checkbox" value="" id="sessionCheck" checked>
-                </div>
-
-                <div class="modal-footer">
-                    <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('ending')">End
-                        Therapy</span>
-                    <span class="save-changes-button no-select" onclick="nextSession()">NEXT SESSION</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="therapyOver" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content therapy-modal">
-                <div class="therapy-over-box-header">The therapy is over</div>
-                <div class="therapy-over-box-subheader text-center">Now let's record your progress (optional)</div>
-                <div class="modal-body">
-                    <div id="your-mood-box-therapy">
-
-                    </div>
-
-                    <div id="your-recall-box-therapy">
-
-                    </div>
-
-                    <div id="your-suds-box-therapy">
-
-                    </div>
-
-                    <div id="your-vac-box-therapy">
-
-                    </div>
-
-
-
-                    <textarea maxlength="300" id="therapy-input-description" placeholder="How are you feeling?"
-                        class="text-input textarea margin-top"></textarea>
-                </div>
-                <div class="position-therapy-check">
-                    <label class="form-check-label no-select" for="therapyCheck">
-                        Save therapy results
-                    </label>
-                    <input class="form-check-input position-check" type="checkbox" value="" id="therapyCheck" checked>
-                </div>
-                <div class="modal-footer">
-                    <span class="close-button no-select" data-dismiss="modal" onclick="saveTherapyResults('end')">End
-                        Therapy</span>
-                    <span class="save-changes-button no-select" onclick="saveTherapyResults('analyze')">ANALYZE
-                        SESSION</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="therapy-results" class="full-width mobile-scroll results-box results-box-inactive">
-        <div class="main-content">
-
-            <!-- HEADER -->
-            <div class="header bg-dark pb-5" style="background:#12253f !important;">
-                <div class="container-fluid">
-
-                    <!-- Body -->
-                    <div class="header-body">
-                        <div class="dashboard-return">
-
-                            <span class="no-select return-text" onclick="closeAnalyzeSet()">
-                                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-                                Close EMDR analysis
-                            </span>
-
-                            <span class="float-right">
-
-                                <span class="float-right entry-write extra-padding no-select"
-                                    onclick="viewSessionDetails()">View session details
-                                </span>
-
-                            </span>
-                        </div>
-
-                        <div class="row align-items-end">
-
-                            <div class="col">
-
-                                <!-- Pretitle -->
-                                <h6 class="margin-top header-pretitle text-secondary">
-                                    Overview
-                                </h6>
-
-                                <!-- Title -->
-                                <h1 class="header-title text-white">
-                                    Average mood
-                                </h1>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Nav -->
-                                <ul class="nav nav-tabs header-tabs">
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                Mood
-                                            </h3>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                        data-prefix="" data-suffix="k">
-                                        <a href="#" class="nav-link text-center" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                Recall
-                                            </h3>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                        data-prefix="" data-suffix="%">
-                                        <a href="#" class="nav-link text-center" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                SUDS
-                                            </h3>
-                                        </a>
-                                    </li>
-                                </ul>
-
-
-
-
-                            </div>
-                        </div> <!-- / .row -->
-                    </div> <!-- / .header-body -->
-
-                    <!-- Footer -->
-                    <div class="header-footer">
-
-                        <!-- Chart -->
-                        <div class="chart">
-
-                            <div class="full"><canvas id="main-chart" class="full"></canvas></div>
-
-                            <!--<canvas id="headerChart" class="chart-style"></canvas>-->
-                            <!--
-                                    <canvas id="mains-chart" style="height:100%;width:100%;"
-                                        class="chart-style"></canvas>
-                                    -->
-                        </div>
-
-                    </div>
-
-                </div>
-            </div> <!-- / .header -->
-
-            <!-- CARDS -->
-            <div class="container-fluid mt--6">
-                <div class="row">
-                    <div class="col-12 col-centered col-xl-11">
-
-                        <!-- Goals -->
-                        <div class="card shadow animated slideInUp"
-                            style="opacity:1 !important;padding-bottom: 20px;padding-top:10px;">
-                            <div class="card-header">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-
-                                        <h4 class="card-header-title larger-card-header">
-                                            Your notes
-                                        </h4>
-
-                                    </div>
-                                    <div class="col-auto">
-
-
-                                        <a href="emdr.html" class="kill-link-style">
-                                            <span class="float-right no-select goal-button"
-                                                onclick="restartSession()">Do another
-                                                session</span>
-                                        </a>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="spawnNotes" class="text-center"></div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div id="analysis-mood" class="col-12 col-md-6 col-xl">
-
-
-                        <div class="card shadow e1">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-
-                                        <h6 class="card-title text-uppercase text-muted mb-2">
-                                            Your results
-                                        </h6>
-
-
-                                        <span class="h2 mb-0">
-                                            Mood
-                                        </span>
-
-
-                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                            Average mood: <span id="average-mood" class="white">5</span>
-                                        </span>
-                                        <div class="analyze-box-section-choices">
-                                            <span id="lineChart5"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
-                                            <span id="barChart5"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
-                                        </div>
-
-                                        <div>
-                                            <canvas id="myChart5" height="305" class="margin-top"></canvas>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-
-                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="analysis-recall" class="col-12 col-md-6 col-xl">
-
-
-                        <div class="card shadow e1">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-
-                                        <h6 class="card-title text-uppercase text-muted mb-2">
-                                            Your results
-                                        </h6>
-
-
-                                        <span class="h2 mb-0">
-                                            Recall
-                                        </span>
-
-
-                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                            Average recall: <span id="average-recall" class="white">5</span>
-                                        </span>
-                                        <div class="analyze-box-section-choices">
-                                            <span id="lineChart4"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
-                                            <span id="barChart4"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
-                                        </div>
-
-
-                                        <div>
-                                            <canvas id="myChart4" height="305" class="margin-top"></canvas>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-
-                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div id="analysis-suds" class="col-12 col-md-6 col-xl">
-
-
-                        <div class="card force-card-height shadow e1">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-
-                                        <h6 class="card-title text-uppercase text-muted mb-2">
-                                            Your results
-                                        </h6>
-
-
-                                        <span class="h2 mb-0">
-                                            SUDS
-                                        </span>
-
-
-                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                            Average SUDS: <span id="average-suds" class="white">5</span>
-                                        </span>
-                                        <div class="analyze-box-section-choices">
-                                            <span id="lineChart2"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
-                                            <span id="barChart2"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
-                                        </div>
-
-                                        <div>
-                                            <canvas id="myChart2" height="305" class="margin-top"></canvas>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="analysis-vac" class="col-12 col-md-6 col-xl">
-
-
-                        <div class="card force-card-height shadow e1">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-
-                                        <h6 class="card-title text-uppercase text-muted mb-2">
-                                            Your results
-                                        </h6>
-
-
-                                        <span class="h2 mb-0">
-                                            VAC
-                                        </span>
-
-
-                                        <span class="badge badge-soft-success soft-badge-blue mt--1">
-                                            Average VAC: <span id="average-vac" class="white">5</span>
-                                        </span>
-                                        <div class="analyze-box-section-choices">
-                                            <span id="lineChart3"
-                                                class="analyze-box-section-choice analyze-box-section-choice-selected left-round no-select">Line</span>
-                                            <span id="barChart3"
-                                                class="analyze-box-section-choice right-round no-select">Bar</span>
-                                        </div>
-
-                                        <div>
-                                            <canvas id="myChart3" height="305" class="margin-top"></canvas>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-auto">
-
-
-                                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-12 col-xl">
-
-                        <!-- Card -->
-                        <div class="card shadow e5">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-
-                                        <!-- Title -->
-                                        <h6 class="card-title text-uppercase text-muted mb-2">
-                                            You finished this session!
-                                        </h6>
-
-                                        <!-- Heading -->
-                                        <span class="h2 mb-0">
-                                            What now?
-                                        </span>
-
-                                        <div
-                                            class="dash-goals eliminate-margin-pad margin-top col col-12 col-md-10 col-lg-10">
-                                            You completed this therapy and the results have been saved. You can do
-                                            another session, or close this panel to continue your analysis.
-                                            Alternatively, you <a href="dashboard.html" class="link-style"> can
-                                                click here</a> to go to the main dashboard to select another therapy or
-                                            activity
-                                            to try.
-
-
-                                        </div>
-                                        <div class="margin-top-setting">
-                                            <a href="emdr.html" class="kill-link-style inherit">
-                                                <span class="no-select goal-button margin-top-tiny">
-                                                    Do another session
-                                                </span>
-                                            </a>
-
-                                            <span onclick="closeAnalyzeSet()"
-                                                class="no-select goal-button margin-top-tiny">Close this panel
-                                            </span>
-
-
-                                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
-
-
-
-    <div class="main-content">
-
-
-        <div id="full-body-wrap" class="full-body-wrap">
-            <div class="exit-button no-select" onclick="closeDash('general')">
-                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-                Back to dashboard
-            </div>
-            <div class="customize-dash-header">Customize dashboard</div>
-            <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
-                Click and drag the elements to change the order that they appear on your dashboard! You can also
-                activate
-                and disable elements by dragging them
-                between lists.
-            </div>
-
-            <div class="margin-top-large col col-12 col-centered">
-                <div class="row slight-border">
-
-                </div>
-            </div>
-
-            <div class="col col-11 margin-top-large col-xl-9 col-centered">
-                <div class="row">
-                    <div class="col">
-                        <div class="customize-list-header">Visible elements</div>
-                        <div id="customize-left" class="list-group">
-                            <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
-                            <span class="list-group-item index" style="color:#3ee986;">To-do</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Journaling</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Activities</span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="customize-list-header">Hidden elements</div>
-                        <div id="customize-right" class="list-group">
-                            <span class="list-group-item index" style="color:#3ee986;">Journal entries list</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Daily quotes</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Journal quick entry</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Life tracking</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Jump to tool</span>
-                            <span class="list-group-item index" style="color:#3ee986;">Meditations</span>
-                        </div>
-                    </div>
-
-                    <div class="col col-12 text-center margin-top-large">
-                        <div class="save-button col-centered no-select" onclick="closeDash('save')">Save and exit</div>
-                        <span class="col-12 margin-top">
-                            <span class="no-position-change margin-top exit-button-underline exit-button no-select"
-                                onclick="closeDash('default')">
-                                Restore
-                                to default
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- HEADER -->
-        <div class="header bg-dark pb-5 resize-top-analyze" style="background:#12253f !important;">
-            <div class="container-fluid">
-
-                <!-- Body -->
-                <div class="header-body">
-                    <div class="dashboard-return">
-
-                        <span class="no-select return-text" onclick="customizeDash()">
-                            <ion-icon class="dashboard-arrow" name="cog"></ion-icon>
-                            Customize dashboard
-                        </span>
-
-                        <span class="float-right">
-
-                            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <ion-icon name="contact" class="dash-icon"></ion-icon>
-                            </button>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-menu-item top-border-radius no-select">My profile</div>
-                                <div class="dropdown-menu-item no-select">Settings</div>
-                                <div class="dropdown-menu-item no-select">Contact support</div>
-                                <div class="dropdown-menu-item no-border-bottom bottom-border-radius no-select">Sign
-                                    out</div>
-                            </div>
-
-                        </span>
-                    </div>
-
-                    <div class="row align-items-end">
-
-                        <div class="col">
-
-                            <!-- Pretitle -->
-                            <h6 class="margin-top header-pretitle text-secondary">
-                                Overview
-                            </h6>
-
-                            <!-- Title -->
-                            <h1 class="header-title text-white">
-                                Average mood
-                            </h1>
-
-                        </div>
-                        <div class="col-auto">
-
-                            <!-- Nav -->
-                            <ul class="nav nav-tabs header-tabs">
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                    data-prefix="$" data-suffix="k">
-                                    <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            Mood
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                    data-prefix="" data-suffix="k">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            Recall
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                    data-prefix="" data-suffix="%">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            SUDS
-                                        </h3>
-                                    </a>
-                                </li>
-                            </ul>
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="header-footer">
-
-
-                    <div class="chart">
-
-                        <canvas id="headerChart" class="chart-style"></canvas>
-                    </div>
-
-                </div>
-
-            </div>
-        </div> <!-- / .header -->
+    <div class="main-content" style="position: relative;top:30px;">
         <div class="container-fluid mt--6">
-
             <div class="row">
                 <div class="col col-12 col-md-12 col-xl">
                     <div class="card shadow animated fadeInUp modify-testing-card testing-card-large">
@@ -1089,15 +157,19 @@
 
                     </div>
                 </div>
+
             </div>
         </div>
 
+
+    </div>
+    <div class="container-fluid mt--6" style="position: relative;top:65px;">
         <div class="row">
             <div class="col-12 col-md-6 col-xl">
 
 
-                <div class="card shadow e1 pointer smaller-dash-card" onmouseover="moveArrowOut('instructions')"
-                    onmouseout="moveArrowBack('instructions')">
+                <div class="card shadow e1 pointer smaller-dash-card" onclick="openInstructions()"
+                    onmouseover="moveArrowOut('instructions')" onmouseout="moveArrowBack('instructions')">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col">
@@ -1138,6 +210,7 @@
                 </div>
 
             </div>
+
             <div class="col-12 col-md-6 col-xl">
 
 
@@ -1159,7 +232,8 @@
 
                                     <div class="margin-top-tiny dash-card-body">
                                         Before beginning your first session, it is very important to speak with
-                                        a qualified medical professional. You can find them using the EMDR International
+                                        a qualified medical professional. You can find them using the EMDR
+                                        International
                                         Association's free tool!
                                     </div>
 
@@ -1182,82 +256,12 @@
                 </a>
 
             </div>
+
+
         </div>
 
 
-
-        <div class="row margin-top-tiny">
-            <div class="col-12 col-xl">
-                <div class="card shadow e5">
-                    <div class="card-body">
-                        <div class="form-group">
-
-                            <h6 class="card-title text-uppercase text-muted mb-2">
-                                CUSTOMIZE BANNER
-                            </h6>
-
-
-                            <span class="h2 mb-0">
-                                Pick a cover photo
-                            </span>
-                            <div class="margin-top-tiny">
-                                <small class="form-text text-muted">
-                                    This picture will display at the top of your dashboard.
-                                </small>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                    <div id="coverOption3" class="cover-option-box landing3"
-                                        onclick="setCover('coverOption3')">
-
-                                    </div>
-                                </div>
-                                <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                    <div id="coverOption1" class="cover-option-box landing1"
-                                        onclick="setCover('coverOption1')">
-
-                                    </div>
-                                </div>
-                                <div class="col col-12 col-md-6 col-lg-4 margin-top-large">
-                                    <div id="coverOption2" class="cover-option-box landing2"
-                                        onclick="setCover('coverOption2')">
-
-                                    </div>
-                                </div>
-
-                                <div class="col col-12 margin-top-medium">
-                                    Or, you can select a gradient cover
-                                    <div>
-                                        <!--
-                                                    <div class="gradient-active-tag">Not using gradient cover</div>
-                                                    -->
-                                        <div id="cover-active-box" style="margin-top: 0px !important;">
-                                            <div class="badge badge-soft-danger mt--1">
-                                                <span class="highlight-color-red-badge">Not currently
-                                                    using
-                                                    gradient cover</span>
-                                            </div>
-                                        </div>
-                                        <div class="grad-button no-select" onclick="viewGradientOptions()">
-                                            Browse
-                                            gradient options
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
+        <div class="row margin-top-large">
             <div class="col col-12 col-md-12 text-center col-xl">
                 <div class="blog-dash-header">THE LATEST</div>
                 <div class="blog-dash-subheader text-center col col-11 col-md-11 col-centered">
@@ -1275,7 +279,8 @@
             <div class="col col-11 col-centered col-md-11 blog-post-box">
                 <div class="blog-post-dash-date white">January 29th, 2019</div>
                 <div class="blog-post-dash-header white">Our conversation with an EMDR specialist</div>
-                <div class="blog-post-dash-body white">This week, we sat down to talk with Dr. Janet Stevenson, who has
+                <div class="blog-post-dash-body white">This week, we sat down to talk with Dr. Janet Stevenson, who
+                    has
                     been
                     a medical practitioner for over 35 years. She is very excited about how EMDR can be used to...
                 </div>
@@ -1288,7 +293,8 @@
             <div class="col col-11 margin-top-medium col-centered col-md-11 blog-post-box">
                 <div class="blog-post-dash-date white">January 11th, 2019</div>
                 <div class="blog-post-dash-header white">Looking towards the future of mental health treatment</div>
-                <div class="blog-post-dash-body white">After working on developing the highest quality EMDR tools on the
+                <div class="blog-post-dash-body white">After working on developing the highest quality EMDR tools on
+                    the
                     market for nearly three years, we have decided
                     that it's time to branch out into some other areas. After all, it is...
                 </div>
@@ -1301,7 +307,8 @@
             <div class="col col-11 margin-top-medium col-centered col-md-11 blog-post-box">
                 <div class="blog-post-dash-date white">December 25th, 2018</div>
                 <div class="blog-post-dash-header white">Happy holidays from Easy EMDR</div>
-                <div class="blog-post-dash-body white">This week, we sat down to talk with Dr. Janet Stevenson, who has
+                <div class="blog-post-dash-body white">This week, we sat down to talk with Dr. Janet Stevenson, who
+                    has
                     been
                     a medical practitioner for over 35 years. She is very excited about how EMDR can be used to...
                 </div>
@@ -1310,60 +317,95 @@
                     Check it out &#8594;
                 </div>
             </div>
+
+            <div class="col col-12 col-centered text-center margin-top">
+                <div class="row margin-top text-center">
+                    <a href="blog.html" class="col-centered kill-link-style">
+                        <span class="view-full-blog no-select">View full blog
+                    </a>
+                </div>
+            </div>
+
+            <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                    <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                </a>
+                <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+
+            </div>
+
+            <div class="col col-12 copyright-text icon-footer margin-bottom-footer no-select"><span
+                    style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                    ;>&#169</span>
+                EASY EMDR 2019
+            </div>
         </div>
     </div>
+
+    <div id="instructions-panel" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="closeInstructions()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close instructions
+        </div>
+
+        <div class="customize-dash-header">EMDR INSTRUCTIONS</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Some thoughts to keep in mind when using our tool
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered category-width">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+        <div class="col white col-11 col-centered margin-top-large">
+            <div class="row row-eq-height">
+                <div class="col col-12 text-center col-md-6">
+                    <div class="instructions-numbers col-centered">1</div>
+                    <div class="white">First, you can set you settings.</div>
+
+                </div>
+                <div class="col col-12 text-center col-md-6">
+
+                </div>
+            </div>
+        </diV>
     </div>
-    </div>
-
-    <div class="row icon-footer margin-bottom-icon margin-top-large">
-        <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
-            <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
-        </a>
-        <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
-        <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
-        <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
-
-    </div>
 
 
-
-    <div class="copyright-text icon-footer margin-bottom-footer no-select"><span
-            style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;" ;>&#169</span>
-        EASY EMDR 2019
-    </div>
 </body>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
+
+
+
 <script src="js/dash/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/dashboard.js"></script>
+<script src="js/dash/bootstrap.bundle.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
-<script src="js/script.js"></script>
-<script src="js/anime.min.js"></script>
-<script src="js/morphext.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!--<script src="js/animationHome.js"></script>-->
-<!-- <script src="js/therapy.js"></script>-->
-<script src="js/gradient.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-<script src="js/spectrum.js"></script>
-<script src="js/therapy-analysis.js"></script>
+<script src="js/dash/charts.js"></script>
+<script src="js/dash/Chart.extension.min.js"></script>
 <script src="js/dash/highlight.pack.min.js"></script>
 <script src="js/dash/flatpickr.min.js"></script>
+<script src="js/dash/jquery.mask.min.js"></script>
+<script src="js/moment.min.js"></script>
 <script src="js/dash/list.min.js"></script>
-
-<script src="js/dash/quill.min.js"></script>
 <script src="js/dash/dropzone.min.js"></script>
 <script src="js/dash/select2.min.js"></script>
+<script src="js/dash/theme.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/therapy-analysis.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/jquery.caret.min.js"></script>
 
+<script src="js/jquery.tag-editor.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/creative.js"></script>
 
 <script>
     // Initialize Firebase
@@ -1376,36 +418,39 @@
         messagingSenderId: "119327507370"
     };
     firebase.initializeApp(config);
+
+    ScrollReveal({ distance: '-20px' });
+    ScrollReveal().reveal('.e1');
+    ScrollReveal().reveal('.e2');
+    ScrollReveal().reveal('.e3');
+    ScrollReveal().reveal('.e4');
+    ScrollReveal().reveal('.e5');
+
 </script>
 
-<script src="js/moment.min.js"></script>
-<script src="js/therapy-analysis-emdr.js"></script>
 <script src="js/sign-up.js"></script>
 
-<style>
-    .awesome {
-        border: 0px;
-        margin: 0px;
-        padding: 0px;
-
-    }
-
-    body.modal-open {
-        overflow-y: scroll !important;
-        margin: 0 !important;
-    }
-
-    .modal {
-        overflow: auto !important;
-    }
-</style>
 <script>
 
+    jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(330);
+
+    });
+
+    $('#myTags').tagEditor({
+
+        sortable: true
+    });
+
 </script>
+<script src="js/sign-up.js"></script>
+
+<script>
 
 
-<!-- Custom scripts for this template -->
-<script src="js/creative.min.js"></script>
+
+
+</script>
 </body>
 
 </html>

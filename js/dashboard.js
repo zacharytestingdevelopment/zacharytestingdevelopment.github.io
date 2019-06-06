@@ -26,6 +26,16 @@ new Sortable(customizeRight, {
     }
 });
 
+function openInstructions() {
+    $("#instructions-panel").removeClass("analysis-box-hidden");
+    $("#instructions-panel").addClass("analysis-box-visible");
+}
+
+function closeInstructions() {
+    $("#instructions-panel").removeClass("analysis-box-visible");
+    $("#instructions-panel").addClass("analysis-box-hidden");
+}
+
 function moveArrowOut(arrowType) {
     if (arrowType == "instructions") {
         $("#instructions-arrow").addClass("larger-arrow-moved");
