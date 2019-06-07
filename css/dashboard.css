@@ -1748,6 +1748,19 @@ body.modal-open {
     font-weight: bold;
 }  
 
+.center-vertical-index
+{
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+}
+
 .journal-header-img
 {
     background-size: cover;
@@ -1889,6 +1902,16 @@ body.modal-open {
     to(rgba(0,0,0,.5))
     ), url('../img/landingpage3.png') !important; /* Chrome 10+, Saf5.1+ */
     background-position: top top !important;
+}
+
+.journal-header-4
+{
+    background-image: url('../img/landingpage4.png') !important; /* fallback */
+    background-image: -webkit-gradient(
+    linear, left top, left bottom, from(rgba(0,0,0,.5)),
+    to(rgba(0,0,0,.5))
+    ), url('../img/landingpage4.png') !important; /* Chrome 10+, Saf5.1+ */
+    background-position: bottom bottom !important;
 }
 
 
@@ -2180,6 +2203,97 @@ body.modal-open {
     -webkit-box-align: center;
 
     align-items: center;
+}
+
+.instructions-box
+{
+    background:#fff !important;
+    border-radius: 5px;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    padding-left: 70px;
+    padding-right: 70px;
+    color:#12233f !important;
+}
+
+.instructions-image
+{
+    background-color:transparent;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    height:500px;
+    width:auto;
+    max-width: 100%;
+    background: transparent no-repeat center;
+    background-size: contain;
+}
+
+.instructions1
+{
+    background-image:url("../img/emdrinstructions1.png");
+}
+
+.instructions2
+{
+    background-position: left left !important;
+    background-image:url("../img/emdrinstructions2.png");
+}
+
+.instructions3
+{
+    background-position: left left !important;
+    background-image:url("../img/emdrinstructions3.png");
+}
+
+.instructions4
+{
+    background-position: left left !important;
+    background-image:url("../img/emdrinstructions4.png"); 
+}
+
+.instructions5
+{
+    background-position: left left !important;
+    background-image:url("../img/emdrinstructions5.png"); 
+}
+
+.instructions-text
+{
+    font-size: 17.5px;
+}
+
+.emdr-header
+{
+    background:#12243f;
+    color:#fff;
+    height:25vh;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+    background-size: cover !important;
+}
+
+.index-header-top
+{
+    background:#12243f;
+    color:#fff;
+    height:90vh;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center; 
 }
 
 .dark-header-top

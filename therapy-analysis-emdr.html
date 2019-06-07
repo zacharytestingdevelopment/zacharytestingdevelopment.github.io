@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Therapy analysis | EMDR</title>
+    <title>Easy EMDR | Analysis</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -198,75 +198,21 @@
                             </span>
                         </div>
 
-                        <div class="row align-items-end">
+                        <div class="emdr-header text-center">
 
-                            <div class="col">
+                            <span class="col-centered" style="position: relative;top:30px;">
+                                <span class="welcome-dash-sub white col-centered text-center">SESSION ANALYSIS</span>
+                                <div class="welcome-dash-header white">YOUR RESULTS</div>
 
-                                <!-- Pretitle -->
-                                <h6 class="margin-top header-pretitle text-secondary">
-                                    Overview
-                                </h6>
-
-                                <!-- Title -->
-                                <h1 class="header-title text-white">
-                                    Average mood
-                                </h1>
-
-                            </div>
-                            <div class="col-auto">
-
-                                <!-- Nav -->
-                                <ul class="nav nav-tabs header-tabs">
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                Mood
-                                            </h3>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                        data-prefix="" data-suffix="k">
-                                        <a href="#" class="nav-link text-center" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                Recall
-                                            </h3>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                        data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                        data-prefix="" data-suffix="%">
-                                        <a href="#" class="nav-link text-center" data-toggle="tab">
-                                            <h6 class="header-pretitle text-secondary">
-                                                Display
-                                            </h6>
-                                            <h3 class="text-white mb-0">
-                                                SUDS
-                                            </h3>
-                                        </a>
-                                    </li>
-                                </ul>
-
-
-
-
-                            </div>
-                        </div> <!-- / .row -->
+                            </span>
+                        </div>
                     </div> <!-- / .header-body -->
 
                     <!-- Footer -->
                     <div class="header-footer">
 
                         <!-- Chart -->
-                        <div class="chart">
+                        <div class="chart" style="position: absolute;top:-500vh;">
 
                             <div class="full"><canvas id="main-chart" class="full"></canvas></div>
 
@@ -599,78 +545,26 @@
                                 Return to main dashboard
                             </span>
                         </a>
-                        <span class="float-right">
 
-                            <select class="styled-select">
+                        <a href="emdr.html" class="kill-link-style float-right">
+                            <span class="no-select return-text">
+                                <ion-icon class="dashboard-arrow" name="happy"
+                                    style="font-size: 19.2px;position:relative;top:4px;"></ion-icon>
+                                Start a session
+                            </span>
+                        </a>
 
-                                <option value="0">EMDR</option>
-                                <option value="1">Guided breathing</option>
-                                <option value="2">Meditation</option>
-                            </select>
-                        </span>
                     </div>
 
-                    <div class="row align-items-end">
-
-                        <div class="col">
-
-                            <!-- Pretitle -->
-                            <h6 class="margin-top header-pretitle text-secondary">
-                                Overview
-                            </h6>
-
-                            <!-- Title -->
-                            <h1 class="header-title text-white">
-                                Average mood
-                            </h1>
-
-                        </div>
-                        <div class="col-auto">
-
-                            <!-- Nav -->
-                            <ul class="nav nav-tabs header-tabs">
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                    data-prefix="$" data-suffix="k">
-                                    <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            Mood
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                    data-prefix="" data-suffix="k">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            Recall
-                                        </h3>
-                                    </a>
-                                </li>
-                                <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                    data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                    data-prefix="" data-suffix="%">
-                                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                                        <h6 class="header-pretitle text-secondary">
-                                            Average
-                                        </h6>
-                                        <h3 class="text-white mb-0">
-                                            SUDS
-                                        </h3>
-                                    </a>
-                                </li>
-                            </ul>
 
 
+                    <div class="emdr-header text-center">
 
+                        <span class="col-centered" style="position: relative;top:30px;">
+                            <span class="welcome-dash-sub white col-centered text-center">YOUR PREVIOUS SESSIONS</span>
+                            <div class="welcome-dash-header white">THERAPY ANALYTICS</div>
 
-                        </div>
+                        </span>
                     </div>
                 </div>
 
@@ -678,7 +572,7 @@
                 <div class="header-footer">
 
 
-                    <div class="chart">
+                    <div class="chart" style="position: absolute;top:-500vh;">
 
                         <canvas id="headerChart" class="chart-style"></canvas>
                     </div>

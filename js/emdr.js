@@ -4472,7 +4472,8 @@ function spawnNotes() {
 }
 
 function loadInstructions() {
-    $("#instructions-box").addClass("emdr-box-active");
+    $("#instructions-panel").removeClass("analysis-box-hidden");
+    $("#instructions-panel").addClass("analysis-box-visible");
     setTimeout(function () { hideMobileNav(); }, 320);
 }
 
@@ -4504,8 +4505,9 @@ function closeAnalyze() {
 }
 
 function closeInstructions() {
-    $("#instructions-box").removeClass("emdr-box-active");
-    $("#instructions-box").animate({ scrollTop: 0 }, "fast");
+    $("#instructions-panel").removeClass("analysis-box-visible");
+    $("#instructions-panel").addClass("analysis-box-hidden");
+    $("#instructions-panel").animate({ scrollTop: 0 }, "fast");
 
     showMobileNav();
 }

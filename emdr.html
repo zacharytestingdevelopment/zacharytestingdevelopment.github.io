@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EMDR</title>
+    <title>Easy EMDR | EMDR Tool</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -285,75 +285,21 @@
                                 </span>
                             </div>
 
-                            <div class="row align-items-end">
+                            <div class="emdr-header text-center">
 
-                                <div class="col">
+                                <span class="col-centered" style="position: relative;top:30px;">
+                                    <span class="welcome-dash-sub white col-centered text-center">WELL DONE!</span>
+                                    <div class="welcome-dash-header white">SESSION COMPLETE</div>
 
-                                    <!-- Pretitle -->
-                                    <h6 class="margin-top header-pretitle text-secondary">
-                                        Overview
-                                    </h6>
-
-                                    <!-- Title -->
-                                    <h1 class="header-title text-white">
-                                        Average mood
-                                    </h1>
-
-                                </div>
-                                <div class="col-auto">
-
-                                    <!-- Nav -->
-                                    <ul class="nav nav-tabs header-tabs">
-                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                            data-update='{"data":{"datasets":[{"data":[0,10,5,15,10,20,15,25,20,30,25,40]}]}}'
-                                            data-prefix="$" data-suffix="k">
-                                            <a href="#" class="nav-link text-center active" data-toggle="tab">
-                                                <h6 class="header-pretitle text-secondary">
-                                                    Display
-                                                </h6>
-                                                <h3 class="text-white mb-0">
-                                                    Mood
-                                                </h3>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                            data-update='{"data":{"datasets":[{"data":[50,75, 35,25,55,87,67,53,25,80,87,45]}]}}'
-                                            data-prefix="" data-suffix="k">
-                                            <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                <h6 class="header-pretitle text-secondary">
-                                                    Display
-                                                </h6>
-                                                <h3 class="text-white mb-0">
-                                                    Recall
-                                                </h3>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" data-toggle="chart" data-target="#dataResults"
-                                            data-update='{"data":{"datasets":[{"data":[40,57,25,50,57,32,46,28,59,34,52,48]}]}}'
-                                            data-prefix="" data-suffix="%">
-                                            <a href="#" class="nav-link text-center" data-toggle="tab">
-                                                <h6 class="header-pretitle text-secondary">
-                                                    Display
-                                                </h6>
-                                                <h3 class="text-white mb-0">
-                                                    SUDS
-                                                </h3>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-
-
-
-                                </div>
-                            </div> <!-- / .row -->
+                                </span>
+                            </div>
                         </div> <!-- / .header-body -->
 
                         <!-- Footer -->
                         <div class="header-footer">
 
                             <!-- Chart -->
-                            <div class="chart">
+                            <div class="chart" style="position: absolute;top:-500vh;">
 
                                 <div class="full"><canvas id="main-chart" class="full"></canvas></div>
 
@@ -790,10 +736,12 @@
                     PTSD,
                     and much
                     more. View <a href="therapy-analysis-emdr.html"
-                        class="link-style-blue highlight-color-blue">previous sessions here.</a> You can also give us
-                    feedback
-                    on how to improve this tool <a class="link-style-blue highlight-color-blue" href="index.html"
-                        target="_blank">here.</a>
+                        class="link-style-blue highlight-color-blue">previous sessions here.</a> <br />
+                    <div class="margin-top-tiny white">You can also give
+                        us
+                        feedback
+                        on how to improve this tool <a class="link-style-blue highlight-color-blue" href="index.html"
+                            target="_blank">here.</a></div>
                 </div>
                 <div class="therapy-settings-useage white margin-top pad-right no-select" onclick="loadInstructions()">
                     Instructions</div>
@@ -1287,114 +1235,130 @@
 
     </div>
 
-    <div id="instructions-box" class="emdr-box instructions-box">
-        <span class="dashboard-button dashboard-button-blue dashboard-button-instructions no-select"
-            onmouseover="dashBoard('enterInstructions')" onmouseout="dashBoard('exitInstructions')"
-            onclick="closeInstructions()">
-            <ion-icon id="instructions-icon" class="dashboard-icon white" name="close-circle"></ion-icon>
-            CANCEL
-        </span>
-        <div class="instructions-box-header instructions-mobile-move">INSTRUCTIONS</div>
+    <div id="instructions-panel" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="closeInstructions()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close instructions
+        </div>
 
-        <div class="col col-12 col-centered">
+        <div class="customize-dash-header">EMDR INSTRUCTIONS</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Some thoughts to keep in mind when using our tool
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered category-width">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+        <div class="col white col-11 col-centered">
             <div class="row">
-                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
-                    <div class="instructions-box-section-header">WHAT IS EMDR?</div>
-                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
-                        placeholder
-                        placeholder placeholder.
-                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">1</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions1">
 
-                        <div class="margin-top">
-                            <li>Item one this is an item</li>
-                            <li>Item two this is an item</li>
-                            <li>Item three this is an item</li>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </diV>
 
-        <div class="col col-12 col-centered">
+        <div class="col white col-11 col-centered">
             <div class="row">
-                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
-                    <div class="instructions-box-section-header">HOW TO USE</div>
-                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
-                        placeholder
-                        placeholder placeholder.
-                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
-                        <div>
-                            <div class="instructions-steps margin-top no-select">
-                                FIRST STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                placeholder
-                                placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder
-                                placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder
-                                placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder
-                                placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder
-                                placeholder.
-                            </div>
 
-                            <div class="instructions-steps margin-top no-select">
-                                SECOND STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                placeholder
-                                placeholder placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder
-                                placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder
-                                placeholder.
-                                placeholder placeholder placeholder placeholder placeholder. Placeholder
-                                placeholder
-                                placeholder placeholder. placeholder placeholder placeholder placeholder
-                                placeholder.
-                            </div>
-
-                            <div class="instructions-steps margin-top no-select">
-                                THIRD STEP
-                            </div>
-                            <div class="margin-top-tiny">
-                                Feel better!
-                            </div>
-                        </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">2</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions2">
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="col col-12 col-centered">
+        <div class="col white col-11 col-centered">
             <div class="row">
-                <div class="margin-top col col-11 col-lg-10 col-centered instructions-box-section shadow">
-                    <div class="instructions-box-section-header">THE RESEARCH</div>
-                    <div class="instructions-box-section-body margin-top-tiny">Placeholder placeholder placeholder
-                        placeholder
-                        placeholder placeholder.
-                        placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder
-                        placeholder placeholder. placeholder placeholder placeholder placeholder placeholder.
 
-                        <div class="margin-top">
-                            <li>Item one this is an item</li>
-                            <li>Item two this is an item</li>
-                            <li>Item three this is an item</li>
-                        </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">3</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions3">
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="instructions-button no-select" onclick="closeInstructions()">
-            Get Started
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">4</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions4">
+
+                    </div>
+                </div>
+
+            </div>
         </div>
 
+        <div class="col white col-11 col-centered">
+            <div class="row">
 
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">5</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions5">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col col-12 col-centered text-center margin-top-large">
+            <div onclick="closeInstructions()"
+                class="start-session-button col-centered no-select force-top margin-top-tiny">I understand</div>
+
+        </div>
     </div>
 
 </body>
