@@ -4,6 +4,7 @@ var customizeDashActive = false;
 var isUsingGradient = false;
 var coverOptionSelected = "";
 
+
 new Sortable(customizeLeft, {
     ghostClass: "ghost",
     group: 'shared',
@@ -25,6 +26,14 @@ new Sortable(customizeRight, {
         });
     }
 });
+
+
+function openBlog(value) {
+    if (value == "dashboard") {
+        localStorage.setItem("blogOrigin", "dashboard");
+        setTimeout(function () { window.location = "blog.html"; }, 300);
+    }
+}
 
 function openInstructions() {
     $("#instructions-panel").removeClass("analysis-box-hidden");

@@ -48,18 +48,11 @@ $("#js-rotating").Morphext({
     }
 });
 
-function removeFocus() {
-    document.getElementById("header-nav").blur();
-    document.getElementById("first-nav").blur();
-    document.getElementById("second-nav").blur();
-    document.getElementById("third-nav").blur();
-    document.getElementById("fourth-nav").blur();
-}
 
 window.addEventListener('resize', fitToContainer);
 
 function resizeCanvas() {
-    console.log('s');
+
 }
 
 ScrollReveal({ distance: '-15px' });

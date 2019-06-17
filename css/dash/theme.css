@@ -2278,7 +2278,7 @@ pre code
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; 
 
     color: #12263f;
-    border: 1px solid #d2ddec;
+    border: 3px solid #d2ddec;
     border-radius: .375rem;
     background-color: #fff;
     background-clip: padding-box;

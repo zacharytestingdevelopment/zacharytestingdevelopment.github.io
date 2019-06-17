@@ -111,7 +111,7 @@
     function loggedOutBox() {
         var loggedOutBox = "";
         loggedOutBox += "<div class=\"log-in-box-header\">Sign Up<\/div>";
-        loggedOutBox += "                                <div class=\"log-in-subheader\">Already have an account? Log in <a href=\"sign-in.html\"";
+        loggedOutBox += "                                <div class=\"log-in-subheader\">Already have an account? Log in <a href=\"signin.html\"";
         loggedOutBox += "                                        class=\"link-style kill-link-style\">here<\/a><\/div>";
         loggedOutBox += "";
         loggedOutBox += "                                <form>";

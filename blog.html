@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Easy EMDR | Home</title>
+
+
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+
+</head>
+
+<body id="page-top" style="background:#12233f;" onload="checkBlogOrigin('active')">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+
+    <div id="blogDetails" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Blog details</div>
+                <div id="entry-date-modal" class="therapy-over-box-subheader text-center"></div>
+
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Entry title: <span id="blog-title"></span>
+                        </li>
+                        <li class="list-group-item">Authors: <span id="blog-authors"
+                                class="capitalize no-select"></span>
+                        </li>
+                        <li class="list-group-item">Day written: <span id="blog-written-date"></span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <!--
+                    <div class="dash-box-button margin-right-larger no-select" onclick="openSharePage()">Submit these thoughts
+                    </div>
+                -->
+                    <span class="save-changes-button no-select" data-dismiss="modal">CLOSE
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="entry-result" class="gradient-box rubber-band analysis-box-hidden">
+        <a href="#" class="kill-link-style">
+            <div class="exit-button no-select force-top" style="position: absolute;" onclick="closeBlogPost()">
+                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                Close this entry
+            </div>
+        </a>
+        <span class="float-right">
+
+            <span class="float-right entry-write position-entry-details force-top extra-padding no-select"
+                onclick="viewBlogDetails()">View post
+                details
+            </span>
+
+        </span>
+
+        <div id="entry-header" class="journal-header-img-entry journal-header-2" style=" display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+        
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
+        
+            align-items: center;position:relative;top:-30px;">
+
+            <div id="journal-entry-header-title"
+                style="display:table-cell;vertical-align:middle;line-height:40px !important;margin-left:auto;margin-right:auto;left:0;right:0;position:relative;top:-30px;width:90vw !important;"
+                class="row col-centered text-center">
+                <span id="post-date-main" class="prompt-announcement"></span>
+                <div class="prompt-announcement-divider margin-top col-centered"></div>
+                <div id="post-body-main" class="margin-top-tiny no-select prompt-body col col-11 col-centered">If you
+                    could be an animal,
+                    what
+                    kind would you be?</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col col-12 col-md-12 col-xl">
+
+                        <div class="card shadow animated fadeInUp kill-max-height modified-testing-card testing-card">
+
+                            <div class="position-creation-circles force-top">
+                                <ion-icon class="creation-circle" name="logo-facebook" onclick="noteAction('edit')">
+                                </ion-icon>
+                                <ion-icon class="creation-circle creation-circle-twitter" name="logo-twitter"
+                                    onclick="noteAction('trash')"></ion-icon>
+                            </div>
+                            <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                                <div class="col col-11 col-centered margin-top-medium text-center">
+                                    <span id="entry-title" class="title-style">Loading...</span>
+                                </div>
+                                <div class="col col-8 col-centered split-line"></div>
+                            </div>
+
+                            <div id="entry-body" class="col col-11 col-centered entry-body">
+
+                            </div>
+
+                            <div class="col col-8 col-centered split-line"></div>
+
+                            <div class="col col-11 col-md-9 col-lg-8 col-centered text-center no-select">
+                                <span id="insert-tags">
+
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div id="blog-element" class="force-top transition-time blog-nav-active">
+        <a href="dashboard.html" class="kill-link-style pointer">
+            <ion-icon class="dashboard-arrow" name="home" style="font-size:25.4px;position:absolute;top:3.7px;">
+            </ion-icon>
+            <span class="green-highlight-text" style="position: relative;left:30px;top:7px;font-size: 17px;">Go to
+                dashboard</span>
+        </a>
+
+    </div>
+    <span class="animated fadeIn" id="journal-header-box" style="position: relative;top:-31px;">
+
+        <div id="journal-header" class="center-flex blog-header-img journal-header-1">
+            THE LATEST
+        </div>
+    </span>
+
+    <div class="main-content">
+        <div class="container-fluid mt--6">
+            <div class="row">
+
+
+                <div class="col col-12 col-md-12 col-xl">
+                    <div class="card shadow animated fadeInUp" style="padding-top: 35px;padding-bottom: 45px;">
+                        <div class="blog-card-header-large col-centered text-center">The official Easy EMDR blog
+                        </div>
+                        <div
+                            class="blog-card-subheader-large col col-11 col-md-7 col-centered text-center darker-text-style margin-top-tiny">
+                            Here you can
+                            follow our journey,
+                            hear from experts, and learn about the latest advancements in mental health research.
+                            <br />
+
+                            <div>
+                                <span class="margin-top-large darker-text-style"
+                                    style="font-size: 15.5px;position:relative;top:3px;">Want full access to our
+                                    powerful EMDR toolkit? <a href="signup.html"
+                                        class="link-style-blue pointer no-select">Click here
+                                        to
+                                        sign
+                                        up.
+                                    </a></span>
+                            </div>
+
+                            <div class="blog-divider"></div>
+                        </div>
+                        <a href="#introduction" class="kill-link-style">
+                            <div class="col col-11 margin-top-medium col-centered col-md-11 blog-post-box"
+                                onclick="openBlogPost('introduction')">
+                                <div class="blog-post-dash-date white">January 29th, 2019</div>
+                                <div class="blog-post-dash-header white">Our conversation with an EMDR specialist
+                                </div>
+                                <div class="blog-post-dash-body white">This week, we sat down to talk with Dr. Janet
+                                    Stevenson, who
+                                    has
+                                    been
+                                    a medical practitioner for over 35 years. She is very excited about how EMDR can
+                                    be used to...
+                                </div>
+
+                                <div class="read-full-post white margin-top-tiny no-select">
+                                    Check it out &#8594;
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                    <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                </a>
+                <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                </a>
+                <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                    class="kill-link-style">
+                    <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                </a>
+                <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                </a>
+
+            </div>
+
+            <div class="col col-12 col-centered text-center no-select">
+                <div class="mailing-list-header">
+                    Join our mailing list to get updates, discounts, and more!
+                </div>
+                <form action="https://formspree.io/info@easy-emdr.com" method="POST">
+                    <input type="email" name="Email" class="mailing-list-input margin-bottom-icon"
+                        placeholder="Enter email here..." required />
+                    <button type="submit" class="mailing-list-submit">SUBMIT &#8594;</button>
+                </form>
+            </div>
+            <div class="col col-12 copyright-text icon-footer margin-top margin-bottom-footer no-select">
+                <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                    ;>&#169</span>
+                EASY EMDR 2019
+            </div>
+
+            <div class="col col-12 col-centered text-center">
+                <div class="disclaimer-text text-center no-select">
+
+                    Do not use EMDR without a licensed therapist.
+                    Easy EMDR is a tool for performing
+                    EMDR, not a
+                    licensed
+                    therapy or
+                    treatment. We are not responsible
+                    for any negative consequences or experiences that may result from using our tool.
+
+                    <br />
+                    <div class="margin-top disclaimer-text-color">
+                        You can <a href="https://www.emdria.org/search/default.asp" target="_blank"
+                            class="link-style">click
+                            here</a> to
+                        find an
+                        EMDR therapist in your area.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</body> <!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/creative.js"></script>
+<script src="js/homeAnimations.js"></script>
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(function (user) {
+
+        if (user) {
+            document.getElementById("blog-element").innerHTML = blogDash;
+            jQuery('#loader').fadeOut(230);
+        }
+        else {
+            document.getElementById("blog-element").innerHTML = blogHome;
+            jQuery('#loader').fadeOut(230);
+        }
+    });
+</script>
+<script src="js/onboarding.js"></script>
+
+<script>
+    /*
+    jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(230);
+
+    });
+*/
+    $("#js-rotating").Morphext({
+        // The [in] animation type. Refer to Animate.css for a list of available animations.
+        animation: "flipInX",
+        // An array of phrases to rotate are created based on this separator. Change it if you wish to separate the phrases differently (e.g. So Simple | Very Doge | Much Wow | Such Cool).
+        separator: ",",
+        // The delay between the changing of each phrase in milliseconds.
+        speed: 3050,
+        complete: function () {
+            // Called after the entrance animation is executed.
+        }
+    });
+</script>
+</body>
+
+</html>

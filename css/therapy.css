@@ -29,6 +29,14 @@ html, body {
     width:100vw;
 }
 
+
+.full-width-emdr
+{
+    position: absolute;
+    left:0;
+    
+}
+
 .larger-card-header
 {
     font-size: 21px;
@@ -184,7 +192,7 @@ input[type="color"]::-webkit-color-swatch {
     line-height: 60px;
     display: inline-block;
     border: 2.5px solid #3ee986;
-    border-radius: 10px;
+    border-radius: 5px;
     height:60px;
     width:70px;
     transition: background 0.3s ease 0s;
@@ -348,7 +356,7 @@ input[type="color"]::-webkit-color-swatch {
 .preset-item
 {
     margin-top:5px;
-    border-radius: 10px;
+    border-radius: 5px;
     position: relative;
     top:0px;
     border: 2.5px solid #3ee986;
@@ -1047,8 +1055,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .section-card-header
 {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     background:transparent;
     padding-left:12px;
     padding-right: 12px;
@@ -1274,7 +1282,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .dashboard-button
 {
     transition: all .3s ease 0s;
-    border-radius: 10px;
+    border-radius: 5px;
     padding-left: 15px;
     padding-right: 15px;
     padding-top:5px;
@@ -1444,7 +1452,7 @@ input:focus::-webkit-input-placeholder {
     padding-bottom: 5px;
     padding-left:10px;
     padding-right:10px;
-    border-radius: 10px;
+    border-radius: 5px;
     border:2.5px solid #fff;
     font-size:19px;
     transition: all .3s ease 0s;

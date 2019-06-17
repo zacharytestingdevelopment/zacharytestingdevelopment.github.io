@@ -11,9 +11,6 @@
 
     <title>Easy EMDR | Dashboard</title>
 
-
-
-
     <!-- Libs CSS -->
     <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
     <link rel="stylesheet" href="css/dash/select2.min.css" />
@@ -29,14 +26,63 @@
     <link href="css/creative.css" rel="stylesheet">
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
+    <style>
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #12223f !important;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #12223f !important;
+        }
+
+        ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #12223f !important;
+        }
+    </style>
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="insideApplication('dashboard')">
     <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
+
+    <div id="notSignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">You are not signed in!</div>
+                <div class="therapy-over-box-subheader text-center">Log in or sign up to get started now</div>
+
+                <div class="modal-body">
+
+                    Once you are signed into an active account, you will have access to our complete EMDR toolkit,
+                    including instructions and
+                    tools to help you find a therapist
+                    who specializes in EMDR.
+
+                </div>
+
+                <div class="modal-footer">
+                    <a href="signin.html" class="kill-link-style">
+                        <span class="close-button no-select">Sign
+                            in</span>
+                    </a>
+                    <a href="signup.html" class="kill-link-style">
+                        <span class="save-changes-button no-select">SIGN
+                            UP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="header-component" style="background:#12233f;">
         <div class="dashboard-return">
             <span class="no-select return-text" onclick="customizeDash()">
@@ -45,13 +91,33 @@
                 Your account
             </span>
 
-            <span class="no-select return-text float-right" onclick="customizeDash()">
+            <span class="no-select return-text float-right" onclick="signOutDash()">
                 <ion-icon class="dashboard-arrow" name="walk" style="font-size:18.4px;position:relative;top:3.7px;">
                 </ion-icon>
                 Sign out
             </span>
         </div>
     </div>
+
+    <!--
+    <div id="email-not-verified" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="viewGoalResults()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close goal analysis
+        </div>
+        <div class="customize-dash-header">Goal analysis</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+    </div>
+
+-->
     <div class="dark-header-top emdr-header text-center">
 
         <span class="col-centered" style="position: relative;top:-30px;">
@@ -64,105 +130,132 @@
     </div>
 
 
+
     <div class="main-content" style="position: relative;top:30px;">
-        <div class="container-fluid mt--6">
-            <div class="row">
-                <div class="col col-12 col-md-12 col-xl">
-                    <div class="card shadow animated fadeInUp modify-testing-card testing-card-large">
-                        <div class="card-header hide-bottom-border" style="display: inline-block !important;">
-                            <div class="row realign-items-center padding-bottom">
-                                <div class="col text-center">
+        <span id="dash-active">
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col col-12 col-md-12 col-xl">
+                        <div class="card shadow animated fadeInUp modify-testing-card testing-card-large">
+                            <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                                <div class="row realign-items-center padding-bottom">
+                                    <div class="col text-center">
 
 
-                                    <h6 class="card-title text-center text-uppercase text-muted mb-2"
-                                        style="font-size: 14.2px;">
-                                        GET STARTED
-                                    </h6>
+                                        <h6 class="card-title text-center text-uppercase text-muted mb-2"
+                                            style="font-size: 14.2px;">
+                                            GET STARTED
+                                        </h6>
 
 
-                                    <!-- Heading -->
-                                    <div class="col-centered card-header-title-large text-center">
-                                        YOUR TOOLKIT
-                                    </div>
+                                        <!-- Heading -->
+                                        <div class="col-centered card-header-title-large text-center">
+                                            YOUR TOOLKIT
+                                        </div>
 
-                                    <div class="margin-top-tiny text-center">
-                                        <small class="form-text slightly-larger text-muted">
-                                            Powerful, personal, and accessible EMDR tools
-                                        </small>
+                                        <div class="margin-top-tiny text-center">
+                                            <small class="form-text slightly-larger text-muted">
+                                                Powerful, personal, and accessible EMDR tools
+                                            </small>
+                                        </div>
+
                                     </div>
 
                                 </div>
+                                <div class="col col-12 col-md-12 col-centered">
 
-                            </div>
-                            <div class="col col-12 col-md-12 col-centered">
+                                    <div id="is-email-verified" class="row full-stretch">
 
-                                <div class="row full-stretch">
-
-                                    <div class="col col-12 col-md-6 margin-top text-center">
-
-                                        <a href="emdr.html" class="kill-link-style no-select">
-                                            <div class="tool-card">
-                                                <div class="tool-box col-centered emdr-tool"
-                                                    style="padding-left:0px;padding-right: 0px">
-
-                                                </div>
-                                                <div class="col-centered tool-box-bottom">
-                                                    <div class="tool-box-header">
-                                                        Start session
-                                                        <div
-                                                            class="tool-description col-11 margin-top-tiny col-centered white">
-                                                            Jump right into customizing your session.</div>
-
-                                                        <div class="col col-12 col-md-11 margin-top col-centered">
-
-                                                            <a href="emdr.html" class="kill-link-style no-select">
-                                                                <span class="tool-button margin-top no-select">Get
-                                                                    started</span>
-                                                            </a> </div>
-                                                    </div>
-                                                </div>
+                                        <div
+                                            class="col col-12 col-centered col-md-9 margin-top verify-your-email text-center">
+                                            <span class="verify-your-email-header">Verify your email to unlock the EMDR
+                                                tool and analytics.</span>
+                                            <div class="verify-your-email-body">You should have
+                                                already
+                                                received
+                                                it, but the button below will send another verification message.
                                             </div>
-                                        </a> </div>
-                                    <div class="col col-12 col-md-6 margin-top text-center">
 
-                                        <a href="therapy-analysis-emdr.html" class="kill-link-style no-select">
-                                            <div class="tool-card">
-                                                <div class="tool-box col-centered journal-tool"
-                                                    style="padding-left:0px;padding-right: 0px">
+                                            <div class="verify-your-email-button" onclick="resendVerification()">
+                                                Re-send verification email
+                                            </div>
+                                        </div>
+                                        <!--
+                                                    <div class="col col-12 col-md-6 margin-top text-center">
 
-                                                </div>
-                                                <div class="col-centered tool-box-bottom">
-                                                    <div class="tool-box-header">
-                                                        Session analysis
-                                                        <div
-                                                            class="tool-description col-11 margin-top-tiny col-centered white">
-                                                            Here you can analyze your previous sessions
-                                                        </div>
+                                            <a href="emdr.html" class="kill-link-style no-select">
+                                                <div class="tool-card">
+                                                    <div class="tool-box col-centered emdr-tool"
+                                                        style="padding-left:0px;padding-right: 0px">
 
-                                                        <div class="col col-11 margin-top col-centered">
-                                                            <a href="therapy-analysis-emdr.html"
-                                                                class="kill-link-style no-select">
-                                                                <span class="tool-button margin-top no-select">Get
-                                                                    started
-                                                                </span>
-                                                            </a>
+                                                    </div>
+                                                    <div class="col-centered tool-box-bottom">
+                                                        <div class="tool-box-header">
+                                                            Start session
+                                                            <div
+                                                                class="tool-description col-11 margin-top-tiny col-centered white">
+                                                                Jump right into customizing your session.</div>
 
+                                                            <div class="col col-12 col-md-11 margin-top col-centered">
+
+                                                                <a href="emdr.html" class="kill-link-style no-select">
+                                                                    <span class="tool-button margin-top no-select">Get
+                                                                        started</span>
+                                                                </a> </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </a> </div>
+                                            </a> </div>
+                                        <div class="col col-12 col-md-6 margin-top text-center">
+
+                                            <a href="therapy-analysis-emdr.html" class="kill-link-style no-select">
+                                                <div class="tool-card">
+                                                    <div class="tool-box col-centered analysis-tool"
+                                                        style="padding-left:0px;padding-right: 0px">
+
+                                                    </div>
+                                                    <div class="col-centered tool-box-bottom">
+                                                        <div class="tool-box-header">
+                                                            Session analysis
+                                                            <div
+                                                                class="tool-description col-11 margin-top-tiny col-centered white">
+                                                                Here you can analyze your previous sessions
+                                                            </div>
+
+                                                            <div class="col col-11 margin-top col-centered">
+                                                                <a href="therapy-analysis-emdr.html"
+                                                                    class="kill-link-style no-select">
+                                                                    <span class="tool-button margin-top no-select">Get
+                                                                        started
+                                                                    </span>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </a> </div>
+                                        -->
+
+
+
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
+        </span>
+    </div>
+
+
+    <div id="email-not-verified-box" class="email-not-verified-box">
 
     </div>
+
     <div class="container-fluid mt--6" style="position: relative;top:65px;">
         <div class="row">
             <div class="col-12 col-md-6 col-xl">
@@ -187,7 +280,7 @@
                                 <div class="margin-top-tiny dash-card-body">
                                     EMDR works best when it's configured for how you feel the most comfortable
                                     using it. That's why we recommend checking out this quick guide on how
-                                    to get started with our tool.
+                                    to get started with our tool. Just click here!
                                 </div>
 
                                 <div class="get-started-button margin-top-tiny">
@@ -232,7 +325,9 @@
 
                                     <div class="margin-top-tiny dash-card-body">
                                         Before beginning your first session, it is very important to speak with
-                                        a qualified medical professional. You can find them using the EMDR
+                                        a qualified medical professional trained in EMDR. You can find them using
+                                        the
+                                        EMDR
                                         International
                                         Association's free tool!
                                     </div>
@@ -320,9 +415,13 @@
 
             <div class="col col-12 col-centered text-center margin-top">
                 <div class="row margin-top text-center">
-                    <a href="blog.html" class="col-centered kill-link-style">
-                        <span class="view-full-blog no-select">View full blog
+
+                    <a href="blog.html" class="col-centered text-center kill-link-style">
+                        <span class="view-full-blog no-select col-centered">View full
+                            blog
+                        </span>
                     </a>
+
                 </div>
             </div>
 
@@ -330,17 +429,35 @@
                 <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
                     <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
                 </a>
-                <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
-                <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
-                <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                </a>
+                <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                    class="kill-link-style">
+                    <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                </a>
+                <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                </a>
 
             </div>
 
-            <div class="col col-12 copyright-text icon-footer margin-bottom-footer no-select"><span
-                    style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+            <div class="col col-12 col-centered text-center no-select">
+                <div class="mailing-list-header">
+                    Join our mailing list to get updates, discounts, and more!
+                </div>
+                <form action="https://formspree.io/info@easy-emdr.com" method="POST">
+                    <input type="email" name="Email" class="mailing-list-input margin-bottom-icon"
+                        placeholder="Enter email here..." required />
+                    <button type="submit" class="mailing-list-submit">SUBMIT &#8594;</button>
+                </form>
+            </div>
+            <div class="col col-12 copyright-text icon-footer margin-top margin-bottom-footer no-select">
+                <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
                     ;>&#169</span>
                 EASY EMDR 2019
             </div>
+
         </div>
     </div>
 
@@ -367,8 +484,15 @@
                         <div class="instructions-numbers col-centered">1</div>
                         <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
                             <i>extremely</i> important that you meet with a licensed professional.
-                            The easiest way to do this is through using the EMDR international association's free tool.
-                            Click here and filter by your location to find therapists trained in EMDR.</div>
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
+                            You can filter by location
+                            in order to find therapists in your area who are trained in EMDR.
+                            <br />
+                            <a href="https://www.emdria.org/search/default.asp" target="_blank" class="kill-link-style">
+                                <div class="start-session-button margin-top">Find a therapist</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col col-12 text-center margin-top-large">
@@ -387,7 +511,8 @@
                         <div class="instructions-numbers col-centered">2</div>
                         <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
                             <i>extremely</i> important that you meet with a licensed professional.
-                            The easiest way to do this is through using the EMDR international association's free tool.
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
                             Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
@@ -408,7 +533,8 @@
                         <div class="instructions-numbers col-centered">3</div>
                         <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
                             <i>extremely</i> important that you meet with a licensed professional.
-                            The easiest way to do this is through using the EMDR international association's free tool.
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
                             Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
@@ -429,7 +555,8 @@
                         <div class="instructions-numbers col-centered">4</div>
                         <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
                             <i>extremely</i> important that you meet with a licensed professional.
-                            The easiest way to do this is through using the EMDR international association's free tool.
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
                             Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
@@ -450,12 +577,35 @@
                         <div class="instructions-numbers col-centered">5</div>
                         <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
                             <i>extremely</i> important that you meet with a licensed professional.
-                            The easiest way to do this is through using the EMDR international association's free tool.
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
                             Click here and filter by your location to find therapists trained in EMDR.</div>
                     </div>
                 </div>
                 <div class="col col-12 text-center margin-top-large">
                     <div class="instructions-image shadow instructions5">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">6</div>
+                        <div class="instructions-text margin-top">Before you begin your first EMDR session, it is
+                            <i>extremely</i> important that you meet with a licensed professional.
+                            The easiest way to do this is through using the EMDR international association's free
+                            tool.
+                            Click here and filter by your location to find therapists trained in EMDR.</div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions6">
 
                     </div>
                 </div>
@@ -493,7 +643,6 @@
 <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
 <script src="js/therapy-analysis.js"></script>
 <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-<script src="js/dashboard.js"></script>
 <script src="js/spectrum.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -524,14 +673,17 @@
 
 </script>
 
+<script src="js/dashboard.js"></script>
 <script src="js/sign-up.js"></script>
 
 <script>
 
-    jQuery(document).ready(function () {
-        jQuery('#loader').fadeOut(330);
-
-    });
+    /*
+        jQuery(document).ready(function () {
+           
+    
+        });
+        */
 
     $('#myTags').tagEditor({
 
@@ -539,7 +691,6 @@
     });
 
 </script>
-<script src="js/sign-up.js"></script>
 
 <script>
 

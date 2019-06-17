@@ -3,776 +3,939 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Meditation Suite</title>
+    <title>Easy EMDR | Home</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link
-    href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-    rel='stylesheet' type='text/css'>
-  <link
-    href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
-    rel='stylesheet' type='text/css'>
 
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
-  <link rel="shortcut icon" href="img/logo.ico">
-  <meta name="description" content="Hello, my name is Zachary Jordan. I am currently a Junior attending Macalester College. I love to create things, and as such have extensive experience working on a wide range of projects. On this site,
-  I share my programming projects, art, writing, and anything else I've been working on. I'm always working on something
-  new! I try to work with as many disciplines as possible so that I can be familiar with them all.">
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
-  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
-  <!-- Plugin CSS -->
-  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-
-  <link href="css/creative.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet" />
-  <link href="css/animate.css" rel="stylesheet" />
-  <link href="css/morphext.css" rel="stylesheet" />
-  <link href="css/navigation.css" rel="stylesheet" />
-
+    <style>
+        body {
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+        }
+    </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" style="background:#12233f;" onload="setBlogOrigin()">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
 
-  <div id="loader" class="spinner"
-    style="z-index:999;position: absolute;top:-100px !important;left:0;text-align: center;width:100%;height:100%;">
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
-  </div>
 
-  <!-- Navigation -->
-  <nav class=" navbar cl-effect-13 navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <span onclick="returnHome()" class="navbar-brand js-scroll-trigger" href="#page-top">Orenda</span>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a id="first-nav"
-              class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform"
-              onclick="removeFocus()" href="#about">Meditations</a>
-          </li>
-          <li class="nav-item">
-            <a id="second-nav"
-              class="nav-link js-scroll-trigger animated fadeInDown delay2 no-select eliminate-text-transform"
-              href="#lifeTracking" onclick="removeFocus()">Life-tracking</a>
-          </li>
-          <li class="nav-item">
-            <a id="third-nav"
-              class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform"
-              href="#resources" onclick="removeFocus()">Resources</a>
-          </li>
-          <li class="nav-item">
-            <a id="fourth-nav"
-              class="nav-link js-scroll-trigger animated fadeInDown delay3 no-select eliminate-text-transform"
-              href="#subscribe" onclick="removeFocus()">Subscribe</a>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link js-scroll-trigger animated fadeInDown block-point hide-element"></span>
-          </li>
+    <nav class="navbar navbar-expand nav-journal fixed-top d-none d-md-none d-sm-none d-xs-none d-xl-block d-lg-block"
+        id="mainNav">
+        <div class="container" style="position: relative;top:-25.5px;">
 
-          <span class="row">
-            <li class="nav-item hide-element">
-              <a href="sign-in.html"
-                class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in"
-                href="#c">Log
-                In</a>
-            </li>
-            <a href="sign-up.html" class="kill-link-style">
-              <li class="nav-item hide-element">
-                <div class="sign-up animated fadeInDown delay2 no-select">SIGN UP</div>
-              </li>
-            </a>
-          </span>
+            <div class="dashboard-return">
+                <a href="index.html" class="kill-link-style" style="position:relative;top:-1.5px;">
+                    <span class="no-select no-select return-text" style="display:inline-block;">
 
-          <div class="col d-lg-none d-xl-none col-centered col-12 col-md-7">
-            <div id="login-signup" class="row">
-              <div class="col col-6 text-center margin-top-large">
-
-                <a href="sign-in.html">
-                  <li class="nav-item">
-                    <div
-                      class="center-abs-element col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">
-                      LOG
-                      IN</div>
-                  </li>
+                        <span style="position:relative;top:7px;">
+                            <img src="img/logo.png" class="site-logo" />
+                            <span class="site-logo-text" style="position: relative;top:4px;left:-3.5px;"> EASY
+                                EMDR</span>
+                        </span>
+                    </span>
                 </a>
 
-              </div>
-              <div class="col col-6 margin-top-large">
-                <a href="signup.html">
-                  <li class="nav-item">
-                    <div class="center-abs-element sign-up animated fadeInDown delay2 no-select margin-bottom">SIGN UP
-                    </div>
-                  </li>
-                </a>
-              </div>
+
             </div>
 
-            <span id="logout-account" class="row hidden">
-              <li class="nav-item hide-element">
-                <a id="btnLogOut"
-                  class="nav-link js-scroll-trigger animated fadeInDown delay1 no-select eliminate-text-transform log-in">Log
-                  Out</a>
-              </li>
-              <li class="nav-item hide-element">
-                <div class="sign-up animated fadeInDown delay2 no-select">ACCOUNT</div>
-              </li>
-            </span>
+            <div class="float-right" style="position: relative;top:1.8px;">
 
-            <div class="row d-lg-none d-xl-none">
-              <div class="col col-6 text-center margin-top-large">
+                <a href="#whatisemdr" class="kill-link-style js-scroll-trigger">
+                    <span class="nav-text">What is EMDR?</span>
+                </a>
+                <a href="#oursolutions" class="kill-link-style js-scroll-trigger">
+                    <span class="nav-text">Our solutions</span>
+                </a>
+                <a href="#plans" class="kill-link-style js-scroll-trigger">
+                    <span class="nav-text">Plans</span>
+                </a>
+                <a href="blog.html" class="kill-link-style js-scroll-trigger">
+                    <span class="nav-text">Blog</span>
+                </a>
 
-                <li class="nav-item">
-                  <div class="invisible col-centered sign-up animated fadeInDown delay2 no-select margin-bottom">LOGss
-                    IN</div>
+                <span style="margin-right:30px;"></span>
+                <span id="desktop-nav-change">
+
+                </span>
+            </div>
+        </div>
+    </nav>
+
+
+    <nav id="mobileNav"
+        class="navbar navbar-expand-lg navbar-light bg-light d-block d-md-block d-sm-block d-xs-block d-xl-none d-lg-none fixed-top"
+        style="background:#fff !important;">
+        <img src="img/logo.png" class="site-logo" />
+        <a class="navbar-brand" href="index.html" style="position: relative;top:10px">EASY EMDR</a>
+        <button class="navbar-toggler float-right" style="position: relative;top:17.5px;" type="button"
+            data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="padding-bottom: 25px !important;" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item margin-top col-centered text-center">
+                    <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show"
+                        href="#whatisemdrmobile">What is EMDR?</a>
+                </li>
+                <li class="nav-item margin-top col-centered text-center">
+                    <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show"
+                        href="#oursolutionsmobile">Our solutions</a>
                 </li>
 
-              </div>
+                <li class="nav-item margin-top col-centered text-center">
+                    <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show" href="#plansmobile">Our
+                        plans</a>
+                </li>
 
+                <li class="nav-item margin-top col-centered text-center">
+                    <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show" href="blog.html">The
+                        blog</a>
+                </li>
+
+                <div class="mobile-divider col-centered margin-top-large"></div>
+                <span id="mobile-nav-change">
+
+                </span>
+
+                <!--
+            <li class="nav-item">
+              <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show" href="#plans">>Our plans</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link-mobile col-centered" data-target=".navbar-collapse.show" href="blog.html">Disabled</a>
+          </li>
+        -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="index-header-top journal-header-2 emdr-header text-center">
+        <span class="col-centered" style="position: relative;top:-30px;">
+            <div class="welcome-dash-header animated fadeInDown white no-select">EASY EMDR</div>
+
+            <div class="get-started-button white no-select force-top margin-top-tiny">
+                The most powerful, personal, and accessible EMDR tool ever
             </div>
-          </div>
-
-
-
-
-        </ul>
-      </div>
-    </div>
-    </div>
-  </nav>
-
-
-  <div id="canvas-parent" class="col col-12 canvas-size eliminate-margin-pad" style="margin-bottom:0px !important;">
-
-    <!-- make the text switch out every few seconds like it does on Brockway Street-->
-
-    <div class="darken-canvas"></div>
-    <div class="canvas-info abs-center text-center" style="overflow-x:hidden;">
-      <div class="header-text animated fadeInDown">Think clearer. Feel better.</div>
-
-      <div class="sub-header-text d-none d-md-block text-center d-lg-block d-sm-none d-xs-none animated fadeInDown">We
-        make
-        self-improvement <span class="rotate" id="js-rotating">easy,
-          fun, fast, dynamic</span>
-      </div>
-      <div class="sub-header-text animated fadeInDown d-md-none text-center d-xs-block d-sm-block d-lg-none">
-        We make self-improvment easy.
-      </div>
-
-
-      <!--
-      <div class="sub-header-text animated fadeInDown">We make self-improvement easy</div>
-      -->
-
-
-    </div>
-    <div class="row header-buttons header-buttons-width">
-      <div class="col col-12 col-centered">
-        <div class="row">
-          <div class="col col-12 push-top text-center">
-            <a href="sign-up.html" class="kill-link-style"> <span
-                class="header-button push-top no-select animated fadeIn delay2">TRY
-                A DEMO</span></a>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="arrow-position animated fadeIn delay4 push-top">
-      <a class="js-scroll-trigger" href="#mission">
-        <img class="down-arrow" src="img/expand-button.svg" />
-      </a>
-    </div>
-
-    <canvas id="bubbly"></canvas>
-
-  </div>
-
-  <div id="mission" class="meditation-cover section section-two col col-12">
-    <div class="text-center">
-
-      <div class="row">
-        <div class="col col-12 text-center animated fadeIn section-header"><span class="eggshell light">OUR</span>
-          <span class="eggshell heavy">MISSION</span></div>
-
-        <div class="col col-lg-8 animated fadeIn col-centered">
-          <div class="col col-lg-11 eggshell therapy-intro-body col-centered margin-top">
-            We believe in options. That's why we built highly customizable toolkits just for you.
-            Save multiple session preferences that automatically sink across your devices, so that you can practice
-            meditation
-            anywhere, anytime.
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row text-center col-centered">
-
-      <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
-
-        <div class="mission-box f2">
-          <ion-icon class="md mission-icon-style" name="cog"></ion-icon>
-          <div class="sub-header">COMPREHENSIVE SUPPORT</div>
-          <div class="mission-box-header heavy">Here for you</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
-            out as development continues.
-            This information will be filled out as development continues.
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
-        <div class="mission-box f1">
-          <ion-icon class="md mission-icon-style" name="people"></ion-icon>
-          <div class="sub-header">customizable and complete</div>
-          <div class="mission-box-header heavy">Flexible toolkits</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
-            out as development continues.
-            This information will be filled out as development continues.
-          </div>
-        </div>
-      </div>
-
-      <div class="col col-md-4 col-12 margin-top-large col-lg-4 col-sm-12">
-        <div class="mission-box f3">
-          <ion-icon class="md mission-icon-style" name="bookmarks"></ion-icon>
-          <div class="sub-header">COMPREHENSIVE SUPPORT</div>
-          <div class="mission-box-header heavy">Here for you</div>
-          <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">This information will be filled
-            out as development continues.
-            This information will be filled out as development continues.
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div id="about" class="col-centered animated fadeIn text-center delay1 therapy-intro-box">
-    <div class="col col-lg-8 col-centered">
-      <div class="col col-12 section-header"><span class="highlight-color light">OUR</span> <span
-          class="highlight-color heavy">THERAPIES</span></div>
-      <div class="therapy-intro-subtitle">Effective, highly customizable therapies</div>
-
-      <!-- add bullet points with check marks: 
-      - research supported 
-      - avaliable everywhere, all the time 
-      
-      -->
-      <div class="col col-lg-11 therapy-intro-body col-centered margin-top">
-        We believe in options. That's why we have built a highly customizable
-        Save multiple session preferences that automatically sink across your devices, so that you can do meditation
-        anywhere, anytime. placeholder placehodler
-      </div>
-
-
-    </div>
-    <div class="col col-11 text-left col-centered animated fadeIn delay2">
-      <div class="row margin-top-large">
-        <div class="col col-12 col-md-4 col-lg-4 x1">
-          <div id="therapy1box" class="therapy-inspect-box col-centered no-select"
-            onmouseover="changeColorWhite('therapy1')" onmouseout="changeColorWhiteOut('therapy1')"
-            onclick="changeActiveTherapy('therapy1')">
-            <div id="therapy1header" class="therapy-inspect-box-header">Breathing</div>
-            <div id="therapy1body" class="therapy-inspect-box-body">Anxiety, OCD, general relaxation</div>
-          </div>
-        </div>
-        <div class="col col-12 col-md-4 col-lg-4 x2">
-          <div id="therapy2box" class="therapy-inspect-box col-centered no-select therapy-inspect-box-active"
-            onmouseover="changeColorWhite('therapy2')" onmouseout="changeColorWhiteOut('therapy2')"
-            onclick="changeActiveTherapy('therapy2')">
-            <div id="therapy2header" class="therapy-inspect-box-header therapy-inspect-header-active">EMDR</div>
-            <div id="therapy2body" class="therapy-inspect-box-body therapy-inspect-header-active">Anxiety, OCD,
-              general
-              relaxation</div>
-          </div>
-        </div>
-        <div class="col col-12 col-md-4 col-lg-4 x3">
-          <div id="therapy3box" class="therapy-inspect-box col-centered no-select"
-            onmouseover="changeColorWhite('therapy3')" onmouseout="changeColorWhiteOut('therapy3')"
-            onclick="changeActiveTherapy('therapy3')">
-            <div id="therapy3header" class="therapy-inspect-box-header">Auditory</div>
-            <div id="therapy3body" class="therapy-inspect-box-body">Anxiety, OCD, general relaxation</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row eliminate-margin-pad meditation-box-height meditation-cover">
-    <div id="meditation-focus-text" class="col col-12 col-md-6 col-lg-6 meditation-box">
-      <div class="meditation-box-header white s1">
-        EMDR
-      </div>
-
-      <div class="meditation-box-body white s2">
-        EMDR is an innovative therapy that has demonstrated itself to be a valuable tool in treating OCD, PTD,
-        Anxiety
-        and
-        more.
-      </div>
-
-      <div class="meditation-box-points">
-        <ul>
-          <li class="white s3">Effective, easy to use</li>
-          <li class="white s4">Completely customizable to best fit your needs</li>
-          <li class="white s5">Create a custom theme or use one of ours</li>
-          <li class="white s6">Fix all issues in the modern world</li>
-        </ul>
-      </div>
-
-      <div class="row move-up animated fadeInDown delay1">
-        <span class="meditation-box-button margin-top">How does it work?</span>
-        <span class="meditation-box-button margin-top">GET STARTED</span>
-      </div>
-    </div>
-    <div id="background-color"
-      class="col col-12 eliminate-margin-pad col-md-6 col-lg-6 standard-transition meditation-box-height vertical-center pad-tiny-demo"
-      style="background:rgb(57,76,156)">
-      <div class="position-meditation-options animated fadeInDown highlight-color text-center">
-        <span id="therapyOption1" class="no-select white meditation-option"
-          onclick="changeActiveTherapy('therapy1')">Breathing</span>
-        <span id="therapyOption2" class="no-select margin-left-right highlight-color meditation-option"
-          onclick="changeActiveTherapy('therapy2')">EMDR</span>
-        <span id="therapyOption3" class="white no-select meditation-option"
-          onclick="changeActiveTherapy('therapy3')">Auditory</span>
-      </div>
-      <div class="position-meditation-theme animated fadeIn delay1">
-
-        <div id="meditation-theme-header" class="meditation-box-theme-subheader">Preset themes</div>
-        <select id="meditation-theme" class="meditation-box-theme white" onchange="changeTheme()">
-
-          <option value="aqua">Aqua</option>
-          <option value="ruby">Ruby</option>
-          <option value="contrast">Contrast</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </div>
-      <div id="alternate" class="full-width animated fadeIn">
-        <div id="element-color" class="square el emdr-ball standard-transition" style="background:rgb(41,219,222)">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="lifeTracking" class="section col col-12">
-    <div class="text-center">
-
-      <div class="row">
-        <div class="col col-12 text-center animated fadeIn section-header"><span
-            class="highlight-color eggshell light">LIFE</span>
-          <span class="eggshell heavy highlight-color">TRACKING</span></div>
-        <div class="therapy-intro-subtitle col col-12 col-centered text-center">Effective, highly customizable
-          therapies</div>
-        <div class="col col-lg-8 animated fadeIn col-centered">
-          <div class="col col-lg-11 black therapy-intro-body col-centered margin-top">
-            We believe in options. That's why we have built a highly customizable
-            Save multiple session preferences that automatically sink across your devices, so that you can do
-            meditation
-            anywhere, anytime. placeholder placehodler
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row text-center col-centered">
-      <!-- 
-        Have list of categories: 
-        - Substance abuse 
-        - Life goals 
-        - Daily journaling 
-        - Dream recording 
-        - Mood tracking 
-      -->
-
-      <div class="chart-card u1 margin-top-large col-centered">
-        <div class="chart-header text-center" style="color:#4257b2;">Mood tracking</div>
-        <canvas id="myChart" width="300" height="122"></canvas>
-
-        <div class="chart-body col col-md-10 col-centered col-lg-10">body text body text body text body text
-          body text body text body text body text body text body text body text
-          body text body text body text body text body text body text
-          body text body text body text body text
-        </div>
-      </div>
-      <div class="col col-12 col-md-11 col-lg-11 margin-top-large col-centered">
-        <div class="row">
-          <div class="col col-6 col-md-4 col-sm-6 margin-top u1">
-            <div id="moodTracking" onclick="enterTracking('moodTracking')"
-              class="tracking-box col-centered no-select selected-tracker">Mood
-              tracking</div>
-          </div>
-
-          <div class="col col-6 col-md-4 col-sm-6 margin-top u2">
-            <div id="substanceAbuse" class="tracking-box col-centered no-select"
-              onclick="enterTracking('substanceAbuse')">Substance
-              abuse</div>
-          </div>
-
-          <div class="col col-6 col-md-4 col-sm-6 margin-top u3">
-            <div id="journaling" class="tracking-box col-centered no-select" onclick="enterTracking('journaling')">
-              Journaling</div>
-          </div>
-
-
-
-          <div class="col col-6 col-md-4 u1 margin-top">
-            <div id="dreamTracking" class="tracking-box col-centered no-select"
-              onclick="enterTracking('dreamTracking')">Dream
-              recording</div>
-          </div>
-
-          <div class="col col-6 col-md-4 margin-top u2">
-            <div id="other1" class="tracking-box col-centered no-select" onclick="enterTracking('other1')">Other
-              recording</div>
-          </div>
-
-          <div class="col col-6 col-md-4 margin-top u3">
-            <div id="other2" class="tracking-box col-centered no-select" onclick="enterTracking('other2')">Placeholder
-            </div>
-          </div>
-
-
-
-
-        </div>
-      </div>
-
-    </div>
-
-
-
-  </div>
-
-  <div id="resources" class="meditation-cover section section-two col col-12">
-    <div class="text-center">
-
-      <div class="row">
-        <div class="col col-12 text-center animated fadeIn section-header"><span class="eggshell light">OUR</span>
-          <span class="eggshell heavy">RESOURCES</span></div>
-
-        <div class="col col-lg-8 animated fadeIn col-centered">
-          <div class="col col-lg-11 eggshell therapy-intro-body col-centered margin-top">
-            We believe in options. That's why we have built a highly customizable
-            Save multiple session preferences that automatically sink across your devices, so that you can do
-            meditation
-            anywhere, anytime. placeholder placehodler
-
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row text-center col-centered">
-        <div class="col col-md-6 col-12 margin-top-large col-sm-12">
-          <div class="mission-box f1">
-            <ion-icon class="md mission-icon-style" name="book"></ion-icon>
-            <div class="sub-header">Explore and learn</div>
-            <div class="mission-box-header heavy">Our resource library</div>
-            <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">Free, thorough resources that
-              extensively cover mental health, self-improvement, life-tracking, and much more. Constantly being
-              updated.
-            </div>
-
-            <div class="mission-box-button no-select margin-top">View resources</div>
-          </div>
-        </div>
-
-
-        <div class="col col-md-6 col-12 margin-top-large col-sm-12">
-          <div class="mission-box f3">
-            <ion-icon class="md mission-icon-style" name="create"></ion-icon>
-            <div class="sub-header">Research, advice, and updates</div>
-            <div class="mission-box-header heavy">The Orenda blog</div>
-            <div class="mission-box-body col col-11 col-centered margin-top-tiny heavy">Free, thorough resources that
-              extensively cover mental health, self-improvement, life-tracking, and much more. Constantly being
-              updated.
-            </div>
-            <div class="mission-box-button no-select margin-top">Check it out</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
-  </div>
-
-  <div id="subscribe" class="section col col-12">
-    <div class="text-center">
-
-      <div class="row">
-        <div class="col col-12 text-center animated fadeIn section-header">
-          <span class="eggshell heavy highlight-color">SUBSCRIBE</span></div>
-        <div class="therapy-intro-subtitle col col-12 col-centered text-center">Affordable, complete plans
-        </div>
-        <div class="col col-lg-8 animated fadeIn col-centered">
-          <div class="col col-lg-11 black therapy-intro-body col-centered margin-top">
-            We believe in options. That's why we have built a highly customizable
-            Look forward to constant free updates to provide additional therapies, life-tracking, and researhc bleh.
-
-            We offer a 10 day free trial, and it is super easy to cancel your subscription whenever you want.
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col col-md-12 margin-top-large green-box green-background shadow col-centered col-lg-11">
-      <!-- add icons to the feature list -->
-      <div class="row">
-        <div class="col-12 text-center col-centered">
-
-          <div class="feature-header shadow white heavy animated fadeIn">
-            <div>
-              <ion-icon class="package" name="cube"></ion-icon>
-            </div>
-            The complete package
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
-          <div class="feature-text shadow col-centered">
-            <div class="feature-text-width">
-              Avaliable for the web, phones, and tablets
-            </div>
-            <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
-          <span class="white">
-            <div class="feature-text shadow col-centered">
-              <div class="feature-text-width">
-                Sync favorite settings across all devices
-              </div>
-              <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-            </div>
-          </span>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
-          <div class="feature-text shadow col-centered">
-            <div class="feature-text-width">
-              Avaliable for the web, phones, and tablets
-            </div>
-            <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
-          <div class="feature-text shadow col-centered">
-            <div class="feature-text-width">
-              Avaliable for the web, phones, and tablets
-            </div>
-            <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6 f1 col-centered margin-top-tiny feature-right-pad">
-          <div class="feature-text shadow col-centered">
-            <div class="feature-text-width">
-              Avaliable for the web, phones, and tablets
-            </div>
-            <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6 f2 col-centered margin-top-tiny feature-left-pad">
-          <div class="feature-text shadow col-centered">
-            <div class="feature-text-width">
-              Constant free updates with new features
-            </div>
-            <ion-icon class="position-icon" name="checkmark-circle"></ion-icon>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col col-11 col-sm-11 col-md-12 margin-top col-centered col-lg-12">
-      <div class="row text-center">
-        <div class="col col-md-4 f1 col-12 margin-top-large col-lg-4 col-sm-12 eliminate-margin-subscribe">
-          <div class="subscribe-box eliminate-margin-pad">
-            <div class="subscribe-box-header white">Weekly</div>
-            <div class="subscribe-box-subheader">$3.99/week</div>
-            <div class="inline-block text-center margin-top">
-
-              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
-
-              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
-              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
-            </div>
-
-            <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
-          </div>
-        </div>
-
-        <div class="col col-md-4 f2 elimiante-margin-pad col-12 margin-top-large col-lg-4 col-sm-12">
-          <div class="subscribe-box eliminate-margin-pad">
-            <div class="subscribe-box-header white">Monthly</div>
-            <div class="subscribe-box-subheader">$11.99/month</div>
-            <div class="inline-block text-center margin-top">
-              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
-              <div class="white text-left bullet subscribe-box-point">37% cheaper than weekly</div>
-              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
-            </div>
-            <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
-          </div>
-
-        </div>
-        <div class="col col-md-4 f3 col-12 margin-top-large col-lg-4 col-sm-12">
-          <div class="subscribe-box">
-            <div class="subscribe-box-header white">Annually</div>
-            <div class="subscribe-box-subheader">$7.99/month</div>
-            <div class="inline-block text-center margin-top">
-              <div class="white text-left bullet subscribe-box-point">Affordable entry-level plan</div>
-              <div class="white text-left bullet subscribe-box-point">37% cheaper than weekly</div>
-              <div class="white text-left bullet subscribe-box-point">Easily cancel anytime</div>
-            </div>
-            <div class="inline-block subscribe-button no-select margin-top">Select plan</div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
-
-    <div class="row text-center col-centered">
-      <div class="text-button highlight-color no-select">More subscription information</div>
-    </div>
-  </div>
-
-  <div class="col col-12  eliminate-margin-pad">
-    <!-- footer should have social media, downloads for iOS and Android, orenda for therapists, orenda for children, etc -->
-
-    <div class="row footer eliminate-margin-pad green-background">
-      <div class="col col-12 col-md-12 col-lg-9 f1 col-centered text-center">
-        <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
-        <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
-        <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
-        <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
-        <div class="row f2">
-          <div class="col col-6 col-md-3 col-lg-3 margin-top text-center">
-            <div class="footer-element-header white">EXPLORE</div>
-            <a class="footer-link">
-              <div class="footer-element-item white">First session</div>
+            <a href="signup.html" class="kill-link-style margin-top-tiny">
+                <div class="get-started no-select">Sign up for free</div>
             </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">For therapists</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">For students</div>
-            </a>
-          </div>
-          <div class="col col-6 col-md-3 col-lg-3 margin-top text-center">
-            <div class="footer-element-header white">LEARN</div>
-            <a class="footer-link">
-              <div class="footer-element-item white">Why meditate?</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">The research</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">Our resources</div>
-            </a>
-          </div>
-          <div class="col col-6 col-md-3 col-lg-3 margin-top text-center">
-            <div class="footer-element-header white">SUPPORT</div>
-            <a class="footer-link">
-              <div class="footer-element-item white">First session</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">For therapists</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">For students</div>
-            </a>
-          </div>
-          <div class="col col-6 col-md-3 col-lg-3 margin-top text-center">
-            <div class="footer-element-header white">STARTING</div>
-            <a class="footer-link">
-              <div class="footer-element-item white">Subscribe</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">Sign up</div>
-            </a>
-            <a class="footer-link">
-              <div class="footer-element-item white">Log in</div>
-            </a>
-          </div>
-        </div>
-        <a class="js-scroll-trigger animated fadeIn" href="#canvas-parent">
-          <div class="return-top">Return to top</div>
-        </a>
-        <div class="footer-closing animated fadeIn">
-          &#169
-          Orenda 2019
-        </div>
-      </div>
+
+        </span>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/anime.min.js"></script>
-    <script src="js/morphext.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/animationHome.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
+    <div class="main-content">
+        <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col col-12 col-md-12 col-xl">
+                    <div class="card shadow animated fadeInUp index-card" style="padding-bottom: 55px!">
+                        <div class="index-card-header">OUR MISSION </div>
+                        <div class="happy-divider col-centered text-center">
+                            <span class="happy-line"></span>
+                            <ion-icon name="happy" class="col-centered text-center" style="font-size:23px;"></ion-icon>
+                            <span class="happy-line"></span>
+                        </div>
+                        <div class="sub-header-text d-none d-md-block text-center d-lg-block d-sm-none d-xs-none animated fadeInDown"
+                            style="margin-top: 10px;">
+
+                            <span class="tags-cycle-box">
+                                We
+                                make
+                                EMDR <span class="rotate" id="js-rotating">easy,
+                                    affordable, personal, versatile, powerful</span>
+                            </span>
+                        </div>
+                        <div
+                            class="sub-header-text animated fadeInDown d-md-none text-center d-xs-block d-sm-block d-lg-none">
+                            We make EMDR easy
+                        </div>
+                        <div class="col col-11 col-centered col-md-10 margin-top-tiny text-center mission-text">
+                            At Easy EMDR, our passion lies in building the best mental health tools possible, at the
+                            best prices possible. We have seen the healing
+                            power of EMDR firsthand and want to do everything we can to put it in the hands of talented
+                            mental health professionals. Our product massively simplifies EMDR while also providing
+                            powerful new tools for medical professionals.
+                            <div class="margin-top">
+                                We also care deeply about destigmatizing mental health — that's why we have chosen to
+                                commit
+                                5 percent of profits to the <a href="https://www.bbrfoundation.org/" target="_blank"
+                                    class="link-style-blue">Brain & Behavior Research Foundation</a>, a top rated
+                                non-profit that works tirelessly to fund research of treatment programs for millions
+                                around
+                                the world.</div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div id="whatisemdr" class="text-center emdr-explanation-text" style="margin-top: 10px;">
+                <div id="whatisemdrmobile" style="position: relative;top:-95px;"></div>
+                What is EMDR?
+                <div class="emdr-explanation-subheader uppercase">( Eye Movement Desensitization Reprocessing )</div>
+            </div>
+            <div class="what-divider margin-top"></div>
+
+            <div style="padding-bottom: 20px;"
+                class="emdr-explanation-body col col-12 col-md-10 mission-text col-centered margin-top-large white text-center">
+                EMDR is a groundbreaking therapy used to treat PTSD, Anxiety, OCD, and other trauma related disorders.
+                Its efficacy has been demonstrated
+                time and time again through clinical trials, with some finding it to have a long term success rate
+                comparable with, or better than, traditional methods such
+                as drug therapy and cognitive behavioral therapy.
+
+                <div class="margin-top white">
+                    The current tools required to perform EMDR can cost hundreds or even thousands of dollars just to
+                    get started. We offer a more personal and powerful solution that
+                    allows you to get started at minimal
+                    cost — welcome to the future of EMDR.
+
+                </div>
+            </div>
+
+            <div class="col col-11 text-left col-centered animated fadeIn delay2">
+                <div class="row margin-top-large">
+                    <div class="col col-12 col-md-6 col-lg-4 x1">
+                        <div id="therapy1box" class="therapy-inspect-box-inactive col-centered no-select"
+                            onclick="changeActiveTherapy('usecases')">
+                            <div id="therapy1header" class="therapy-inspect-box-header white">Use cases</div>
+                            <div id="therapy1body" class="therapy-inspect-box-body white">Simplifying EMDR
+                                tools
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-12 col-md-6 col-lg-4 x2">
+                        <div id="therapy2box" class="col-centered no-select therapy-inspect-box-active"
+                            onclick="changeActiveTherapy('overview')">
+                            <div id="therapy2header" class="therapy-inspect-box-header therapy-inspect-header-active">
+                                Overview</div>
+                            <div id="therapy2body" class="therapy-inspect-box-body therapy-inspect-header-active">
+                                Rundown on EMDR
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-12 col-md-12 col-lg-4 x3">
+                        <div id="therapy3box" class="therapy-inspect-box-inactive col-centered no-select"
+                            onclick="changeActiveTherapy('research')">
+                            <div id="therapy3header" class="therapy-inspect-box-header white">The research</div>
+                            <div id="therapy3body" class="therapy-inspect-box-body white">Professional approved
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col col-12 col-md-12 row-eq-height col-centered margin-top">
+                <div class="row margin-top emdr-demo-box shadow">
+                    <div id="meditation-focus-text" class="col col-12 col-md-6 col-lg-6 meditation-box">
+                        <div class="meditation-box-header white s1 demo-dark">
+                            OVERVIEW
+                        </div>
+
+                        <div class="meditation-box-body demo-dark s2">
+                            EMDR is an innovative therapy focused on treating PTSD, anxiety, and other disorders. It
+                            provides a bilateral stimulus that allows clients to
+                            better process their feelings and experiences.
+                        </div>
+
+                        <div class="meditation-box-points">
+                            <ul>
+                                <li class="demo-dark s3">Completely customizable to best fit your needs</li>
+                                <li class="demo-dark s4">
+                                    Features to increase accessibility for all
+                                </li>
+                                <li class="demo-dark s5">Create a custom theme or use one of ours</li>
+                                <li class="demo-dark s6">EMDR is supported by the research </li>
+                            </ul>
+                        </div>
+
+                        <div class="row move-up animated fadeInDown delay1">
+                            <a href="signup.html" class="kill-link-style">
+                                <span class="meditation-box-button margin-top">Get started</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="background-color"
+                        class="col col-12 demo-box-style eliminate-margin-pad col-md-6 col-lg-6 standard-transition meditation-box-height vertical-center pad-tiny-demo"
+                        style="background:#fff;">
+                        <div class="position-meditation-options animated fadeInDown highlight-color text-center">
+                            <span id="therapyOption1"
+                                class="no-select darker-text-style darker-meditation-option meditation-option"
+                                onclick="changeActiveTherapy('usecases')">Use cases</span>
+                            <span id="therapyOption2"
+                                class="no-select meditation-option-selected margin-left-right darker-meditation-option meditation-option clean-option-selected"
+                                onclick="changeActiveTherapy('overview')">Overview</span>
+                            <span id="therapyOption3"
+                                class="darker-text-style no-select darker-meditation-option meditation-option"
+                                onclick="changeActiveTherapy('research')">The research</span>
+                        </div>
+                        <div class="position-meditation-theme animated fadeIn delay1">
+
+                            <div id="meditation-theme-header" class="meditation-box-theme-subheader darker-text-style">
+                                Preset themes</div>
+                            <select id="meditation-theme" class="meditation-box-theme dark-meditation-box-theme white"
+                                onchange="changeTheme()">
+
+                                <option value="clean">Clean</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="contrast">Contrast</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <span id="alternate-respawn" class="col col-12" style="padding-left: 0px;padding-right: 0px;">
+                            <div id="alternate" class="full-width animated fadeIn"
+                                style="padding-left:0px;padding-right: 0px;">
+                                <div id="element-color" class="square el emdr-ball standard-transition"
+                                    style="background:#12223f">
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="oursolutions" class="text-center emdr-explanation-text" style="margin-top: 35px;">
+                <div id="oursolutionsmobile" style="position: relative;top:-95px;"></div>
+                OUR SOLUTIONS
+                <div class="emdr-explanation-subheader">Say goodbye to clunky and expensive EMDR hardware.</div>
+            </div>
+            <div class="what-divider margin-top"></div>
+
+            <div style="padding-bottom: 20px;"
+                class="emdr-explanation-body col col-12 col-md-10 mission-text col-centered margin-top-large white text-center">
+                <div class="white">
+                    We believe that the future of EMDR is based in high quality, flexible digital tools that address the
+                    shortcomings
+                    in current products. This will allow users to fully personalize their experience, closely analyze
+                    their progress, and streamline
+                    data collection, all while syncing your entire experience across all your devices no matter where
+                    you are.
+                    And we constantly update our product with new features that can bring even more flexibility to your
+                    growing practice.
+                </div>
+                <a class="kill-link-style" href="signup.html">
+                    <div class="margin-top-large no-select sign-up-focus">Click here to start for free</div>
+                </a>
+            </div>
+
+            <div class="row row-eq-height display-flex">
+                <div class="col e1 col-12 col-md-6 margin-top-large display-flex">
+
+                    <div>
+                        <div class="card-header-img emdr-tool col-centered"></div>
+                        <div class="card-footer force-top col-centered text-center vertical-center-flexbox">
+
+                            <div>
+
+                                <div class="card-footer-header col" style="padding-bottom: 10px;">FLEXIBLE TOOLKIT</div>
+                                <span class="emdr-icon-divider"></span>
+                                <span class="emdr-icon">
+                                    <ion-icon name="construct" class="emdr-icon-element white"></ion-icon>
+
+                                </span>
+                                <span class="emdr-icon-divider"></span>
+
+                                <div class="card-footer-subheader margin-top">Customize everything to fit the needs of
+                                    every
+                                    client. Save your favorite configurations and access them anywhere, anytime on your
+                                    phone, tablet, computer, and more.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col e2 col-12 col-md-6 margin-top-large display-flex">
+
+                    <div>
+                        <div class="card-header-img analysis-tool col-centered"></div>
+                        <div class="card-footer force-top col-centered text-center vertical-center-flexbox">
+
+                            <div>
+
+                                <div class="card-footer-header col" style="padding-bottom: 10px;">RESULTS TRACKING</div>
+                                <span class="emdr-icon-divider"></span>
+                                <span class="emdr-icon">
+                                    <ion-icon name="analytics" class="emdr-icon-element white"></ion-icon>
+
+                                </span>
+                                <span class="emdr-icon-divider"></span>
+
+                                <div class="card-footer-subheader margin-top">Keeping track of client progress is an
+                                    essential part of helping
+                                    them heal. Say goodbye to cluttered paperwork with our powerful data tracking and
+                                    visualization services.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col e1 col-12 col-md-6 margin-top-large display-flex">
+                    <div>
+                        <div class="card-header-img landing4 col-centered"></div>
+                        <div class="card-footer force-top col-centered text-center vertical-center-flexbox">
+
+                            <div>
+
+                                <div class="card-footer-header col" style="padding-bottom: 10px;">ACCESSIBILITY FIRST
+                                </div>
+                                <span class="emdr-icon-divider"></span>
+                                <span class="emdr-icon">
+                                    <ion-icon name="body" class="emdr-icon-element white"></ion-icon>
+
+                                </span>
+                                <span class="emdr-icon-divider"></span>
+
+                                <div class="card-footer-subheader margin-top">
+                                    Nobody should be barred from participating in EMDR because of things they cannot
+                                    control. That's why we offer auditory
+                                    as well as visual stimulus so that everybody is taken care of, including the
+                                    physically disabled.
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col e2 col-12 col-md-6 margin-top-large display-flex">
+
+                    <div>
+                        <div class="card-header-img journal-tool col-centered"></div>
+                        <div class="card-footer force-top col-centered text-center vertical-center-flexbox">
+
+                            <div>
+
+                                <div class="card-footer-header col" style="padding-bottom: 10px;">MINDFUL REFLECTION
+                                </div>
+                                <span class="emdr-icon-divider"></span>
+                                <span class="emdr-icon">
+                                    <ion-icon name="heart" class="emdr-icon-element white"
+                                        style="position: relative;left:0px;top:6px;"></ion-icon>
+
+                                </span>
+                                <span class="emdr-icon-divider"></span>
+
+                                <div class="card-footer-subheader margin-top">We offer powerful tools for carefully
+                                    reflecting on how EMDR effects you. Record feelings, thoughts,
+                                    and sensations so that you can remain acutely aware of your headspace and progress.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div id="plans" class="text-center emdr-explanation-text" style="margin-top: 30px;">
+                <div id="plansmobile" style="position: relative;top:-95px;"></div>
+                OUR PLANS
+                <div class="emdr-explanation-subheader">Start for free, pay how you want.</div>
+            </div>
+            <div class="what-divider margin-top"></div>
+
+            <div
+                class="margin-top white col-centered text-center mission-text col-11 col-md-8 emdr-explanation-body col-centered">
+                Each plan comes with all
+                features and free updates!
+                Our pricing is transparent and massively outcompetes top competitors. We offer a 10 day free trial that
+                can be cancelled anytime, no strings attached.
+            </div>
+
+            <div class="row margin-top-large" style="margin-top:150px;">
+                <div class="col col-12 col-centered">
+                    <div class="row mt--7">
+                        <div class="col-12 col-md-6 col-lg-4">
+
+                            <!-- Card -->
+                            <a href="signup.html" class="kill-link-style">
+                                <div class="card payment-card shadow pointer">
+                                    <div class="card-body">
+
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase text-center billing-cycle text-muted my-4">
+                                            Weekly billing
+                                        </h6>
+
+                                        <!-- Price -->
+                                        <div class="row no-gutters align-items-center justify-content-center">
+                                            <div class="col-auto">
+                                                <div class="h2 mb-0">$</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="display-2 mb-0">3.99</div>
+                                            </div>
+                                        </div> <!-- / .row -->
+
+                                        <!-- Period -->
+                                        <div class="h6 text-uppercase text-center text-muted mb-5">
+                                            / week
+                                        </div>
+
+                                        <!-- Features -->
+                                        <div class="mb-3">
+                                            <ul class="list-group list-group-flush">
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Great for trying out the service</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Full access to the suite of tools</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Free updates</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <!-- Button -->
+                                        <a href="signup.html" class="btn btn-block btn-style"
+                                            style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                            GET STARTED
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+
+                            <!-- Card -->
+                            <a href="signup.html" class="kill-link-style">
+                                <div class="card payment-card shadow pointer">
+                                    <div class="card-body">
+
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase billing-cycle text-center text-muted my-4">
+                                            Monthly billing
+                                        </h6>
+
+                                        <!-- Price -->
+                                        <div class="row no-gutters align-items-center justify-content-center">
+                                            <div class="col-auto">
+                                                <div class="h2 mb-0">$</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="display-2 mb-0">11.99</div>
+                                            </div>
+                                        </div> <!-- / .row -->
+
+                                        <!-- Period -->
+                                        <div class="h6 text-uppercase text-center text-muted mb-5">
+                                            / month
+                                        </div>
+
+                                        <!-- Features -->
+                                        <div class="mb-3">
+                                            <ul class="list-group list-group-flush">
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Clear, consistent monthly billing</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Full access to the suite of tools</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Free updates</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <!-- Button -->
+                                        <a href="signup.html" class="btn btn-block btn-style"
+                                            style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                            GET STARTED
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4">
+
+                            <!-- Card -->
+                            <a href="signup.html" class="kill-link-style">
+                                <div class="card payment-card shadow pointer">
+                                    <div class="card-body">
+
+                                        <!-- Title -->
+                                        <h6 class="text-uppercase billing-cycle text-center text-muted my-4">
+                                            Annual billing
+                                        </h6>
+
+                                        <!-- Price -->
+                                        <div class="row no-gutters align-items-center justify-content-center">
+                                            <div class="col-auto">
+                                                <div class="h2 mb-0">$</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="display-2 mb-0">99.99</div>
+                                            </div>
+                                        </div> <!-- / .row -->
+
+                                        <!-- Period -->
+                                        <div class="h6 text-uppercase text-center text-muted mb-5">
+                                            / year
+                                        </div>
+
+                                        <!-- Features -->
+                                        <div class="mb-3">
+                                            <ul class="list-group list-group-flush">
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Get the best value!</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Full access to the suite of tools</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                    <small>Free updates</small>
+                                                    <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                    </ion-icon>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <!-- Button -->
+                                        <a href="signup.html" class="btn btn-block btn-style"
+                                            style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                            GET STARTED
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
+            </div>
+
+            <div class="row margin-top-large">
+                <div class="col col-12">
+                    <div class="card blog-card text-center">
+                        <div class="index-blog-header white">THE LATEST</div>
+                        <div class="blog-dash-subheader-green text-center col col-12 col-md-11 col-centered">
+                            The official Easy EMDR blog.
+                        </div>
+
+                        <div class="what-divider margin-top"></div>
+
+                        <div
+                            class="col col-12 x1 text-left col-centered col-md-11 margin-top-large blog-post-box blog-post-box-index">
+                            <div class="blog-post-dash-date darker-text-style">January 29th, 2019</div>
+                            <div class="blog-post-dash-header darker-text-style">Our conversation with an EMDR
+                                specialist</div>
+                            <div class="blog-post-dash-body darker-text-style">This week, we sat down to talk with Dr.
+                                Janet
+                                Stevenson, who
+                                has
+                                been
+                                a medical practitioner for over 35 years. She is very excited about how EMDR can be used
+                                to...
+                            </div>
+
+                            <div class="read-full-post-index white margin-top-tiny no-select">
+                                Check it out &#8594;
+                            </div>
+                        </div>
+
+                        <div
+                            class="col col-12 x2 text-left col-centered col-md-11 margin-top-medium blog-post-box blog-post-box-index">
+                            <div class="blog-post-dash-date darker-text-style">January 29th, 2019</div>
+                            <div class="blog-post-dash-header darker-text-style">Our conversation with an EMDR
+                                specialist</div>
+                            <div class="blog-post-dash-body darker-text-style">This week, we sat down to talk with Dr.
+                                Janet
+                                Stevenson, who
+                                has
+                                been
+                                a medical practitioner for over 35 years. She is very excited about how EMDR can be used
+                                to...
+                            </div>
+
+                            <div class="read-full-post-index white margin-top-tiny no-select">
+                                Check it out &#8594;
+                            </div>
+                        </div>
+
+                        <div
+                            class="col col-12 x3 text-left col-centered col-md-11 margin-top-medium blog-post-box blog-post-box-index">
+                            <div class="blog-post-dash-date darker-text-style">January 29th, 2019</div>
+                            <div class="blog-post-dash-header darker-text-style">Our conversation with an EMDR
+                                specialist</div>
+                            <div class="blog-post-dash-body darker-text-style">This week, we sat down to talk with Dr.
+                                Janet
+                                Stevenson, who
+                                has
+                                been
+                                a medical practitioner for over 35 years. She is very excited about how EMDR can be used
+                                to...
+                            </div>
+
+                            <div class="read-full-post-index white margin-top-tiny no-select">
+                                Check it out &#8594;
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-centered text-center margin-top">
+                            <div class="row margin-top text-center">
+                                <a href="blog.html" class="col-centered kill-link-style">
+                                    <span
+                                        class="view-full-blog view-full-blog-green view-full-blog-darker no-select">View
+                                        full blog
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="white col-centered text-center">
+                        <a href="mailto:info@easy-emdr.com?subject=Contacting Easy EMDR">
+                            <span class="white footer-button margin-top no-select">Contact us</span>
+                        </a>
+
+                        <a href="http://easiestemdr.com/" target="_blank" class="kill-link-style">
+                            <span class="White footer-button margin-top no-select">Old project</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                    <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                        <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                    </a>
+                    <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                        <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                    </a>
+                    <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                        class="kill-link-style">
+                        <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                    </a>
+                    <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                        <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                    </a>
+
+                </div>
+
+                <div class="col col-12 col-centered text-center no-select">
+                    <div class="mailing-list-header">
+                        Join our mailing list to get updates, discounts, and more!
+                    </div>
+                    <form action="https://formspree.io/info@easy-emdr.com" method="POST">
+                        <input type="email" name="Email" class="mailing-list-input margin-bottom-icon"
+                            placeholder="Enter email here..." required />
+                        <button type="submit" class="mailing-list-submit">SUBMIT &#8594;</button>
+                    </form>
+                </div>
+                <div class="col col-12 copyright-text icon-footer margin-top-medium margin-bottom-footer no-select">
+                    <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                        ;>&#169</span>
+                    EASY EMDR 2019
+                </div>
+
+                <div class="col col-12 col-centered text-center">
+                    <div class="disclaimer-text text-center no-select">
+
+                        Do not use EMDR without a licensed therapist.
+                        Easy EMDR is a tool for performing
+                        EMDR, not a
+                        licensed
+                        therapy or
+                        treatment. We are not responsible
+                        for any negative consequences or experiences that may result from using our tool.
+
+                        <br />
+                        <div class="margin-top disclaimer-text-color">
+                            You can <a href="https://www.emdria.org/search/default.asp" target="_blank"
+                                class="link-style">click
+                                here</a> to
+                            find an
+                            EMDR therapist in your area.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body> <!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="js/script.js"></script>
+
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script src="js/creative.js"></script>
+<script src="js/homeAnimations.js"></script>
+
+<script>
+    $(function () {
+        $('.navbar-nav>li>a').on('click', function () {
+            $('.navbar-collapse').collapse('hide');
+        });
+    });
+
+    // Initialize Firebase
+    var config = {
         apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
         authDomain: "mental-health-suite.firebaseapp.com",
         databaseURL: "https://mental-health-suite.firebaseio.com",
         projectId: "mental-health-suite",
         storageBucket: "mental-health-suite.appspot.com",
         messagingSenderId: "119327507370"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <script src="js/onboarding.js"></script>
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="js/onboarding.js"></script>
 
-    <script>
-      jQuery(document).ready(function () {
-        jQuery('#loader').fadeOut(230);
+<script>
 
-      });
-    </script>
+    var userNotSignedIn = "";
+    userNotSignedIn += "<a href=\"signin.html\" class=\"kill-link-style\">";
+    userNotSignedIn += "                        <span class=\"nav-text nav-divider\">Sign in<\/span>";
+    userNotSignedIn += "                    <\/a>";
+    userNotSignedIn += "                    <a href=\"signup.html\" class=\"kill-link-style\">";
+    userNotSignedIn += "                        <span class=\"nav-text force-top fill-it\" style=\"border-radius:5px;border:2px solid #3ee986;z-index:9999999;padding-left:11px;padding-right: 11px;padding-top: 3px;";
+    userNotSignedIn += "                padding-bottom: 3px;\">Create acount<\/span>";
+    userNotSignedIn += "                    <\/a>";
+
+    var userIsSignedIn = "";
+    userIsSignedIn += "";
+    userIsSignedIn += "                        <span class=\"nav-text nav-divider\" onclick=\"signOutHome()\">Sign out<\/span>";
+    userIsSignedIn += "                    <\/a>";
+    userIsSignedIn += "                    <a href=\"dashboard.html\" class=\"kill-link-style\">";
+    userIsSignedIn += "                        <span class=\"nav-text force-top fill-it\" style=\"border-radius:5px;border:2px solid #3ee986;z-index:9999999;padding-left:11px;padding-right: 11px;padding-top: 3px;";
+    userIsSignedIn += "                padding-bottom: 3px;\">Dashboard<\/span>";
+    userIsSignedIn += "                    ";
+
+    var notSignedIn = "";
+    notSignedIn += "<div class=\"col col-12 text-center col-centered margin-top-large\">";
+    notSignedIn += "                        <a href=\"signup.html\" class=\"kill-link-style\">";
+    notSignedIn += "                            <span class=\"no-select mobile-sign-button margin-top-large\">SIGN UP<\/span>";
+    notSignedIn += "                        <\/a>";
+    notSignedIn += "                        <a href=\"signin.html\" class=\"kill-link-style\">";
+    notSignedIn += "                            <span class=\"no-select mobile-sign-button margin-top-large\">SIGN IN<\/span>";
+    notSignedIn += "                        <\/a>";
+    notSignedIn += "                    <\/div>";
+
+    var signedIn = "";
+    signedIn += "<div class=\"col col-12 text-center col-centered margin-top-large\">";
+    signedIn += "                       ";
+    signedIn += "                            <div class=\"no-select mobile-sign-button col-centered margin-top\" onclick=\"signOutHome()\">SIGN OUT<\/div>";
+    signedIn += "                        ";
+    signedIn += "                        <a href=\"signin.html\" class=\"kill-link-style col-centered\">";
+    signedIn += "                            <div class=\"no-select mobile-sign-button margin-top col-centered\">YOUR DASHBOARD<\/div>";
+    signedIn += "                        <\/a>";
+    signedIn += "                    <\/div>";
 
 
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            document.getElementById("desktop-nav-change").innerHTML = userIsSignedIn;
+            document.getElementById("mobile-nav-change").innerHTML = signedIn;
+            jQuery('#loader').fadeOut(230);
+        } else {
+            // No user is signed in.
+            document.getElementById("desktop-nav-change").innerHTML = userNotSignedIn;
+            document.getElementById("mobile-nav-change").innerHTML = notSignedIn;
+            jQuery('#loader').fadeOut(230);
+        }
+    });
 
-    <!-- Custom scripts for this template -->
-    <script src="js/creative.min.js"></script>
+    /*
+        jQuery(document).ready(function () {
+            jQuery('#loader').fadeOut(230);
+    
+        });
+        */
+
+    $("#js-rotating").Morphext({
+        // The [in] animation type. Refer to Animate.css for a list of available animations.
+        animation: "flipInX",
+        // An array of phrases to rotate are created based on this separator. Change it if you wish to separate the phrases differently (e.g. So Simple | Very Doge | Much Wow | Such Cool).
+        separator: ",",
+        // The delay between the changing of each phrase in milliseconds.
+        speed: 3050,
+        complete: function () {
+            // Called after the entrance animation is executed.
+        }
+    });
+</script>
 </body>
 
 </html>
