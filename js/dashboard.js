@@ -5,6 +5,8 @@ var isUsingGradient = false;
 var coverOptionSelected = "";
 
 
+var insideApplication;
+
 new Sortable(customizeLeft, {
     ghostClass: "ghost",
     group: 'shared',
@@ -27,6 +29,9 @@ new Sortable(customizeRight, {
     }
 });
 
+function insideApplication(app) {
+    insideApplication = app;
+}
 
 function openBlog(value) {
     if (value == "dashboard") {

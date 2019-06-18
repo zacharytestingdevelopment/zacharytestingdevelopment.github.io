@@ -2193,6 +2193,14 @@ html.sr .load-hidden {
     margin-right: 25px;
 }
 
+.instructions-text-header
+{
+    margin-top: 10px;
+    font-size: 35px;
+    color:#12243f;
+    letter-spacing: 4px;
+}
+
 .mobile-sign-button
 {
     max-width: 400px;

@@ -6,6 +6,7 @@ signupError += "                                    blank!";
 signupError += "                                <\/div>";
 */
 
+
 var emdrToolkit = "";
 emdrToolkit += " <div class=\"col col-12 col-md-6 margin-top text-center\">";
 emdrToolkit += "";
@@ -34,7 +35,7 @@ emdrToolkit += "                                                <\/div>";
 emdrToolkit += "                                            <\/a> <\/div>";
 emdrToolkit += "                                        <div class=\"col col-12 col-md-6 margin-top text-center\">";
 emdrToolkit += "";
-emdrToolkit += "                                            <a href=\"therapy-analysis-emdr.html\" class=\"kill-link-style no-select\">";
+emdrToolkit += "                                            <a href=\"emdr-analysis.html\" class=\"kill-link-style no-select\">";
 emdrToolkit += "                                                <div class=\"tool-card\">";
 emdrToolkit += "                                                    <div class=\"tool-box col-centered analysis-tool\"";
 emdrToolkit += "                                                        style=\"padding-left:0px;padding-right: 0px\">";
@@ -49,7 +50,7 @@ emdrToolkit += "                                                                
 emdrToolkit += "                                                            <\/div>";
 emdrToolkit += "";
 emdrToolkit += "                                                            <div class=\"col col-11 margin-top col-centered\">";
-emdrToolkit += "                                                                <a href=\"therapy-analysis-emdr.html\"";
+emdrToolkit += "                                                                <a href=\"emdr-analysis.html\"";
 emdrToolkit += "                                                                    class=\"kill-link-style no-select\">";
 emdrToolkit += "                                                                    <span class=\"tool-button margin-top no-select\">Get";
 emdrToolkit += "                                                                        started";
@@ -154,7 +155,7 @@ verifiedDashboard += "                                                <\/div>";
 verifiedDashboard += "                                            <\/a> <\/div>";
 verifiedDashboard += "                                        <div class=\"col col-12 col-md-6 margin-top text-center\">";
 verifiedDashboard += "";
-verifiedDashboard += "                                            <a href=\"therapy-analysis-emdr.html\" class=\"kill-link-style no-select\">";
+verifiedDashboard += "                                            <a href=\"emdr-analysis.html\" class=\"kill-link-style no-select\">";
 verifiedDashboard += "                                                <div class=\"tool-card\">";
 verifiedDashboard += "                                                    <div class=\"tool-box col-centered analysis-tool\"";
 verifiedDashboard += "                                                        style=\"padding-left:0px;padding-right: 0px\">";
@@ -169,7 +170,7 @@ verifiedDashboard += "                                                          
 verifiedDashboard += "                                                            <\/div>";
 verifiedDashboard += "";
 verifiedDashboard += "                                                            <div class=\"col col-11 margin-top col-centered\">";
-verifiedDashboard += "                                                                <a href=\"therapy-analysis-emdr.html\"";
+verifiedDashboard += "                                                                <a href=\"emdr-analysis.html\"";
 verifiedDashboard += "                                                                    class=\"kill-link-style no-select\">";
 verifiedDashboard += "                                                                    <span class=\"tool-button margin-top no-select\">Get";
 verifiedDashboard += "                                                                        started";
@@ -287,6 +288,7 @@ function verifyEmail() {
             createAccount();
             hideBlogHeader();
             openViewingPlans();
+            nodeCall();
 
             setTimeout(function () { document.getElementById("error-box-display-passwords").innerHTML = ""; }, 300);
             document.getElementById("email-warning").innerHTML = "";
@@ -430,6 +432,8 @@ function signOutDash() {
     setTimeout(function () { window.location = "signin.html"; }, 600);
 }
 
+
+
 function saveTheDate() {
     var dt = new Date();
 
@@ -526,9 +530,7 @@ firebase.auth().onAuthStateChanged(user => {
     }
 });
 
-function insideApplication(app) {
-    insideApplication = app;
-}
+
 
 function resendVerification() {
     firebase.auth().currentUser.sendEmailVerification().catch(function (error) {
@@ -544,6 +546,13 @@ function resendVerification() {
     });
 }
 
+
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+
+function insideApplication(app) {
+    insideApplication = app;
+}
 /*
 function insideApplication(app) {
 

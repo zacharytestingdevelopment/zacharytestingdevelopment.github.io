@@ -16,9 +16,9 @@ usecases += "";
 usecases += "                        <div class=\"meditation-box-points\">";
 usecases += "                            <ul>";
 usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay3Therapy\">Effective, easy to use tools<\/li>";
-usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay4Therapy\">Lower price than major competitors <\/li>";
-usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay5Therapy\">Tools to help clients find EMDR therapists<\/li>";
-usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay6Therapy\">Reduce paperwork with powerful tracking and analytics<\/li>";
+usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay4Therapy\">Reduce paperwork with powerful tracking and analytics<\/li>";
+usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay5Therapy\">Lower price than major competitors <\/li>";
+usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay6Therapy\">Tools to help clients find EMDR therapists<\/li>";
 usecases += "                            <\/ul>";
 usecases += "                        <\/div>";
 usecases += "";
@@ -27,14 +27,15 @@ usecases += "                            <a href = \"signup.html\" class = \"kil
 usecases += "                        <\/div>";
 
 var overview = "";
-overview += "<div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
+overview += "     <div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
 overview += "                            OVERVIEW";
 overview += "                        <\/div>";
 overview += "";
 overview += "                        <div class=\"meditation-box-body demo-dark animated fadeInDownTiny delay2Therapy s2\">";
-overview += "                            EMDR is an innovative therapy focused on treating PTSD, anxiety, and other disorders. It";
-overview += "                            provides a bilateral stimulus that allows clients to";
-overview += "                            better process their feelings and experiences.";
+overview += "                            EMDR is an innovative therapy focused on treating PTSD, anxiety, and other trauma disorders.";
+overview += "                            Our tool provides a multisensory bilateral stimulus to help therapists to support their";
+overview += "                            clients.";
+overview += "";
 overview += "                        <\/div>";
 overview += "";
 overview += "                        <div class=\"meditation-box-points\">";
@@ -55,13 +56,14 @@ overview += "                            <\/a>";
 overview += "                        <\/div>";
 
 
+
 var research = "";
 research += "<div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
 research += "                            THE RESEARCH";
 research += "                        <\/div>";
 research += "";
 research += "                        <div class=\"meditation-box-body demo-dark animated fadeInDownTiny delay2Therapy\">";
-research += "                            The past two decades of research have firmly established EMDR as a promising therapy for treating PTSD, OCD, anxiety, and various trauma disorders. Click each bullet point to view the study being cited.";
+research += "                            The past two decades of research have firmly established EMDR as an effective therapy for many trauma patients. Click each bullet point to learn more about the research.";
 research += "                            ";
 research += "                            ";
 research += "                            ";
@@ -71,10 +73,11 @@ research += "                        <\/div>";
 research += "";
 research += "                        <div class=\"meditation-box-points\">";
 research += "                            <ul>";
-research += "                                 <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay3Therapy\">Reduction of symptoms in acute and chronic cases of PTSD<\/li></a>";
-research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/24338345\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay4Therapy\">Top recommended therapy for trauma disorders<\/li></a>";
-research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/25101684\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay4Therapy\">Addresses depression, anxiety, and subjective distress<\/li>";
-research += "                                <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay3Therapy\">Demonstrated efficacy in treating sexual assault related trauma<\/li>";
+research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/24338345\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay3Therapy\">Top recommended therapy for trauma disorders<\/li></a>";
+research += "                                 <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay4Therapy\">Reduction of symptoms in acute and chronic cases of PTSD<\/li></a>";
+research += "                                <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay5Therapy\">Demonstrated efficacy in treating sexual assault related trauma<\/li>";
+research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/25101684\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay6Therapy\">Addresses depression, anxiety, and subjective distress<\/li>";
+
 research += "                            <\/ul>";
 research += "                        <\/div>";
 research += "";
