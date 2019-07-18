@@ -1,51 +1,32 @@
 {
-    "title": "Creative",
-    "name": "startbootstrap-creative",
-    "version": "5.0.1",
-    "description": "Creative is a stylish one page HTML theme for Bootstrap.",
-    "keywords": [
-        "css",
-        "sass",
-        "html",
-        "responsive",
-        "theme",
-        "template"
-    ],
-    "homepage": "https://startbootstrap.com/template-overviews/creative",
-    "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-creative/issues",
-        "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (http://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-creative.git"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-free": "5.3.1",
-        "bootstrap": "^4.3.1",
-        "ejs": "^2.6.2",
-        "express": "^4.17.1",
-        "jquery": "^3.4.1",
-        "jquery.easing": "^1.4.1",
-        "magnific-popup": "^1.1.0",
-        "nodejs": "0.0.0",
-        "ruby": "^0.6.1",
-        "scrollreveal": "4.0.1",
-        "stripe": "^7.1.0"
-    },
-    "devDependencies": {
-        "browser-sync": "^2.26.7",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "6.0.0",
-        "gulp-clean-css": "3.10.0",
-        "gulp-header": "2.0.5",
-        "gulp-rename": "1.4.0",
-        "gulp-sass": "4.0.1",
-        "gulp-uglify": "3.0.1"
-    }
+  "name": "easyemdr",
+  "version": "1.0.0",
+  "description": "Easy EMDR application",
+  "main": "customer-creation.js",
+  "scripts": {
+    "start": "node customer-creation.js",
+    "test": "testing app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zacharytestingdevelopment/zacharytestingdevelopment.github.io.git"
+  },
+  "author": "Zachary Jordan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zacharytestingdevelopment/zacharytestingdevelopment.github.io/issues"
+  },
+  "homepage": "https://github.com/zacharytestingdevelopment/zacharytestingdevelopment.github.io#readme",
+  "dependencies": {
+    "apache": "^0.1.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "nginx-conf": "^1.5.0",
+    "nodemon": "^1.19.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "stripe": "^7.4.0",
+    "urlencode": "^1.1.0"
+  }
 }

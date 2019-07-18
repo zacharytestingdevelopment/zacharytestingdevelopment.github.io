@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="Easy EMDR">
+
+    <title>Easy EMDR | Sign up</title>
+
+
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+    <meta name="description"
+        content="Here you can sign up to access Easy EMDR's complete mental health toolkit. We offer a versatile and accessible EMDR tool along with powerful analytics to help track client progress. Get started today for free!">
+
+
+    <style>
+        button,
+        input[type="submit"],
+        input[type="reset"] {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
+    </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144108695-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144108695-1');
+    </script>
+
+    <script>
+        function codeAddress() {
+            swal("Attention!", "This website is currently in development and will be available soon. Please check back later in order to access the product!", "warning");
+        }
+        window.onload = codeAddress;
+    </script>
+</head>
+
+<!-- checkBlogOrigin -> assignPage -->
+
+<body id="page-top" style="background:#12233f;" onload="assignPage('signup')">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+    <div id="page-tag" class="page-tag">signup</div>
+
+    <div id="paymentModal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Your billing information</div>
+                <div class="therapy-over-box-subheader text-center">You're on the final step!</div>
+
+                <div class="modal-body">
+                    Enter your payment information to get started.
+
+                    You will not be billed until the end of your free trial, and your subscription can be
+                    easily cancelled anytime.
+
+                </div>
+
+
+
+                <form action="/charge" method="post" id="payment-form">
+                    <div class="col col-centered col-11">
+                        <label for="card-element" style="text-transform: uppercase;letter-spacing: 2.6px;">
+                            Credit/debit card
+                        </label>
+                        <div id="card-element" class="shadow">
+                        </div>
+                        <div id="card-errors" role="alert" class="margin-top-tiny" style="color:#EC3C3C;"></div>
+                        <!--
+                        <div class="margin-top">
+                            <label class="coupon-label">Coupon code</label>
+                        </div>
+                        <input id="coupon-input" type="text" class="coupon-text-input shadow"
+                            placeholder="Enter coupon code" style="position: relative;top:-3px;">
+                        -->
+                    </div>
+
+                    <div class="modal-footer margin-top-large">
+                        <span class="close-button no-select" data-dismiss="modal">Cancel
+                        </span>
+                        <input class="save-changes-button submit-style no-select" type="submit" />
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="alreadySignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">You are already signed in!</div>
+                <div class="therapy-over-box-subheader text-center">You can go to your dashboard or sign out.</div>
+
+                <div class="modal-body">
+                    At your dashboard, you will have access to our complete EMDR toolkit, including instructions and
+                    tools to help you find a therapist
+                    who specializes in EMDR.
+
+                </div>
+
+                <div class="modal-footer">
+                    <span class="close-button no-select" onclick="signOut()" data-dismiss="modal">Sign
+                        out</span>
+                    <span class="save-changes-button no-select" data-dismiss="modal" onclick="goToDashboard()">GO TO
+                        DASHBOARD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="plans-panel" class="analysis-box analysis-box-hidden force-top" style="background:#fff;">
+
+        <div class="pt-7 pb-8 journal-header-3 bg-ellipses" style="background-size: cover;">
+            <span class="no-select return-text" onclick="closeViewingPlans()"
+                style="position: absolute;top:15px;left:15px;">
+                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                Change information
+            </span>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-6">
+
+                        <!-- Title -->
+                        <h1 class="display-3 text-center text-white">
+                            Plans & Pricing
+                        </h1>
+
+                        <!-- Text -->
+                        <p class="lead text-center white">
+
+                            We offer several plans so that we can best suit everyone's payment needs. Each plan comes
+                            with the
+
+                            full suite of features and a 7 day free trial — you can cancel anytime with no hassle.
+
+                        </p>
+
+                    </div>
+                </div> <!-- / .row -->
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="container-fluid">
+
+
+
+            <div class="col col-12 col-centered">
+                <div class="row mt--7">
+                    <div class="col-12 col-lg-4">
+
+                        <!-- Card -->
+                        <button onclick="selectBilling('weekly')" role="link" style="width:100%;">
+                            <div class="card payment-card shadow pointer">
+                                <div class="card-body">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-center billing-cycle text-muted my-4">
+                                        Weekly billing
+                                    </h6>
+
+                                    <!-- Price -->
+                                    <div class="row no-gutters align-items-center justify-content-center">
+                                        <div class="col-auto">
+                                            <div class="h2 mb-0">$</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="display-2 mb-0">3.99</div>
+                                        </div>
+                                    </div> <!-- / .row -->
+
+                                    <!-- Period -->
+                                    <div class="h6 text-uppercase text-center text-muted mb-5">
+                                        / week
+                                    </div>
+
+                                    <!-- Features -->
+                                    <div class="mb-3">
+                                        <ul class="list-group list-group-flush">
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Great for trying out the service</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Full access to the suite of tools</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Free updates</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <a href="#!" class="btn btn-block btn-style"
+                                        style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                        SELECT PLAN
+                                    </a>
+
+                                </div>
+                            </div>
+                        </button>
+
+                    </div>
+                    <div class="col-12 col-lg-4">
+
+                        <!-- Card -->
+                        <button onclick="selectBilling('monthly')" role="link" style="width:100%;">
+                            <div class="card payment-card shadow pointer">
+                                <div class="card-body">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase billing-cycle text-center text-muted my-4">
+                                        Monthly billing
+                                    </h6>
+
+                                    <!-- Price -->
+                                    <div class="row no-gutters align-items-center justify-content-center">
+                                        <div class="col-auto">
+                                            <div class="h2 mb-0">$</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="display-2 mb-0">13.99</div>
+                                        </div>
+                                    </div> <!-- / .row -->
+
+                                    <!-- Period -->
+                                    <div class="h6 text-uppercase text-center text-muted mb-5">
+                                        / month
+                                    </div>
+
+                                    <!-- Features -->
+                                    <div class="mb-3">
+                                        <ul class="list-group list-group-flush">
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Clear, consistent monthly billing</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Full access to the suite of tools</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Free updates</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <a href="#!" class="btn btn-block btn-style"
+                                        style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                        SELECT PLAN
+                                    </a>
+
+                                </div>
+                            </div>
+                        </button>
+
+                    </div>
+                    <div class="col-12 col-lg-4">
+
+                        <!-- Card -->
+
+                        <button onclick="selectBilling('annual')" style="width:100%;">
+                            <div class="card payment-card shadow pointer">
+                                <div class="card-body">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase billing-cycle text-center text-muted my-4">
+                                        Annual billing
+                                    </h6>
+
+                                    <!-- Price -->
+                                    <div class="row no-gutters align-items-center justify-content-center">
+                                        <div class="col-auto">
+                                            <div class="h2 mb-0">$</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="display-2 mb-0">124.99</div>
+                                        </div>
+                                    </div> <!-- / .row -->
+
+                                    <!-- Period -->
+                                    <div class="h6 text-uppercase text-center text-muted mb-5">
+                                        / year
+                                    </div>
+
+                                    <!-- Features -->
+                                    <div class="mb-3">
+                                        <ul class="list-group list-group-flush">
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Get the best value!</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Full access to the suite of tools</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                                <small>Free updates</small>
+                                                <ion-icon name="checkmark-circle-outline" class="large-check">
+                                                </ion-icon>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <a href="#!" class="btn btn-block btn-style"
+                                        style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                        SELECT PLAN
+                                    </a>
+
+                                </div>
+                            </div>
+                        </button>
+
+
+                    </div>
+                </div> <!-- / .row -->
+
+
+
+            </div>
+
+
+            <div class="row margin-top">
+                <div class="col-12">
+
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h1 class="text-center box-description">
+                                What's in the box?
+                            </h1>
+
+                            <div class="row row-eq-height display-flex">
+                                <div class="col e1 col-12 col-md-6 margin-top-large display-flex">
+
+                                    <div>
+                                        <div class="card-header-img emdr-tool col-centered"></div>
+                                        <div class="card-footer card-signup-footer force-top col-centered text-center vertical-center-flexbox"
+                                            style="background:#12233f !important;">
+
+                                            <div>
+
+                                                <div class="card-footer-header white col" style="padding-bottom: 10px;">
+                                                    FLEXIBLE TOOLKIT</div>
+                                                <span class="emdr-icon-divider"></span>
+                                                <span class="emdr-icon">
+                                                    <ion-icon name="construct" class="emdr-icon-element white">
+                                                    </ion-icon>
+
+                                                </span>
+                                                <span class="emdr-icon-divider"></span>
+
+                                                <div class="card-footer-subheader white margin-top">Customize everything
+                                                    to
+                                                    fit the needs of
+                                                    every
+                                                    client. Save your favorite configurations and access them anywhere,
+                                                    anytime on your
+                                                    phone, tablet, computer, and more.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col e2 col-12 col-md-6 margin-top-large display-flex">
+
+                                    <div>
+                                        <div class="card-header-img analysis-tool col-centered"></div>
+                                        <div class="card-footer card-signup-footer force-top col-centered text-center vertical-center-flexbox"
+                                            style="background:#12233f !important;">
+
+                                            <div>
+
+                                                <div class="card-footer-header white col" style="padding-bottom: 10px;">
+                                                    RESULTS TRACKING</div>
+                                                <span class="emdr-icon-divider"></span>
+                                                <span class="emdr-icon">
+                                                    <ion-icon name="analytics" class="emdr-icon-element white">
+                                                    </ion-icon>
+
+                                                </span>
+                                                <span class="emdr-icon-divider"></span>
+
+                                                <div class="card-footer-subheader white margin-top">Keeping track of
+                                                    client
+                                                    progress is an
+                                                    essential part of helping
+                                                    them heal. Say goodbye to cluttered paperwork with our powerful data
+                                                    tracking and
+                                                    visualization services.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col e1 col-12 col-md-6 margin-top-large display-flex">
+                                    <div>
+                                        <div class="card-header-img landing4 col-centered"></div>
+                                        <div class="card-footer card-signup-footer force-top col-centered text-center vertical-center-flexbox"
+                                            style="background:#12233f !important;">
+
+                                            <div>
+
+                                                <div class="card-footer-header white col" style="padding-bottom: 10px;">
+                                                    INCLUSIVITY FIRST
+                                                </div>
+                                                <span class="emdr-icon-divider"></span>
+                                                <span class="emdr-icon">
+                                                    <ion-icon name="body" class="emdr-icon-element white"></ion-icon>
+
+                                                </span>
+                                                <span class="emdr-icon-divider"></span>
+
+                                                <div class="card-footer-subheader white margin-top">
+                                                    Nobody should be barred from receiving clinical support because of
+                                                    forces out of
+                                                    their
+                                                    control. That's why we offer auditory
+                                                    as well as visual stimulus to care for a wide range of client
+                                                    preferences.
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col e2 col-12 col-md-6 margin-top-large display-flex">
+
+                                    <div>
+                                        <div class="card-header-img journal-tool col-centered"></div>
+                                        <div class="card-footer card-signup-footer force-top col-centered text-center vertical-center-flexbox"
+                                            style="background:#12233f !important;">
+
+                                            <div>
+
+                                                <div class="card-footer-header col white" style="padding-bottom: 10px;">
+                                                    MINDFUL REFLECTION
+                                                </div>
+                                                <span class="emdr-icon-divider"></span>
+                                                <span class="emdr-icon">
+                                                    <ion-icon name="heart" class="emdr-icon-element white"
+                                                        style="position: relative;left:0px;top:6px;"></ion-icon>
+
+                                                </span>
+                                                <span class="emdr-icon-divider"></span>
+
+                                                <div class="card-footer-subheader white margin-top">We offer powerful
+                                                    tools
+                                                    for carefully
+                                                    reflecting on how EMDR effects you. Record feelings, thoughts,
+                                                    and sensations so that you can remain acutely aware of your
+                                                    headspace and progress.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!--
+                            <ul class="col margin-top col-11 col-centered list-group list-group-flush">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        -->
+
+                            <!--
+                            <p class="text-center">
+                                We can help you decide which plan is best for your individual needs. It's easy to get in
+                                touch with a member of our
+                                support team — you can contact us anytime by clicking the button below!
+                            </p>
+    
+                            <div class="text-center">
+                                <a href="#!" class="btn btn-style-outline">
+                                    Contact us
+                                </a>
+                            </div>
+                        -->
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> <!-- / .row -->
+
+            <div class="row">
+                <div class="col-12 col-centered col-md-10 col-lg-8 text-center">
+
+                    <!-- Card -->
+
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h3 class="text-center" style="font-size: 21px;">
+                            Need some help deciding?
+                        </h3>
+
+                        <!-- Text -->
+                        <p class="text-center" style="font-size: 17.5px">
+                            We can help you decide which plan is best for your individual needs. It's easy to get in
+                            touch with a member of our
+                            support team — you can contact us anytime by clicking the button below!
+
+
+                        </p>
+
+                        <!-- Button -->
+
+                        <div class="text-center">
+                            <a href="mailto:info@easy-emdr.com?subject=Contact us" class="btn btn-style-outline"
+                                style="border-radius: 5px;font-size:17px;letter-spacing: 3px;">
+                                Contact us
+                            </a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div> <!-- / .row -->
+            <div class="row col-centered">
+                <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                    <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                        <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                    </a>
+                    <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                        <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                    </a>
+                    <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                        class="kill-link-style">
+                        <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                    </a>
+                    <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                        <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                    </a>
+
+                </div>
+
+                <div class="col col-12 copyright-text icon-footer margin-top margin-bottom-footer no-select">
+                    <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                        ;>&#169</span>
+                    EASY EMDR 2019
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div> <!-- / .main-content -->
+    </div>
+
+
+    <div id="blog-element" class="force-top transition-time blog-nav-active">
+        <a href="index.html" class="kill-link-style pointer">
+            <ion-icon class="dashboard-arrow" name="arrow-round-back"
+                style="font-size:20.4px;position:absolute;top:7.7px;">
+            </ion-icon>
+            <span class="green-highlight-text no-select"
+                style="position: relative;left:25px;top:7px;font-size: 17px;">Go to
+                hompage</span>
+        </a>
+
+    </div>
+    <span class="animated fadeIn" id="journal-header-box" style="position: relative;top:-31px;">
+
+        <div id="journal-header" class="center-flex blog-header-img journal-header-4">
+            SIGN UP
+        </div>
+    </span>
+
+    <div class="main-content">
+        <div class="container-fluid mt--6">
+            <div class="row">
+
+
+                <div class="col col-12 col-md-12 col-xl">
+                    <div class="card shadow animated fadeInUp"
+                        style="padding-top: 35px;padding-left:5px;padding-right:5px;padding-bottom: 45px;">
+                        <div class="blog-card-header-large col-centered text-center">Create an account to get started
+                        </div>
+
+                        <div
+                            class="blog-card-subheader-large col col-11 col-md-9 col-lg-6 col-centered text-center darker-text-style margin-top-tiny">
+                            Streamline your EMDR practice with our powerful toolkit, detailed analytics, and free
+                            updates.
+                            <br />
+
+
+
+                            <div id="error-message" style="display: none;"></div>
+
+                            <span class="margin-top-large darker-text-style"
+                                style="font-size: 15.5px;position:relative;top:3px;">Already have an
+                                account? <a href="signin.html" class="link-style-blue pointer no-select">Click here to
+                                    sign
+                                    in.
+                                </a></span>
+
+                            <br />
+                            <div class="blog-divider margin-top" style="height:3px;"></div>
+
+                        </div>
+
+                        <div class="col col-12 col-md-10 col-lg-10 col-centered">
+                            <!--
+                            <div id="error-box-display" class="col col-12 col-centered text-center">
+
+                            </div>
+                        -->
+                            <div id="error-box-display-passwords" class="col col-12 col-centered text-center">
+
+                            </div>
+                            <form method="post" class="row row-eq-height" action="/clicked">
+                                <div class="col col-12 margin-top input-container">
+
+
+                                    <!--
+                                    <div id="myButton" class="text-center sign-submit-button">
+                                        test
+                                    </div>
+                                -->
+                                    <br />
+                                    <!-- Label -->
+                                    <label class="larger-label">Enter email</label>
+
+                                    <!-- Input -->
+                                    <input id="txtEmail" maxlength="70" type="email"
+                                        class="text-input-style-email form-control"
+                                        placeholder="Enter your email address" name="user[email]" required>
+                                    <div id="email-warning" style="position: relative;top:15px;"></div>
+
+                                </div>
+                                <div class="col col-12 col-md-6 margin-top-large input-container">
+
+
+                                    <!-- Label -->
+                                    <label class="larger-label darker-text-style">First name</label>
+
+                                    <!-- Input -->
+                                    <input id="txtFirstName" maxlength="50" type="text" name="user[firstName]"
+                                        class="text-input-style-email form-control" placeholder="Enter your first name"
+                                        required>
+                                    <div id="first-name" style="position: relative;top:15px;"></div>
+
+
+                                </div>
+                                <div class="col col-12 col-md-6 margin-top-large input-container">
+
+
+                                    <!-- Label -->
+                                    <label class="larger-label darker-text-style">Last name</label>
+
+                                    <!-- Input -->
+                                    <input id="txtLastName" type="text" maxlength="50"
+                                        class="text-input-style-email form-control" placeholder="Enter your last name"
+                                        required>
+                                    <div id="last-name" style="position: relative;top:15px;"></div>
+
+                                </div>
+
+                                <div class="col col-12 col-md-6 margin-top-large input-container">
+
+
+                                    <!-- Label -->
+                                    <label class="larger-label darker-text-style">Enter password</label>
+
+                                    <!-- Input -->
+                                    <input id="txtPassword" type="password" class="text-input-style-email form-control"
+                                        placeholder="Enter password" required>
+                                    <div id="password" style="position: relative;top:15px;"></div>
+                                    <div id="password-note" style="position: relative;top:15px;">
+                                        <div class="animated flipInX password-note">Your password must be at least 7
+                                            characters long
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col col-12 col-md-6 margin-top-large input-container">
+
+
+                                    <!-- Label -->
+                                    <label class="larger-label darker-text-style">Re-enter password</label>
+
+                                    <!-- Input -->
+                                    <input id="txtPasswordCheck" type="password"
+                                        class="text-input-style-email form-control" placeholder="Re-enter password"
+                                        required>
+                                    <div id="check-password" style="position: relative;top:15px;"></div>
+
+
+                                </div>
+
+
+                                <div class="col hidden col-12 margin-top-large input-container">
+                                    <span style="font-size: 17px;"> Do you want to receive discount codes and occasional
+                                        email updates?</span>
+                                    <br />
+                                    <div id="yes-button"
+                                        class="no-select yes-button margin-right-yes-button margin-top yes-button-selected"
+                                        onclick="mailUpdates('yes')">
+                                        Yes
+                                    </div>
+                                    <div id="no-button" class="no-select margin-top yes-button"
+                                        onclick="mailUpdates('no')">No</div>
+                                </div>
+
+
+                                <div class="col col-12 text-center margin-top-large">
+                                    <div>
+                                        <div class="blog-divider col-centered text-center margin-top"
+                                            style="height:3px;"></div>
+                                    </div>
+                                </div>
+
+                                <button id="btnSignUp" type="button" onclick="verifyEmail()"
+                                    class="margin-top-large no-select sign-submit-button col-centered">
+                                    SIGN UP
+                                </button>
+
+
+                            </form>
+
+                            <!--
+                            <div class="col-centered text-center margin-top other-options">
+                                You can also sign up with...
+                            </div>
+
+                            <div class="col col-12 text-center col-centered">
+
+                                <span class="facebook-button-small margin-top no-select">Facebook</span>
+                                <span class="twitter-button-small margin-top no-select">Twitter</span>
+
+                            </div>
+                        -->
+                        </div>
+
+
+                    </div>
+
+                </div>
+                </a>
+            </div>
+            <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                    <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                </a>
+                <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                </a>
+                <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                    class="kill-link-style">
+                    <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                </a>
+                <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                </a>
+
+            </div>
+
+            <div class="col col-12 col-centered text-center no-select">
+                <div class="mailing-list-header">
+                    Join our mailing list to get updates, discounts, and more!
+                </div>
+                <form action="https://formspree.io/info@easy-emdr.com" method="POST">
+                    <input type="email" name="Email" class="mailing-list-input margin-bottom-icon"
+                        placeholder="Enter email here..." required />
+                    <button type="submit" class="mailing-list-submit">SUBMIT &#8594;</button>
+                </form>
+            </div>
+            <div class="col col-12 copyright-text icon-footer margin-top margin-bottom-footer no-select">
+                <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                    ;>&#169</span>
+                EASY EMDR 2019
+            </div>
+
+            <div class="col col-12 col-centered text-center">
+                <div class="disclaimer-text text-center no-select">
+
+                    Do not use EMDR without a licensed therapist.
+                    Easy EMDR is a tool for performing
+                    EMDR, not a
+                    licensed
+                    therapy or
+                    treatment. We are not responsible
+                    for any negative consequences or experiences that may result from using our tool.
+
+                    <br />
+                    <div class="margin-top disclaimer-text-color">
+                        You can <a href="https://www.emdria.org/search/default.asp" target="_blank"
+                            class="link-style">click
+                            here</a> to
+                        find an
+                        EMDR therapist in your area.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</body> <!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="js/socket.io.js"></script>
+
+
+
+<script src="js/script.js"></script>
+
+<script src="js/anime.min.js"></script>
+<script src="js/morphext.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-functions.js"></script>
+<script src="js/creative.js"></script>
+<script src="js/homeAnimations.js"></script>
+
+<script>
+
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+
+
+</script>
+
+<script>
+
+    var planHighlighted = "none";
+    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
+
+    var style = {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    function selectBilling(plan) {
+        $('#paymentModal').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        });
+        planHighlighted = plan;
+    }
+
+    function stripeTokenHandler(token) {
+
+        $("#paymentModal").modal('hide');
+        swal("Success!", "You successfully created a subscription!", "success");
+
+        socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token });
+
+    }
+
+    var elements = stripe.elements();
+    var card = elements.create('card', { style: style });
+    card.mount('#card-element');
+
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        //console.log("SUBMITTEDDD");
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the customer that there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+
+</script>
+
+<script src="js/onboarding.js"></script>
+<script src="js/sign-up.js"></script>
+
+<!--
+<script src="js/bundle.js"></script>
+-->
+
+
+<script>
+
+    /*
+    jQuery(document).ready(function () {
+        jQuery('#loader').fadeOut(230);
+
+    });
+*/
+    $("#js-rotating").Morphext({
+        // The [in] animation type. Refer to Animate.css for a list of available animations.
+        animation: "flipInX",
+        // An array of phrases to rotate are created based on this separator. Change it if you wish to separate the phrases differently (e.g. So Simple | Very Doge | Much Wow | Such Cool).
+        separator: ",",
+        // The delay between the changing of each phrase in milliseconds.
+        speed: 3050,
+        complete: function () {
+            // Called after the entrance animation is executed.
+        }
+    });
+</script>
+</body>
+
+</html>

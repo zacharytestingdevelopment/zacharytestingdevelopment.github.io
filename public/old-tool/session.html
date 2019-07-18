@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Easy EMDR</title>
+
+    <link rel="stylesheet" hef="style/normalize.css" />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/animate.css" />
+    <link rel="stylesheet" href="style/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <script src="scripts/script.js"></script>
+
+    <meta name="description"
+        content="The easiest solution for EMDR services on the internet. Learn, explore, and relax.">
+</head>
+
+<body id="bodyTag" onLoad="engageSettings(); sunOrMoonSession2();">
+    <div id="site-wrapper" class="animated fadeIn">
+
+        <div class="header-container">
+            <div class="col-xs-12">
+                <img src="images/error.png" class="pull-right info-icon" id='error' onClick="loadHome()" />
+            </div>
+            <!--
+            <img src="images/sunset.png" class="night-mode" id="darkMode" onClick="sunOrMoonSession()" />
+            -->
+            <div class="col-xs-10 col-xs-offset-1 header" id='test'>Easy EMDR</div>
+        </div>
+
+        <div class="options-box">
+            <div id="firstTitle" class="session-option" style="margin-top:65px;margin-bottom:-5px;"
+                onClick="replaySession()">Replay Session</div>
+            <br />
+            <div id="secondTitle" class="session-option" onClick="loadHome()">Exit Session</div>
+        </div>
+        <div id="cube-fade">
+            <div id="cube" class="element"></div>
+        </div>
+
+        <div class="footer absolute-footer">
+            <div class="footer"><span id='test3'>
+                    <a class="upgrade-text-tool" href="../signup.html">
+                        Get the upgraded tool </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

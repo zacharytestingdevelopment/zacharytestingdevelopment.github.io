@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="Easy EMDR">
+
+    <title>Easy EMDR | Dashboard</title>
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="css/dash/flatpickr.min.css" />
+    <link rel="stylesheet" href="css/dash/select2.min.css" />
+    <link rel="stylesheet" href="css/dash/theme-dark.min.css" id="stylesheetDark" />
+    <!--<link rel="stylesheet" href="css/dash/theme.min.css" />-->
+    <link rel="stylesheet" href="css/dash/vs2015.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dash/theme.css" id="stylesheetLight" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/morphext.css" rel="stylesheet" />
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+    <meta name="description"
+        content="The dashboard for Easy EMDR's official toolkit. Here you can access our EMDR tool, analyze the results of past sessions, and access resources to help identify an EMDR therapist in your area.">
+
+
+    <style>
+        textarea,
+        input {
+            outline: none;
+            box-shadow: inset 0px 0px 0px 0px red;
+        }
+
+        button,
+        input[type="submit"],
+        input[type="reset"] {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
+
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #12223f !important;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #12223f !important;
+        }
+
+        ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #12223f !important;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144108695-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144108695-1');
+    </script>
+
+</head>
+
+<body id="page-top" onload="assignPage('dashboard')">
+    <div id="loader" class="spinner" style="position:fixed;top:-100px !important;left:0;text-align: center;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
+    <div id="page-tag" class="page-tag">dashboard</div>
+
+    <div id="paymentModal" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">Your billing information</div>
+                <div class="therapy-over-box-subheader text-center">You're on the final step!</div>
+
+                <div class="modal-body">
+                    Enter your payment information to get started.
+
+                    You will not be billed until the end of your free trial, and your subscription can be
+                    easily cancelled anytime.
+
+                </div>
+
+
+
+                <form action="/charge" method="post" id="payment-form">
+                    <div class="col col-centered col-11">
+                        <label for="card-element" style="text-transform: uppercase;letter-spacing: 2.6px;">
+                            Credit/debit card
+                        </label>
+                        <div id="card-element" class="shadow">
+                        </div>
+                        <div id="card-errors" role="alert" class="margin-top-tiny" style="color:#EC3C3C;"></div>
+                    </div>
+
+                    <div class="modal-footer margin-top-large">
+                        <span class="close-button no-select" onclick="signOut()" data-dismiss="modal">Cancel
+                        </span>
+                        <input class="save-changes-button submit-style no-select" type="submit" />
+
+                    </div>
+                </form>
+                <!--
+                <form action="/charge" method="post" id="payment-form">
+                    <div class="form-row">
+                        <label for="card-element">
+                            Credit or debit card
+                        </label>
+                        <div id="card-element">
+                           
+                        </div>
+
+                      
+                        <div id="card-errors" role="alert"></div>
+                    </div>
+
+                    <button>Submit Payment</button>
+                </form>
+            -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="myButton" class="sign-submit-button hidden">
+        dasd
+    </div>
+    <div id="your-account-panel" class="analysis-box gradient-box rubber-band analysis-box-hidden">
+        <div id="blog-element" class="force-top transition-time blog-nav-active">
+            <span onclick="closeYourProfile()" class="pointer">
+                <ion-icon class="dashboard-arrow" name="close-circle" style="font-size:18px;position:absolute;top:9px;">
+                </ion-icon>
+                <span class="green-highlight-text no-select"
+                    style="position: relative;left:22px;top:7px;font-size: 17px;">Close account page</span>
+
+            </span>
+        </div>
+        <span class="animated fadeIn" id="journal-header-box" style="position: relative;top:-31px;">
+
+            <div id="journal-header" class="center-flex blog-header-img journal-header-2">
+                ACCOUNT
+            </div>
+
+        </span>
+
+        <div class="main-content">
+            <div class="container-fluid mt--6">
+                <div class="row">
+
+
+                    <div class="col col-12 col-md-12 col-xl">
+                        <div class="card shadow animated fadeInUp"
+                            style="padding-top: 35px;padding-left:5px;padding-right:5px;padding-bottom: 45px;">
+                            <span class="no-select col-centered text-center">
+                                <div id="active-box"
+                                    class="text-center col-centered account-box-header account-box-header-active">
+                                    Active subscription
+                                </div>
+                            </span>
+                            <div class="blog-card-header-large col-centered margin-top-tiny text-center">
+                                <span id="first-name" class="darker-text-style"></span>
+                                <span id="last-name" class="darker-text-style"></span>
+                            </div>
+
+
+                            <!--
+                            <div id="account-box"
+                                class="margin-top-medium account-box col col-11 col-md-9 col-centered text-center account-active">
+                                Your account is active
+                            </div>
+                            -->
+
+                            <div
+                                class="col col-11 col-md-8 col-centered text-center darker-text-style mission-text margin-top">
+                                Welcome to Easy EMDR! We offer a personalized digital EMDR kit designed from the ground
+                                up to bring more flexibility to your practice. And we're always working on improving our
+                                tool — keep tuning in to receive free updates with powerful new features.
+
+                                <div class="margin-top darker-text-style">To get started, you can jump right into
+                                    our EMDR tool or
+                                    take a look at your previous sessions with data analytics.
+                                </div>
+
+                                <div class="margin-top-medium">
+                                    <a href="emdr.html" class="kill-link-style">
+                                        <div class="account-link-button no-select">EMDR tool</div>
+                                    </a>
+
+                                    <a href="emdr-analysis.html" class="kill-link-style">
+                                        <div class="account-link-button no-select">Analyze session</div>
+                                    </a>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="col col-12 col-centered text-center">
+                                <a href="plans.html" class="kill-link-style no-select">
+                                    <div id="plan-button"
+                                        class="cancel-account-button cancel-account-button-active margin-top-medium col-centered text-center"
+                                        style="display: inline-block;margin-left:auto;margin-right:auto;left:0;right:0;">
+                                        Modify or cancel subscription
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="notSignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header-element">You are not signed in!</div>
+                <div class="therapy-over-box-subheader text-center">Log in or sign up to get started now</div>
+
+                <div class="modal-body">
+
+                    Once you are signed into an active account, you will have access to our complete EMDR toolkit,
+                    including instructions and
+                    tools to help you find a therapist
+                    who specializes in EMDR.
+
+                </div>
+
+                <div class="modal-footer">
+                    <a href="signin.html" class="kill-link-style">
+                        <span class="close-button no-select">Sign
+                            in</span>
+                    </a>
+                    <a href="signup.html" class="kill-link-style">
+                        <span class="save-changes-button no-select">SIGN
+                            UP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-component" style="background:#12233f;">
+        <div class="dashboard-return">
+            <span class="no-select return-text" onclick="openYourProfile()">
+                <ion-icon class="dashboard-arrow" name="contact" style="font-size:18.4px;position:relative;top:3.7px;">
+                </ion-icon>
+                Your account
+            </span>
+
+            <span class="no-select return-text float-right" onclick="signOutDash()">
+                <ion-icon class="dashboard-arrow" name="walk" style="font-size:18.4px;position:relative;top:3.7px;">
+                </ion-icon>
+                Sign out
+            </span>
+        </div>
+    </div>
+
+    <!--
+    <div id="email-not-verified" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="viewGoalResults()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close goal analysis
+        </div>
+        <div class="customize-dash-header">Goal analysis</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+    </div>
+
+-->
+    <div class="dark-header-top emdr-header text-center">
+
+        <span class="col-centered" style="position: relative;top:-30px;">
+            <span class="welcome-dash-sub white col-centered text-center">WELCOME TO</span>
+            <div class="welcome-dash-header white">EASY EMDR</div>
+            <a href="emdr.html" class="kill-link-style">
+                <div class="start-session-button no-select force-top margin-top-tiny">Begin session</div>
+            </a>
+        </span>
+    </div>
+
+
+
+    <div class="main-content" style="position: relative;top:30px;">
+        <span id="dash-active">
+            <div class="container-fluid mt--6">
+                <div class="row">
+                    <div class="col col-12 col-md-12 col-xl">
+                        <div class="card shadow animated fadeInUp modify-testing-card testing-card-large">
+                            <div class="card-header hide-bottom-border" style="display: inline-block !important;">
+                                <div class="row realign-items-center padding-bottom">
+                                    <div class="col text-center">
+
+
+                                        <h6 class="card-title text-center text-uppercase text-muted mb-2"
+                                            style="font-size: 14.2px;">
+                                            GET STARTED
+                                        </h6>
+
+
+                                        <!-- Heading -->
+                                        <div class="col-centered card-header-title-large text-center">
+                                            YOUR TOOLKIT
+                                        </div>
+
+                                        <div class="margin-top-tiny text-center">
+                                            <small class="form-text slightly-larger text-muted">
+                                                Powerful, personal, and accessible EMDR tools
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col col-12 col-md-12 col-centered">
+
+                                    <div id="is-email-verified" class="row full-stretch">
+
+                                        <div
+                                            class="col col-12 col-centered shadow col-md-9 margin-top verify-your-email text-center">
+                                            <span class="verify-your-email-header">Verify your email to unlock the
+                                                EMDR
+                                                tool and analytics.</span>
+                                            <div class="verify-your-email-body">You should have
+                                                already
+                                                received
+                                                it, but the button below will send another verification message. Do not
+                                                start an EMDR session
+                                                without a therapist.
+                                            </div>
+
+                                            <div class="verify-your-email-button" onclick="resendVerification()">
+                                                Re-send verification email
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </span>
+    </div>
+
+
+    <div id="email-not-verified-box" class="email-not-verified-box">
+
+    </div>
+
+    <div class="container-fluid mt--6" style="position: relative;top:65px;">
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl">
+
+
+                <div class="card shadow e1 pointer smaller-dash-card" onclick="openInstructions()"
+                    onmouseover="moveArrowOut('instructions')" onmouseout="moveArrowBack('instructions')">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+
+
+                                <h6 class="card-title text-uppercase text-muted mb-2">
+                                    BASIC INSTRUCTIONS
+                                </h6>
+
+
+                                <span id="sessions-completed" class="h2 mb-0">
+                                    How to get started with EMDR
+                                </span>
+
+                                <div class="margin-top-tiny dash-card-body">
+                                    EMDR works best when it's configured for how you feel the most comfortable
+                                    using it. That's why we recommend checking out this guide on how
+                                    to get started with our tool. Click here!
+                                </div>
+
+                                <div class="get-started-button margin-top-tiny">
+                                    Get started <span id="instructions-arrow" class="larger-arrow">&#8594;</span>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-auto">
+
+
+                                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-6 col-xl">
+
+
+                <a href="https://www.emdria.org/search/default.asp" target="_blank" class="kill-link-style">
+                    <div class="card shadow e2 pointer smaller-dash-card" onmouseover="moveArrowOut('professionals')"
+                        onmouseout="moveArrowBack('professionals')">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+
+
+                                    <h6 class="card-title text-uppercase text-muted mb-2">
+                                        FINDING A PROFESSIONAL
+
+                                    </h6>
+                                    <span id="sessions-completed" class="h2 mb-0">
+                                        Licensed EMDR therapists
+                                    </span>
+
+                                    <div class="margin-top-tiny dash-card-body">
+                                        Before beginning your first session, it is very important to speak with
+                                        a qualified medical professional trained in EMDR. You can find them using
+                                        the
+                                        EMDR
+                                        International
+                                        Association's free tool!
+                                    </div>
+
+                                    <div class="get-started-button margin-top-tiny">
+                                        Get started <span id="professionals-arrow" class="larger-arrow">&#8594;</span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-auto">
+
+
+                                    <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row margin-top-large">
+            <div class="col col-12 col-md-12 text-center col-xl">
+                <div class="blog-dash-header">THE LATEST</div>
+                <div class="blog-dash-subheader text-center col col-11 col-md-11 col-centered">
+                    The official Easy EMDR blog.
+                </div>
+
+                <div class="blog-dash-divider col-centered"></div>
+
+
+            </div>
+
+        </div>
+
+        <div class="row margin-top-tiny">
+            <a href="blog.html#introduction" class="kill-link-style">
+                <div class="col col-11 col-centered col-md-11 blog-post-box">
+                    <div class="blog-post-dash-date white">Announcements</div>
+                    <div class="blog-post-dash-header white">This is Why We're Here</div>
+                    <div class="blog-post-dash-body white">At Easy EMDR, we have seen the positive impact
+                        that proper mental health care can have on someone who is suffering. Unfortunately,
+                        the current systems for pursuing support are insufficient to meet the needs of all
+                        those who need help. We exist to accelerate not only the development of high quality
+                        mental health tools...
+                    </div>
+
+                    <div class="read-full-post white margin-top-tiny no-select">
+                        Read this post &#8594;
+                    </div>
+                </div>
+            </a>
+
+
+
+            <div class="col col-12 col-centered text-center margin-top">
+                <div class="row margin-top text-center">
+
+                    <a href="blog.html" class="col-centered text-center kill-link-style">
+                        <span class="view-full-blog no-select col-centered">View full
+                            blog
+                        </span>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="col col-centered text-center icon-footer margin-bottom-icon margin-top-large">
+                <a href="https://www.facebook.com/easyemdr" target="_blank" class="kill-link-style">
+                    <ion-icon class="social-icon facebook" name="logo-facebook"></ion-icon>
+                </a>
+                <a href="https://www.instagram.com/easy_emdr/" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon instagram" name="logo-instagram"></ion-icon>
+                </a>
+                <a href="https://www.pinterest.com/27018663cadd07ea4832e06be9150e/" target="_blank"
+                    class="kill-link-style">
+                    <ion-icon class="social-icon pinterest" name="logo-pinterest"></ion-icon>
+                </a>
+                <a href="https://twitter.com/EasyEMDR" class="kill-link-style" target="_blank">
+                    <ion-icon class="social-icon twitter" name="logo-twitter"></ion-icon>
+                </a>
+
+            </div>
+
+            <div class="col col-12 col-centered text-center no-select">
+                <div class="mailing-list-header">
+                    Join our mailing list to get updates, discounts, and more!
+                </div>
+                <form action="https://formspree.io/info@easy-emdr.com" method="POST">
+                    <input type="email" name="Email" class="mailing-list-input margin-bottom-icon"
+                        placeholder="Enter email here..." required />
+                    <button type="submit" class="mailing-list-submit">SUBMIT &#8594;</button>
+                </form>
+            </div>
+            <div class="col col-12 copyright-text icon-footer margin-top margin-bottom-footer no-select">
+                <span style="font-size:21.5px !important;margin-right:5px !important;color:#95a8c9 !important;"
+                    ;>&#169</span>
+                EASY EMDR 2019
+            </div>
+
+        </div>
+    </div>
+
+    <div id="instructions-panel" class="gradient-box rubber-band analysis-box analysis-box-hidden">
+        <div class="exit-button no-select" onclick="closeInstructions()">
+            <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+            Close instructions
+        </div>
+
+        <div class="customize-dash-header">EMDR INSTRUCTIONS</div>
+        <div class="col col-centered col-11 text-center white col-lg-8 margin-top-tiny customize-dash-body">
+            Some thoughts to keep in mind when using our tool
+        </div>
+
+        <div class="margin-top-large col col-12 col-centered category-width">
+            <div class="row slight-border">
+
+            </div>
+        </div>
+        <div class="col white col-11 col-centered">
+            <div class="row">
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">1</div>
+                        <div class="instructions-text-header">FINDING A THERAPIST</div>
+                        <div class="instructions-text margin-top darker-text-style">Before you begin your first EMDR
+                            session, it is
+                            <b class='darker-text-style'>extremely</b> important that you meet with a licensed
+                            professional.
+                            The easiest way to do this is through using the EMDR international association's free tool.
+                            You can filter by location
+                            in order to find therapists in your area who are trained in EMDR.
+                            <br />
+                            <a href="https://www.emdria.org/search/default.asp" target="_blank" class="kill-link-style">
+                                <div class="start-session-button margin-top">Find a therapist</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions1">
+
+                    </div>
+                </div>
+            </div>
+        </diV>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">2</div>
+                        <div class="instructions-text-header">CONFIGURING YOUR SESSION</div>
+                        <div class="instructions-text margin-top darker-text-style">Once in session with an EMDR
+                            therapist, you can then
+                            begin adjusting the tool to be most comfortable for you.
+                            Change the speed, theming, and path of the elements until you feel ready to begin. The speed
+                            of the element should be towards the faster side
+                            of what you can manage comfortably.
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions2">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">3</div>
+                        <div class="instructions-text-header">SAVING YOUR CONFIGURATION</div>
+                        <div class="instructions-text margin-top darker-text-style">
+                            You can save your configuration to easily load it later. All of your configurations will
+                            sync across your desktop, phone, tablet, and more.
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions3">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">4</div>
+                        <div class="instructions-text-header">THERAPY CONTROLS</div>
+                        <div class="instructions-text margin-top darker-text-style">During the therapy, track the
+                            element with your eyes and follow
+                            the guidance of your therapist. You can end or pause the therapy using the buttons in the
+                            top left corner, or
+                            hide the toolbar by clicking the button in the top right corner.
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions4">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">5</div>
+                        <div class="instructions-text-header">AFTER A SESSION</div>
+                        <div class="instructions-text margin-top darker-text-style">
+                            After you have completed a session,
+                            fill in the data when prompted to track progress over the course of several sessions. You
+                            can also fill in notes on how you were
+                            feeling during the session. It is possible to save your data and exit the tool at this
+                            point.
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-image shadow instructions5">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col white col-11 col-centered">
+            <div class="row">
+
+                <div class="col col-12 text-center margin-top-large">
+                    <div class="instructions-box shadow">
+                        <div class="instructions-numbers col-centered">5</div>
+                        <div class="instructions-text-header">SESSION ANALYSIS</div>
+                        <div class="instructions-text margin-top darker-text-style">
+                            All of the data and notes entered during a session are visually represented here. You can
+                            view
+                            how things progressed over the course of a session, and all of your results are saved in the
+                            EMDR
+                            analysis page.
+                            <br />
+                            <a href="emdr-analysis.html" class="kill-link-style">
+                                <div class="start-session-button margin-top">ANALYZE SESSIONS</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col col-12 text-center margin-top-large">
+                        <div class="instructions-image shadow instructions6">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col col-12 col-centered text-center margin-top-large">
+
+                <div class="start-session-button no-select force-top margin-top-tiny" onclick="closeInstructions()">
+                    Close
+                    instructions</div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+
+
+<script src="js/dash/jquery.min.js"></script>
+<script src="js/dash/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="js/dash/charts.js"></script>
+<script src="js/dash/Chart.extension.min.js"></script>
+<script src="js/dash/highlight.pack.min.js"></script>
+<script src="js/dash/flatpickr.min.js"></script>
+<script src="js/dash/jquery.mask.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/dash/list.min.js"></script>
+<script src="js/dash/dropzone.min.js"></script>
+<script src="js/dash/select2.min.js"></script>
+<script src="js/dash/theme.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-functions.js"></script>
+<script src="js/therapy-analysis.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/jquery.caret.min.js"></script>
+
+<script src="js/jquery.tag-editor.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/creative.js"></script>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script src="js/socket.io.js"></script>
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBpxTxLurdqLjq0tmFfpG0gGkIzFGeR8wo",
+        authDomain: "mental-health-suite.firebaseapp.com",
+        databaseURL: "https://mental-health-suite.firebaseio.com",
+        projectId: "mental-health-suite",
+        storageBucket: "mental-health-suite.appspot.com",
+        messagingSenderId: "119327507370"
+    };
+    firebase.initializeApp(config);
+
+    ScrollReveal({ distance: '-20px' });
+    ScrollReveal().reveal('.e1');
+    ScrollReveal().reveal('.e2');
+    ScrollReveal().reveal('.e3');
+    ScrollReveal().reveal('.e4');
+    ScrollReveal().reveal('.e5');
+
+
+</script>
+
+<script>
+
+    var planHighlighted = "none";
+    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
+
+    var style = {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    function selectBilling(plan) {
+        $('#paymentModal').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        });
+        planHighlighted = plan;
+    }
+
+    function stripeTokenHandler(token) {
+
+        $("#paymentModal").modal('hide');
+        //swal("Success!", "You successfully created a subscription!", "success");
+
+        //socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token });
+
+
+
+    }
+
+    var elements = stripe.elements();
+    var card = elements.create('card', { style: style });
+    card.mount('#card-element');
+
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        //console.log("SUBMITTEDDD");
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the customer that there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+
+</script>
+
+<script src="js/require.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/sign-up.js"></script>
+
+<script>
+
+
+
+</script>
+
+<script>
+
+
+
+
+</script>
+</body>
+
+</html>
