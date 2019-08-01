@@ -217,7 +217,7 @@
                     <div class="col-12 col-lg-4">
 
                         <!-- Card -->
-                        <button onclick="selectBilling('weekly')" role="link" style="width:100%;">
+                        <button onclick="checkIfCanBill('weekly')" role="link" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -232,7 +232,7 @@
                                             <div class="h2 mb-0">$</div>
                                         </div>
                                         <div class="col-auto">
-                                            <div class="display-2 mb-0">3.99</div>
+                                            <div class="display-2 mb-0">4.99</div>
                                         </div>
                                     </div> <!-- / .row -->
 
@@ -280,7 +280,7 @@
                     <div class="col-12 col-lg-4">
 
                         <!-- Card -->
-                        <button onclick="selectBilling('monthly')" role="link" style="width:100%;">
+                        <button onclick="checkIfCanBill('monthly')" role="link" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -344,7 +344,7 @@
 
                         <!-- Card -->
 
-                        <button onclick="selectBilling('annual')" style="width:100%;">
+                        <button onclick="checkIfCanBill('annual')" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -422,11 +422,13 @@
                             onclick="cancelSubscription('continuesubscription')">
                             Continue subscription
                         </span>
+                        <div style="display:block;height:20px;width:1px;background:transparent"></div>
                     </div>
+                    <!--
                     <span class="cancel-subscription-plan no-select"
                         onclick="cancelSubscription('deleteaccount')">Delete
                         account</span>
-
+-->
                 </div>
 
 
@@ -441,7 +443,7 @@
                         <div class="card-body">
 
                             <!-- Title -->
-                            <h1 class="text-center box-description">
+                            <h1 class="text-center ink-color box-description">
                                 What's in the box?
                             </h1>
 
@@ -752,120 +754,9 @@
 
 </script>
 
-<script src="js/sign-up.js"></script>
-
-<script>
-
-    var planHighlighted = "none";
-    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
-
-    var style = {
-        base: {
-            color: '#32325d',
-            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
-
-    function selectBilling(plan) {
-        $('#paymentModal').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        });
-        planHighlighted = plan;
-    }
-
-    function stripeTokenHandler(token) {
-
-        $("#paymentModal").modal('hide');
-        swal("Success!", "You successfully created a subscription!", "success");
+<script src="js/sign-up-new.js"></script>
 
 
-        var user = firebase.auth().currentUser;
-        var desc = firebase.database().ref('users/' + user.uid + "/userData");
-
-        desc.once('value', function (snapshot) {
-            console.log(snapshot.val().customerID);
-
-            if (snapshot.val().customerID != null && snapshot.val().customerID != undefined) {
-                socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "yes", firebaseID: snapshot.val().customerID });
-            }
-            else {
-                socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "no" });
-            }
-
-        }).then(function (value) {
-            setInterval(function () { window.location = "dashboard.html"; }, 1000);
-        });
-    }
-
-    var elements = stripe.elements();
-    var card = elements.create('card', { style: style });
-    card.mount('#card-element');
-
-    card.addEventListener('change', function (event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
-        }
-    });
-
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function (event) {
-        //console.log("SUBMITTEDDD");
-        event.preventDefault();
-
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the customer that there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
-        });
-    });
-
-
-
-    function cancelSubscription(action) {
-        //stripe.subscriptions.update('sub_49ty4767H20z6a', {cancel_at_period_end: true});
-        var user = firebase.auth().currentUser;
-        var desc = firebase.database().ref('users/' + user.uid + "/userData");
-
-        if (action == "keepaccount") {
-            desc.once('value', function (snapshot) {
-                console.log(snapshot.val().customerID);
-                socket.emit('cancelSubscription', { customerID: snapshot.val().customerID, cancelState: 'keepaccount' });
-            });
-        }
-        else if (action == "deleteaccount") {
-            desc.once('value', function (snapshot) {
-                console.log(snapshot.val().customerID);
-                socket.emit('cancelSubscription', { customerID: snapshot.val().customerID, cancelState: 'deleteaccount' });
-            });
-        }
-        else if (action == "continuesubscription") {
-            desc.once('value', function (snapshot) {
-                console.log(snapshot.val().customerID);
-                socket.emit('cancelSubscription', { customerID: snapshot.val().customerID, cancelState: 'continuesubscription' });
-            });
-        }
-    }
-
-
-</script>
 
 <script src="js/onboarding.js"></script>
 

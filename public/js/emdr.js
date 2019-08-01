@@ -5303,55 +5303,52 @@ function closeSettingsPanel() {
 
 function saveSettingsBox() {
 
-    if (emdrActive) {
-        document.getElementById("navigation").className = "d-sm-block animated fadeOutUp d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
 
-        if (selectedSUDS == "yes") {
-            if (document.getElementById("suds-initial").value.length == 0) {
-                //selectedSUDS = "1";
-                document.getElementById("suds-initial").value = selectedSUDS;
-            }
+    document.getElementById("navigation").className = "d-sm-block animated fadeOutUp d-md-none d-lg-none navbar cl-effect-13 navbar-expand-lg navbar-therapy navbar-light fixed-top";
+
+    if (selectedSUDS == "yes") {
+        if (document.getElementById("suds-initial").value.length == 0) {
+            //selectedSUDS = "1";
+            document.getElementById("suds-initial").value = selectedSUDS;
         }
+    }
 
-        if (selectedMood == "yes") {
-            if (document.getElementById("mood-initial").value.length == 0) {
-                //selectedMood = "5";
-                document.getElementById("mood-initial").value = selectedMood;
-            }
+    if (selectedMood == "yes") {
+        if (document.getElementById("mood-initial").value.length == 0) {
+            //selectedMood = "5";
+            document.getElementById("mood-initial").value = selectedMood;
         }
+    }
 
-        if (selectedVoC == "yes") {
-            if (document.getElementById("VoC-initial").value.length == 0) {
-                //selectedVoC = "1";
-                document.getElementById("VoC-initial").value = selectedVoC;
-            }
+    if (selectedVoC == "yes") {
+        if (document.getElementById("VoC-initial").value.length == 0) {
+            //selectedVoC = "1";
+            document.getElementById("VoC-initial").value = selectedVoC;
         }
+    }
 
 
-        document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
-        if (!settingsBoxLoaded) {
-            sessionOptionsBox = [];
+    document.getElementById("gradient3").className = "session-selection-active col col-md-6 col-lg-5 session-selection";
+    if (!settingsBoxLoaded) {
+        sessionOptionsBox = [];
 
-            var userID = firebase.auth().currentUser.uid;
-            var rootRef = firebase.database().ref('users');
-            var newRoot = rootRef.child(userID + "/emdr").child('savedSets')
-            newRoot.once('value', function (snapshot) {
-                snapshot.forEach(function (_child) {
-                    var childElement = _child.key;
+        var userID = firebase.auth().currentUser.uid;
+        var rootRef = firebase.database().ref('users');
+        var newRoot = rootRef.child(userID + "/emdr").child('savedSets')
+        newRoot.once('value', function (snapshot) {
+            snapshot.forEach(function (_child) {
+                var childElement = _child.key;
 
-                    sessionOptionsBox.push(childElement);
+                sessionOptionsBox.push(childElement);
 
-                });
-                populateSettingsBox(sessionOptionsBox);
             });
-            settingsBoxLoaded = true;
-        }
+            populateSettingsBox(sessionOptionsBox);
+        });
+        settingsBoxLoaded = true;
+    }
 
-    }
-    else 
-    {
-        swal("Oops!", "There was a problem verifying your subscription. If you think this was done in error, please refresh the page or contact us at info@easy-emdr.com", "warning");
-    }
+
+
 
 }
 

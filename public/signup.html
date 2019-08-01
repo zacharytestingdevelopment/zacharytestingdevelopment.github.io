@@ -55,12 +55,7 @@
         gtag('config', 'UA-144108695-1');
     </script>
 
-    <script>
-        function codeAddress() {
-            swal("Attention!", "This website is currently in development and will be available soon. Please check back later in order to access the product!", "warning");
-        }
-        window.onload = codeAddress;
-    </script>
+
 </head>
 
 <!-- checkBlogOrigin -> assignPage -->
@@ -146,11 +141,7 @@
     <div id="plans-panel" class="analysis-box analysis-box-hidden force-top" style="background:#fff;">
 
         <div class="pt-7 pb-8 journal-header-3 bg-ellipses" style="background-size: cover;">
-            <span class="no-select return-text" onclick="closeViewingPlans()"
-                style="position: absolute;top:15px;left:15px;">
-                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
-                Change information
-            </span>
+
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-6">
@@ -167,8 +158,16 @@
                             with the
 
                             full suite of features and a 7 day free trial — you can cancel anytime with no hassle.
-
                         </p>
+
+
+                        <div class="col col-centered margin-top col-12 text-center">
+                            <div id="active-box"
+                                class="text-center no-select margin-top hidden col-centered account-box-header account-box-header-active">
+
+                            </div>
+                        </div>
+
 
                     </div>
                 </div> <!-- / .row -->
@@ -185,7 +184,7 @@
                     <div class="col-12 col-lg-4">
 
                         <!-- Card -->
-                        <button onclick="selectBilling('weekly')" role="link" style="width:100%;">
+                        <button onclick="checkIfCanBill('weekly')" role="link" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -200,7 +199,7 @@
                                             <div class="h2 mb-0">$</div>
                                         </div>
                                         <div class="col-auto">
-                                            <div class="display-2 mb-0">3.99</div>
+                                            <div class="display-2 mb-0">4.99</div>
                                         </div>
                                     </div> <!-- / .row -->
 
@@ -248,7 +247,7 @@
                     <div class="col-12 col-lg-4">
 
                         <!-- Card -->
-                        <button onclick="selectBilling('monthly')" role="link" style="width:100%;">
+                        <button onclick="checkIfCanBill('monthly')" role="link" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -312,7 +311,7 @@
 
                         <!-- Card -->
 
-                        <button onclick="selectBilling('annual')" style="width:100%;">
+                        <button onclick="checkIfCanBill('annual')" style="width:100%;">
                             <div class="card payment-card shadow pointer">
                                 <div class="card-body">
 
@@ -375,6 +374,29 @@
                     </div>
                 </div> <!-- / .row -->
 
+                <div class="col col-12 margin-top-medium col-centered text-center">
+                    <div>
+                        <div id="subscription-cancelled-message"
+                            class="hidden subscription-cancelled-message col-centered text-center">
+                            Your subscription is set to be cancelled at the end of the billing period.
+                        </div>
+                        <span id="is-there-subscription" class="delete-account-button hidden no-select"
+                            onclick="cancelSubscription('keepaccount')">Cancel
+                            subscription</span>
+
+                        <span id="continue-subscription"
+                            class="delete-account-button renew-subscription hidden no-select"
+                            onclick="cancelSubscription('continuesubscription')">
+                            Continue subscription
+                        </span>
+                        <div style="display:block;height:20px;width:1px;background:transparent"></div>
+                    </div>
+                    <!--
+                    <span class="cancel-subscription-plan no-select"
+                        onclick="cancelSubscription('deleteaccount')">Delete
+                        account</span>
+-->
+                </div>
 
 
             </div>
@@ -388,7 +410,7 @@
                         <div class="card-body">
 
                             <!-- Title -->
-                            <h1 class="text-center box-description">
+                            <h1 class="text-center ink-color box-description">
                                 What's in the box?
                             </h1>
 
@@ -626,7 +648,7 @@
             </div>
         </div>
 
-    </div> <!-- / .main-content -->
+    </div>
     </div>
 
 
@@ -656,7 +678,7 @@
                 <div class="col col-12 col-md-12 col-xl">
                     <div class="card shadow animated fadeInUp"
                         style="padding-top: 35px;padding-left:5px;padding-right:5px;padding-bottom: 45px;">
-                        <div class="blog-card-header-large col-centered text-center">Create an account to get started!
+                        <div class="blog-card-header-large col-centered text-center">Create an account to get started
                         </div>
 
                         <div
@@ -690,7 +712,8 @@
                             <div id="error-box-display-passwords" class="col col-12 col-centered text-center">
 
                             </div>
-                            <form method="post" class="row row-eq-height" action="/clicked">
+                            <!-- <form method="post" class="row row-eq-height" action="/clicked">-->
+                            <form method="post" class="row row-eq-height">
                                 <div class="col col-12 margin-top input-container">
 
 
@@ -924,77 +947,13 @@
 
 <script>
 
-    var planHighlighted = "none";
-    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
 
-    var style = {
-        base: {
-            color: '#32325d',
-            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
-
-    function selectBilling(plan) {
-        $('#paymentModal').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        });
-        planHighlighted = plan;
-    }
-
-    function stripeTokenHandler(token) {
-
-        $("#paymentModal").modal('hide');
-        swal("Success!", "You successfully created a subscription!", "success");
-
-        socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token });
-
-    }
-
-    var elements = stripe.elements();
-    var card = elements.create('card', { style: style });
-    card.mount('#card-element');
-
-    card.addEventListener('change', function (event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
-        }
-    });
-
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function (event) {
-        //console.log("SUBMITTEDDD");
-        event.preventDefault();
-
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the customer that there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
-        });
-    });
 
 
 </script>
 
 <script src="js/onboarding.js"></script>
-<script src="js/sign-up.js"></script>
+<script src="js/sign-up-new.js"></script>
 
 <!--
 <script src="js/bundle.js"></script>

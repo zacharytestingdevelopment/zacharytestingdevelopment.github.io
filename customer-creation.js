@@ -39,9 +39,13 @@ io.sockets.on('connection', function (socket) {
         console.log("Plan used: " + data.planUsed);
         console.log("Token used: " + data.tokenUsed.id);
 
+
+        //customerID
+
         //console.log(data.)
 
         if (data.customerAlreadyExists != "yes") {
+
             stripeBackend.customers.createSource(customer.id, {
                 source: data.tokenUsed.id,
             }).then(function (value) {
@@ -59,8 +63,8 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('checkActiveCustomer', function (data) {
-        console.log("Customer ID: " + data.customerID);
-        console.log("Page on: " + data.pageUsed);
+        //console.log("Customer ID: " + data.customerID);
+        //console.log("Page on: " + data.pageUsed);
         stripeBackend.customers.retrieve(
             data.customerID,
             function (err, customer) {
@@ -185,7 +189,7 @@ async function createPlan(data) {
         if (data.planUsed == "weekly") {
             const subscription = await stripeBackend.subscriptions.create({
                 customer: customer.id,
-                items: [{ plan: 'plan_FSAIsB7xMQzbom' }],
+                items: [{ plan: 'plan_FXpJw21Jd5Yakl' }],
                 trial_from_plan: true,
 
 
@@ -215,7 +219,7 @@ async function createPlan(data) {
         if (data.planUsed == "weekly") {
             const subscription = await stripeBackend.subscriptions.create({
                 customer: data.firebaseID,
-                items: [{ plan: 'plan_FSAIsB7xMQzbom' }],
+                items: [{ plan: 'plan_FXpJw21Jd5Yakl' }],
                 trial_from_plan: true,
 
 
@@ -290,13 +294,9 @@ app.get('/', (req, res) => {
 });
 
 
-
-
-
-
 async function nodecall(firstName, lastName, userEmail) {
     //console.log("FIRST NAME — " + firstName);
-    customer = await stripeBackend.customers.create({
+    var customer = await stripeBackend.customers.create({
         email: userEmail,
         name: (firstName + " " + lastName),
         //source: 'tok_mastercard',
@@ -317,6 +317,7 @@ app.post('/clicked', (req, res) => {
     const userEmail = req.body.user.email;
     //console.log(req.body.user.firstName);
 
+    //if(req.body.user.firstName)
     nodecall(firstName, lastName, userEmail);
 
 });

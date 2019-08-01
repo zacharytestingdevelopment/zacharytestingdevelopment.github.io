@@ -12,8 +12,8 @@ introductionPost += "                                values here at Easy EMDR.";
 introductionPost += "                                <div class=\"margin-top-large\">";
 introductionPost += "                                    <div class=\"entry-body-header\">Ethical capitalism and charitable contributions<\/div>";
 introductionPost += "                                    We have personally been fortunate enough to receive quality mental health care and";
-introductionPost += "                                    education. This has afforded us the privilege of being young entrepreneurs and";
-introductionPost += "                                    providing";
+introductionPost += "                                    education. This has afforded us the privilege of being young entrepreneurs who";
+introductionPost += "                                    provide";
 introductionPost += "                                    people with tools that facilitate healing. But we understand the hard fact that for";
 introductionPost += "                                    many";
 introductionPost += "                                    people, these opportunities simply do not exist. It is for this reason that we feel";
@@ -167,7 +167,7 @@ introductionPost += "                                <\/div>";
 
 var usecases = "";
 usecases += "<div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
-usecases += "                            USE CASES";
+usecases += "                            USE CASES<a href = 'signup.html' class = 'kill-link-style'><span class = 'no-select start-now'>START FOR FREE &#8594;</span></a>";
 usecases += "                        <\/div>";
 usecases += "";
 usecases += "                        <div class=\"meditation-box-body demo-dark animated fadeInDownTiny delay2Therapy\">";
@@ -184,7 +184,7 @@ usecases += "                            <ul>";
 usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay3Therapy\">Effective, easy to use tools<\/li>";
 usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay4Therapy\">Reduce paperwork with powerful tracking and analytics<\/li>";
 usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay5Therapy\">Lower price than major competitors <\/li>";
-usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay6Therapy\">Tools to help clients find EMDR therapists<\/li>";
+usecases += "                                <li class=\"demo-dark animated fadeInDownTiny delay6Therapy\">Resources to help clients find EMDR therapists<\/li>";
 usecases += "                            <\/ul>";
 usecases += "                        <\/div>";
 usecases += "";
@@ -194,7 +194,7 @@ usecases += "                        <\/div>";
 
 var overview = "";
 overview += "     <div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
-overview += "                            OVERVIEW";
+overview += "                            OVERVIEW<a href = 'signup.html' class = 'kill-link-style'><span class = 'no-select start-now'>START FOR FREE &#8594;</span></a>";
 overview += "                        <\/div>";
 overview += "";
 overview += "                        <div class=\"meditation-box-body demo-dark animated fadeInDownTiny delay2Therapy s2\">";
@@ -225,11 +225,11 @@ overview += "                        <\/div>";
 
 var research = "";
 research += "<div class=\"meditation-box-header white s1 animated fadeInDownTiny delay1Therapy demo-dark\">";
-research += "                            THE RESEARCH";
+research += "                            THE RESEARCH<a href = 'signup.html' class = 'kill-link-style'><span class = 'no-select start-now'>START FOR FREE &#8594;</span></a>";
 research += "                        <\/div>";
 research += "";
 research += "                        <div class=\"meditation-box-body demo-dark animated fadeInDownTiny delay2Therapy\">";
-research += "                            The past two decades of research have firmly established EMDR as an effective therapy for many trauma patients. Click each bullet point to learn more about the research.";
+research += "                            The past two decades of research have firmly established EMDR as an effective therapy for many trauma patients.";
 research += "                            ";
 research += "                            ";
 research += "                            ";
@@ -239,17 +239,17 @@ research += "                        <\/div>";
 research += "";
 research += "                        <div class=\"meditation-box-points\">";
 research += "                            <ul>";
-research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/24338345\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay3Therapy\">Top recommended therapy for trauma disorders<\/li></a>";
-research += "                                 <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay4Therapy\">Reduction of symptoms in acute and chronic cases of PTSD<\/li></a>";
-research += "                                <a href=\"https://psychiatryonline.org/pb/assets/raw/sitewide/practice_guidelines/guidelines/acutestressdisorderptsd.pdf\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay5Therapy\">Demonstrated efficacy in treating sexual assault related trauma<\/li>";
-research += "                                <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/25101684\" target = \"_blank\" class=\"kill-link-style\"><li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay6Therapy\">Addresses depression, anxiety, and subjective distress<\/li>";
+research += "                               <li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay3Therapy\">Top recommended therapy for trauma disorders<sup>1</sup><\/li>";
+research += "                                 <li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay4Therapy\">Reduction of symptoms in acute and chronic cases of PTSD<sup>2</sup><\/li>";
+research += "                                <li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay5Therapy\">Demonstrated efficacy in treating sexual assault related trauma<sup>3</sup><\/li>";
+research += "                                <li class=\"demo-dark demo-dark-link animated fadeInDownTiny delay6Therapy\">Addresses depression, anxiety, and subjective distress<sup>4</sup><\/li>";
 
 research += "                            <\/ul>";
 research += "                        <\/div>";
 research += "";
 research += "                        <div class=\"row move-up animated fadeInDown delay1\">";
 research += "                           <a href = \"signup.html\" class = \"kill-link-style\"> <span class=\"meditation-box-button margin-top\">Get started<\/span></a>";
-research += "                        <\/div>";
+research += "                        <\/div><div class = 'margin-top-tiny citation-select animated fadeInDown delay2 no-select' onclick='viewResearch(1)'>Browse citations</div>";
 
 var demoActive = "Clean";
 var blogPostActive = "none";
@@ -484,6 +484,11 @@ function changeActiveTherapy(therapy) {
 
     if (therapy == "usecases") {
 
+        document.getElementById("therapy2box").className = "col-centered no-select therapy-inspect-box-inactive";
+        document.getElementById("therapy1box").className = "col-centered no-select therapy-inspect-box-active";
+        document.getElementById("therapy3box").className = "col-centered no-select therapy-inspect-box-inactive";
+        document.getElementById('meditation-focus-text').innerHTML = usecases;
+        /*
         document.getElementById("therapy1box").className = "col-centered no-select therapy-inspect-box-active";
         document.getElementById("therapy1header").className = "therapy-inspect-box-header darker-text-style";
         document.getElementById("therapy1body").className = "therapy-inspect-box-body darker-text-style";
@@ -499,25 +504,38 @@ function changeActiveTherapy(therapy) {
 
 
         document.getElementById('meditation-focus-text').innerHTML = usecases;
+        */
     }
     else if (therapy == "overview") {
 
         document.getElementById("therapy2box").className = "col-centered no-select therapy-inspect-box-active";
-        document.getElementById("therapy2header").className = "therapy-inspect-box-header darker-text-style";
-        document.getElementById("therapy2body").className = "therapy-inspect-box-body darker-text-style";
-
         document.getElementById("therapy1box").className = "col-centered no-select therapy-inspect-box-inactive";
-        document.getElementById("therapy1header").className = "therapy-inspect-box-header white";
-        document.getElementById("therapy1body").className = "therapy-inspect-box-body white";
-
         document.getElementById("therapy3box").className = "col-centered no-select therapy-inspect-box-inactive";
-        document.getElementById("therapy3header").className = "therapy-inspect-box-header white";
-        document.getElementById("therapy3body").className = "therapy-inspect-box-body white";
-
         document.getElementById('meditation-focus-text').innerHTML = overview;
+        /*
+                document.getElementById("therapy2box").className = "col-centered no-select therapy-inspect-box-active";
+                //document.getElementById("therapy2header").className = "therapy-inspect-box-header darker-text-style";
+                //document.getElementById("therapy2body").className = "therapy-inspect-box-body darker-text-style";
+        
+                document.getElementById("therapy1box").className = "col-centered no-select therapy-inspect-box-inactive";
+                document.getElementById("therapy1header").className = "therapy-inspect-box-header white";
+                document.getElementById("therapy1body").className = "therapy-inspect-box-body white";
+        
+                document.getElementById("therapy3box").className = "col-centered no-select therapy-inspect-box-inactive";
+                document.getElementById("therapy3header").className = "therapy-inspect-box-header white";
+                document.getElementById("therapy3body").className = "therapy-inspect-box-body white";
+        
+                document.getElementById('meditation-focus-text').innerHTML = overview;
+                */
     }
     else if (therapy == "research") {
 
+        document.getElementById("therapy2box").className = "col-centered no-select therapy-inspect-box-inactive";
+        document.getElementById("therapy1box").className = "col-centered no-select therapy-inspect-box-inactive";
+        document.getElementById("therapy3box").className = "col-centered no-select therapy-inspect-box-active";
+        document.getElementById('meditation-focus-text').innerHTML = research;
+
+        /*
         document.getElementById("therapy3box").className = "col-centered no-select therapy-inspect-box-active";
         document.getElementById("therapy3header").className = "therapy-inspect-box-header darker-text-style";
         document.getElementById("therapy3body").className = "therapy-inspect-box-body darker-text-style";
@@ -531,6 +549,7 @@ function changeActiveTherapy(therapy) {
         document.getElementById("therapy1body").className = "therapy-inspect-box-body white";
 
         document.getElementById('meditation-focus-text').innerHTML = research;
+        */
     }
 }
 

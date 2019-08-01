@@ -223,7 +223,7 @@
                                     <div id="plan-button"
                                         class="cancel-account-button cancel-account-button-active margin-top-medium col-centered text-center"
                                         style="display: inline-block;margin-left:auto;margin-right:auto;left:0;right:0;">
-                                        Modify or cancel subscription
+                                        Modify subscription
                                     </div>
                                 </a>
                             </div>
@@ -809,82 +809,10 @@
 
 </script>
 
-<script>
-
-    var planHighlighted = "none";
-    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
-
-    var style = {
-        base: {
-            color: '#32325d',
-            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
-
-    function selectBilling(plan) {
-        $('#paymentModal').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        });
-        planHighlighted = plan;
-    }
-
-    function stripeTokenHandler(token) {
-
-        $("#paymentModal").modal('hide');
-        //swal("Success!", "You successfully created a subscription!", "success");
-
-        //socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token });
-
-
-
-    }
-
-    var elements = stripe.elements();
-    var card = elements.create('card', { style: style });
-    card.mount('#card-element');
-
-    card.addEventListener('change', function (event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
-        }
-    });
-
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function (event) {
-        //console.log("SUBMITTEDDD");
-        event.preventDefault();
-
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the customer that there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
-        });
-    });
-
-
-</script>
 
 <script src="js/require.js"></script>
 <script src="js/dashboard.js"></script>
-<script src="js/sign-up.js"></script>
+<script src="js/sign-up-new.js"></script>
 
 <script>
 

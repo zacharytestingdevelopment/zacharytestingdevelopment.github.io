@@ -205,7 +205,58 @@ verifiedDashboard += "                <\/div>";
 verifiedDashboard += "            <\/div>";
 
 
+var planHighlighted = "none";
+var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
 
+var style = {
+    base: {
+        color: '#32325d',
+        fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+            color: '#aab7c4'
+        }
+    },
+    invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+    }
+};
+
+function selectBilling(plan) {
+    $('#paymentModal').modal({
+        backdrop: 'static',
+        keyboard: false  // to prevent closing with Esc button (if you want this too)
+    });
+    planHighlighted = plan;
+}
+
+
+
+var elements = stripe.elements();
+var card = elements.create('card', { style: style });
+card.mount('#card-element');
+
+card.addEventListener('change', function (event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+        displayError.textContent = event.error.message;
+    } else {
+        displayError.textContent = '';
+    }
+});
+
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function (event) {
+    //console.log("SUBMITTEDDD");
+    event.preventDefault();
+
+    if (isAccountValid != false) {
+        createCustomer();
+    }
+
+});
 
 var emailValue, firstNameValue, lastNameValue, passwordValue, checkPasswordValue;
 
@@ -299,18 +350,24 @@ function createCustomer() {
                     firstName: document.getElementById("txtFirstName").value,
                     lastName: document.getElementById("txtLastName").value,
                     email: document.getElementById("txtEmail").value,
-
+                    passValue1: document.getElementById("txtPassword").value,
+                    passValue2: document.getElementById("txtPasswordCheck").value
                 }
             })
         })
             .then(function (response) {
                 if (response.ok) {
 
+                    console.log("try this");
+
+
                     $.get("/getMyData", function (data) {
                         var bottle = JSON.parse(data);
                         var name = bottle.name;
                         alert(name)
                     });
+
+
                     return 'brt';
                 }
                 throw new Error('Request failed.');
@@ -322,7 +379,63 @@ function createCustomer() {
     else {
         console.log("Invalid submission");
     }
+
+
 }
+
+function stripeTokenHandler(token) {
+    $("#paymentModal").modal('hide');
+    swal("Success!", "You successfully created a subscription!", "success");
+
+    //socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token });
+
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/userData");
+
+    desc.once('value', function (snapshot) {
+        console.log(snapshot.val().customerID);
+        socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "yes", firebaseID: snapshot.val().customerID });
+
+        /*
+        if (snapshot.val().customerID != null && snapshot.val().customerID != undefined) {
+            socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "yes", firebaseID: snapshot.val().customerID });
+        }
+        else {
+            socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "no" });
+        }
+        */
+
+    }).then(function (value) {
+        setInterval(function () { window.location = "dashboard.html"; }, 1000);
+    });
+}
+
+
+/*
+function stripeTokenHandler(token) {
+
+    $("#paymentModal").modal('hide');
+    swal("Success!", "You successfully created a subscription!", "success");
+
+
+    var user = firebase.auth().currentUser;
+    var desc = firebase.database().ref('users/' + user.uid + "/userData");
+
+    desc.once('value', function (snapshot) {
+        console.log(snapshot.val().customerID);
+
+        if (snapshot.val().customerID != null && snapshot.val().customerID != undefined) {
+            socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "yes", firebaseID: snapshot.val().customerID });
+        }
+        else {
+            socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "no" });
+        }
+
+    }).then(function (value) {
+        setInterval(function () { window.location = "dashboard.html"; }, 1000);
+    });
+}
+*/
 
 /*
 const button = document.getElementById('btnSignUp');
@@ -531,7 +644,7 @@ function createAccount() {
         }
     }).then(function (env) {
         if (isAccountValid != false) {
-            createCustomer();
+            //createCustomer();
         }
         else {
             swal("Oops!", "This email address is already in use.", "warning");
@@ -822,10 +935,25 @@ function selectBillingPlan(plan) {
 //io.emit('sendClient', customerID);
 
 socket.on('sendClient', function (customerID) {
+
+    console.log("clientsent: " + customerID);
+    //if customerID 
     var user = firebase.auth().currentUser;
 
     firebase.database().ref('users/' + user.uid + "/userData").update({
         customerID: customerID
+    });
+
+    stripe.createToken(card).then(function (result) {
+        console.log('CREATING TOKEN');
+        if (result.error) {
+            // Inform the customer that there was an error.
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+        } else {
+            // Send the token to your server.
+            stripeTokenHandler(result.token);
+        }
     });
 });
 

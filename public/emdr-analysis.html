@@ -137,14 +137,15 @@
     <div id="page-tag" class="page-tag">emdr-analysis</div>
 
     <div id="plans-panel" class="analysis-box analysis-box-hidden force-top" style="background:#fff;">
-        <a href="dashboard.html" class="kill-link-style">
-            <div class="exit-button no-select" style="position: absolute;">
-                <ion-icon class="dashboard-arrow" name="arrow-round-back"></ion-icon>
-                Go to dashboard
-            </div>
-        </a>
-        <div class="pt-7 pb-8 journal-header-3 bg-ellipses" style="background-size: cover;">
 
+        <div class="pt-7 pb-8 journal-header-3 bg-ellipses" style="background-size: cover;">
+            <!--
+            <span class="no-select return-text" onclick="closeViewingPlans()"
+                style="position: absolute;top:15px;left:15px;">
+                <ion-icon class="dashboard-arrow" name="close-circle"></ion-icon>
+                Change information
+            </span>
+        -->
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-6">
@@ -161,16 +162,8 @@
                             with the
 
                             full suite of features and a 7 day free trial — you can cancel anytime with no hassle.
+
                         </p>
-
-
-                        <div class="col col-centered margin-top col-12 text-center">
-                            <div id="active-box"
-                                class="text-center no-select margin-top hidden col-centered account-box-header account-box-header-active">
-
-                            </div>
-                        </div>
-
 
                     </div>
                 </div> <!-- / .row -->
@@ -377,25 +370,6 @@
                     </div>
                 </div> <!-- / .row -->
 
-                <div class="col col-12 margin-top-medium col-centered text-center">
-                    <div>
-                        <div id="subscription-cancelled-message"
-                            class="hidden subscription-cancelled-message col-centered text-center">
-                            Your subscription is set to be cancelled at the end of the billing period.
-                        </div>
-                        <span id="is-there-subscription" class="delete-account-button hidden no-select"
-                            onclick="cancelSubscription('keepaccount')">Cancel
-                            subscription</span>
-
-                        <span id="continue-subscription"
-                            class="delete-account-button renew-subscription hidden no-select"
-                            onclick="cancelSubscription('continuesubscription')">
-                            Continue subscription
-                        </span>
-                    </div>
-
-
-                </div>
 
 
             </div>
@@ -550,28 +524,28 @@
                             </div>
 
                             <!--
-                                <ul class="col margin-top col-11 col-centered list-group list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                </ul>
-                            -->
+                            <ul class="col margin-top col-11 col-centered list-group list-group-flush">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        -->
 
                             <!--
-                                <p class="text-center">
-                                    We can help you decide which plan is best for your individual needs. It's easy to get in
-                                    touch with a member of our
-                                    support team — you can contact us anytime by clicking the button below!
-                                </p>
-        
-                                <div class="text-center">
-                                    <a href="#!" class="btn btn-style-outline">
-                                        Contact us
-                                    </a>
-                                </div>
-                            -->
+                            <p class="text-center">
+                                We can help you decide which plan is best for your individual needs. It's easy to get in
+                                touch with a member of our
+                                support team — you can contact us anytime by clicking the button below!
+                            </p>
+    
+                            <div class="text-center">
+                                <a href="#!" class="btn btn-style-outline">
+                                    Contact us
+                                </a>
+                            </div>
+                        -->
 
                         </div>
                     </div>
@@ -647,7 +621,7 @@
             </div>
         </div>
 
-    </div>
+    </div> <!-- / .main-content -->
 
 
     <div id="notSignedIn" class="modal fade fixed-top" style="z-index:99999 !important;" tabindex="-1" role="dialog"
@@ -1864,92 +1838,11 @@
     };
     firebase.initializeApp(config);
 
-    var planHighlighted = "none";
-    var stripe = Stripe('pk_live_PjSLRXEy6Gs6OeSegqPoQXER006F1SS2TB');
-
-    var style = {
-        base: {
-            color: '#32325d',
-            fontFamily: '"Montserrat", "Helvetica Neue", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
-
-    function selectBilling(plan) {
-        $('#paymentModal').modal({
-            backdrop: 'static',
-            keyboard: false  // to prevent closing with Esc button (if you want this too)
-        });
-        planHighlighted = plan;
-    }
-
-    function stripeTokenHandler(token) {
-
-        $("#paymentModal").modal('hide');
-        swal("Success!", "You successfully created a subscription!", "success");
-
-
-        var user = firebase.auth().currentUser;
-        var desc = firebase.database().ref('users/' + user.uid + "/userData");
-
-        desc.once('value', function (snapshot) {
-            console.log(snapshot.val().customerID);
-
-            if (snapshot.val().customerID != null && snapshot.val().customerID != undefined) {
-                socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "yes", firebaseID: snapshot.val().customerID });
-            }
-            else {
-                socket.emit('pickPlan', { planUsed: planHighlighted, tokenUsed: token, customerAlreadyExists: "no" });
-            }
-
-        }).then(function (value) {
-            setInterval(function () { window.location = "dashboard.html"; }, 1000);
-        });
-    }
-
-    var elements = stripe.elements();
-    var card = elements.create('card', { style: style });
-    card.mount('#card-element');
-
-    card.addEventListener('change', function (event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
-        }
-    });
-
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function (event) {
-        //console.log("SUBMITTEDDD");
-        event.preventDefault();
-
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the customer that there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
-        });
-    });
-
 </script>
 
 <script src="js/moment.min.js"></script>
 <script src="js/therapy-analysis-emdr.js"></script>
-<script src="js/sign-up.js"></script>
+<script src="js/sign-up-new.js"></script>
 
 <style>
     button,
